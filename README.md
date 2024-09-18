@@ -1,2 +1,0 @@
-# ciqapm
-CIQA Project manager 

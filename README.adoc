@@ -1,0 +1,27 @@
+= ciqapm
+
+CIQA Project manager
+
+Sistema de control de proyectos de CIQA
+
+Módulos
+
+Administración de modelo
+
+    - Servicios
+    - Tipos de proyectos
+    - Categoria personal
+    - Personal
+    - Tipo de proyecto
+
+Casos de Uso del sistema
+
+    - Control de proyecto
+    - Actualización de entregables
+    - Generación de Gantt
+    - Cotización del proyecto
+    - Reporte de avance de proyecto
+    - Reporte de actividades por personal
+    - Alta de actividades por persona
+    - Actualización del estado del proyecto
+
