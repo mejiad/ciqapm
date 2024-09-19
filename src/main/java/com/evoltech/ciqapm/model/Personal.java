@@ -21,5 +21,4 @@ public class Personal {
 
     private PersonalCategoria categoria;
 
-
 }
