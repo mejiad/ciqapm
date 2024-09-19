@@ -11,7 +11,7 @@ import java.util.Date;
 public abstract class BaseClass implements Serializable {
 
     @Column(name="status", length=10, unique=false)
-    private String status = "Inicio";
+    private String status = "Inicio";  // TODO: definir los status. Crear enum
 
     @Column
     private Date createDate;
@@ -21,6 +21,17 @@ public abstract class BaseClass implements Serializable {
 
     @Column
     private String userUpdate;
+
+    @Column
+    private String createUser;
+
+    public String getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(String createUser) {
+        this.createUser = createUser;
+    }
 
     public String getUserUpdate() {
         return userUpdate;
