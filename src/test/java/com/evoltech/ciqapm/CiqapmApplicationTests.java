@@ -7,6 +7,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 class CiqapmApplicationTests {
 
 	@Test
+	void creaPersonalTest() {
+		
+	}
+
+	@Test
 	void contextLoads() {
 	}
 

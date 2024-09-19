@@ -4,12 +4,10 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Data
 @NoArgsConstructor
-public class Personal {
+public class Personal extends BaseClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

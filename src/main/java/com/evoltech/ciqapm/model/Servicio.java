@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-public class Servicio {
+public class Servicio extends BaseClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
