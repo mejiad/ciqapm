@@ -17,6 +17,7 @@ public class Personal extends BaseClass {
 
     private String apellidos;
 
+    @Enumerated(EnumType.STRING)
     private PersonalCategoria categoria;
 
 }

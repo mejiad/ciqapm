@@ -6,16 +6,19 @@ import com.evoltech.ciqapm.service.EtapaService;
 import com.evoltech.ciqapm.service.PersonalServicio;
 import com.evoltech.ciqapm.service.ProyectoServicio;
 import com.evoltech.ciqapm.service.ServicioService;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.dialect.function.IntegralTimestampaddFunction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Controller
 public class MainController {
 
@@ -114,6 +117,23 @@ public class MainController {
         return "Proyecto salvado: " + proyecto.getNombre();
     }
 
+
+
+    @GetMapping("get_01")
+    @ResponseBody
+    public String get_01(@RequestParam("id") Long id, Model model){
+        String ret = "";
+        creaPersonal();
+        try {
+            Personal personal = personalServicio.findById(id);
+            System.out.println("+++ " + personal.getCategoria());
+            ret = personal.getCategoria().toString();
+        } catch (Exception e) {
+            log.error("No existe el id:" + id);
+            ret = "No existe el id:" + id;
+        }
+        return ret;
+    }
 
     private Etapa creaEtapa(){
 
