@@ -1,4 +1,4 @@
-package com.evoltech.ciqapm.model;
+package com.evoltech.ciqapm.model.jpa;
 
 import jakarta.persistence.*;
 import lombok.extern.slf4j.Slf4j;

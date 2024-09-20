@@ -1,5 +1,6 @@
 package com.evoltech.ciqapm.model;
 
+import com.evoltech.ciqapm.model.jpa.BaseClass;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-public class Etapa {
+public class Etapa extends BaseClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
