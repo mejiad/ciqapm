@@ -16,15 +16,18 @@ public class Etapa {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     private Proyecto proyecto;
 
     private String nombre;
 
     private String descripcion;
 
+    @OneToOne
+    private Servicio servicio;
+
     @ManyToOne
-    private Personal responsable;   // TODO: liga a personal
+    private Personal responsable;
 
     private String entregable;
 

@@ -35,6 +35,7 @@ public class MainController {
     @Autowired
     ProyectoServicio proyectoServicio;
 
+
     public MainController(ServicioService servicioService, PersonalServicio personalServicio,
                           EtapaService etapaService,
                           ProyectoServicio proyectoServicio){
@@ -143,13 +144,25 @@ public class MainController {
         etapa.setId(0L);
         etapa.setNombre("Etapa 1");
         etapa.setDescripcion("Etapa 1");
-        etapa.setEntregable("El entregabñe de etapa 1 es un paletón");
+        etapa.setEntregable("El entregable de etapa 1 es un paletón");
         etapa.setFechaEstimadaTerminacion(new Date());
         etapa.setResponsable(personal1);
 
         Etapa newEtapa = etapaService.save(etapa);
 
         return newEtapa;
+    }
+
+    private Servicio creaServicio(){
+        Servicio servicio = new Servicio();
+        servicio.setId(null);
+        servicio.setNombre("Primer servicio");
+        servicio.setDescripcion("Ir por las cocas");
+        servicio.setEntregableEsperado("Dos botellas de vidrio de cocas");
+        servicio.setCosto(new BigDecimal("123.34"));
+
+        Servicio res = servicioService.save(servicio);
+        return  res;
     }
 
     private Personal creaPersonal() {
