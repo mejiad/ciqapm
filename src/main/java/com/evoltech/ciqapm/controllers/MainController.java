@@ -6,7 +6,6 @@ import com.evoltech.ciqapm.service.PersonalServicio;
 import com.evoltech.ciqapm.service.ProyectoServicio;
 import com.evoltech.ciqapm.service.ServicioService;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.validator.constraints.Currency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

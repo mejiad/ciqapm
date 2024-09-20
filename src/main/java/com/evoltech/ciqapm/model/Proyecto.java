@@ -29,4 +29,7 @@ public class Proyecto extends BaseClass {
     @OneToMany
     private List<Etapa> etapas;
 
+    @ManyToOne
+    private Cliente cliente;
+
 }
