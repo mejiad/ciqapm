@@ -20,23 +20,27 @@ public class EtapaController {
     }
 
     @GetMapping("/list")
-    public String list(Model model){
-        return "/Etapa/list";
+    public String listEtapa(Model model){
+        return "/Etapa/List";
     }
 
     @GetMapping("/view")
-    public String view(Model model){
+    public String viewEtapa(Model model){
         return "/Etapa/View";
     }
 
     @GetMapping("/edit")
-    public String edit(Model model){
+    public String editEtapa(Model model){
         return "/Etapa/Edit";
     }
 
-    @PostMapping("/save")
-    public String save(Model model){
-        return "/Etapa/list";
+    @GetMapping("/new")
+    public String newEtapa(Model model) {
+        return "/Etapa/Edit";
+    }
+        @PostMapping("/save")
+    public String saveEtapa(Model model){
+        return "/Etapa/List";
     }
 
 }

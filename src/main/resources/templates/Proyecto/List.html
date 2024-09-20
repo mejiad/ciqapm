@@ -7,5 +7,17 @@
 </head>
 <body>
 <h1>Lista de Proyectos</h1>
+<div class="m-10 p-7">
+    <table>
+        <tr>
+            <th class="text-slate-500">Nombre</th>
+            <th class="text-slate-500">Descripcion</th>
+        </tr>
+        <tr th:each="proyecto : ${proyectos}">
+            <td th:text="${proyecto.nombre}">nombre del proyecto</td>
+            <td th:text="${proyecto.descripcion}">nombre del proyecto</td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>

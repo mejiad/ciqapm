@@ -19,23 +19,28 @@ public class ServicioController {
     }
 
     @GetMapping("/list")
-    public String list(Model model){
-        return "/Servicio/list";
+    public String listServicio(Model model){
+        return "/Servicio/List";
     }
 
     @GetMapping("/view")
-    public String view(Model model){
+    public String viewServicio(Model model){
         return "/Servicio/View";
     }
 
     @GetMapping("/edit")
-    public String edit(Model model){
+    public String editServicio(Model model){
+        return "/Servicio/Edit";
+    }
+
+    @GetMapping("/new")
+    public String newServicio(Model model){
         return "/Servicio/Edit";
     }
 
     @PostMapping("/save")
-    public String save(Model model){
-        return "/Servicio/list";
+    public String saveServicio(Model model){
+        return "/Servicio/List";
     }
 
 

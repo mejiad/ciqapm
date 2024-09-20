@@ -20,23 +20,28 @@ public class PersonalController {
 
 
     @GetMapping("/list")
-    public String list(Model model){
-        return "/Personal/list";
+    public String listPersonal(Model model){
+        return "/Personal/List";
     }
 
     @GetMapping("/view")
-    public String view(Model model){
+    public String viewPersonal(Model model){
         return "/Personal/View";
     }
 
     @GetMapping("/edit")
-    public String edit(Model model){
+    public String editPersonal(Model model){
+        return "/Personal/Edit";
+    }
+
+    @GetMapping("/new")
+    public String newPersonal(Model model){
         return "/Personal/Edit";
     }
 
     @PostMapping("/save")
-    public String save(Model model){
-        return "/Personal/list";
+    public String savePersonal(Model model){
+        return "/Personal/List";
     }
 
 
