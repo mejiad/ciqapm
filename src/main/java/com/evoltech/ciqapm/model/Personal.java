@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+import java.util.Currency;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -19,5 +22,7 @@ public class Personal extends BaseClass {
 
     @Enumerated(EnumType.STRING)
     private PersonalCategoria categoria;
+
+    private BigDecimal rate;
 
 }

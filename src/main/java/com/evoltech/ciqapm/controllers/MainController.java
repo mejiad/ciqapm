@@ -1,13 +1,12 @@
 package com.evoltech.ciqapm.controllers;
 
 import com.evoltech.ciqapm.model.*;
-import com.evoltech.ciqapm.repository.PersonalRepository;
 import com.evoltech.ciqapm.service.EtapaService;
 import com.evoltech.ciqapm.service.PersonalServicio;
 import com.evoltech.ciqapm.service.ProyectoServicio;
 import com.evoltech.ciqapm.service.ServicioService;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.dialect.function.IntegralTimestampaddFunction;
+import org.hibernate.validator.constraints.Currency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Slf4j
 @Controller
@@ -56,7 +56,7 @@ public class MainController {
         servicio.setId(0L);
         servicio.setNombre("Primer servicio");
         servicio.setDescripcion("Decripcion primer servicio");
-        servicio.setCosto(100.10);
+        servicio.setCosto(new BigDecimal("100.9599"));
         servicio.setEntregableEsperado("Reporte de etapa");
         servicio.setHorasPromedioRealizacion(100);
         servicioService.save(servicio);
@@ -153,11 +153,14 @@ public class MainController {
     }
 
     private Personal creaPersonal() {
+        java.util.Currency rate;
+        java.util.Currency currency = java.util.Currency.getInstance("MXN");
         Personal personal = new Personal();
         personal.setId(0L);
         personal.setNombre("Nombre del Empleado 1");
         personal.setApellidos("Apellidos empleado 1");
         personal.setCategoria(PersonalCategoria.ITA);
+        personal.setRate(new BigDecimal(10.20));
 
         Personal personal1 = personalServicio.addPersonal(personal);
         return personal1;

@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -24,6 +26,6 @@ public class Servicio extends BaseClass {
 
     private String entregableEsperado;
 
-    private Double costo;
+    private BigDecimal costo;
 
 }

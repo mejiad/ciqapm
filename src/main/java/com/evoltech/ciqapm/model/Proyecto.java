@@ -19,6 +19,7 @@ public class Proyecto {
 
     private String descripcion;
 
+    @Enumerated(EnumType.STRING)
     private TipoProyecto tipoProyecto;
 
     @ManyToOne
