@@ -6,7 +6,34 @@
     <title>Lista Personal</title>
 </head>
 <body>
-<h1>Lista Personal</h1>
+<h1>Lista del Personal</h1>
+
+
+<h2>+ Nuevo</h2>
+<a th:href="@{/personal/new}">Nuevo</a>
+
+<div class="m-10 p-7">
+    <table>
+        <tr>
+            <th class="text-slate-500">Id</th>
+            <th class="text-slate-500">Nombre</th>
+            <th class="text-slate-500">Apellidos</th>
+            <th class="text-slate-500">Categoria</th>
+            <th class="text-slate-500">Rate</th>
+        </tr>
+        <tr th:each="persona : ${personal}">
+            <td>
+            <a
+               th:href="@{/personal/view(id=${persona.id})}">Edit
+            </a>
+            </td>
+            <td th:text="${persona.nombre}">nombre del proyecto</td>
+            <td th:text="${persona.apellidos}">Apellidos</td>
+            <td th:text="${persona.categoria}">categoria</td>
+            <td th:text="${persona.rate}">rate</td>
+        </tr>
+    </table>
+</div>
 
 </body>
 </html>

@@ -1,12 +1,48 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <!--
+    <meta http-equiv="Content-Type" content="application/json" charset="UTF-8">
+    -->
     <title>View Personal</title>
 </head>
 <body>
 <h1>View Personal</h1>
+
+<form action="#" th:action="@{/personal/save}" th:object="${persona}" method="post">
+    <div>
+        <label for="id">ID</label>
+        <input id="id" type="text" th:field="*{id}"/>
+    </div>
+    <div>
+        <label for="nombre">Nombre</label>
+        <input id="nombre" type="text" th:field="*{nombre}"/>
+    </div>
+    <div>
+        <label for="apellidos">Apellidos</label>
+        <input id="apellidos" type="text" th:field="*{apellidos}"/>
+    </div>
+    <div>
+        <label for="categoria">Categoria</label>
+        <select id="categoria" th:field="*{categoria}">
+            <option value="ITA">Investigador Nivel A</option>
+            <option value="ITB">Investigador Nivel B</option>
+            <option value="ITC">Investigador Nivel C</option>
+            <option value="TTA">Técnico Nivel A</option>
+            <option value="TTB">Técnico Nivel B</option>
+            <option value="TTC">Técnico Nivel C</option>
+        </select>
+    </div>
+    <div>
+        <label for="rate">Rate</label>
+        <input id="rate" type="text" th:field="*{rate}"/>
+    </div>
+    <br>
+    <div>
+        <input type="submit">Submit </input>
+    </div>
+</form>
 
 </body>
 </html>

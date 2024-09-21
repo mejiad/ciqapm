@@ -1,12 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="application/json" charset="UTF-8">
     <title>Edit Personal</title>
 </head>
 <body>
 <h1>Edit Personal</h1>
+
+<form action="#" th:action="@{/personal/save}" th:object="${persona}" method="post">
+    <div>
+        <label for="nombre">Nombre</label>
+        <input id="nombre" type="text" th:field="*{nombre}"/>
+    </div>
+    <div>
+        <label for="apellidos">Apellidos</label>
+        <input id="apellidos" type="text" th:field="*{apellidos}"/>
+    </div>
+    <div>
+        <label for="categoria">Categoria</label>
+        <input id="categoria" type="text" th:field="*{categoria}" />
+    </div>
+    <div>
+        <label for="rate">Rate</label>
+        <input id="rate" type="text" th:field="*{rate}"/>
+    </div>
+    <br>
+    <div>
+        <input type="submit">Submit </input>
+    </div>
+</form>
 
 </body>
 </html>
