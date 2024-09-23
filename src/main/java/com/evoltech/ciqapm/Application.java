@@ -61,11 +61,18 @@ public class Application implements CommandLineRunner {
 
 		createProyecto("1000",personal, cliente);
 		createProyecto("1001",personal, cliente);
-		createProyecto("1002",personal, cliente);
-		Proyecto proyecto = createProyecto("1003",personal, cliente);
-		createProyecto("1004",personal, cliente);
+		Proyecto proyecto2 = createProyecto("1002",personal, cliente);
+		Proyecto proyecto1 = createProyecto("1003",personal, cliente);
+		Proyecto proyecto3 = createProyecto("1004",personal, cliente);
 
-		creaEtapa(personal, proyecto, servicio);
+		creaEtapa(personal, proyecto1, servicio);
+
+		creaDocumento("primer documento", proyecto1);
+		creaDocumento("segundo documento", proyecto1);
+		creaDocumento("tercer documento", proyecto1);
+		creaDocumento("cuarto documento", proyecto2);
+		creaDocumento("quinto documento", proyecto2);
+		creaDocumento("sexto documento", proyecto3);
 
 	}
 
@@ -147,11 +154,11 @@ public class Application implements CommandLineRunner {
 		return res;
 	}
 
-	private Documento creaDocumento(Proyecto proyecto){
+	private Documento creaDocumento(String nombre, Proyecto proyecto){
 		Documento documento = new Documento();
-		documento.setDescripcion("Descipción corta del documento");
-		documento.setNombre("Cotización, propuesta, reporte, etc.");
-		documento.setNombreArchivo("Propuesta del cliente x");
+		documento.setDescripcion("Descipción corta del documento " + nombre);
+		documento.setNombre(nombre );
+		documento.setNombreArchivo("Propuesta del cliente");
 
 		Documento res = documentoRepository.save(documento);
 		return res;
