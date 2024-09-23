@@ -33,6 +33,9 @@ public class Application implements CommandLineRunner {
 	@Autowired
 	EtapaRepository etapaRepository;
 
+	@Autowired
+	DocumentoRepository documentoRepository;
+
 	@Override
 	public void run(String... args) throws Exception {
 		System.out.println("Inicializando la base...");
@@ -141,6 +144,16 @@ public class Application implements CommandLineRunner {
 		etapa.setId(0L);
 
 		Etapa res = etapaRepository.save(etapa);
+		return res;
+	}
+
+	private Documento creaDocumento(Proyecto proyecto){
+		Documento documento = new Documento();
+		documento.setDescripcion("Descipción corta del documento");
+		documento.setNombre("Cotización, propuesta, reporte, etc.");
+		documento.setNombreArchivo("Propuesta del cliente x");
+
+		Documento res = documentoRepository.save(documento);
 		return res;
 	}
 }

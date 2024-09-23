@@ -46,7 +46,7 @@ public class MainController {
 
     @GetMapping("/")
     public String home(Model model) {
-        return "home";
+        return "redirect:/proyecto/list";
     }
 
     @GetMapping("/add_01")

@@ -12,10 +12,16 @@
         <tr>
             <th class="text-slate-500">Nombre</th>
             <th class="text-slate-500">Descripcion</th>
+            <th class="text-slate-500">Detalle</th>
         </tr>
         <tr th:each="proyecto : ${proyectos}">
             <td th:text="${proyecto.nombre}">nombre del proyecto</td>
             <td th:text="${proyecto.descripcion}">nombre del proyecto</td>
+            <td>
+                <a
+                        th:href="@{/proyecto/view(id=${proyecto.id})}">Detalle
+                </a>
+            </td>
         </tr>
     </table>
 </div>

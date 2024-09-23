@@ -3,10 +3,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="https://unpkg.com/htmx.org@2.0.2"></script>
+    <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>View Proyecto</title>
 </head>
 <body>
 <h1>View Proyecto</h1>
+<!-- menu con tabs de etapas, personal, documentos, (actividades y notas dentro de etapas?). pendientes -->
+
+<p th:text="${proyecto.nombre}">Nombre del proyecto</p>
+
+<!-- Informacion del proyecto  Etapas -->
+<br>
+
+<h2>Etapas del proyecto</h2>
+
+<br>
+
+<div id="tabs" hx-target="#tab-contents" role="tablist"
+     hx-on:htmx-after-on-load="let currentTab = document.querySelector('[aria-selected=true]');
+                               currentTab.setAttribute('aria-selected', 'false')
+                               currentTab.classList.remove('selected')
+                               let newTab = event.target
+                               newTab.setAttribute('aria-selected', 'true')
+                               newTab.classList.add('selected')">
+    <button role="tab" aria-controls="tab-contents" aria-selected="true" hx-get="/personal/list" class="selected">Personal</button>
+    <button role="tab" aria-controls="tab-contents" aria-selected="false" hx-get="/proyecto/list">Etapas</button>
+    <button role="tab" aria-controls="tab-contents" aria-selected="false" hx-get="/servicio/list">Documentos</button>
+</div>
+
+<div id="tab-contents" role="tabpanel" hx-get="/personal/list" hx-trigger="load"></div>
+
 
 </body>
 </html>
