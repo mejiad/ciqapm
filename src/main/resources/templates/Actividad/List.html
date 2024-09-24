@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Personal</title>
+</head>
+<body>
+<h1>Lista del Actividades</h1>
+
+
+<h2>Nuevo Documento</h2>
+<a th:href="@{/actividad/new}">Nuevo</a>
+
+<div class="m-10 p-7">
+    <table>
+        <tr>
+            <th class="text-slate-500">Edit</th>
+            <th class="text-slate-500">Nombre de la actividad</th>
+            <th class="text-slate-500">Descripción corta</th>
+            <th class="text-slate-500">Estado</th>
+        </tr>
+        <tr th:each="actividad : ${actividades}">
+            <td>
+            <a
+               th:href="@{/actividad/view(id=${actividad.id})}">Edit
+            </a>
+            </td>
+            <td th:text="${actividad.nombre}">nombre del documento</td>
+            <td th:text="${actividad.descripcion}">descripción corta</td>
+            <td th:text="${actividad.estado}">estado corta</td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

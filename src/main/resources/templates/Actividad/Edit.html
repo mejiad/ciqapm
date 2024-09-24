@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="application/json" charset="UTF-8">
+    <title>Edit Personal</title>
+</head>
+<body>
+<h1>Edit Actividad</h1>
+
+<form action="#" th:action="@{/actividad/save}" th:object="${actividad}" method="post">
+    <div>
+        <label for="nombre">Nombre</label>
+        <input id="nombre" type="text" th:field="*{nombre}"/>
+    </div>
+    <div>
+        <label for="descripcion">Descripcion</label>
+        <input id="descripcion" type="text" th:field="*{descripcion}"/>
+    </div>
+    <br>
+    <div>
+        <label for="estado">Status</label>
+        <input id="estado" type="text" th:field="*{estado}"/>
+    </div>
+    <div>
+        <input type="submit">Submit </input>
+    </div>
+</form>
+
+</body>
+</html>
