@@ -3,10 +3,12 @@ package com.evoltech.ciqapm;
 import com.evoltech.ciqapm.model.*;
 import com.evoltech.ciqapm.model.Cliente;
 import com.evoltech.ciqapm.repository.*;
+import com.evoltech.ciqapm.security.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -35,6 +37,12 @@ public class Application implements CommandLineRunner {
 
 	@Autowired
 	DocumentoRepository documentoRepository;
+
+	@Autowired
+	UsuarioRepository usuarioRepository;
+
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -73,6 +81,12 @@ public class Application implements CommandLineRunner {
 		creaDocumento("cuarto documento", proyecto2);
 		creaDocumento("quinto documento", proyecto2);
 		creaDocumento("sexto documento", proyecto3);
+
+
+		creaUsuario("user01", "pass01");
+		creaUsuario("user02", "pass02");
+		creaUsuario("user03", "pass03");
+
 
 	}
 
@@ -161,6 +175,16 @@ public class Application implements CommandLineRunner {
 		documento.setNombreArchivo("Propuesta del cliente");
 
 		Documento res = documentoRepository.save(documento);
+		return res;
+	}
+
+	private Usuario creaUsuario(String username, String password) {
+		Usuario usuario = new Usuario();
+		usuario.setUsername(username);
+		usuario.setPassword(passwordEncoder.encode(password));
+		usuario.setEmail("email@test.com");
+
+		Usuario res = usuarioRepository.save(usuario);
 		return res;
 	}
 }

@@ -1,12 +1,14 @@
 package com.evoltech.ciqapm.controllers;
 
 import com.evoltech.ciqapm.model.*;
+import com.evoltech.ciqapm.security.Usuario;
 import com.evoltech.ciqapm.service.EtapaService;
 import com.evoltech.ciqapm.service.PersonalServicio;
 import com.evoltech.ciqapm.service.ProyectoServicio;
 import com.evoltech.ciqapm.service.ServicioService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,19 +36,34 @@ public class MainController {
     @Autowired
     ProyectoServicio proyectoServicio;
 
+    @Autowired
+    UsuarioRepository usuarioRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     public MainController(ServicioService servicioService, PersonalServicio personalServicio,
                           EtapaService etapaService,
-                          ProyectoServicio proyectoServicio){
-        this.servicioService = servicioService;
+                          ProyectoServicio proyectoServicio,
+                          UsuarioRepository usuarioRepository,
+                          PasswordEncoder passwordEncoder){
+
         this.personalServicio = personalServicio;
         this.etapaService = etapaService;
         this.proyectoServicio = proyectoServicio;
+        this.usuarioRepository = usuarioRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/")
     public String home(Model model) {
         return "redirect:/proyecto/list";
+    }
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        Usuario user = new Usuario();
+        return "login";
     }
 
     @GetMapping("/add_01")
@@ -98,7 +115,7 @@ public class MainController {
         etapa.setId(0L);
         etapa.setNombre("Etapa 1");
         etapa.setDescripcion("Etapa 1");
-        etapa.setEntregable("El entregabñe de etapa 1 es un paletón");
+        etapa.setEntregable("El entregable de etapa 1 es un paletón");
         etapa.setFechaEstimadaTerminacion(new Date());
         etapa.setResponsable(personal1);
 
@@ -191,6 +208,16 @@ public class MainController {
         Proyecto newProyecto = proyectoServicio.save(proyecto);
 
         return newProyecto;
+    }
+
+    private Usuario creaUsuario() {
+        Usuario usuario = new Usuario();
+        usuario.setUsername("user1");
+        usuario.setPassword(passwordEncoder.encode("pass"));
+        usuario.setEmail("email@test.com");
+
+        Usuario res = usuarioRepository.save(usuario);
+        return res;
     }
 
 }
