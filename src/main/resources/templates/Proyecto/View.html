@@ -21,6 +21,8 @@
 
 <br>
 
+<a class="text-lx" th:href="@{/logout}">Logout </a>
+<br>
 <div id="tabs" hx-target="#tab-contents" role="tablist"
      hx-on:htmx-after-on-load="let currentTab = document.querySelector('[aria-selected=true]');
                                currentTab.setAttribute('aria-selected', 'false')
