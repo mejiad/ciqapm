@@ -73,6 +73,10 @@ public class MainController {
     @GetMapping("/login")
     public String login(Model model) {
         // Usuario user = new Usuario();
+        String username = "";
+        String password = "";
+        model.addAttribute("username", username);
+        model.addAttribute("password", password);
         return "login";
     }
 
@@ -82,7 +86,7 @@ public class MainController {
         if (auth != null){
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return "redirect:/proyecto/list";
+        return "redirect:/home";
     }
 
     @GetMapping("/add_01")
