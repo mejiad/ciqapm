@@ -61,8 +61,13 @@ public class MainController {
     }
 
     @GetMapping("/")
+    public String root(Model model) {
+        return "home";
+    }
+
+    @GetMapping("/home")
     public String home(Model model) {
-        return "redirect:/proyecto/list";
+        return "home";
     }
 
     @GetMapping("/login")
