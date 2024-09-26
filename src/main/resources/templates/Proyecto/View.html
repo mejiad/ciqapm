@@ -28,8 +28,8 @@
                                newTab.setAttribute('aria-selected', 'true')
                                newTab.classList.add('selected')">
     <button role="tab" aria-controls="tab-contents" aria-selected="true" hx-get="/personal/list" class="selected">Personal</button>
-    <button role="tab" aria-controls="tab-contents" aria-selected="false" hx-get="/proyecto/list">Etapas</button>
-    <button role="tab" aria-controls="tab-contents" aria-selected="false" hx-get="/servicio/list">Documentos</button>
+    <button role="tab" aria-controls="tab-contents" aria-selected="false" hx-get="/etapa/list">Etapas</button>
+    <button role="tab" aria-controls="tab-contents" aria-selected="false" hx-get="/documento/list">Documentos</button>
 </div>
 
 <div id="tab-contents" role="tabpanel" hx-get="/personal/list" hx-trigger="load"></div>
