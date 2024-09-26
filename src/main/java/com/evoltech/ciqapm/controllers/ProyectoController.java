@@ -37,6 +37,9 @@ public class ProyectoController {
 
     @GetMapping("/list")
     public String listProyecto(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        System.out.println("Usuario loggeado:" + username);
 
         List<Proyecto> proyectos = proyectoRepository.findAll();
 
