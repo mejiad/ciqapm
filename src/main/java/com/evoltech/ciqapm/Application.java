@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @SpringBootApplication
@@ -139,7 +140,7 @@ public class Application implements CommandLineRunner {
 		proyecto.setResponsable(responsable);
 		proyecto.setTipoProyecto(TipoProyecto.INDUSTRIA);
 		proyecto.setNombre("Proyecto-" + post);
-		proyecto.setDescripcion("Descipcion del proyecto Proyecto-" + post);
+		proyecto.setDescripcion("Descipcion del proyecto Proyecto-" + post + " donde se definen los detalles que debe cumplir este proyecto para su terminación");
 		// proyecto.setEtapas(etapas);
 		proyecto.setId(0L);
 		proyecto.setCliente(cliente);
@@ -159,7 +160,7 @@ public class Application implements CommandLineRunner {
 		etapa.setNombre("Etapa del proyecto ");
 		etapa.setDescripcion("Etapa para hacer lo que el cliente quiere");
 		etapa.setFechaEstimadaInicio(new Date("01/20/2024"));
-		etapa.setFechaEstimadaTerminacion(new Date("02/02/2024"));
+		etapa.setFechaEstimadaTerminacion((new Date("02/02/2024")));
 		etapa.setServicio(servicio);
 		etapa.setStatus("Status de la etapa"); // TODO: crear data type
 		etapa.setId(0L);
@@ -170,7 +171,7 @@ public class Application implements CommandLineRunner {
 
 	private Documento creaDocumento(String nombre, Proyecto proyecto){
 		Documento documento = new Documento();
-		documento.setDescripcion("Descipción corta del documento " + nombre);
+		documento.setDescripcion("Descripción corta del documento " + nombre);
 		documento.setNombre(nombre );
 		documento.setNombreArchivo("Propuesta del cliente");
 

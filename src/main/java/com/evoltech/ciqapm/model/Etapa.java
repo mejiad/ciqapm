@@ -34,7 +34,7 @@ public class Etapa extends BaseClass {
 
     private Date fechaEstimadaInicio;
 
-    private Date fechaRealIncio;
+    private Date fechaRealInicio;
 
     private Date fechaEstimadaTerminacion;
 

@@ -3,37 +3,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="/htmx.min.js"></script>
     <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+    <script src="/htmx.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>View Proyecto</title>
 </head>
-<body>
-<div class="m-4 p-7 text-lg">View Proyecto</div>
-<!-- menu con tabs de etapas, personal, documentos, (actividades y notas dentro de etapas?). pendientes -->
+<body class="m-7 p-4">
+<div class="m-4 p-7 text-lg">Detalle del Proyecto
 
-<p th:text="${proyecto.nombre}">Nombre del proyecto</p>
+<div class="flex flex-row m-7 p-4">
+    <div class="basis-1/2">
+        <p class="text-lg text-slate-500" th:text="${proyecto.nombre}">Nombre del proyecto</p>
+    </div>
+    <div class="basis-1/4">
+        <a class="text-lx text-blue-600" th:href="@{/logout}">Logout</a>
+    </div>
+</div>
 
-<!-- Informacion del proyecto  Etapas -->
+<div>
+    <span>
+        Descripcion del proyecto:
+    <p th:text="${proyecto.descripcion}">Descripcion</p>
+    </span>
+</div>
+</div>
 <br>
-<h2 class="text-md">Etapas del proyecto</h2>
-
-<br>
-<a class="text-lx" th:href="@{/logout}">Logout </a>
-<br>
-<div id="tabs" hx-target="#tab-contents" role="tablist"
+<div id="tabs" hx-target="#tab-contents" role="tablist" class="flex flex-row text-lg text-slate-800"
      hx-on-htmx-after-on-load="let currentTab = document.querySelector('[aria-selected=true]');
                                currentTab.setAttribute('aria-selected', 'false')
                                currentTab.classList.remove('selected')
                                let newTab = event.target
                                newTab.setAttribute('aria-selected', 'true')
                                newTab.classList.add('selected')">
-    <button role="tab" aria-controls="tab-contents" aria-selected="true" hx-get="/personal/list" class="selected">Personal</button>
-    <button role="tab" aria-controls="tab-contents" aria-selected="false" hx-get="/etapa/list">Etapas</button>
-    <button role="tab" aria-controls="tab-contents" aria-selected="false" hx-get="/documento/list">Documentos</button>
+    <button role="tab" aria-controls="tab-contents" aria-selected="false" th:hx-get="@{/etapa/list(id=${proyecto.id})}" class="m-2 px-2 basis-1/4 bg-slate-500  text-lg text-white rounded-sm hover:bg-sky-500">Etapas</button>
+    <button role="tab" aria-controls="tab-contents" aria-selected="false" hx-get="/documento/list" class="m-2 px-2 basis-1/4 bg-slate-500 text-lg  text-white rounded-sm hover:bg-sky-500">Documentos</button>
+    <button role="tab" aria-controls="tab-contents" aria-selected="true" hx-get="/personal/list" class="m-2 px-2 selected basis-1/4 bg-slate-500  text-lg text-white rounded-sm hover:bg-sky-500">Personal</button>
 </div>
 
-<div id="tab-contents" role="tabpanel" hx-get="/personal/list" hx-trigger="load"></div>
+<div id="tab-contents" role="tabpanel" th:hx-get="@{/etapa/list(id=${proyecto.id})}" hx-trigger="load" class="flex flex-row m-4 p-7 text-lg"></div>
 
-
+<!--
+th:href="@{/proyecto/view(id=${proyecto.id})}"
+-->
 </body>
 </html>
