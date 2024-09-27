@@ -8,42 +8,80 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>View Proyecto</title>
 </head>
-<body class="m-7 p-4">
-<div class="m-4 p-7 text-lg">Detalle del Proyecto
+<body class="m-2 p-2">
+<div th:insert="~{header}"></div>
 
-<div class="flex flex-row m-7 p-4">
-    <div class="basis-1/2">
-        <p class="text-lg text-slate-500" th:text="${proyecto.nombre}">Nombre del proyecto</p>
-    </div>
-    <div class="basis-1/4">
-        <a class="text-lx text-blue-600" th:href="@{/logout}">Logout</a>
-    </div>
-</div>
+<main class="py-10 lg:pl-36">
+    <div class="px-4">
+        <!-- Your content -->
+        <div class="border-b border-gray-200 pb-5 sm:flex sm:items-center sm:justify-between">
+            <h3 class="text-base font-semibold leading-6 text-gray-900">Información del Proyecto</h3>
+        </div>
 
-<div>
-    <span>
-        Descripcion del proyecto:
-    <p th:text="${proyecto.descripcion}">Descripcion</p>
-    </span>
-</div>
-</div>
-<br>
-<div id="tabs" hx-target="#tab-contents" role="tablist" class="flex flex-row text-lg text-slate-800"
-     hx-on-htmx-after-on-load="let currentTab = document.querySelector('[aria-selected=true]');
+        <div class="px-4 sm:px-6 lg:px-8">
+
+            <div class="mt-5 flex items-center space-x-3">
+
+                <h3 class="truncate text-sm font-medium text-gray-900">
+                    <span th:text="${proyecto.nombre}">2</span>
+                </h3>
+                <span th:text="${proyecto.tipoProyecto}"
+                      class="inline-flex flex-shrink-0 items-center rounded-full bg-green-50 px-1.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Admin</span>
+            </div>
+            <div class="mt-5 flex items-center space-x-3">
+
+                <h3 class="truncate text-sm font-medium text-gray-900">
+                    <span>Descripción:</span>
+                </h3>
+                <p class="truncate text-sm text-gray-500">
+                    <span th:text="${proyecto.descripcion}">2</span>
+                </p>
+            </div>
+            <div class="mt-5 flex items-center space-x-3">
+
+                <h3 class="truncate text-sm font-medium text-gray-900">
+                    <span>Responsable:</span>
+                </h3>
+                <p class="truncate text-sm text-gray-500">
+                    <span th:text="${proyecto.responsable.nombre}">2</span>
+                </p>
+            </div>
+            <div class="mt-5 flex items-center space-x-3">
+
+                <h3 class="truncate text-sm font-medium text-gray-900">
+                    <span>Solicitado por:</span>
+                </h3>
+                <p class="truncate text-sm text-gray-500">
+                    <span th:text="${proyecto.cliente.nombre}">2</span>
+                </p>
+            </div>
+
+            <div class="mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+
+            <div id="tabs" hx-target="#tab-contents" role="tablist" class="flex flex-row text-lg text-slate-800 mt-4"
+                 hx-on-htmx-after-on-load="let currentTab = document.querySelector('[aria-selected=true]');
                                currentTab.setAttribute('aria-selected', 'false')
                                currentTab.classList.remove('selected')
                                let newTab = event.target
                                newTab.setAttribute('aria-selected', 'true')
                                newTab.classList.add('selected')">
-    <button role="tab" aria-controls="tab-contents" aria-selected="false" th:hx-get="@{/etapa/list(id=${proyecto.id})}" class="m-2 px-2 basis-1/4 bg-slate-500  text-lg text-white rounded-sm hover:bg-sky-500">Etapas</button>
-    <button role="tab" aria-controls="tab-contents" aria-selected="false" hx-get="/documento/list" class="m-2 px-2 basis-1/4 bg-slate-500 text-lg  text-white rounded-sm hover:bg-sky-500">Documentos</button>
-    <button role="tab" aria-controls="tab-contents" aria-selected="true" hx-get="/personal/list" class="m-2 px-2 selected basis-1/4 bg-slate-500  text-lg text-white rounded-sm hover:bg-sky-500">Personal</button>
-</div>
 
-<div id="tab-contents" role="tabpanel" th:hx-get="@{/etapa/list(id=${proyecto.id})}" hx-trigger="load" class="flex flex-row m-4 p-7 text-lg"></div>
+                <button type="button" role="tab" aria-controls="tab-contents" aria-selected="false" th:hx-get="@{/etapa/list(id=${proyecto.id})}"
+                        class="m-2 rounded-md bg-sky-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600">Etapas</button>
+                <button type="button" role="tab" aria-controls="tab-contents" aria-selected="false" hx-get="/documento/list"
+                        class="m-2 rounded-md bg-sky-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600">Documentos</button>
+                <button type="button" role="tab" aria-controls="tab-contents" aria-selected="true" hx-get="/personal/list"
+                        class="m-2 rounded-md bg-sky-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600">Equipo</button>
+            </div>
 
-<!--
-th:href="@{/proyecto/view(id=${proyecto.id})}"
--->
+            <div id="tab-contents" role="tabpanel" th:hx-get="@{/etapa/list(id=${proyecto.id})}" hx-trigger="load" class="flex flex-row text-lg mt-8"></div>
+
+
+            <!-- CONTENIDO ... -->
+        </div>
+        </div>
+    </div>
+</main>
+<div th:insert="~{footer}"></div>
 </body>
 </html>
