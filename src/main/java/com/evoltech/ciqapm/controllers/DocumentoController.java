@@ -61,12 +61,23 @@ public class DocumentoController {
         return "/Documento/Edit";
     }
 
+    /*
+     necesitamos el archivo en multipart además de los datos que se
+     deben guardar en la base de datos.
+     Se debe procesar para guardar en el directorio del proyetco
+     1. Generar el directorio del proyecto al crear un nuevo proyecto.
+     */
+    /*
+    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String savePersonal(Personal persona, Model model){
+     */
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String saveDocumento(Documento documento, Model model){
 
-        System.out.println("ID: " + documento.getId());
-        documentoRepository.save(documento);
+        Documento res = documentoRepository.save(documento);
 
-        return "redirect:/documento/list";
+        System.out.println("Documento salvado ID: " + res.getId());
+
+        return "redirect:/proyecto/list";
     }
 }

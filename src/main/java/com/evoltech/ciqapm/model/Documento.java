@@ -16,6 +16,7 @@ public class Documento extends BaseClass {
 
     private String nombre;
 
+    @Column(length = 2000)
     private String descripcion;
 
     private String nombreArchivo;
