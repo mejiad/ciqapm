@@ -3,15 +3,14 @@ package com.evoltech.ciqapm.controllers;
 import com.evoltech.ciqapm.model.Documento;
 import com.evoltech.ciqapm.model.Personal;
 import com.evoltech.ciqapm.repository.DocumentoRepository;
+import com.evoltech.ciqapm.service.StorageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -23,8 +22,12 @@ public class DocumentoController {
     @Autowired
     DocumentoRepository documentoRepository;
 
-    public DocumentoController(DocumentoRepository documentoRepository) {
+    @Autowired
+    StorageService storageService;
+
+    public DocumentoController(DocumentoRepository documentoRepository, StorageService storageService) {
         this.documentoRepository = documentoRepository;
+        this.storageService = storageService;
     }
 
     @GetMapping("/list")
@@ -71,12 +74,14 @@ public class DocumentoController {
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String savePersonal(Personal persona, Model model){
      */
-    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveDocumento(Documento documento, Model model){
+    @PostMapping(value = "/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String saveDocumento(@RequestBody MultipartFile file,
+                                @RequestParam String nombre) {
 
-        Documento res = documentoRepository.save(documento);
-
-        System.out.println("Documento salvado ID: " + res.getId());
+        // System.out.println("Documento salvado ID: " + documento.getNombre());")
+        System.out.println("File: " + file.getOriginalFilename());
+        System.out.println("Name: " + nombre.toString());
+        storageService.store(file);
 
         return "redirect:/proyecto/list";
     }

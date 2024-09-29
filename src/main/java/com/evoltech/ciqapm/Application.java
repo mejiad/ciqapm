@@ -1,13 +1,17 @@
 package com.evoltech.ciqapm;
 
+import com.evoltech.ciqapm.config.StorageProperties;
 import com.evoltech.ciqapm.model.*;
 import com.evoltech.ciqapm.model.Cliente;
 import com.evoltech.ciqapm.repository.*;
 import com.evoltech.ciqapm.security.Usuario;
+import com.evoltech.ciqapm.service.FileSystemStorageService;
+import com.evoltech.ciqapm.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
@@ -188,4 +192,10 @@ public class Application implements CommandLineRunner {
 		Usuario res = usuarioRepository.save(usuario);
 		return res;
 	}
+
+	@Bean
+	public StorageProperties storageProperties() {
+		return new StorageProperties();
+	}
+
 }
