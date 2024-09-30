@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -32,12 +33,12 @@ public class Etapa extends BaseClass {
 
     private String entregable;
 
-    private Date fechaEstimadaInicio;
+    private LocalDate fechaEstimadaInicio;
 
-    private Date fechaRealInicio;
+    private LocalDate fechaRealInicio;
 
-    private Date fechaEstimadaTerminacion;
+    private LocalDate fechaEstimadaTerminacion;
 
-    private Date fechaRealTerminacion;
+    private LocalDate fechaRealTerminacion;
 
 }

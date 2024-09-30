@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 @SpringBootApplication
@@ -158,13 +159,13 @@ public class Application implements CommandLineRunner {
 	private Etapa creaEtapa(Personal responsable, Proyecto proyecto, Servicio servicio) {
 		Etapa etapa = new Etapa();
 		etapa.setResponsable(responsable);
-		etapa.setFechaEstimadaTerminacion(new Date("02/03/2025"));
+		etapa.setFechaEstimadaTerminacion(LocalDate.of(2025, 02, 03));
 		etapa.setProyecto(proyecto);
 		etapa.setEntregable("Entregable de la etapa");
 		etapa.setNombre("Etapa del proyecto ");
 		etapa.setDescripcion("Etapa para hacer lo que el cliente quiere");
-		etapa.setFechaEstimadaInicio(new Date("01/20/2024"));
-		etapa.setFechaEstimadaTerminacion((new Date("02/02/2024")));
+		etapa.setFechaEstimadaInicio(LocalDate.of(2024, 1, 20));
+		etapa.setFechaEstimadaTerminacion((LocalDate.of(2024,02, 02) ));
 		etapa.setServicio(servicio);
 		etapa.setStatus("Status de la etapa"); // TODO: crear data type
 		etapa.setId(0L);

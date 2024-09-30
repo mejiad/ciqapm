@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.*;
 
@@ -139,7 +140,7 @@ public class MainController {
         etapa.setNombre("Etapa 1");
         etapa.setDescripcion("Etapa 1");
         etapa.setEntregable("El entregable de etapa 1 es un paletón");
-        etapa.setFechaEstimadaTerminacion(new Date());
+        etapa.setFechaEstimadaTerminacion(LocalDate.now());
         etapa.setResponsable(personal1);
 
         Etapa newEtapa = etapaService.save(etapa);
@@ -184,7 +185,7 @@ public class MainController {
         etapa.setNombre("Etapa 1");
         etapa.setDescripcion("Etapa 1");
         etapa.setEntregable("El entregable de etapa 1 es un paletón");
-        etapa.setFechaEstimadaTerminacion(new Date());
+        etapa.setFechaEstimadaTerminacion(LocalDate.now());
         etapa.setResponsable(personal1);
 
         Etapa newEtapa = etapaService.save(etapa);
