@@ -107,7 +107,9 @@
 				<executions>
 					<execution>
 						<phase>compile</phase>
-						<!-- ... this execution stay as it was -->
+						<goals>
+							<goal>exec</goal>
+						</goals>
 					</execution>
 					<execution>
 						<id>dev</id>
