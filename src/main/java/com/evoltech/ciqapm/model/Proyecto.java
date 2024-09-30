@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -24,12 +25,14 @@ public class Proyecto extends BaseClass {
     private TipoProyecto tipoProyecto;
 
     @ManyToOne
+    @JoinColumn(name="responsable_id", nullable=false)
     private Personal responsable;
 
-    @OneToMany
-    private List<Etapa> etapas;
+    @OneToMany(mappedBy = "proyecto")
+    private Set<Etapa> etapas;
 
     @ManyToOne
+    @JoinColumn(name="cliente_id", nullable=false)
     private Cliente cliente;
 
 }

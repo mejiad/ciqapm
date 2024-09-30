@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -18,17 +19,20 @@ public class Etapa extends BaseClass {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name="proyecto_id", nullable=false)
     private Proyecto proyecto;
 
     private String nombre;
 
     private String descripcion;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "servicio_id", nullable = true)
     private Servicio servicio;
 
     @ManyToOne
+    @JoinColumn(name = "responsable_id", nullable = false)
     private Personal responsable;
 
     private String entregable;
@@ -40,5 +44,8 @@ public class Etapa extends BaseClass {
     private LocalDate fechaEstimadaTerminacion;
 
     private LocalDate fechaRealTerminacion;
+
+    @OneToMany(mappedBy = "etapa")
+    private Set<Actividad> actividades;
 
 }
