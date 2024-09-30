@@ -21,10 +21,10 @@
                         class="block rounded-md bg-sky-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600">
                     + Etapa
                 </button>
-                </a>>
+                </a>
             </div>
         </div>
-        <div class="mt-8 flow-root">
+        <div class="mt-8 inline-flex">
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                     <table class="min-w-full divide-y divide-gray-300">
@@ -33,13 +33,13 @@
                             <th scope="col"
                                 class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Etapa
                             </th>
-                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                           <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                 Descripción
                             </th>
                             <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                 Responsable
                             </th>
-                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                           <!-- <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                 Entregable
                             </th>
                             <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Fecha P.
@@ -53,7 +53,7 @@
                             </th>
                             <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Fecha R.
                                 Final
-                            </th>
+                            </th>-->
                             <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
                                 <span class="sr-only">Edit</span>
                             </th>
@@ -70,25 +70,30 @@
                             <td th:text="${etapa.responsable.nombre}"
                                 class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Front-end Developer
                             </td>
-                            <td th:text="${etapa.entregable}" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                           <!-- <td th:text="${etapa.entregable}" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                 Front-end Developer
                             </td>
-                            <td th:text="${#dates.format(etapa.fechaEstimadaInicio, 'dd-MM-yyyy')}"
+                            <td th:text="${etapa.fechaEstimadaInicio}"
                                 class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Front-end Developer
                             </td>
-                            <td th:text="${#dates.format(etapa.fechaEstimadaTerminacion, 'dd-MM-yyyy')}"
+                            <td th:text="${etapa.fechaEstimadaTerminacion}"
                                 class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Front-end Developer
                             </td>
-                            <td th:text="${#dates.format(etapa.fechaRealInicio, 'dd-MM-yyyy')}"
+                            <td th:text="${etapa.fechaRealInicio}"
                                 class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Front-end Developer
                             </td>
-                            <td th:text="${#dates.format(etapa.fechaRealTerminacion, 'dd-MM-yyyy')}"
+                            <td th:text="${etapa.fechaRealTerminacion}"
                                 class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Front-end Developer
-                            </td>
+                            </td>-->
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                 <a th:href="@{/etapa/edit(id=${etapa.id})}"
                                    class="text-sky-600 hover:text-sky-900">Edit</a>
                             </td>
+                            <!-- ejemplo de formateo de fechas
+                            <td th:text="${#dates.format(etapa.fechaEstimadaInicio, 'dd-MM-yyyy')}"
+                                class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Front-end Developer
+                            </td>
+                            -->
                         </tr>
                         </tbody>
                     </table>
