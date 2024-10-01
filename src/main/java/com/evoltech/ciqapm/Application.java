@@ -15,9 +15,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
+import java.security.Provider;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
@@ -48,51 +51,66 @@ public class Application implements CommandLineRunner {
 	UsuarioRepository usuarioRepository;
 
 	@Autowired
+	ActividadRepository actividadRepository;
+
+	@Autowired
 	PasswordEncoder passwordEncoder;
 
 	@Override
 	public void run(String... args) throws Exception {
 		System.out.println("Inicializando la base...");
-		createPersonal("01", PersonalCategoria.ITA);;
-		createPersonal("02", PersonalCategoria.ITB);;
-		createPersonal("03", PersonalCategoria.ITC);;
-		createPersonal("04", PersonalCategoria.TTA);;
-		createPersonal("05", PersonalCategoria.TTB);;
-		Personal personal = createPersonal("06", PersonalCategoria.TTC);;
+		Personal personal1 = createPersonal("01", PersonalCategoria.ITA);;
+		Personal personal2 = createPersonal("02", PersonalCategoria.ITB);;
+		Personal personal3 = createPersonal("03", PersonalCategoria.ITC);;
+		Personal personal4 = createPersonal("04", PersonalCategoria.TTA);;
+		Personal personal5 = createPersonal("05", PersonalCategoria.TTB);;
+		Personal personal6 = createPersonal("06", PersonalCategoria.TTC);;
 
-		createCliente("100");
-		createCliente("101");
-		createCliente("102");
-		createCliente("103");
-		Cliente cliente = createCliente("104");
-		createCliente("105");
+		Cliente cliente1 = createCliente("100");
+		Cliente cliente2 = createCliente("101");
+		Cliente cliente3 = createCliente("102");
+		Cliente cliente4 = createCliente("103");
+		Cliente cliente5 = createCliente("104");
+		Cliente cliente6 = createCliente("105");
 
-		createServicio("201");
-		createServicio("202");
-		Servicio servicio = createServicio("203");
-		createServicio("204");
-		createServicio("205");
+		Servicio servicio1 = createServicio("201");
+		Servicio servicio2 = createServicio("202");
+		Servicio servicio3 = createServicio("203");
+		Servicio servicio4 = createServicio("204");
+		Servicio servicio5 = createServicio("205");
 
-		createProyecto("1000",personal, cliente);
-		createProyecto("1001",personal, cliente);
-		Proyecto proyecto2 = createProyecto("1002",personal, cliente);
-		Proyecto proyecto1 = createProyecto("1003",personal, cliente);
-		Proyecto proyecto3 = createProyecto("1004",personal, cliente);
+		Proyecto proyecto1 = createProyecto("1000",personal1, cliente1);
+		Proyecto proyecto2 = createProyecto("1001",personal1, cliente2);
+		Proyecto proyecto3 = createProyecto("1003",personal2, cliente3);
+		Proyecto proyecto4 = createProyecto("1002",personal3, cliente4);
+		Proyecto proyecto5 = createProyecto("1004",personal4, cliente5);
 
-		creaEtapa(personal, proyecto1, servicio);
+		Etapa etapa1 = creaEtapa(personal1, proyecto1, servicio1);
+		Etapa etapa2 = creaEtapa(personal2, proyecto2, servicio2);
+		Etapa etapa3 = creaEtapa(personal3, proyecto3, servicio3);
 
-		creaDocumento("primer documento", proyecto1);
-		creaDocumento("segundo documento", proyecto1);
-		creaDocumento("tercer documento", proyecto1);
-		creaDocumento("cuarto documento", proyecto2);
-		creaDocumento("quinto documento", proyecto2);
-		creaDocumento("sexto documento", proyecto3);
+		Documento doc1 = creaDocumento("primer documento", proyecto1);
+		Documento doc2 = creaDocumento("segundo documento", proyecto1);
+		Documento doc3 = creaDocumento("tercer documento", proyecto1);
+		Documento doc4 = creaDocumento("cuarto documento", proyecto2);
+		Documento doc5 = creaDocumento("quinto documento", proyecto2);
+		Documento doc6 = creaDocumento("sexto documento", proyecto3);
+
+		Usuario usr1 = creaUsuario("user01", "pass01");
+		Usuario usr2 = creaUsuario("user02", "pass02");
+		Usuario usr3 = creaUsuario("user03", "pass03");
 
 
-		creaUsuario("user01", "pass01");
-		creaUsuario("user02", "pass02");
-		creaUsuario("user03", "pass03");
+		Actividad actividad1 = creaActividad(etapa1,personal1);
+		Actividad actividad2 = creaActividad(etapa2,personal1);
+		Actividad actividad3 = creaActividad(etapa3,personal1);
+		Actividad actividad4 = creaActividad(etapa1,personal2);
+		Actividad actividad5 = creaActividad(etapa1,personal1);
+		Actividad actividad6 = creaActividad(etapa1,personal1);
+		Actividad actividad7 = creaActividad(etapa1,personal1);
+		Actividad actividad8 = creaActividad(etapa1,personal1);
 
+		System.out.println("Database Inicializada ...");
 
 	}
 
@@ -191,6 +209,21 @@ public class Application implements CommandLineRunner {
 		usuario.setEmail("email@test.com");
 
 		Usuario res = usuarioRepository.save(usuario);
+		return res;
+	}
+
+	private Actividad creaActividad(Etapa etapa, Personal personal){
+		Actividad actividad = new Actividad();
+		actividad.setNombreActividad("Actividad de prueba");
+		actividad.setDescripcion("Descrición de la actividad realizada...");
+		actividad.setEstado(ActividadEstado.PROCESO);
+		actividad.setEtapa(etapa);
+		actividad.setFechaInicio(LocalDate.of(2024,10,14));
+		actividad.setFechaTerminacion(LocalDate.of(2024,11,10));
+		actividad.setHorasUtilizadas(40);
+		actividad.setRealizadoPor(personal);
+
+		Actividad res = actividadRepository.save(actividad);
 		return res;
 	}
 

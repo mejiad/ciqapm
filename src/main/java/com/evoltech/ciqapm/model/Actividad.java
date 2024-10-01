@@ -5,7 +5,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.*;
 
 @Entity
 @Data
@@ -16,22 +17,25 @@ public class Actividad extends BaseClass {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String nombre;
+    private String nombreActividad;
 
     private String descripcion;
 
     private Servicio servicio;
 
-    @Enumerated(EnumType.STRING)
+    private LocalDate fechaInicio;
+
     private ActividadEstado estado;
 
-    private Date fechaInicio;
+    private LocalDate fechaTerminacion;
 
-    private Date fechaTerminacion;
+    private Integer horasUtilizadas;
 
-    private Proyecto proyecto;
-
+    @ManyToOne
+    @JoinColumn(name="etapa_id", nullable=false)
     private Etapa etapa;
 
-    private Personal usuario;
+    @ManyToOne
+    @JoinColumn(name="realizado_por", nullable=false)
+    private Personal realizadoPor;
 }

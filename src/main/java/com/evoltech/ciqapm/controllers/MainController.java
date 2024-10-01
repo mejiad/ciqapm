@@ -227,7 +227,7 @@ public class MainController {
         proyecto.setDescripcion("Descripción del proyecto");
         proyecto.setResponsable(creaPersonal());
         proyecto.setTipoProyecto(TipoProyecto.INDUSTRIA);
-        proyecto.setEtapas(List.of(creaEtapa(), creaEtapa()));
+        proyecto.setEtapas(Set.of(creaEtapa(), creaEtapa()));
 
         Proyecto newProyecto = proyectoServicio.save(proyecto);
 

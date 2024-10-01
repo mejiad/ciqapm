@@ -25,4 +25,7 @@ public class Personal extends BaseClass {
 
     private BigDecimal rate;
 
+    @ManyToOne
+    private Etapa etapa;
+
 }
