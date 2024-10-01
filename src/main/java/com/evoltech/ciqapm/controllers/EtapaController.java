@@ -6,6 +6,7 @@ import com.evoltech.ciqapm.repository.EtapaRepository;
 import com.evoltech.ciqapm.repository.ProyectoRepository;
 import com.evoltech.ciqapm.service.EtapaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -63,12 +64,14 @@ public class EtapaController {
         Etapa etapa = new Etapa();
         etapa.setProyecto(proyecto);
         model.addAttribute("etapa", etapa);
+        model.addAttribute("proyecto", proyecto);
         return "/Etapa/Edit";
     }
 
-   @PostMapping("/save")
-    public String saveEtapa(@RequestBody Etapa etapa,  Model model){
+   @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+   public String saveEtapa(Etapa etapa,  Model model){
+        System.out.println("Valor de etapa.proyecto: " + etapa.getProyecto().getNombre());
         etapaRepository.save(etapa);
-        return "/Etapa/List";
+        return "redirect:/proyecto/list";
     }
 }
