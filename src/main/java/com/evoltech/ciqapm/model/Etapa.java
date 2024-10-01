@@ -20,7 +20,7 @@ public class Etapa extends BaseClass {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="proyecto_id", nullable=false)
+    @JoinColumn(name="proyecto", nullable=false)
     private Proyecto proyecto;
 
     private String nombre;

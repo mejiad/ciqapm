@@ -222,12 +222,11 @@ public class MainController {
     private Proyecto creaProyecto() {
 
         Proyecto proyecto = new Proyecto();
-        proyecto.setId(0L);
         proyecto.setNombre("Proyecto de prueba");
         proyecto.setDescripcion("Descripción del proyecto");
         proyecto.setResponsable(creaPersonal());
         proyecto.setTipoProyecto(TipoProyecto.INDUSTRIA);
-        proyecto.setEtapas(Set.of(creaEtapa(), creaEtapa()));
+        proyecto.setEtapas(List.of(creaEtapa(), creaEtapa()));
 
         Proyecto newProyecto = proyectoServicio.save(proyecto);
 

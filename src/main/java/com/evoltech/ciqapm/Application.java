@@ -165,7 +165,6 @@ public class Application implements CommandLineRunner {
 		proyecto.setNombre("Proyecto-" + post);
 		proyecto.setDescripcion("Descipcion del proyecto Proyecto-" + post + " donde se definen los detalles que debe cumplir este proyecto para su terminación");
 		// proyecto.setEtapas(etapas);
-		proyecto.setId(0L);
 		proyecto.setCliente(cliente);
 		proyecto.setCreateUser("Create User");
 		proyecto.setStatus("Status del proyecto"); // TODO: crear status
@@ -175,6 +174,7 @@ public class Application implements CommandLineRunner {
 	}
 
 	private Etapa creaEtapa(Personal responsable, Proyecto proyecto, Servicio servicio) {
+		System.out.println("Proyecto donde se agragara la etapa: " + proyecto.getNombre());
 		Etapa etapa = new Etapa();
 		etapa.setResponsable(responsable);
 		etapa.setFechaEstimadaTerminacion(LocalDate.of(2025, 02, 03));
@@ -186,9 +186,14 @@ public class Application implements CommandLineRunner {
 		etapa.setFechaEstimadaTerminacion((LocalDate.of(2024,02, 02) ));
 		etapa.setServicio(servicio);
 		etapa.setStatus("Status de la etapa"); // TODO: crear data type
-		etapa.setId(0L);
+		// etapa.setId(0L);
 
 		Etapa res = etapaRepository.save(etapa);
+		/*
+		res.setProyecto(proyecto);
+		res = etapaRepository.save(etapa);
+		 */
+
 		return res;
 	}
 

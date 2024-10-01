@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -15,7 +16,7 @@ public class Proyecto extends BaseClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long Id;
+    private Long id;
 
     private String nombre;
 
@@ -29,7 +30,7 @@ public class Proyecto extends BaseClass {
     private Personal responsable;
 
     @OneToMany(mappedBy = "proyecto")
-    private Set<Etapa> etapas;
+    private List<Etapa> etapas = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name="cliente_id", nullable=false)
