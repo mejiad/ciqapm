@@ -54,7 +54,11 @@ public class EtapaController {
     }
 
     @GetMapping("/edit")
-    public String editEtapa(Model model){
+    public String editEtapa(@RequestParam Long id, Model model){
+        Etapa etapa = etapaRepository.getReferenceById(id);
+        Proyecto proyecto = etapa.getProyecto();
+        model.addAttribute("etapa", etapa);
+        model.addAttribute("proyecto", proyecto);
         return "/Etapa/Edit";
     }
 
