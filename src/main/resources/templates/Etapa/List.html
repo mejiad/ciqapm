@@ -39,21 +39,6 @@
                             <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                 Responsable
                             </th>
-                           <!-- <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                Entregable
-                            </th>
-                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Fecha P.
-                                Inicio
-                            </th>
-                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Fecha P.
-                                Final
-                            </th>
-                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Fecha R.
-                                Inicio
-                            </th>
-                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Fecha R.
-                                Final
-                            </th>-->
                             <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
                                 <span class="sr-only">Edit</span>
                             </th>
@@ -70,30 +55,10 @@
                             <td th:text="${etapa.responsable.nombre}"
                                 class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Front-end Developer
                             </td>
-                           <!-- <td th:text="${etapa.entregable}" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                Front-end Developer
-                            </td>
-                            <td th:text="${etapa.fechaEstimadaInicio}"
-                                class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Front-end Developer
-                            </td>
-                            <td th:text="${etapa.fechaEstimadaTerminacion}"
-                                class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Front-end Developer
-                            </td>
-                            <td th:text="${etapa.fechaRealInicio}"
-                                class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Front-end Developer
-                            </td>
-                            <td th:text="${etapa.fechaRealTerminacion}"
-                                class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Front-end Developer
-                            </td>-->
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                 <a th:href="@{/etapa/edit(id=${etapa.id})}"
                                    class="text-sky-600 hover:text-sky-900">Edit</a>
                             </td>
-                            <!-- ejemplo de formateo de fechas
-                            <td th:text="${#dates.format(etapa.fechaEstimadaInicio, 'dd-MM-yyyy')}"
-                                class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Front-end Developer
-                            </td>
-                            -->
                         </tr>
                         </tbody>
                     </table>
@@ -104,3 +69,9 @@
 
 </body>
 </html>
+
+<!-- ejemplo de formateo de fechas
+<td th:text="${#dates.format(etapa.fechaEstimadaInicio, 'dd-MM-yyyy')}"
+    class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Front-end Developer
+</td>
+-->
