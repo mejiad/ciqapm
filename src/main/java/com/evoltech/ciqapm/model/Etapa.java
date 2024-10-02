@@ -45,7 +45,10 @@ public class Etapa extends BaseClass {
 
     private LocalDate fechaRealTerminacion;
 
+    /*
     @OneToMany(mappedBy = "etapa")
     private Set<Actividad> actividades;
+
+     */
 
 }

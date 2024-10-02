@@ -17,7 +17,7 @@ public class Actividad extends BaseClass {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String nombreActividad;
+    private String nombre;
 
     private String descripcion;
 
@@ -32,10 +32,10 @@ public class Actividad extends BaseClass {
     private Integer horasUtilizadas;
 
     @ManyToOne
-    @JoinColumn(name="etapa_id", nullable=false)
+    @JoinColumn(name="etapa", nullable=false)
     private Etapa etapa;
 
     @ManyToOne
-    @JoinColumn(name="realizado_por", nullable=false)
+    @JoinColumn(name="realizado_por", nullable=true)
     private Personal realizadoPor;
 }

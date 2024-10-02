@@ -104,11 +104,11 @@ public class Application implements CommandLineRunner {
 		Actividad actividad1 = creaActividad(etapa1,personal1);
 		Actividad actividad2 = creaActividad(etapa2,personal1);
 		Actividad actividad3 = creaActividad(etapa3,personal1);
-		Actividad actividad4 = creaActividad(etapa1,personal2);
+		Actividad actividad4 = creaActividad(etapa2,personal2);
 		Actividad actividad5 = creaActividad(etapa1,personal1);
-		Actividad actividad6 = creaActividad(etapa1,personal1);
+		Actividad actividad6 = creaActividad(etapa3,personal1);
 		Actividad actividad7 = creaActividad(etapa1,personal1);
-		Actividad actividad8 = creaActividad(etapa1,personal1);
+		Actividad actividad8 = creaActividad(etapa2,personal1);
 
 		System.out.println("Database Inicializada ...");
 
@@ -219,7 +219,7 @@ public class Application implements CommandLineRunner {
 
 	private Actividad creaActividad(Etapa etapa, Personal personal){
 		Actividad actividad = new Actividad();
-		actividad.setNombreActividad("Actividad de prueba");
+		actividad.setNombre("Actividad de prueba");
 		actividad.setDescripcion("Descrición de la actividad realizada...");
 		actividad.setEstado(ActividadEstado.PROCESO);
 		actividad.setEtapa(etapa);
