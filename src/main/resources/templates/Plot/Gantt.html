@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+  <script src="/htmx.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Gantt del Proyecto</title>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    google.charts.load("current", { packages: ["gantt"] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    todos = new Array();
+
+    function toMilliseconds(minutes) {
+      return minutes * 60 * 1000;
+    }
+
+    function daysToMilliseconds(days) {
+      return days * 24 * 60 * 60 * 1000;
+    }
+
+    function drawChart() {
+      otherData = new google.visualization.DataTable();
+      otherData.addColumn("string", "Task ID");
+      otherData.addColumn("string", "Task Name");
+      otherData.addColumn("string", "Resource");
+      otherData.addColumn("date", "Start");
+      otherData.addColumn("date", "End");
+      otherData.addColumn("number", "Duration");
+      otherData.addColumn("number", "Percent Complete");
+      otherData.addColumn("string", "Dependencies");
+
+    };
+
+    function grafica(renglones) {
+      graphData = new google.visualization.DataTable();
+      graphData.addColumn("string", "Task ID");
+      graphData.addColumn("string", "Task Name");
+      graphData.addColumn("string", "Resource");
+      graphData.addColumn("date", "Start");
+      graphData.addColumn("date", "End");
+      graphData.addColumn("number", "Duration");
+      graphData.addColumn("number", "Percent Complete");
+      graphData.addColumn("string", "Dependencies");
+      graphData.addRows(renglones);
+
+      var options = {
+        height: 275,
+        width: 1024,
+        gantt: {
+          defaultStartDate: new Date(2015, 3, 28),
+        },
+      };
+
+      var chart = new google.visualization.Gantt(
+        document.getElementById("chart_div")
+      );
+
+      console.log("Dibujando la grafica");
+      chart.draw(graphData, options);
+    };
+
+  </script>
+</head>
+<body>
+<h1>Gantt del proyecto</h1>
+
+<div>
+  <button onclick="grafica(todos);">
+    Grafica
+  </button>
+</div>
+
+<div>
+    <span>
+        Lista de rows
+    </span>
+  <table>
+    <tr>
+      <th>NAME</th>
+      <th>START</th>
+      <th>RESOURCES</th>
+      <th>DURATION</th>
+    </tr>
+    <tr th:each="etapa : ${etapas}">
+      <script th:inline="javascript">
+        /*<![CDATA[*/
+
+            var taskId = /*[[${etapa.taskId}]]*/ 'default';
+            var taskName = /*[[${etapa.taskName}]]*/ 'default';
+            var resource = /*[[${etapa.resource}]]*/ 'default';
+            var startDateString  = /*[[${etapa.startDate}]]*/ ;
+            var startDate = Date.parse(startDateString);
+            var startDateDate = new Date(startDate);
+            var endDateString = /*[[${etapa.endDate}]]*/ ;
+            var endDate = Date.parse(endDateString);
+            var endDateDate = new Date(endDate);
+            var duration = /*[[${etapa.duration}]]*/ 'default';
+            var pctComplete = /*[[${etapa.pctComplete}]]*/ 'default';
+            var dependencies = 'null';
+             console.log("Start:" + startDate);
+
+            array = [taskId, taskName, resource, startDateDate, endDateDate, duration, pctComplete, null]
+            todos.unshift(array);
+            console.log(array);
+            console.log("=================================================");
+            console.log(todos);
+
+        /*]]>*/
+      </script>
+      <td th:text="${etapa.taskName}">Onions</td>
+      <td th:text="${etapa.startDate}">Onions</td>
+      <td th:text="${etapa.resource}">2.41</td>
+      <td th:text="${etapa.duration}">yes</td>
+    </tr>
+  </table>
+</div>
+<div id="chart_div"></div>
+
+</body>
+</html>

@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 @SpringBootApplication
@@ -56,15 +57,24 @@ public class Application implements CommandLineRunner {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
+	Random r = new Random();
+
 	@Override
 	public void run(String... args) throws Exception {
+
 		System.out.println("Inicializando la base...");
-		Personal personal1 = createPersonal("01", PersonalCategoria.ITA);;
-		Personal personal2 = createPersonal("02", PersonalCategoria.ITB);;
-		Personal personal3 = createPersonal("03", PersonalCategoria.ITC);;
-		Personal personal4 = createPersonal("04", PersonalCategoria.TTA);;
-		Personal personal5 = createPersonal("05", PersonalCategoria.TTB);;
-		Personal personal6 = createPersonal("06", PersonalCategoria.TTC);;
+		Personal personal1 = createPersonal("01", PersonalCategoria.ITA);
+		;
+		Personal personal2 = createPersonal("02", PersonalCategoria.ITB);
+		;
+		Personal personal3 = createPersonal("03", PersonalCategoria.ITC);
+		;
+		Personal personal4 = createPersonal("04", PersonalCategoria.TTA);
+		;
+		Personal personal5 = createPersonal("05", PersonalCategoria.TTB);
+		;
+		Personal personal6 = createPersonal("06", PersonalCategoria.TTC);
+		;
 
 		Cliente cliente1 = createCliente("100");
 		Cliente cliente2 = createCliente("101");
@@ -79,11 +89,11 @@ public class Application implements CommandLineRunner {
 		Servicio servicio4 = createServicio("204");
 		Servicio servicio5 = createServicio("205");
 
-		Proyecto proyecto1 = createProyecto("1000",personal1, cliente1);
-		Proyecto proyecto2 = createProyecto("1001",personal1, cliente2);
-		Proyecto proyecto3 = createProyecto("1003",personal2, cliente3);
-		Proyecto proyecto4 = createProyecto("1002",personal3, cliente4);
-		Proyecto proyecto5 = createProyecto("1004",personal4, cliente5);
+		Proyecto proyecto1 = createProyecto("1000", personal1, cliente1);
+		Proyecto proyecto2 = createProyecto("1001", personal1, cliente2);
+		Proyecto proyecto3 = createProyecto("1003", personal2, cliente3);
+		Proyecto proyecto4 = createProyecto("1002", personal3, cliente4);
+		Proyecto proyecto5 = createProyecto("1004", personal4, cliente5);
 
 		Etapa etapa1 = creaEtapa(personal1, proyecto1, servicio1);
 		Etapa etapa2 = creaEtapa(personal2, proyecto2, servicio2);
@@ -101,14 +111,14 @@ public class Application implements CommandLineRunner {
 		Usuario usr3 = creaUsuario("user03", "pass03");
 
 
-		Actividad actividad1 = creaActividad(etapa1,personal1);
-		Actividad actividad2 = creaActividad(etapa2,personal1);
-		Actividad actividad3 = creaActividad(etapa3,personal1);
-		Actividad actividad4 = creaActividad(etapa2,personal2);
-		Actividad actividad5 = creaActividad(etapa1,personal1);
-		Actividad actividad6 = creaActividad(etapa3,personal1);
-		Actividad actividad7 = creaActividad(etapa1,personal1);
-		Actividad actividad8 = creaActividad(etapa2,personal1);
+		Actividad actividad1 = creaActividad(etapa1, personal1);
+		Actividad actividad2 = creaActividad(etapa2, personal1);
+		Actividad actividad3 = creaActividad(etapa3, personal1);
+		Actividad actividad4 = creaActividad(etapa2, personal2);
+		Actividad actividad5 = creaActividad(etapa1, personal1);
+		Actividad actividad6 = creaActividad(etapa3, personal1);
+		Actividad actividad7 = creaActividad(etapa1, personal1);
+		Actividad actividad8 = creaActividad(etapa2, personal1);
 
 		System.out.println("Database Inicializada ...");
 
@@ -117,8 +127,8 @@ public class Application implements CommandLineRunner {
 	private Personal createPersonal(String post, PersonalCategoria categoria) {
 		Personal personal = new Personal();
 		personal.setId(0L);
-		personal.setNombre("Nombre_" + post );
-		personal.setApellidos("Apellidos-" +post);
+		personal.setNombre("Nombre_" + post);
+		personal.setApellidos("Apellidos-" + post);
 		personal.setCategoria(categoria);
 		personal.setRate(new BigDecimal("10.30"));
 		personal.setUserUpdate("Update user-" + post);
@@ -143,7 +153,7 @@ public class Application implements CommandLineRunner {
 		return res;
 	}
 
-	private Servicio createServicio(String post){
+	private Servicio createServicio(String post) {
 		Servicio servicio = new Servicio();
 		servicio.setCosto(new BigDecimal("23.12"));
 		servicio.setEntregableEsperado("Reporte del servicio");
@@ -158,7 +168,7 @@ public class Application implements CommandLineRunner {
 		return res;
 	}
 
-	private Proyecto  createProyecto(String post, Personal responsable, Cliente cliente){
+	private Proyecto createProyecto(String post, Personal responsable, Cliente cliente) {
 		Proyecto proyecto = new Proyecto();
 		proyecto.setResponsable(responsable);
 		proyecto.setTipoProyecto(TipoProyecto.INDUSTRIA);
@@ -183,9 +193,10 @@ public class Application implements CommandLineRunner {
 		etapa.setNombre("Etapa del proyecto ");
 		etapa.setDescripcion("Etapa para hacer lo que el cliente quiere");
 		etapa.setFechaEstimadaInicio(LocalDate.of(2024, 1, 20));
-		etapa.setFechaEstimadaTerminacion((LocalDate.of(2024,02, 02) ));
+		etapa.setFechaEstimadaTerminacion((LocalDate.of(2024, 02, 02)));
 		etapa.setServicio(servicio);
 		etapa.setStatus("Status de la etapa"); // TODO: crear data type
+		etapa.setPctCompleto(nextRandom(10, 80));
 		// etapa.setId(0L);
 
 		Etapa res = etapaRepository.save(etapa);
@@ -197,10 +208,10 @@ public class Application implements CommandLineRunner {
 		return res;
 	}
 
-	private Documento creaDocumento(String nombre, Proyecto proyecto){
+	private Documento creaDocumento(String nombre, Proyecto proyecto) {
 		Documento documento = new Documento();
 		documento.setDescripcion("Descripción corta del documento " + nombre);
-		documento.setNombre(nombre );
+		documento.setNombre(nombre);
 		documento.setNombreArchivo("Propuesta del cliente");
 
 		Documento res = documentoRepository.save(documento);
@@ -217,14 +228,14 @@ public class Application implements CommandLineRunner {
 		return res;
 	}
 
-	private Actividad creaActividad(Etapa etapa, Personal personal){
+	private Actividad creaActividad(Etapa etapa, Personal personal) {
 		Actividad actividad = new Actividad();
 		actividad.setNombre("Actividad de prueba");
 		actividad.setDescripcion("Descrición de la actividad realizada...");
 		actividad.setEstado(ActividadEstado.PROCESO);
 		actividad.setEtapa(etapa);
-		actividad.setFechaInicio(LocalDate.of(2024,10,14));
-		actividad.setFechaTerminacion(LocalDate.of(2024,11,10));
+		actividad.setFechaInicio(LocalDate.of(2024, 10, 14));
+		actividad.setFechaTerminacion(LocalDate.of(2024, 11, 10));
 		actividad.setHorasUtilizadas(40);
 		actividad.setRealizadoPor(personal);
 
@@ -235,6 +246,11 @@ public class Application implements CommandLineRunner {
 	@Bean
 	public StorageProperties storageProperties() {
 		return new StorageProperties();
+	}
+
+	private int nextRandom(int low, int high) {
+		int result = r.nextInt(high - low) + low;
+		return result;
 	}
 
 }

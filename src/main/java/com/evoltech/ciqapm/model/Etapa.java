@@ -45,10 +45,17 @@ public class Etapa extends BaseClass {
 
     private LocalDate fechaRealTerminacion;
 
-    /*
-    @OneToMany(mappedBy = "etapa")
-    private Set<Actividad> actividades;
-
-     */
+    private Integer pctCompleto;
 
 }
+
+/*
+private String taskId;        == id.toString
+private String taskName;      == nombre
+private String resource;      == servicio.nombre
+private String startDate;     == fechaRealInicio
+private String endDate;       == fechaEstimadaTerminacion
+private Double pctComplete;   == pctCompleto  TODO
+ */
+
+
