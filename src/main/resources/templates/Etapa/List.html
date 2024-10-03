@@ -45,13 +45,13 @@
                         <tbody class="divide-y divide-gray-200">
                         <tr th:each="etapa : ${etapas}">
                             <td th:text="${etapa.nombre}"
-                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">Etapa
+                                class="whitespace py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">Etapa
                             </td>
                             <td th:text="${etapa.descripcion}"
-                                class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Front-end Developer
+                                class="whitespace px-3 py-4 text-sm text-gray-500">Front-end Developer
                             </td>
                             <td th:text="${etapa.responsable.nombre}"
-                                class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Front-end Developer
+                                class="whitespace px-3 py-4 text-sm text-gray-500">Front-end Developer
                             </td>
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                 <a th:href="@{/etapa/edit(id=${etapa.id})}"
