@@ -107,9 +107,10 @@ public class DocumentoController {
         documento.setDescripcion(descripcion.toString());
         documento.setNombre(nombre.toString());
         documento.setProyecto(proyectoObj);
-        documentoRepository.save(documento);
 
-        storageService.store(file);
+        String newFilename = storageService.store(file);
+        documento.setNombreArchivo(newFilename);
+        Documento doc =  documentoRepository.save(documento);
 
         return "redirect:/proyecto/list";
     }
