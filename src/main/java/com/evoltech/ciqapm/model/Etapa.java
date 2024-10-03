@@ -6,9 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
@@ -48,7 +45,7 @@ public class Etapa extends BaseClass {
     private Integer pctCompleto;
 
     @Enumerated(EnumType.STRING)
-    private EtapaEstado estado;
+    private Estado estado;
 }
 
 /*

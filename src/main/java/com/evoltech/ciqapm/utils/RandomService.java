@@ -4,6 +4,9 @@ package com.evoltech.ciqapm.utils;
  * generador de random con diferentes criterios y límites
  */
 
+import com.evoltech.ciqapm.model.Estado;
+import com.evoltech.ciqapm.model.PersonalCategoria;
+import com.evoltech.ciqapm.model.TipoProyecto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,8 +64,24 @@ public class RandomService {
         return startDate.plusDays(offset_inicio);
     }
 
+    public PersonalCategoria generaPersonalCategoria() {
+        return generadorRandom.generaPersonalCategoria();
+    }
+
+    public TipoProyecto generaProyectoTipo(){
+        return generadorRandom.generaProyectoTipo();
+    }
+
+    public Estado generaEstado(){
+        return generadorRandom.generaEstado();
+    }
+
     public int avances() {
         return generadorRandom.generaPctAvance();
+    }
+
+    public double generaCostoRandom() {
+        return (generadorRandom.enteroLimitado(1000,9999) * 10.5) ;
     }
 
 

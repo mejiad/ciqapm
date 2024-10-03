@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Slf4j
@@ -14,10 +15,10 @@ public abstract class BaseClass implements Serializable {
     private String status = "Inicio";  // TODO: definir los status. Crear enum
 
     @Column
-    private Date createDate;
+    private LocalDate createDate;
 
     @Column
-    private Date updateDate;
+    private LocalDate updateDate;
 
     @Column
     private String userUpdate;
@@ -49,26 +50,26 @@ public abstract class BaseClass implements Serializable {
         this.status = status;
     }
 
-    public Date getCreateDate(){
+    public LocalDate getCreateDate(){
         return createDate;
     }
 
-    public void setCreateDate(Date createDate){
+    public void setCreateDate(LocalDate createDate){
         this.createDate = createDate;
     }
 
-    public Date getUpdateDate() {
+    public LocalDate getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(LocalDate updateDate) {
         this.updateDate = updateDate;
     }
 
     @PrePersist
     private void prePersist(){
         status = "Creado";
-        createDate = new Date();
+        createDate = LocalDate.now();
         log.info("++++++ PrePersist." + this.getClass().getName());
     }
 

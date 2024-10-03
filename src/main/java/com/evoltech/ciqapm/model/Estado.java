@@ -1,6 +1,6 @@
 package com.evoltech.ciqapm.model;
 
-public enum EtapaEstado {
+public enum Estado {
     PROCESO,
     CANCELADA,
     TERMINADA

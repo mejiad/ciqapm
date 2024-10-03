@@ -97,7 +97,7 @@ public class MainController {
         servicio.setId(0L);
         servicio.setNombre("Primer servicio");
         servicio.setDescripcion("Decripcion primer servicio");
-        servicio.setCosto(new BigDecimal("100.9599"));
+        servicio.setCosto(100.9);
         servicio.setEntregableEsperado("Reporte de etapa");
         servicio.setHorasPromedioRealizacion(100);
         servicioService.save(servicio);
@@ -199,7 +199,7 @@ public class MainController {
         servicio.setNombre("Primer servicio");
         servicio.setDescripcion("Ir por las cocas");
         servicio.setEntregableEsperado("Dos botellas de vidrio de cocas");
-        servicio.setCosto(new BigDecimal("123.34"));
+        servicio.setCosto(123.34);
 
         Servicio res = servicioService.save(servicio);
         return  res;

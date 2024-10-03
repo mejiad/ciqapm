@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
@@ -24,6 +23,9 @@ public class Proyecto extends BaseClass {
 
     @Enumerated(EnumType.STRING)
     private TipoProyecto tipoProyecto;
+
+    @Enumerated(EnumType.STRING)
+    private Estado estatus;
 
     @ManyToOne
     @JoinColumn(name="responsable_id", nullable=false)

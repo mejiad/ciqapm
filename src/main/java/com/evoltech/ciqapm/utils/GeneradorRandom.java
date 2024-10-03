@@ -1,5 +1,8 @@
 package com.evoltech.ciqapm.utils;
 
+import com.evoltech.ciqapm.model.Estado;
+import com.evoltech.ciqapm.model.PersonalCategoria;
+import com.evoltech.ciqapm.model.TipoProyecto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationStartingEvent;
 import org.springframework.stereotype.Component;
@@ -7,6 +10,7 @@ import org.unbescape.csv.CsvEscape;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -16,7 +20,14 @@ import java.util.Random;
 @Component
 public class GeneradorRandom {
 
-    private String lorem = "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus";
+    private String lorem = """
+                    Lorem ipsum dolor sit amet. Et rerum assumenda et fuga sequi hic quibusdam obcaecati qui autem laudantium et consequatur assumenda quo sint consectetur aut maiores delectus. Qui asperiores sint ut saepe possimus et velit quas id rerum veniam aut explicabo sequi sit quasi rerum ea numquam laudantium.
+                    
+                    Et ipsa minima aut exercitationem illum eum quisquam sint sed voluptas minus qui modi quos aut debitis reiciendis qui soluta dolores. Ea dolorum assumenda qui nobis facilis qui iusto sequi id inventore voluptas eum voluptas corrupti.
+                    
+                    Id natus nostrum qui illo aliquid aut dolor sapiente hic quis autem in sunt velit. Ut minus modi non accusamus quod quo atque ipsum et quod repellendus vel pariatur libero sed consequatur blanditiis. Est esse cumque ut voluptas nesciunt et deserunt enim.
+                    """;
+
 
     private List<String> nombres = List.of( "Andrés", "Gerard", "Lionel", "Neymar", "Ana", "Enzo", "Eric",
             "Eva", "Hugo", "Iván", "Juan", "Lara", "Leo", "Luz", "Mar", "Nora", "Raúl", "Sara", "Héctor", "Helena", "Isis",
@@ -162,6 +173,23 @@ public class GeneradorRandom {
 
     public String generaEntragable(){
         return etapaEntregable.get(enteroMax(etapaEntregable.size()-1));
+    }
+
+    public PersonalCategoria generaPersonalCategoria() {
+        int len = PersonalCategoria.values().length;
+
+        return Arrays.stream(PersonalCategoria.values()).toList().get(enteroMax(len -1));
+    }
+
+    public TipoProyecto generaProyectoTipo() {
+        int len = TipoProyecto.values().length;
+
+        return Arrays.stream(TipoProyecto.values()).toList().get(enteroMax(len -1));
+    }
+
+    public Estado generaEstado() {
+        int len = Estado.values().length;
+        return Arrays.stream(Estado.values()).toList().get(enteroMax(len -1));
     }
 
     public int enteroMax(int max){

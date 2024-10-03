@@ -1,21 +1,14 @@
 package com.evoltech.ciqapm.utils;
 
-import com.evoltech.ciqapm.config.StorageProperties;
 import com.evoltech.ciqapm.model.*;
 import com.evoltech.ciqapm.repository.*;
 import com.evoltech.ciqapm.security.Usuario;
-import org.hibernate.annotations.FilterDefs;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;/*
- * Carga dummy de datos
- */
 
 @Service
 public class DataLoad {
@@ -67,12 +60,12 @@ public class DataLoad {
 
     public void initializa() {
         System.out.println("Inicializando la base...");
-        Personal personal1 = createPersonal("01", PersonalCategoria.ITA);
-        Personal personal2 = createPersonal("02", PersonalCategoria.ITB);
-        Personal personal3 = createPersonal("03", PersonalCategoria.ITC);
-        Personal personal4 = createPersonal("04", PersonalCategoria.TTA);
-        Personal personal5 = createPersonal("05", PersonalCategoria.TTB);
-        Personal personal6 = createPersonal("06", PersonalCategoria.TTC);
+        Personal personal1 = createPersonal(PersonalCategoria.ITA);
+        Personal personal2 = createPersonal(PersonalCategoria.ITB);
+        Personal personal3 = createPersonal(PersonalCategoria.ITC);
+        Personal personal4 = createPersonal(PersonalCategoria.TTA);
+        Personal personal5 = createPersonal(PersonalCategoria.TTB);
+        Personal personal6 = createPersonal(PersonalCategoria.TTC);
 
         Cliente cliente1 = createCliente("100");
         Cliente cliente2 = createCliente("101");
@@ -81,11 +74,11 @@ public class DataLoad {
         Cliente cliente5 = createCliente("104");
         Cliente cliente6 = createCliente("105");
 
-        Servicio servicio1 = createServicio("201");
-        Servicio servicio2 = createServicio("202");
-        Servicio servicio3 = createServicio("203");
-        Servicio servicio4 = createServicio("204");
-        Servicio servicio5 = createServicio("205");
+        Servicio servicio1 = createServicio();
+        Servicio servicio2 = createServicio();
+        Servicio servicio3 = createServicio();
+        Servicio servicio4 = createServicio();
+        Servicio servicio5 = createServicio();
 
         Proyecto proyecto1 = createProyecto("1000", personal1, cliente1);
         Proyecto proyecto2 = createProyecto("1001", personal1, cliente2);
@@ -158,16 +151,13 @@ public class DataLoad {
 
     }
 
-    private Personal createPersonal(String post, PersonalCategoria categoria) {
+    private Personal createPersonal(PersonalCategoria categoria) {
         Personal personal = new Personal();
         personal.setNombre(randomService.nombre());
-        personal.setApellidos("Apellidos-" + post);
-        personal.setCategoria(categoria);
+        personal.setCategoria(randomService.generaPersonalCategoria());
         personal.setRate(new BigDecimal("10.30"));
-        personal.setUserUpdate("Update user-" + post);
-        personal.setUpdateDate(new Date("01/01/2024"));
-        personal.setCreateUser("Create user-" + post);
-        personal.setCreateDate(new Date("02/02/2023"));
+        personal.setUserUpdate("Update user- ");
+        personal.setCreateUser("Create user- ");
 
         Personal res = personalRepository.save(personal);
         return res;
@@ -185,16 +175,13 @@ public class DataLoad {
         return res;
     }
 
-    private Servicio createServicio(String post) {
+    private Servicio createServicio() {
         Servicio servicio = new Servicio();
-        servicio.setCosto(new BigDecimal("23.12"));
-        servicio.setEntregableEsperado("Reporte del servicio");
-        servicio.setDescripcion("La descripcion del servicio");
-        servicio.setNombre("Servicio-" + post);
-        servicio.setId(0L);
-        servicio.setHorasPromedioRealizacion(200);
-        servicio.setCreateUser("Create user");
-        servicio.setUserUpdate("Update user");
+        servicio.setCosto(randomService.generaCostoRandom());
+        servicio.setEntregableEsperado(randomService.etapaEntregable());
+        servicio.setDescripcion(randomService.descripcion(30));
+        servicio.setNombre(randomService.etapaNombre());
+        servicio.setHorasPromedioRealizacion(randomService.avances());
 
         Servicio res = servicioRepository.save(servicio);
         return res;
@@ -203,12 +190,11 @@ public class DataLoad {
     private Proyecto createProyecto(String post, Personal responsable, Cliente cliente) {
         Proyecto proyecto = new Proyecto();
         proyecto.setResponsable(responsable);
-        proyecto.setTipoProyecto(TipoProyecto.INDUSTRIA);
+        proyecto.setTipoProyecto(randomService.generaProyectoTipo());
         proyecto.setNombre("Proyecto-" + post);
         proyecto.setDescripcion(randomService.descripcion(250));
         proyecto.setCliente(cliente);
-        proyecto.setCreateUser("Create User");
-        proyecto.setStatus("Status del proyecto"); // TODO: crear status
+        proyecto.setEstatus(Estado.PROCESO);
 
         Proyecto res = proyectoRepository.save(proyecto);
         return res;
@@ -228,7 +214,7 @@ public class DataLoad {
         etapa.setFechaEstimadaTerminacion(randomService.fechaConOffset(fechaInicio));
         etapa.setServicio(servicio);
         etapa.setPctCompleto(randomService.avances());
-        etapa.setEstado(EtapaEstado.PROCESO);
+        etapa.setEstado(Estado.PROCESO);
 
         Etapa res = etapaRepository.save(etapa);
 
