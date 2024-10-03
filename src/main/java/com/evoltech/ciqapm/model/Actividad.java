@@ -21,15 +21,11 @@ public class Actividad extends BaseClass {
 
     private String descripcion;
 
-    private Servicio servicio;
-
     private LocalDate fechaInicio;
 
     private ActividadEstado estado;
 
-    private LocalDate fechaTerminacion;
-
-    private Integer horasUtilizadas;
+    private Integer horas;
 
     @ManyToOne
     @JoinColumn(name="etapa", nullable=false)

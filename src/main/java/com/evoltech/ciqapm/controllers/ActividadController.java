@@ -4,6 +4,7 @@ import com.evoltech.ciqapm.model.Actividad;
 import com.evoltech.ciqapm.model.Etapa;
 import com.evoltech.ciqapm.repository.ActividadRepository;
 import com.evoltech.ciqapm.repository.EtapaRepository;
+import com.evoltech.ciqapm.repository.ProyectoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,13 +23,19 @@ import java.util.List;
 public class ActividadController {
 
     @Autowired
+    ProyectoRepository proyectoRepository;
+
+    @Autowired
     EtapaRepository etapaRepository;
 
     @Autowired
     ActividadRepository actividadRepository;
 
-    public ActividadController(ActividadRepository documentoRepository,
-                               EtapaRepository etapaRepository) {
+    public ActividadController(ProyectoRepository proyectoRepository,
+                               EtapaRepository etapaRepository,
+                               ActividadRepository actividadRepository) {
+        this.proyectoRepository = proyectoRepository;
+        this.etapaRepository = etapaRepository;
         this.actividadRepository = actividadRepository;
     }
 
