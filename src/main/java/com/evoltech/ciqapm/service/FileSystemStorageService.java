@@ -47,7 +47,7 @@ public class FileSystemStorageService implements StorageService{
     }
 
     @Override
-    public void store(MultipartFile file) {
+    public String store(MultipartFile file) {
 
         String newFileName = generateFileName(file);
         log.info("New file name: " + newFileName);
@@ -68,6 +68,7 @@ public class FileSystemStorageService implements StorageService{
         } catch (IOException e) {
             throw new StorageException("Fails to store file.", e );
         }
+        return newFileName;
     }
 
     private String generateFileName(MultipartFile file){
