@@ -97,7 +97,7 @@
                                                  th:hx-get="@{/etapa/list(id=${proyecto.id})}" hx-trigger="load">
                                             </div>
                                             <div class="hidden opacity-0" id="profile" role="tabpanel"
-                                                 th:hx-get="@{/documento/list}" hx-trigger="load">
+                                                 th:hx-get="@{/documento/list(id=${proyecto.id})}" hx-trigger="load">
                                             </div>
                                             <div class="hidden opacity-0" id="settings" role="tabpanel"
                                                  th:hx-get="@{/personal/list}" hx-trigger="load">

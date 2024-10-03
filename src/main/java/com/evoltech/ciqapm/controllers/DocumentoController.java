@@ -2,7 +2,9 @@ package com.evoltech.ciqapm.controllers;
 
 import com.evoltech.ciqapm.model.Documento;
 import com.evoltech.ciqapm.model.Personal;
+import com.evoltech.ciqapm.model.Proyecto;
 import com.evoltech.ciqapm.repository.DocumentoRepository;
+import com.evoltech.ciqapm.repository.ProyectoRepository;
 import com.evoltech.ciqapm.service.StorageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.print.Doc;
+import java.security.cert.TrustAnchor;
 import java.util.List;
 
 @Slf4j
@@ -25,15 +29,20 @@ public class DocumentoController {
     @Autowired
     StorageService storageService;
 
+    @Autowired
+    ProyectoRepository proyectoRepository;
+
     public DocumentoController(DocumentoRepository documentoRepository, StorageService storageService) {
         this.documentoRepository = documentoRepository;
         this.storageService = storageService;
     }
 
     @GetMapping("/list")
-    public String listDocumento(Model model){
+    public String listDocumento(@RequestParam("id") Long id, Model model){
+        Proyecto proyecto = proyectoRepository.getReferenceById(id);
+        List<Documento> documento = documentoRepository.findByProyecto(proyecto);
 
-        List<Documento> documento = documentoRepository.findAll();
+        model.addAttribute("proyecto", proyecto);
         model.addAttribute("documento", documento);
 
         return "/Documento/List";
@@ -57,9 +66,13 @@ public class DocumentoController {
     }
 
     @GetMapping("/new")
-    public String newDocumento(Model model){
+    public String newDocumento(@RequestParam("id") Long id, Model model){
         Documento documento = new Documento();
+        Proyecto proyecto = proyectoRepository.getReferenceById(id);
+        documento.setProyecto(proyecto);
+
         model.addAttribute("documento", documento);
+        model.addAttribute("proyecto", proyecto);
 
         return "/Documento/Edit";
     }
@@ -76,11 +89,26 @@ public class DocumentoController {
      */
     @PostMapping(value = "/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String saveDocumento(@RequestBody MultipartFile file,
-                                @RequestParam String nombre) {
+                                @RequestParam String nombre,
+                                @RequestParam String descripcion,
+                                @RequestParam String proyecto
+                                ) {
 
-        // System.out.println("Documento salvado ID: " + documento.getNombre());")
+        Documento documento = new Documento();
+
+        System.out.println("Documento salvado ID: " + nombre);
         System.out.println("File: " + file.getOriginalFilename());
         System.out.println("Name: " + nombre.toString());
+        System.out.println("Descripcion: " + descripcion.toString());
+        System.out.println("Proyecto: " + proyecto.toString());
+        Long proyectoId = Long.parseLong(proyecto.toString());
+        Proyecto proyectoObj = proyectoRepository.getReferenceById(proyectoId);
+        documento.setNombreArchivo(file.getOriginalFilename());
+        documento.setDescripcion(descripcion.toString());
+        documento.setNombre(nombre.toString());
+        documento.setProyecto(proyectoObj);
+        documentoRepository.save(documento);
+
         storageService.store(file);
 
         return "redirect:/proyecto/list";

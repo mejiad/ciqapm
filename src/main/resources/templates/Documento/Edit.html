@@ -8,6 +8,11 @@
 </head>
 <body class="flex flex-col min-h-screen">
 <div>
+    [[
+    ${proyecto.id}
+    ]]
+</div>
+<div>
     <div th:insert="~{sidebar}"></div>
     <div th:insert="~{header}"></div>
     <main class="lg:pl-72">
@@ -43,6 +48,13 @@
                                                 <label for="descripcion" class="block text-sm font-medium leading-6 text-sky-900">Descripción</label>
                                                 <div class="mt-2">
                                                     <textarea id="descripcion" name="descripcion" rows="5" cols="60" th:value="*{descripcion}" class="block font-thin w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6"></textarea>
+                                                </div>
+                                                <p class="text-sm leading-6 text-gray-300 italic font-normal">Breve descripción de esta parte del proyecto.</p>
+                                            </div>
+                                            <div class="col-span-full">
+                                                <label for="proyecto" class="block text-sm font-medium leading-6 text-sky-900">Proyecto</label>
+                                                <div class="mt-2">
+                                                    <input id="proyecto" name="proyecto" cols="60" th:value="${proyecto.id}" class="block font-thin w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6"></winpput>
                                                 </div>
                                                 <p class="text-sm leading-6 text-gray-300 italic font-normal">Breve descripción de esta parte del proyecto.</p>
                                             </div>
