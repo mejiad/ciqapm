@@ -223,9 +223,10 @@ public class DataLoad {
 
     private Documento creaDocumento(String nombre, Proyecto proyecto) {
         Documento documento = new Documento();
-        documento.setDescripcion("Descripción corta del documento " + nombre);
+        documento.setDescripcion(randomService.descripcion(100));
         documento.setNombre(nombre);
-        documento.setNombreArchivo("Propuesta del cliente");
+        documento.setNombreArchivo(randomService.etapaEntregable());
+        documento.setProyecto(proyecto);
 
         Documento res = documentoRepository.save(documento);
         return res;

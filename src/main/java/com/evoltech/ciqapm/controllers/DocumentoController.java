@@ -40,10 +40,10 @@ public class DocumentoController {
     @GetMapping("/list")
     public String listDocumento(@RequestParam("id") Long id, Model model){
         Proyecto proyecto = proyectoRepository.getReferenceById(id);
-        List<Documento> documento = documentoRepository.findByProyecto(proyecto);
+        List<Documento> documentos = documentoRepository.findByProyecto(proyecto);
 
         model.addAttribute("proyecto", proyecto);
-        model.addAttribute("documento", documento);
+        model.addAttribute("documentos", documentos);
 
         return "/Documento/List";
     }
