@@ -249,8 +249,7 @@ public class DataLoad {
         actividad.setEstado(ActividadEstado.PROCESO);
         actividad.setEtapa(etapa);
         actividad.setFechaInicio(LocalDate.of(2024, 10, 14));
-        actividad.setFechaTerminacion(LocalDate.of(2024, 11, 10));
-        actividad.setHorasUtilizadas(40);
+        actividad.setHoras(40);
         actividad.setRealizadoPor(personal);
 
         Actividad res = actividadRepository.save(actividad);
