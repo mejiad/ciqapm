@@ -47,6 +47,8 @@ public class Etapa extends BaseClass {
 
     private Integer pctCompleto;
 
+    @Enumerated(EnumType.STRING)
+    private EtapaEstado estado;
 }
 
 /*

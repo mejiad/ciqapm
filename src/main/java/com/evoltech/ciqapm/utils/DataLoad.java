@@ -4,6 +4,7 @@ import com.evoltech.ciqapm.config.StorageProperties;
 import com.evoltech.ciqapm.model.*;
 import com.evoltech.ciqapm.repository.*;
 import com.evoltech.ciqapm.security.Usuario;
+import org.hibernate.annotations.FilterDefs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -45,6 +46,8 @@ public class DataLoad {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired RandomService randomService;
+
     public DataLoad(PersonalRepository repository, ClienteRepository clienteRepository,
                     ServicioRepository servicioRepository, ProyectoRepository proyectoRepository,
                     EtapaRepository etapaRepository, DocumentoRepository documentoRepository,
@@ -62,7 +65,7 @@ public class DataLoad {
         this.passwordEncoder = passwordEncoder;
     }
 
-    private void initializa() {
+    public void initializa() {
         System.out.println("Inicializando la base...");
         Personal personal1 = createPersonal("01", PersonalCategoria.ITA);
         Personal personal2 = createPersonal("02", PersonalCategoria.ITB);
@@ -90,9 +93,15 @@ public class DataLoad {
         Proyecto proyecto4 = createProyecto("1002", personal3, cliente4);
         Proyecto proyecto5 = createProyecto("1004", personal4, cliente5);
 
-        Etapa etapa1 = creaEtapa(personal1, proyecto1, servicio1);
-        Etapa etapa2 = creaEtapa(personal2, proyecto2, servicio2);
-        Etapa etapa3 = creaEtapa(personal3, proyecto3, servicio3);
+        LocalDate startDate = LocalDate.of(2024, 5, 10 );
+        Etapa etapa1 = creaEtapa(personal1, proyecto1, servicio1, startDate);
+        Etapa etapa2 = creaEtapa(personal2, proyecto1, servicio2, startDate.plusDays(15));
+        Etapa etapa3 = creaEtapa(personal3, proyecto1, servicio3, startDate.plusDays(25));
+        Etapa etapa4 = creaEtapa(personal1, proyecto1, servicio1, startDate.plusDays(12));
+        Etapa etapa5 = creaEtapa(personal2, proyecto1, servicio2, startDate.plusDays(10));
+        Etapa etapa6 = creaEtapa(personal3, proyecto1, servicio1, startDate.plusDays(40));
+        Etapa etapa7 = creaEtapa(personal4, proyecto1, servicio2, startDate.plusDays(60));
+        Etapa etapa8 = creaEtapa(personal5, proyecto1, servicio3, startDate.plusDays(90));
 
         Documento doc1 = creaDocumento("primer documento", proyecto1);
         Documento doc2 = creaDocumento("segundo documento", proyecto1);
@@ -115,14 +124,43 @@ public class DataLoad {
         Actividad actividad7 = creaActividad(etapa1, personal1);
         Actividad actividad8 = creaActividad(etapa2, personal1);
 
+        startDate = LocalDate.of(2024, 7, 10 );
+        Etapa etapa1_p2 = creaEtapa(personal1, proyecto2, servicio1, startDate);
+        Etapa etapa2_p2 = creaEtapa(personal2, proyecto2, servicio2, startDate.plusDays(20));
+        Etapa etapa3_p2 = creaEtapa(personal3, proyecto2, servicio3, startDate.plusDays(12));
+        Etapa etapa4_p2 = creaEtapa(personal1, proyecto2, servicio1, startDate.plusDays(14));
+        Etapa etapa5_p2 = creaEtapa(personal2, proyecto2, servicio2, startDate.plusDays(30));
+        Etapa etapa6_p2 = creaEtapa(personal3, proyecto2, servicio1, startDate.plusDays(28));
+        Etapa etapa7_p2 = creaEtapa(personal4, proyecto2, servicio2, startDate.plusDays(40));
+        Etapa etapa8_p8 = creaEtapa(personal5, proyecto2, servicio3, startDate.plusDays(10));
+
+        startDate = LocalDate.of(2025, 2, 10 );
+        Etapa etapa1_p3 = creaEtapa(personal1, proyecto2, servicio1, startDate);
+        Etapa etapa2_p3 = creaEtapa(personal2, proyecto2, servicio2, startDate.plusDays(15));
+        Etapa etapa3_p3 = creaEtapa(personal3, proyecto2, servicio3, startDate.plusDays(20));
+        Etapa etapa4_p3 = creaEtapa(personal1, proyecto2, servicio1, startDate.plusDays(18));
+        Etapa etapa5_p3 = creaEtapa(personal2, proyecto2, servicio2, startDate.plusDays(14));
+        Etapa etapa6_p3 = creaEtapa(personal3, proyecto2, servicio1, startDate.plusDays(44));
+        Etapa etapa7_p3 = creaEtapa(personal4, proyecto2, servicio2, startDate.plusDays(50));
+        Etapa etapa8_p3 = creaEtapa(personal5, proyecto2, servicio3, startDate.plusDays(90));
+
+        startDate = LocalDate.of(2024, 9, 12 );
+        Etapa etapa1_p4 = creaEtapa(personal1, proyecto2, servicio1, startDate);
+        Etapa etapa2_p4 = creaEtapa(personal2, proyecto2, servicio2, startDate.plusDays(15));
+        Etapa etapa3_p4 = creaEtapa(personal3, proyecto2, servicio3, startDate.plusDays(25));
+        Etapa etapa4_p4 = creaEtapa(personal1, proyecto2, servicio1, startDate.plusDays(12));
+        Etapa etapa5_p4 = creaEtapa(personal2, proyecto2, servicio2, startDate.plusDays(10));
+        Etapa etapa6_p4 = creaEtapa(personal3, proyecto2, servicio1, startDate.plusDays(40));
+        Etapa etapa7_p4 = creaEtapa(personal4, proyecto2, servicio2, startDate.plusDays(60));
+        Etapa etapa8_p4 = creaEtapa(personal5, proyecto2, servicio3, startDate.plusDays(90));
+
         System.out.println("Database Inicializada ...");
 
     }
 
     private Personal createPersonal(String post, PersonalCategoria categoria) {
         Personal personal = new Personal();
-        personal.setId(0L);
-        personal.setNombre("Nombre_" + post);
+        personal.setNombre(randomService.nombre());
         personal.setApellidos("Apellidos-" + post);
         personal.setCategoria(categoria);
         personal.setRate(new BigDecimal("10.30"));
@@ -137,12 +175,11 @@ public class DataLoad {
 
     private Cliente createCliente(String post) {
         Cliente cliente = new Cliente();
-        cliente.setEmail("email@test-" + post + ".com");
-        cliente.setNombre("Cliente-" + post);
-        cliente.setEmail("email-");
-        cliente.setNombreContacto("Contacto-" + post);
-        cliente.setRfc("RFC-" + post);
-        cliente.setTelefono("+52 5522334455" + post);
+        cliente.setEmail(randomService.email());
+        cliente.setNombre(randomService.empresa());
+        cliente.setNombreContacto(randomService.nombre());
+        cliente.setRfc(randomService.rfc());
+        cliente.setTelefono("+52 " + randomService.telefono());
 
         Cliente res = clienteRepository.save(cliente);
         return res;
@@ -168,8 +205,7 @@ public class DataLoad {
         proyecto.setResponsable(responsable);
         proyecto.setTipoProyecto(TipoProyecto.INDUSTRIA);
         proyecto.setNombre("Proyecto-" + post);
-        proyecto.setDescripcion("Descipcion del proyecto Proyecto-" + post + " donde se definen los detalles que debe cumplir este proyecto para su terminación");
-        // proyecto.setEtapas(etapas);
+        proyecto.setDescripcion(randomService.descripcion(250));
         proyecto.setCliente(cliente);
         proyecto.setCreateUser("Create User");
         proyecto.setStatus("Status del proyecto"); // TODO: crear status
@@ -178,26 +214,23 @@ public class DataLoad {
         return res;
     }
 
-    private Etapa creaEtapa(Personal responsable, Proyecto proyecto, Servicio servicio) {
+    private Etapa creaEtapa(Personal responsable, Proyecto proyecto, Servicio servicio,
+                            LocalDate startDate) {
         System.out.println("Proyecto donde se agragara la etapa: " + proyecto.getNombre());
         Etapa etapa = new Etapa();
         etapa.setResponsable(responsable);
-        etapa.setFechaEstimadaTerminacion(LocalDate.of(2025, 02, 03));
         etapa.setProyecto(proyecto);
-        etapa.setEntregable("Entregable de la etapa");
-        etapa.setNombre("Etapa del proyecto ");
-        etapa.setDescripcion("Etapa para hacer lo que el cliente quiere");
-        etapa.setFechaEstimadaInicio(LocalDate.of(2024, 1, 20));
-        etapa.setFechaEstimadaTerminacion((LocalDate.of(2024, 02, 02)));
+        etapa.setEntregable(randomService.etapaEntregable());
+        etapa.setNombre(randomService.etapaNombre());
+        etapa.setDescripcion(randomService.descripcion(120));
+        LocalDate fechaInicio = randomService.fechaConOffset(startDate);
+        etapa.setFechaEstimadaInicio(fechaInicio);
+        etapa.setFechaEstimadaTerminacion(randomService.fechaConOffset(fechaInicio));
         etapa.setServicio(servicio);
-        etapa.setStatus("Status de la etapa"); // TODO: crear data type
-        // etapa.setId(0L);
+        etapa.setPctCompleto(randomService.avances());
+        etapa.setEstado(EtapaEstado.PROCESO);
 
         Etapa res = etapaRepository.save(etapa);
-		/*
-		res.setProyecto(proyecto);
-		res = etapaRepository.save(etapa);
-		 */
 
         return res;
     }
@@ -225,7 +258,7 @@ public class DataLoad {
     private Actividad creaActividad(Etapa etapa, Personal personal) {
         Actividad actividad = new Actividad();
         actividad.setNombre("Actividad de prueba");
-        actividad.setDescripcion("Descrición de la actividad realizada...");
+        actividad.setDescripcion(randomService.descripcion(120));
         actividad.setEstado(ActividadEstado.PROCESO);
         actividad.setEtapa(etapa);
         actividad.setFechaInicio(LocalDate.of(2024, 10, 14));

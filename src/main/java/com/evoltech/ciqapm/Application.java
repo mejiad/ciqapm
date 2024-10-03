@@ -7,6 +7,7 @@ import com.evoltech.ciqapm.repository.*;
 import com.evoltech.ciqapm.security.Usuario;
 import com.evoltech.ciqapm.service.FileSystemStorageService;
 import com.evoltech.ciqapm.service.StorageService;
+import com.evoltech.ciqapm.utils.DataLoad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -30,6 +31,7 @@ public class Application implements CommandLineRunner {
 		SpringApplication.run(Application.class, args);
 	}
 
+	/*
 	@Autowired
 	PersonalRepository repository;
 
@@ -59,9 +61,18 @@ public class Application implements CommandLineRunner {
 
 	Random r = new Random();
 
+	 */
+
+	@Autowired
+	DataLoad dataLoad;
+
+
 	@Override
 	public void run(String... args) throws Exception {
 
+		dataLoad.initializa();
+
+		/*
 		System.out.println("Inicializando la base...");
 		Personal personal1 = createPersonal("01", PersonalCategoria.ITA);
 		;
@@ -121,9 +132,13 @@ public class Application implements CommandLineRunner {
 		Actividad actividad8 = creaActividad(etapa2, personal1);
 
 		System.out.println("Database Inicializada ...");
+		 */
 
 	}
 
+
+
+	/*
 	private Personal createPersonal(String post, PersonalCategoria categoria) {
 		Personal personal = new Personal();
 		personal.setId(0L);
@@ -139,7 +154,9 @@ public class Application implements CommandLineRunner {
 		Personal res = repository.save(personal);
 		return res;
 	}
+	 */
 
+	/*
 	private Cliente createCliente(String post) {
 		Cliente cliente = new Cliente();
 		cliente.setEmail("email@test-" + post + ".com");
@@ -153,6 +170,9 @@ public class Application implements CommandLineRunner {
 		return res;
 	}
 
+	 */
+
+	/*
 	private Servicio createServicio(String post) {
 		Servicio servicio = new Servicio();
 		servicio.setCosto(new BigDecimal("23.12"));
@@ -168,6 +188,9 @@ public class Application implements CommandLineRunner {
 		return res;
 	}
 
+	 */
+
+	/*
 	private Proyecto createProyecto(String post, Personal responsable, Cliente cliente) {
 		Proyecto proyecto = new Proyecto();
 		proyecto.setResponsable(responsable);
@@ -183,6 +206,9 @@ public class Application implements CommandLineRunner {
 		return res;
 	}
 
+	 */
+
+	/*
 	private Etapa creaEtapa(Personal responsable, Proyecto proyecto, Servicio servicio) {
 		System.out.println("Proyecto donde se agragara la etapa: " + proyecto.getNombre());
 		Etapa etapa = new Etapa();
@@ -197,13 +223,8 @@ public class Application implements CommandLineRunner {
 		etapa.setServicio(servicio);
 		etapa.setStatus("Status de la etapa"); // TODO: crear data type
 		etapa.setPctCompleto(nextRandom(10, 80));
-		// etapa.setId(0L);
 
 		Etapa res = etapaRepository.save(etapa);
-		/*
-		res.setProyecto(proyecto);
-		res = etapaRepository.save(etapa);
-		 */
 
 		return res;
 	}
@@ -243,14 +264,17 @@ public class Application implements CommandLineRunner {
 		return res;
 	}
 
+	 */
+
 	@Bean
 	public StorageProperties storageProperties() {
 		return new StorageProperties();
 	}
-
+/*
 	private int nextRandom(int low, int high) {
 		int result = r.nextInt(high - low) + low;
 		return result;
 	}
+	*/
 
 }
