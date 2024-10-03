@@ -24,6 +24,6 @@ public class Servicio extends BaseClass {
 
     private String entregableEsperado;
 
-    private BigDecimal costo;
+    private Double costo;
 
 }
