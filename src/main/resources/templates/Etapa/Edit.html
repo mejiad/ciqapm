@@ -25,18 +25,18 @@
                         <div class="space-y-6 py-8 text-base leading-7 text-gray-600">
                             <h2 class="text-3xl font-extrabold leading-6 text-sky-700">Información de la etapa</h2>
                         </div>
-                        <div class="pt-4 text-base font-semibold leading-7">
+                        <div class="pt-0 text-base font-semibold leading-7">
 
                             <form action="#" th:action="@{/etapa/save}" th:object="${etapa}" method="post">
                                 <div class="space-y-2">
                                     <div class="border-b border-gray-900/10 pb-12">
-                                        <div class="mt-10 grid grid-cols-1 gap-x-12 gap-y-8 sm:grid-cols-6">
+                                        <div class="mt-2 grid grid-cols-1 gap-x-12 gap-y-8 sm:grid-cols-6">
 
                                             <div class="sm:col-span-4">
                                                 <label for="nombre"
                                                        class="block text-sm font-medium leading-6 text-sky-900">Nombre
                                                     de la etapa:</label>
-                                                <div class="mt-2">
+                                                <div class="mt-0">
                                                     <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
                                                         <input type="text" name="nombre" id="nombre"
                                                                th:value="*{nombre}"
@@ -50,7 +50,7 @@
                                             <div class="col-span-full">
                                                 <label for="descripcion"
                                                        class="block text-sm font-medium leading-6 text-sky-900">Descripción</label>
-                                                <div class="mt-2">
+                                                <div class="mt-0">
                                                     <textarea id="descripcion" name="descripcion" rows="3"
                                                               th:value="*{descripcion}"
                                                               class="block  font-normal w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6">[[${etapa.descripcion}]]</textarea>
@@ -62,7 +62,7 @@
                                             <div class="sm:col-span-4">
                                                 <label for="responsable"
                                                        class="block text-sm font-medium leading-6 text-sky-900">Responsable </label>
-                                                <div class="mt-2">
+                                                <div class="mt-0">
                                                     <select id="responsable" name="responsable"
                                                             autocomplete="country-name"
                                                             class="font-normal block  w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
@@ -78,7 +78,7 @@
                                             <div class="sm:col-span-4">
                                                 <label for="entregable"
                                                        class="block text-sm font-medium leading-6 text-sky-900">Entregable:</label>
-                                                <div class="mt-2">
+                                                <div class="mt-0">
                                                     <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
                                                         <input type="text" name="entregable" id="entregable"
                                                                th:value="*{entregable}"
@@ -87,10 +87,30 @@
                                                 </div>
                                             </div>
 
-                                            <div class="sm:col-span-4">
+                                        </div>
+                                    </div>
+                                    <div class="mt-2 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                                        <div class="w-full">
+                                            <div class="relative right-0">
+                                                <ul class="relative flex flex-wrap px-1.5 py-1.5 list-none rounded-md bg-slate-100"
+                                                    data-tabs="tabs" role="list">
+                                                    <li class="z-30 flex-auto text-center">
+                                                        <a class="z-30 flex items-center justify-center w-full px-0 py-2 text-sm mb-0 transition-all ease-in-out border-0 rounded-md cursor-pointer text-slate-600 bg-inherit"
+                                                           data-tab-target="" role="tab" aria-selected="true"
+                                                           aria-controls="dashboard">
+                                                            Actividades realizadas en la etapa
+                                                        </a>
+                                                    </li>
+                                                </ul>
 
+                                                <div data-tab-content="" class="p-5">
+                                                    <div id="dashboard" role="tabpanel"
+                                                         th:hx-get="@{/actividad/list(id=${etapa.id})}" hx-trigger="load">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+
                                     </div>
 
                                 </div>

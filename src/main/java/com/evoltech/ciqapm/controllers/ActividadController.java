@@ -1,6 +1,7 @@
 package com.evoltech.ciqapm.controllers;
 
 import com.evoltech.ciqapm.model.Actividad;
+import com.evoltech.ciqapm.model.ActividadEstado;
 import com.evoltech.ciqapm.model.Etapa;
 import com.evoltech.ciqapm.repository.ActividadRepository;
 import com.evoltech.ciqapm.repository.EtapaRepository;
@@ -66,20 +67,26 @@ public class ActividadController {
     public String editActividad(@RequestParam Long id,  Model model){
         Actividad actividad = actividadRepository.getReferenceById(id);
         Etapa etapa = etapaRepository.getReferenceById(actividad.getEtapa().getId());
+        List<ActividadEstado> estados = List.of(ActividadEstado.values());
         model.addAttribute("actividad", actividad);
+        model.addAttribute("estados", estados);
         model.addAttribute("etapa", etapa);
         System.out.println("Actividad nombre:" + actividad.getNombre());
         System.out.println("Actividad de la etapa:" + actividad.getEtapa().getNombre());
+        System.out.println("Estados de la actividad:" + estados);
         return "/Actividad/Edit";
     }
 
     @GetMapping("/new")
     public String newActividad(@RequestParam("id") Long id, Model model){
         Etapa etapa = etapaRepository.getReferenceById(id);
+        List<ActividadEstado> estados = List.of(ActividadEstado.values());
         Actividad actividad = new Actividad();
         actividad.setEtapa(etapa);
+        model.addAttribute("estados", estados);
         model.addAttribute("etapa", etapa);
         model.addAttribute("actividad", actividad);
+        System.out.println("Estados de la actividad:" + estados);
 
         return "/Actividad/Edit";
     }
@@ -88,9 +95,8 @@ public class ActividadController {
     public String saveActividad(Actividad actividad, Model model){
 
         System.out.println("Valor de etapa.proyecto: " + actividad.getEtapa().getId());
-        System.out.println("ID: " + actividad.getId());
         actividadRepository.save(actividad);
-
+        System.out.println("+++++++++++++++++++++++++ ID: " + actividad.getId());
         return "redirect:/proyecto/list";
     }
 }

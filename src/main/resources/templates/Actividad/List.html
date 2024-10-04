@@ -14,8 +14,6 @@
 <div class="px-4 sm:px-6 lg:px-8">
     <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">
-            <h1 class="text-base font-semibold leading-6 text-gray-900">Actividades</h1>
-            <p class="mt-2 text-sm text-gray-700">Actividades de la Etapa.</p>
         </div>
         <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
             <a th:href="@{/actividad/new(id=${etapa.id})}">
@@ -39,27 +37,32 @@
                             Descripción
                         </th>
                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                            Fecha inicio
+                        </th>
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                             Responsable
                         </th>
-                        <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
-                            <span class="sr-only">Edit</span>
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                            Estatus
                         </th>
                     </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                     <tr th:each="actividad : ${actividades}">
                         <td th:text="${actividad.nombre}"
-                            class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">Etapa
+                            class="whitespace py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">Etapa
                         </td>
                         <td th:text="${actividad.descripcion}"
+                            class="whitespace px-3 py-4 text-sm text-gray-500">Front-end Developer
+                        </td>
+                        <td th:text="${actividad.fechaInicio}"
                             class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Front-end Developer
                         </td>
-                        <td th:text="${actividad.descripcion}"
-                            class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Front-end Developer
+                        <td th:text="${actividad.realizadoPor.nombre}"
+                            class="whitespace px-3 py-4 text-sm text-gray-500">Front-end Developer
                         </td>
-                        <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                            <a th:href="@{/actividad/edit(id=${actividad.id})}"
-                               class="text-sky-600 hover:text-sky-900">Edit</a>
+                        <td th:text="${actividad.estado}"
+                            class="whitespace px-3 py-4 text-sm text-gray-500">Front-end Developer
                         </td>
                     </tr>
                     </tbody>
