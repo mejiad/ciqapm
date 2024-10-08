@@ -8,13 +8,22 @@ import com.evoltech.ciqapm.repository.ProyectoRepository;
 import com.evoltech.ciqapm.service.StorageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.function.EntityResponse;
 
 import javax.print.Doc;
+import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.file.Path;
 import java.security.cert.TrustAnchor;
 import java.util.List;
 
@@ -113,5 +122,28 @@ public class DocumentoController {
         Documento doc =  documentoRepository.save(documento);
 
         return "redirect:/proyecto/list";
+    }
+
+    @GetMapping( value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE )
+    public ResponseEntity download(@RequestParam("file") String filename) throws IOException {
+
+        // String fileName = URLEncoder.encode(tchCeResource.getRname(), "UTF-8");
+        // fileName = URLDecoder.decode(fileName, "ISO8859_1");
+        // response.setContentType("application/x-msdownload");
+        // response.setHeader("Content-disposition", "attachment; filename="+ filename);
+
+        Path path = storageService.load(filename);
+        Resource resource = storageService.loadAsResource(filename);
+
+        byte[] contenido = resource.getContentAsByteArray();
+        for(int i = 0; i <contenido.length; i++) {
+            System.out.print(((char) contenido[i]));
+        }
+
+        System.out.println("Path: " + path.toAbsolutePath());
+
+        // return contenido;
+
+        return ResponseEntity.ok().header("Content-disposition", "attachment; filename="+ filename).body(contenido);
     }
 }
