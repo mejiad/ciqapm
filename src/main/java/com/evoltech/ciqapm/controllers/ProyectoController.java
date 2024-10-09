@@ -1,11 +1,10 @@
 package com.evoltech.ciqapm.controllers;
 
 import com.evoltech.ciqapm.dto.GanttDTO;
-import com.evoltech.ciqapm.model.Documento;
-import com.evoltech.ciqapm.model.Etapa;
-import com.evoltech.ciqapm.model.Proyecto;
-import com.evoltech.ciqapm.model.TipoProyecto;
+import com.evoltech.ciqapm.model.*;
+import com.evoltech.ciqapm.repository.ClienteRepository;
 import com.evoltech.ciqapm.repository.EtapaRepository;
+import com.evoltech.ciqapm.repository.PersonalRepository;
 import com.evoltech.ciqapm.repository.ProyectoRepository;
 import com.evoltech.ciqapm.service.ProyectoServicio;
 import org.apache.logging.log4j.LogManager;
@@ -41,12 +40,18 @@ public class ProyectoController {
 
     @Autowired
     EtapaRepository etapaRepository;
+    private final PersonalRepository personalRepository;
+    private final ClienteRepository clienteRepository;
 
     public ProyectoController(ProyectoServicio proyectoServicio, ProyectoRepository proyectoRepository,
-                              EtapaRepository etapaRepository) {
+                              EtapaRepository etapaRepository,
+                              PersonalRepository personalRepository,
+                              ClienteRepository clienteRepository) {
         this.proyectoServicio = proyectoServicio;
         this.proyectoRepository = proyectoRepository;
         this.etapaRepository = etapaRepository;
+        this.personalRepository = personalRepository;
+        this.clienteRepository = clienteRepository;
     }
 
     @GetMapping("/list")
@@ -102,7 +107,16 @@ public class ProyectoController {
         Proyecto proyecto = new Proyecto();
         proyecto.setNombre("Primer Proyecto de prueba.");
         proyecto.setDescripcion("Descripción del proyecto.");
+        List<Estado> estados = List.of(Estado.values());
+        List<Personal> personas = personalRepository.findAll();
+        List<Cliente> clientes = clienteRepository.findAll();
+        List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
+
         model.addAttribute("proyecto", proyecto);
+        model.addAttribute("estados", estados);
+        model.addAttribute("personas", personas);
+        model.addAttribute("clientes", clientes);
+        model.addAttribute("tiposProyecto", tiposProyecto);
 
         return "/Proyecto/Edit";
     }

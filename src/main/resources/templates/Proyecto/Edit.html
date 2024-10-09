@@ -58,56 +58,61 @@
                                             INTERNOS,
                                             POSTGRADO,
                                             CONAHCYT-->
-
                                             <div class="sm:col-span-3">
                                                 <label for="tipoProyecto"
-                                                       class="block text-sm font-medium leading-6 text-sky-900">Tipo
-                                                    de
-                                                    proyecto</label>
-                                                <div class="mt-2">
+                                                       class="block text-sm font-medium leading-6 text-sky-900">Tipo de Proyecto: </label>
+                                                <div class="mt-0">
                                                     <select id="tipoProyecto" name="tipoProyecto"
-                                                            autocomplete="country-name"
-                                                            class="block font-normal w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                                        <option>INDUSTRIA</option>
-                                                        <option>INTERNOS</option>
-                                                        <option>POSTGRADO</option>
-                                                        <option>CONAHCYT</option>
+                                                            class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                                        <option th:value="*{tipoProyecto}"
+                                                                th:text="*{tipoProyecto?.nombre}"></option>
+                                                        <option th:each="tp : ${tiposProyecto}" th:value="${tp}"
+                                                                th:text="${tp}">
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>
-
-
                                             <div class="sm:col-span-3">
                                                 <label for="responsable"
-                                                       class="block text-sm font-medium leading-6 text-sky-900">Responsable </label>
+                                                       class="block text-sm font-medium leading-6 text-sky-900">Responsable: </label>
                                                 <div class="mt-2">
                                                     <select id="responsable" name="responsable"
-                                                            autocomplete="country-name"
-                                                            class="block font-normal w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                                        <option value="1">Nombre_01</option>
-                                                        <option value="2">Nombre_02</option>
-                                                        <option value="3">Nombre_03</option>
-                                                        <option value="4">Nombre_04</option>
-                                                        <option value="5">Claudia Solís</option>
-                                                        <option value="6">Pedro López</option>
+                                                            class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                                        <option th:value="*{responsable?.id}"
+                                                                th:text="*{responsable?.nombre}"></option>
+                                                        <option th:each="persona : ${personas}" th:value="${persona.id}"
+                                                                th:text="${persona.nombre}"
+                                                                th:selected="${responsable?.id}">>
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="sm:col-span-3">
+                                                <label class="block text-sm font-medium leading-6 text-sky-900">Estatus: </label>
+                                                <div class="mt-2">
+                                                    <select id="estatus" name="estatus"
+                                                            class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                                        <option th:value="*{estatus}" th:text="*{estatus}"></option>
+                                                        <option th:each="estado : ${estados}" th:value="${estado}"
+                                                                th:text="${estado}"></option>
                                                     </select>
                                                 </div>
                                             </div>
 
                                             <div class="sm:col-span-3">
                                                 <label for="cliente"
-                                                       class="block text-sm font-medium leading-6 text-sky-900">Cliente</label>
+                                                       class="block text-sm font-medium leading-6 text-sky-900">Cliente: </label>
                                                 <div class="mt-2">
-                                                    <select id="cliente" name="cliente" autocomplete="country-name"
-                                                            class="block font-normal w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                                        <option value="3">Cliente-102</option>
-                                                        <option value="4">Cliente-103</option>
-                                                        <option value="5">FEMSA</option>
-                                                        <option value="6">Aceros Planos de México</option>
+                                                    <select id="cliente" name="cliente"
+                                                            class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                                        <option th:value="*{cliente?.id}"
+                                                                th:text="*{cliente?.nombre}"></option>
+                                                        <option th:each="cte : ${clientes}" th:value="${cte.id}"
+                                                                th:text="${cte.nombre}">
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>
-
 
                                         </div>
                                     </div>

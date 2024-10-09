@@ -1,9 +1,8 @@
 package com.evoltech.ciqapm.controllers;
 
-import com.evoltech.ciqapm.model.Actividad;
-import com.evoltech.ciqapm.model.ActividadEstado;
-import com.evoltech.ciqapm.model.Etapa;
+import com.evoltech.ciqapm.model.*;
 import com.evoltech.ciqapm.repository.ActividadRepository;
+import com.evoltech.ciqapm.repository.PersonalRepository;
 import com.evoltech.ciqapm.repository.EtapaRepository;
 import com.evoltech.ciqapm.repository.ProyectoRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +21,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/actividad")
 public class ActividadController {
+    private final PersonalRepository personalRepository;
 
     @Autowired
     ProyectoRepository proyectoRepository;
@@ -34,10 +34,12 @@ public class ActividadController {
 
     public ActividadController(ProyectoRepository proyectoRepository,
                                EtapaRepository etapaRepository,
-                               ActividadRepository actividadRepository) {
+                               ActividadRepository actividadRepository,
+                               PersonalRepository personalRepository) {
         this.proyectoRepository = proyectoRepository;
         this.etapaRepository = etapaRepository;
         this.actividadRepository = actividadRepository;
+        this.personalRepository = personalRepository;
     }
 
     @GetMapping("/list")
@@ -81,11 +83,13 @@ public class ActividadController {
     public String newActividad(@RequestParam("id") Long id, Model model){
         Etapa etapa = etapaRepository.getReferenceById(id);
         List<ActividadEstado> estados = List.of(ActividadEstado.values());
+        List<Personal> personas = personalRepository.findAll();
         Actividad actividad = new Actividad();
         actividad.setEtapa(etapa);
         model.addAttribute("estados", estados);
         model.addAttribute("etapa", etapa);
         model.addAttribute("actividad", actividad);
+        model.addAttribute("personas", personas);
         System.out.println("Estados de la actividad:" + estados);
 
         return "/Actividad/Edit";
