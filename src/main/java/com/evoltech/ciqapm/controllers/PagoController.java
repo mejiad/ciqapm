@@ -1,4 +1,7 @@
+package com.evoltech.ciqapm.controllers;
+
 import com.evoltech.ciqapm.model.*;
+import com.evoltech.ciqapm.repository.PagoRepository;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,22 +16,22 @@ import java.util.List;
 
 @Controller
 @RequestMapping("pago")
-public class PagoCotroller {
+public class PagoController {
 
     private ProyectoRepository proyectoRepository;
+    private PagoRepository pagoRepository;
 
-    public PagoCotroller(ProyectoRepository proyectoRepository) {
+    public PagoController(ProyectoRepository proyectoRepository, PagoRepository pagoRepository) {
         this.proyectoRepository = proyectoRepository;
+        this.pagoRepository = pagoRepository;
     }
 
     @GetMapping("/list")
-    public String listPago(@RequestParam("id") Long id, Model model) {
+    public String listPago(@RequestParam("id") Long id, Model model) { // id del proyecto
         System.out.println("Numero de proyecto desde pago:" + id);
         Proyecto proyecto = proyectoRepository.getReferenceById(id);
-
-
+        List<Pago> pagos = pagoRepository.findByProyecto(proyecto);
         model.addAttribute("proyecto", proyecto);
-        List<Pagos> pagos = pagoRepository.findByProyecto(proyecto);
         model.addAttribute("pagos", pagos);
 
         return "/Pagos/List";
@@ -41,12 +44,12 @@ public class PagoCotroller {
     }
 
     @GetMapping("/edit")
-    public String editPago(@RequestParam Long id, Model model){
-        Pagos pago = pagosRepository.getReferenceById(id);
+    public String editPago(@RequestParam Long id, Model model){ // id del pago
         List<PagosEstado> estados = List.of(PagosEstado.values());
+        Pago pago = pagoRepository.getReferenceById(id);
         Proyecto proyecto = pago.getProyecto();
-        model.addAttribute("pago", pago);
         model.addAttribute("proyecto", proyecto);
+        model.addAttribute("pago", pago);
         model.addAttribute("estados", estados);
         return "/Pagos/Edit";
     }
@@ -55,7 +58,7 @@ public class PagoCotroller {
     public String newEtapa(@RequestParam Long id,  Model model) {
         Proyecto proyecto = proyectoRepository.getReferenceById(id);
         List<PagosEstado> estados = List.of(PagosEstado.values());
-        Pagos pago = new Pagos();
+        Pago pago = new Pago();
         pago.setProyecto(proyecto);
         model.addAttribute("proyecto", proyecto);
         model.addAttribute("estados", estados);
@@ -63,11 +66,11 @@ public class PagoCotroller {
     }
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String savePago(Pagos pago,  Model model){
+    public String savePago(Pago pago, Model model){
         System.out.println("Valor de pago proyecto: " + pago.getProyecto().getNombre());
         System.out.println("fechaFacturacion: " + pago.getFechaFacturacion());
         System.out.println("estado: " + pago.getEstado());
-        pagosRepository.save(pago);
+        pagoRepository.save(pago);
         return "redirect:/proyecto/list";
     }
 

@@ -1,16 +1,18 @@
 package com.evoltech.ciqapm.model;
 
+import com.evoltech.ciqapm.model.jpa.BaseClass;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
 import java.time.LocalDate;
 
 @Data
 @Entity
 @NoArgsConstructor
-public class Pagos {
+@AllArgsConstructor
+public class Pago extends BaseClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

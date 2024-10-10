@@ -37,6 +37,9 @@ public class DataLoad {
     ActividadRepository actividadRepository;
 
     @Autowired
+    PagoRepository pagoRepository;
+
+    @Autowired
     PasswordEncoder passwordEncoder;
 
     @Autowired RandomService randomService;
@@ -45,6 +48,7 @@ public class DataLoad {
                     ServicioRepository servicioRepository, ProyectoRepository proyectoRepository,
                     EtapaRepository etapaRepository, DocumentoRepository documentoRepository,
                     UsuarioRepository usuarioRepository, ActividadRepository actividadRepository,
+                    PagoRepository pagoRepository,
                     PasswordEncoder passwordEncoder) {
 
         this.personalRepository = repository;
@@ -56,6 +60,7 @@ public class DataLoad {
         this.usuarioRepository = usuarioRepository;
         this.actividadRepository = actividadRepository;
         this.passwordEncoder = passwordEncoder;
+        this.pagoRepository =  pagoRepository;
     }
 
     public void initializa() {
@@ -146,6 +151,19 @@ public class DataLoad {
         Etapa etapa6_p4 = creaEtapa(personal3, proyecto2, servicio1, startDate.plusDays(40));
         Etapa etapa7_p4 = creaEtapa(personal4, proyecto2, servicio2, startDate.plusDays(60));
         Etapa etapa8_p4 = creaEtapa(personal5, proyecto2, servicio3, startDate.plusDays(90));
+
+
+        LocalDate stDate = proyecto1.getCreateDate();
+        Pago pago = createPago(proyecto1, stDate.plusDays(10), 30);
+        pago = createPago(proyecto1, stDate.plusDays(60), 30);
+        pago = createPago(proyecto1, stDate.plusDays(90), 40);
+
+
+        stDate = proyecto2.getCreateDate();
+        pago = createPago(proyecto2, stDate.plusDays(30), 20);
+        pago = createPago(proyecto2, stDate.plusDays(60), 30);
+        pago = createPago(proyecto2, stDate.plusDays(120), 50);
+
 
         System.out.println("Database Inicializada ...");
 
@@ -253,6 +271,18 @@ public class DataLoad {
         actividad.setRealizadoPor(personal);
 
         Actividad res = actividadRepository.save(actividad);
+        return res;
+    }
+
+    private Pago createPago(Proyecto proyecto, LocalDate ld, int pct){
+        Pago pago = new Pago();
+        pago.setId(0L);
+        pago.setFechaFacturacion(ld);
+        pago.setEstado(PagosEstado.PENDIENTE);
+        pago.setPorcentajePago(pct);
+        pago.setProyecto(proyecto);
+
+        Pago res = pagoRepository.save(pago);
         return res;
     }
 
