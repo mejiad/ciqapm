@@ -19,7 +19,7 @@
     <!-- Static sidebar for desktop -->
     <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
         <!-- Sidebar component, swap this element with another sidebar if you like -->
-        <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-slate-600 px-6 pb-4">
+        <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-slate-700 px-6 pb-4">
             <div class="flex h-16 shrink-0 items-center">
                 <img class="h-16 w-auto p-2" src="/images/logo-ciqa.png" alt="Your Company">
             </div>
@@ -29,7 +29,7 @@
                         <ul role="list" class="-mx-2 space-y-1">
                             <li>
                                 <!-- Current: "bg-slate-700 text-white", Default: "text-slate-200 hover:text-white hover:bg-slate-700" -->
-                                <a href="#" class="group flex gap-x-3 rounded-md bg-slate-700 p-2 text-sm font-semibold leading-6 text-white">
+                                <a th:href="@{/dashboard}" class="group flex gap-x-3 rounded-md bg-slate-700 p-2 text-sm font-semibold leading-6 text-white">
                                     <svg class="h-6 w-6 shrink-0 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                                     </svg>
@@ -37,7 +37,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-slate-200 hover:bg-slate-700 hover:text-white">
+                                <a th:href="@{/proyecto/list}" class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-slate-200 hover:bg-slate-700 hover:text-white">
                                     <svg class="h-6 w-6 shrink-0 text-slate-200 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
                                     </svg>
@@ -45,7 +45,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-slate-200 hover:bg-slate-700 hover:text-white">
+                                <a th:href="@{/calendario}" class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-slate-200 hover:bg-slate-700 hover:text-white">
                                     <svg class="h-6 w-6 shrink-0 text-slate-200 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
                                     </svg>
@@ -53,7 +53,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#" th:href="@{/reports}" class="group flex gap-x-2 rounded-md p-2 text-sm font-semibold leading-6 text-slate-200 hover:bg-slate-700 hover:text-white">
+                                <a th:href="@{/reports}" class="group flex gap-x-2 rounded-md p-2 text-sm font-semibold leading-6 text-slate-200 hover:bg-slate-700 hover:text-white">
                                     <svg class="h-6 w-6 shrink-0 text-slate-200 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
