@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reportes</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+    <script src="/htmx.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex flex-col min-h-screen">
+<div>
+    <div th:insert="~{sidebar}"></div>
+    <div th:insert="~{header}"></div>
+    <main class="py-10 lg:pl-72">
+        <div class="relative isolate px-6 pt-14 lg:px-8">
+            <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+                 aria-hidden="true">
+                <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+                     style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+            </div>
+            <div class="px-4 sm:px-6 lg:px-8">
+                <!-- Your content -->
+                <div class="border-b border-gray-200 pb-5 sm:flex sm:items-center sm:justify-between">
+                    <h2 class="text-3xl font-extrabold leading-6 text-sky-700">Lista de Reportes </h2>
+                </div>
+
+                    <div id="accordion-collapse" data-accordion="collapse">
+                        <h2 id="accordion-collapse-heading-1">
+                            <a th:href="@{/reports/proyectosSummary}">
+                            <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-1" aria-expanded="true" aria-controls="accordion-collapse-body-1">
+                                <span>Reporte de Proyectos</span>
+                            </button>
+                            </a>
+                        </h2>
+                        <h2 id="accordion-collapse-heading-2">
+                            <a th:href="@{/reports/proyectosEtapas}">
+                            <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-2" aria-expanded="false" aria-controls="accordion-collapse-body-2">
+                                <span>Reporte de Etapas</span>
+                            </button>
+                            </a>
+                        </h2>
+                        <h2 id="accordion-collapse-heading-3">
+                            <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-3" aria-expanded="false" aria-controls="accordion-collapse-body-3">
+                                <span>Reporte por Actividades</span>
+                            </button>
+                        </h2>
+                        <h2 id="accordion-collapse-heading-4">
+                            <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-2" aria-expanded="false" aria-controls="accordion-collapse-body-2">
+                                <span>Reporte de Etapas</span>
+                            </button>
+                        </h2>
+                        <h2 id="accordion-collapse-heading-5">
+                            <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-2" aria-expanded="false" aria-controls="accordion-collapse-body-2">
+                                <span>Reporte de Personal</span>
+                            </button>
+                        </h2>
+
+                    </div>
+
+
+                <span>
+                    &nbsp;
+                </span>
+
+
+                <div class="px-4 sm:px-6 lg:px-8">
+                    <div class="m-2 p-2">
+                        <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                            <li th:each="proyecto : ${proyectos}"
+                                class="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow">
+                                <div class="flex w-full items-center justify-between space-x-6 p-6">
+                                    <div class="flex-1 truncate">
+                                        <div class="flex items-center space-x-3">
+
+                                            <h3 class="truncate text-sm font-medium text-gray-900">
+                                                <span th:text="${proyecto.nombre}">2</span>
+                                            </h3>
+                                            <span th:text="${proyecto.tipoProyecto}"
+                                                  class="inline-flex flex-shrink-0 items-center rounded-full bg-green-50 px-1.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Admin</span>
+                                        </div>
+                                        <p class="mt-5 truncate text-sm text-gray-500">
+                                            <span th:text="${proyecto.descripcion}">2</span>
+                                        </p>
+                                        <p class="mt-1 truncate text-sm text-gray-500">
+                                            <span th:text="${proyecto.responsable.nombre}">2</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="-mt-px flex divide-x divide-gray-200">
+                                        <div class="flex w-0 flex-1">
+                                        </div>
+                                        <div class="-ml-px flex w-0 flex-1">
+                                            <a th:href="@{/proyecto/view(id=${proyecto.id})}"
+                                               class="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-gray-900">
+                                                Ver info
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- More people... -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+        </div>
+        <div th:insert="~{footer}"></div>
+    </main>
+</div>
+</body>
+</html>

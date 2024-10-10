@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Reporte Proyectos</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+  <script src="/htmx.min.js"></script>
+  <!--
+  <script src="https://cdn.tailwindcss.com"></script>
+  -->
+  <link th:href="@{/main.css}" rel="stylesheet" />
+</head>
+<body class="m-20 p-15">
+<h1 class="text-4xl flex justify-left m-15 p-10">Reporte de Etapas por Proyecto</h1>
+<ul role="list" class="divide-y divide-gray-100">
+
+  <li th:each="proyecto: ${proyectos}">
+    <div class="flex justify-left m-12 p-8">
+    <div class="bg-slate-300">
+      <div class="flex items-start gap-x-3 bg-slate-400">
+        <p th:text="${proyecto.nombre}" class="text-sm font-semibold leading-6 text-gray-900">Marketing site redesign</p>
+        <p class="mt-0.5 whitespace-nowrap rounded-md bg-yellow-50 px-1.5 py-0.5 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">Archived</p>
+      </div>
+      <div class="mt-1 flex items-center gap-x-2 text-xs leading-5 text-gray-500">
+        <p class="whitespace-nowrap">Due on <time datetime="2023-06-10T00:00Z">June 10, 2023</time></p>
+        <svg viewBox="0 0 2 2" class="h-0.5 w-0.5 fill-current">
+          <circle cx="1" cy="1" r="1" />
+        </svg>
+        <p class="truncate">Created by Courtney Henry</p>
+      </div>
+    </div>
+    </div>
+    <div class="flex justify-center items-center bg-red-200">
+          <div class="px-4 px-6 lg:px-8">
+            <div class="sm:flex items-center">
+              <div class="flex-auto">
+              </div>
+            </div>
+            <div class=" flex justify-center items-center">
+              <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="w-full py-2 align-middle sm:px-6 lg:px-8">
+                  <table class="w-screen divide-y divide-gray-300">
+                    <thead>
+                    <tr>
+                      <th scope="col"
+                          class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Etapa
+                      </th>
+
+                      <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                        Fecha inicio
+                      </th>
+                      <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                        Estatus
+                      </th>
+                      <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                        Responsable
+                      </th>
+                      <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
+                        <span class="sr-only">Edit</span>
+                      </th>
+                    </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                    <tr th:each="etapa : ${proyecto.etapas}">
+                      <td th:text="${etapa.nombre}"
+                          class="whitespace py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">Etapa
+                      </td>
+
+                      <td th:text="${etapa.fechaEstimadaInicio}"
+                          class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Front-end Developer
+                      </td>
+                      <td th:text="${etapa.estado}"
+                          class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Front-end Developer
+                      </td>
+                      <td th:text="${etapa.responsable.nombre}"
+                          class="whitespace px-3 py-4 text-sm text-gray-500">Front-end Developer
+                      </td>
+                      <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                        <a th:href="@{/etapa/edit(id=${etapa.id})}"
+                           class="text-sky-600 hover:text-sky-900">Edit</a>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+    </div>
+
+
+
+  </li>
+
+
+</ul>
+</body>
+</html>
