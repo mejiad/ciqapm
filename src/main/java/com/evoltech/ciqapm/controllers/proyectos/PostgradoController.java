@@ -1,4 +1,4 @@
-package com.evoltech.ciqapm.controllers;
+package com.evoltech.ciqapm.controllers.proyectos;
 
 import com.evoltech.ciqapm.dto.GanttDTO;
 import com.evoltech.ciqapm.model.*;
@@ -26,10 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/proyecto")
-public class ProyectoController {
+@RequestMapping("/postgrado")
+public class PostgradoController {
 
-    private static final Logger log = LogManager.getLogger(ProyectoController.class);
+    private static final Logger log = LogManager.getLogger(PostgradoController.class);
 
     @Autowired
     ProyectoServicio proyectoServicio;
@@ -47,11 +47,11 @@ public class ProyectoController {
     @Autowired
     private final ConahcytRepository conahcytRepository;
 
-    public ProyectoController(ProyectoServicio proyectoServicio, ProyectoRepository proyectoRepository,
-                              EtapaRepository etapaRepository,
-                              PersonalRepository personalRepository,
-                              ConahcytRepository conahcytRepository,
-                              ClienteRepository clienteRepository) {
+    public PostgradoController(ProyectoServicio proyectoServicio, ProyectoRepository proyectoRepository,
+                               EtapaRepository etapaRepository,
+                               PersonalRepository personalRepository,
+                               ConahcytRepository conahcytRepository,
+                               ClienteRepository clienteRepository) {
         this.proyectoServicio = proyectoServicio;
         this.proyectoRepository = proyectoRepository;
         this.etapaRepository = etapaRepository;
@@ -66,11 +66,11 @@ public class ProyectoController {
         String username = auth.getName();
         System.out.println("Usuario loggeado:" + username);
 
-        List<Proyecto> proyectos = proyectoRepository.findAll();
+        List<Proyecto> proyectos = proyectoRepository.findByTipoProyecto(TipoProyecto.POSTGRADO);
 
         model.addAttribute("proyectos", proyectos);
 
-        return "/Proyecto/List";
+        return "/postgrado/List";
     }
 
     @GetMapping("/view")
@@ -124,7 +124,7 @@ public class ProyectoController {
         model.addAttribute("clientes", clientes);
         model.addAttribute("tiposProyecto", tiposProyecto);
 
-        return "/Proyecto/Edit";
+        return "/postgrado/Edit";
     }
 
     @GetMapping("/newConahcyt")

@@ -1,6 +1,8 @@
 package com.evoltech.ciqapm.model;
 
+import com.evoltech.ciqapm.model.datos.DatosIndustria;
 import com.evoltech.ciqapm.model.jpa.BaseClass;
+import com.evoltech.ciqapm.model.jpa.Postgrado;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,7 +37,13 @@ public class Proyecto extends BaseClass {
     private List<Etapa> etapas = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name="cliente_id", nullable=false)
+    @JoinColumn(name="cliente_id", nullable=true)
     private Cliente cliente;
+
+    @OneToOne
+    private DatosIndustria industria;
+
+    @OneToOne
+    private Postgrado postgrado;
 
 }

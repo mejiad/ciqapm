@@ -1,8 +1,9 @@
-package com.evoltech.ciqapm.controllers;
+package com.evoltech.ciqapm.controllers.proyectos;
 
 import com.evoltech.ciqapm.dto.GanttDTO;
 import com.evoltech.ciqapm.model.*;
 import com.evoltech.ciqapm.model.datos.DatosConahcyt;
+import com.evoltech.ciqapm.model.datos.DatosInternos;
 import com.evoltech.ciqapm.repository.*;
 import com.evoltech.ciqapm.repository.datos.ConahcytRepository;
 import com.evoltech.ciqapm.service.ProyectoServicio;
@@ -26,10 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/proyecto")
-public class ProyectoController {
+@RequestMapping("/internos")
+public class InternosController {
 
-    private static final Logger log = LogManager.getLogger(ProyectoController.class);
+    private static final Logger log = LogManager.getLogger(InternosController.class);
 
     @Autowired
     ProyectoServicio proyectoServicio;
@@ -47,7 +48,7 @@ public class ProyectoController {
     @Autowired
     private final ConahcytRepository conahcytRepository;
 
-    public ProyectoController(ProyectoServicio proyectoServicio, ProyectoRepository proyectoRepository,
+    public InternosController(ProyectoServicio proyectoServicio, ProyectoRepository proyectoRepository,
                               EtapaRepository etapaRepository,
                               PersonalRepository personalRepository,
                               ConahcytRepository conahcytRepository,
@@ -66,11 +67,11 @@ public class ProyectoController {
         String username = auth.getName();
         System.out.println("Usuario loggeado:" + username);
 
-        List<Proyecto> proyectos = proyectoRepository.findAll();
+        List<Proyecto> proyectos = proyectoRepository.findByTipoProyecto(TipoProyecto.INTERNOS);
 
         model.addAttribute("proyectos", proyectos);
 
-        return "/Proyecto/List";
+        return "/internos/List";
     }
 
     @GetMapping("/view")
@@ -108,8 +109,11 @@ public class ProyectoController {
         return "/Proyecto/Edit";
     }
 
+
+
+
     @GetMapping("/new")
-    public String newProyecto(Model model) {
+    public String newInternos(Model model) {
         Proyecto proyecto = new Proyecto();
         proyecto.setNombre("Primer Proyecto de prueba.");
         proyecto.setDescripcion("Descripción del proyecto.");
@@ -117,36 +121,17 @@ public class ProyectoController {
         List<Personal> personas = personalRepository.findAll();
         List<Cliente> clientes = clienteRepository.findAll();
         List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
+        DatosInternos internos = new DatosInternos();
+        proyecto.setTipoProyecto(TipoProyecto.INTERNOS);
 
         model.addAttribute("proyecto", proyecto);
         model.addAttribute("estados", estados);
         model.addAttribute("personas", personas);
         model.addAttribute("clientes", clientes);
         model.addAttribute("tiposProyecto", tiposProyecto);
+        model.addAttribute("internos", internos);
 
-        return "/Proyecto/Edit";
-    }
-
-    @GetMapping("/newConahcyt")
-    public String newConahcyt(Model model) {
-        Proyecto proyecto = new Proyecto();
-        proyecto.setNombre("Primer Proyecto de prueba.");
-        proyecto.setDescripcion("Descripción del proyecto.");
-        List<Estado> estados = List.of(Estado.values());
-        List<Personal> personas = personalRepository.findAll();
-        List<Cliente> clientes = clienteRepository.findAll();
-        List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
-        DatosConahcyt conahcyt = new DatosConahcyt();
-        proyecto.setTipoProyecto(TipoProyecto.CONAHCYT);
-
-        model.addAttribute("proyecto", proyecto);
-        model.addAttribute("estados", estados);
-        model.addAttribute("personas", personas);
-        model.addAttribute("clientes", clientes);
-        model.addAttribute("tiposProyecto", tiposProyecto);
-        model.addAttribute("conahcyt", conahcyt);
-
-        return "/Proyecto/EditConahcyt";
+        return "/internos/Edit";
     }
 
     /*

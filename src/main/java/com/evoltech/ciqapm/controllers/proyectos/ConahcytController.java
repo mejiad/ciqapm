@@ -1,4 +1,4 @@
-package com.evoltech.ciqapm.controllers;
+package com.evoltech.ciqapm.controllers.proyectos;
 
 import com.evoltech.ciqapm.dto.GanttDTO;
 import com.evoltech.ciqapm.model.*;
@@ -26,10 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/proyecto")
-public class ProyectoController {
+@RequestMapping("/conahcyt")
+public class ConahcytController {
 
-    private static final Logger log = LogManager.getLogger(ProyectoController.class);
+    private static final Logger log = LogManager.getLogger(ConahcytController.class);
 
     @Autowired
     ProyectoServicio proyectoServicio;
@@ -47,7 +47,7 @@ public class ProyectoController {
     @Autowired
     private final ConahcytRepository conahcytRepository;
 
-    public ProyectoController(ProyectoServicio proyectoServicio, ProyectoRepository proyectoRepository,
+    public ConahcytController(ProyectoServicio proyectoServicio, ProyectoRepository proyectoRepository,
                               EtapaRepository etapaRepository,
                               PersonalRepository personalRepository,
                               ConahcytRepository conahcytRepository,
@@ -64,13 +64,13 @@ public class ProyectoController {
     public String listProyecto(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        System.out.println("Usuario loggeado:" + username);
+        System.out.println("Conahcyt Usuario loggeado:" + username);
 
-        List<Proyecto> proyectos = proyectoRepository.findAll();
+        List<Proyecto> proyectos = proyectoRepository.findByTipoProyecto(TipoProyecto.CONAHCYT);
 
         model.addAttribute("proyectos", proyectos);
 
-        return "/Proyecto/List";
+        return "/conahcyt/List";
     }
 
     @GetMapping("/view")
@@ -108,7 +108,7 @@ public class ProyectoController {
         return "/Proyecto/Edit";
     }
 
-    @GetMapping("/new")
+    @GetMapping("/newold")
     public String newProyecto(Model model) {
         Proyecto proyecto = new Proyecto();
         proyecto.setNombre("Primer Proyecto de prueba.");
@@ -127,7 +127,7 @@ public class ProyectoController {
         return "/Proyecto/Edit";
     }
 
-    @GetMapping("/newConahcyt")
+    @GetMapping("/new")
     public String newConahcyt(Model model) {
         Proyecto proyecto = new Proyecto();
         proyecto.setNombre("Primer Proyecto de prueba.");
@@ -146,7 +146,7 @@ public class ProyectoController {
         model.addAttribute("tiposProyecto", tiposProyecto);
         model.addAttribute("conahcyt", conahcyt);
 
-        return "/Proyecto/EditConahcyt";
+        return "/conahcyt/Edit";
     }
 
     /*
@@ -154,6 +154,7 @@ public class ProyectoController {
     public String saveDocumento(Documento documento, Model model){
     */
 
+    /*
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String saveProyecto(Proyecto proyecto, Model model) {
 
@@ -164,8 +165,9 @@ public class ProyectoController {
         new File("src/main/resources/directory/" + res.getId()).mkdirs();
         return "redirect:/proyecto/list";
     }
+     */
 
-    @PostMapping(value = "/saveConahcyt", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String saveProyecto(Proyecto proyecto, DatosConahcyt conahcyt, Model model) {
 
         System.out.println("convocatoria Conacyt: " + conahcyt.getConvocatoria());

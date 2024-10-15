@@ -1,10 +1,12 @@
-package com.evoltech.ciqapm.controllers;
+package com.evoltech.ciqapm.controllers.proyectos;
 
 import com.evoltech.ciqapm.dto.GanttDTO;
 import com.evoltech.ciqapm.model.*;
 import com.evoltech.ciqapm.model.datos.DatosConahcyt;
+import com.evoltech.ciqapm.model.datos.DatosIndustria;
 import com.evoltech.ciqapm.repository.*;
 import com.evoltech.ciqapm.repository.datos.ConahcytRepository;
+import com.evoltech.ciqapm.repository.datos.IndustriaRepository;
 import com.evoltech.ciqapm.service.ProyectoServicio;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,10 +28,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/proyecto")
-public class ProyectoController {
+@RequestMapping("/industria")
+public class IndustriaController {
 
-    private static final Logger log = LogManager.getLogger(ProyectoController.class);
+    private static final Logger log = LogManager.getLogger(IndustriaController.class);
 
     @Autowired
     ProyectoServicio proyectoServicio;
@@ -45,32 +47,32 @@ public class ProyectoController {
     private final ClienteRepository clienteRepository;
 
     @Autowired
-    private final ConahcytRepository conahcytRepository;
+    private final IndustriaRepository industriaRepository;
 
-    public ProyectoController(ProyectoServicio proyectoServicio, ProyectoRepository proyectoRepository,
-                              EtapaRepository etapaRepository,
-                              PersonalRepository personalRepository,
-                              ConahcytRepository conahcytRepository,
-                              ClienteRepository clienteRepository) {
+    public IndustriaController(ProyectoServicio proyectoServicio, ProyectoRepository proyectoRepository,
+                               EtapaRepository etapaRepository,
+                               PersonalRepository personalRepository,
+                               IndustriaRepository industriaRepository,
+                               ClienteRepository clienteRepository) {
         this.proyectoServicio = proyectoServicio;
         this.proyectoRepository = proyectoRepository;
         this.etapaRepository = etapaRepository;
         this.personalRepository = personalRepository;
         this.clienteRepository = clienteRepository;
-        this.conahcytRepository = conahcytRepository;
+        this.industriaRepository = industriaRepository;
     }
 
     @GetMapping("/list")
     public String listProyecto(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        System.out.println("Usuario loggeado:" + username);
+        System.out.println("Usuario loggeado industria:" + username);
 
-        List<Proyecto> proyectos = proyectoRepository.findAll();
+        List<Proyecto> proyectos = proyectoRepository.findByTipoProyecto(TipoProyecto.INDUSTRIA);
 
         model.addAttribute("proyectos", proyectos);
 
-        return "/Proyecto/List";
+        return "/industria/List";
     }
 
     @GetMapping("/view")
@@ -100,16 +102,17 @@ public class ProyectoController {
         model.addAttribute("proyecto", proyecto);
         model.addAttribute("etapas", ganttDTOS);
 
-        return "/Proyecto/View";
+        return "/industria/View";
     }
 
     @GetMapping("/edit")
     public String editProyecto(Model model) {
-        return "/Proyecto/Edit";
+        return "/industria/Edit";
     }
+
 
     @GetMapping("/new")
-    public String newProyecto(Model model) {
+    public String newIndustria(Model model) {
         Proyecto proyecto = new Proyecto();
         proyecto.setNombre("Primer Proyecto de prueba.");
         proyecto.setDescripcion("Descripción del proyecto.");
@@ -117,26 +120,7 @@ public class ProyectoController {
         List<Personal> personas = personalRepository.findAll();
         List<Cliente> clientes = clienteRepository.findAll();
         List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
-
-        model.addAttribute("proyecto", proyecto);
-        model.addAttribute("estados", estados);
-        model.addAttribute("personas", personas);
-        model.addAttribute("clientes", clientes);
-        model.addAttribute("tiposProyecto", tiposProyecto);
-
-        return "/Proyecto/Edit";
-    }
-
-    @GetMapping("/newConahcyt")
-    public String newConahcyt(Model model) {
-        Proyecto proyecto = new Proyecto();
-        proyecto.setNombre("Primer Proyecto de prueba.");
-        proyecto.setDescripcion("Descripción del proyecto.");
-        List<Estado> estados = List.of(Estado.values());
-        List<Personal> personas = personalRepository.findAll();
-        List<Cliente> clientes = clienteRepository.findAll();
-        List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
-        DatosConahcyt conahcyt = new DatosConahcyt();
+        DatosIndustria industria = new DatosIndustria();
         proyecto.setTipoProyecto(TipoProyecto.CONAHCYT);
 
         model.addAttribute("proyecto", proyecto);
@@ -144,9 +128,9 @@ public class ProyectoController {
         model.addAttribute("personas", personas);
         model.addAttribute("clientes", clientes);
         model.addAttribute("tiposProyecto", tiposProyecto);
-        model.addAttribute("conahcyt", conahcyt);
+        model.addAttribute("industria", industria);
 
-        return "/Proyecto/EditConahcyt";
+        return "/industria/Edit";
     }
 
     /*
@@ -155,32 +139,18 @@ public class ProyectoController {
     */
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveProyecto(Proyecto proyecto, Model model) {
+    public String saveProyecto(Proyecto proyecto, DatosIndustria industria, Model model) {
 
-        // TODO: Crear el directorio del id del proyecto
+        proyecto.setTipoProyecto(TipoProyecto.INDUSTRIA);
         Proyecto res = proyectoRepository.save(proyecto);
+        industria.setProyecto(res);
 
-        System.out.println("ID del nuevo proyecto: " + res.getId());
+        industria.setProyecto(res);
+        industriaRepository.save(industria);
+
         new File("src/main/resources/directory/" + res.getId()).mkdirs();
+
         return "redirect:/proyecto/list";
     }
 
-    @PostMapping(value = "/saveConahcyt", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveProyecto(Proyecto proyecto, DatosConahcyt conahcyt, Model model) {
-
-        System.out.println("convocatoria Conacyt: " + conahcyt.getConvocatoria());
-
-        // TODO: Crear el directorio del id del proyecto
-
-        proyecto.setTipoProyecto(TipoProyecto.CONAHCYT);
-        Proyecto res = proyectoRepository.save(proyecto);
-        conahcyt.setProyecto(res);
-        conahcytRepository.save(conahcyt);
-
-        // res = proyectoRepository.save(res);
-
-        System.out.println("ID del nuevo proyecto: " + res.getId());
-        new File("src/main/resources/directory/" + res.getId()).mkdirs();
-        return "redirect:/proyecto/list";
-    }
 }
