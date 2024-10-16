@@ -30,6 +30,38 @@
                             <form action="#" th:action="@{/etapa/save}" th:object="${etapa}" method="post">
                                 <div class="space-y-2">
                                     <div class="border-b border-gray-900/10 pb-12">
+                                        <div class="block text-sm font-medium leading-6 text-red-600">
+                                            <ul>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('descripcion')}"
+                                                          th:errors="*{descripcion}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('entregable')}"
+                                                          th:errors="*{entregable}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('fechaEstimadaInicio')}"
+                                                          th:errors="*{fechaEstimadaInicio}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('fechaEstimadaTerminacion')}"
+                                                          th:errors="*{fechaEstimadaTerminacion}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('responsable')}" th:errors="*{responsable}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('servicio')}" th:errors="*{servicio}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}">Nombre error</span>
+                                                </li>
+                                            </ul>
+                                        </div>
                                         <div class="mt-2 grid grid-cols-1 gap-x-12 gap-y-8 sm:grid-cols-6">
 
                                             <div class="sm:col-span-4">
@@ -41,10 +73,12 @@
                                                         <input type="text" name="nombre" id="nombre"
                                                                th:value="*{nombre}"
                                                                class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 font-normal">
+
                                                         <input type="hidden" id="id" name="id" th:value="*{id}"></input>
                                                         <input type="hidden" id="proyecto" name="proyecto"
                                                                th:value="*{proyecto.id}"></input>
                                                     </div>
+                                                    <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Nombre error</span>
                                                 </div>
                                             </div>
                                             <div class="col-span-full">
@@ -126,6 +160,10 @@
 
 
                                                 </div>
+                                                <span th:if="${#fields.hasErrors('fechaEstimadaInicio')}"
+                                                      th:errors="*{fechaEstimadaInicio}">Nombre error</span>
+                                                <span th:if="${#fields.hasErrors('fechaEstimadaTerminacion')}"
+                                                      th:errors="*{fechaEstimadaTerminacion}">Nombre error</span>
                                             </div>
                                             <div class="sm:col-span-3">
                                                 <label class="block text-sm font-medium leading-6 text-sky-900">Estatus: </label>

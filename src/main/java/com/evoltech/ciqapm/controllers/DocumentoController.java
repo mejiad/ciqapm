@@ -136,8 +136,8 @@ public class DocumentoController {
         Resource resource = storageService.loadAsResource(filename);
 
         byte[] contenido = resource.getContentAsByteArray();
-        for(int i = 0; i <contenido.length; i++) {
-            System.out.print(((char) contenido[i]));
+        for (byte b : contenido) {
+            System.out.print(((char) b));
         }
 
         System.out.println("Path: " + path.toAbsolutePath());

@@ -6,15 +6,18 @@ import com.evoltech.ciqapm.repository.PersonalRepository;
 import com.evoltech.ciqapm.repository.ProyectoRepository;
 import com.evoltech.ciqapm.repository.ServicioRepository;
 import com.evoltech.ciqapm.service.EtapaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("/etapa")
@@ -81,7 +84,6 @@ public class EtapaController {
         Proyecto proyecto = proyectoRepository.getReferenceById(id);
         List<Estado> estados = List.of(Estado.values());
         List<Personal> personas = personalRepository.findAll();
-        System.out.println("------ no. de personas: " + personas.size());
         List<Servicio> servicios = servicioRepository.findAll();
         Etapa etapa = new Etapa();
         etapa.setProyecto(proyecto);
@@ -94,7 +96,18 @@ public class EtapaController {
     }
 
    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-   public String saveEtapa(Etapa etapa,  Model model){
+   public String saveEtapa(@Valid Etapa etapa, BindingResult result, Model model) {
+        if(result.hasErrors()){
+            System.out.println("Hay errores");
+            List<Estado> estados = List.of(Estado.values());
+            List<Personal> personas = personalRepository.findAll();
+            List<Servicio> servicios = servicioRepository.findAll();
+            model.addAttribute("etapa", etapa);
+            model.addAttribute("estados", estados);
+            model.addAttribute("personas", personas);
+            model.addAttribute("servicios", servicios);
+            return "Etapa/Edit";
+        }
         if (etapa.getId() == null || etapa.getId() == 0) {
             etapa.setPctCompleto(0);
             Etapa resEtapa = etapaRepository.save(etapa);
@@ -105,6 +118,20 @@ public class EtapaController {
             etapaRepository.save(etapa);
         }
         return "redirect:/proyecto/list";
+    }
+
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(
+            MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
     }
 
 }
