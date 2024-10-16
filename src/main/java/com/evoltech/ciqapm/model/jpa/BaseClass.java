@@ -73,6 +73,7 @@ public abstract class BaseClass implements Serializable {
         log.info("++++++ PrePersist." + this.getClass().getName());
     }
 
+    /*
     @PostPersist
     private void postPersist(){
         log.info("++++++ PostPersist." + status);
@@ -97,4 +98,6 @@ public abstract class BaseClass implements Serializable {
     private void postLoad() {
         log.info("++++++ PostLoad." + this.getClass().getName());
     }
+
+     */
 }

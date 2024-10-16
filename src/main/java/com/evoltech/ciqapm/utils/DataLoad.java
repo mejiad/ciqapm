@@ -105,13 +105,22 @@ public class DataLoad {
 
         LocalDate startDate = LocalDate.of(2024, 5, 10 );
         Etapa etapa1 = creaEtapa(personal1, proyecto1, servicio1, startDate);
+        proyecto1.addEtapa(etapa1);
         Etapa etapa2 = creaEtapa(personal2, proyecto1, servicio2, startDate.plusDays(15));
+        proyecto1.addEtapa(etapa2);
         Etapa etapa3 = creaEtapa(personal3, proyecto1, servicio3, startDate.plusDays(25));
+        proyecto1.addEtapa(etapa3);
         Etapa etapa4 = creaEtapa(personal1, proyecto1, servicio1, startDate.plusDays(12));
+        proyecto1.addEtapa(etapa4);
         Etapa etapa5 = creaEtapa(personal2, proyecto1, servicio2, startDate.plusDays(10));
+        proyecto1.addEtapa(etapa5);
         Etapa etapa6 = creaEtapa(personal3, proyecto1, servicio1, startDate.plusDays(40));
+        proyecto1.addEtapa(etapa6);
         Etapa etapa7 = creaEtapa(personal4, proyecto1, servicio2, startDate.plusDays(60));
+        proyecto1.addEtapa(etapa7);
         Etapa etapa8 = creaEtapa(personal5, proyecto1, servicio3, startDate.plusDays(90));
+        proyecto1.addEtapa(etapa8);
+        proyectoRepository.save(proyecto1);
 
         Documento doc1 = creaDocumento("primer documento", proyecto1);
         Documento doc2 = creaDocumento("segundo documento", proyecto1);
@@ -143,6 +152,14 @@ public class DataLoad {
         Etapa etapa6_p2 = creaEtapa(personal3, proyecto2, servicio1, startDate.plusDays(28));
         Etapa etapa7_p2 = creaEtapa(personal4, proyecto2, servicio2, startDate.plusDays(40));
         Etapa etapa8_p8 = creaEtapa(personal5, proyecto2, servicio3, startDate.plusDays(10));
+        proyecto2.addEtapa(etapa1_p2);
+        proyecto2.addEtapa(etapa2_p2);
+        proyecto2.addEtapa(etapa3_p2);
+        proyecto2.addEtapa(etapa4_p2);
+        proyecto2.addEtapa(etapa5_p2);
+        proyecto2.addEtapa(etapa6_p2);
+        proyecto2.addEtapa(etapa7_p2);
+        proyectoRepository.save(proyecto2);
 
         startDate = LocalDate.of(2025, 2, 10 );
         Etapa etapa1_p3 = creaEtapa(personal1, proyecto2, servicio1, startDate);

@@ -51,7 +51,8 @@ public class ProyectoController {
                               EtapaRepository etapaRepository,
                               PersonalRepository personalRepository,
                               ConahcytRepository conahcytRepository,
-                              ClienteRepository clienteRepository) {
+                              ClienteRepository clienteRepository
+                              ) {
         this.proyectoServicio = proyectoServicio;
         this.proyectoRepository = proyectoRepository;
         this.etapaRepository = etapaRepository;
@@ -182,5 +183,10 @@ public class ProyectoController {
         System.out.println("ID del nuevo proyecto: " + res.getId());
         new File("src/main/resources/directory/" + res.getId()).mkdirs();
         return "redirect:/proyecto/list";
+    }
+
+    public int avance(Long id){
+         // return proyectoServicio.calculaAvance(id);
+        return 20;
     }
 }

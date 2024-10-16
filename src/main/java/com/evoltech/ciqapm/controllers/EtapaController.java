@@ -64,7 +64,7 @@ public class EtapaController {
     public String editEtapa(@RequestParam Long id, Model model){
         Etapa etapa = etapaRepository.getReferenceById(id);
         List<Estado> estados = List.of(Estado.values());
-        List<Personal> personas = personalRepository.findByCategoria(PersonalCategoria.ITA);
+        List<Personal> personas = personalRepository.findAll();
         System.out.println("------ no. de personas: " + personas.size());
         List<Servicio> servicios = servicioRepository.findAll();
         Proyecto proyecto = etapa.getProyecto();
@@ -80,7 +80,7 @@ public class EtapaController {
     public String newEtapa(@RequestParam Long id,  Model model) {
         Proyecto proyecto = proyectoRepository.getReferenceById(id);
         List<Estado> estados = List.of(Estado.values());
-        List<Personal> personas = personalRepository.findByCategoria(PersonalCategoria.ITA);
+        List<Personal> personas = personalRepository.findAll();
         System.out.println("------ no. de personas: " + personas.size());
         List<Servicio> servicios = servicioRepository.findAll();
         Etapa etapa = new Etapa();
@@ -95,11 +95,16 @@ public class EtapaController {
 
    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
    public String saveEtapa(Etapa etapa,  Model model){
-        System.out.println("Valor de etapa.proyecto: " + etapa.getProyecto().getNombre());
-       System.out.println("fechaEstInicio: " + etapa.getFechaEstimadaInicio());
-       System.out.println("fechaEstTerminacion: " + etapa.getFechaEstimadaTerminacion());
-       System.out.println("estado: " + etapa.getEstado());
-        etapaRepository.save(etapa);
+        if (etapa.getId() == null || etapa.getId() == 0) {
+            etapa.setPctCompleto(0);
+            Etapa resEtapa = etapaRepository.save(etapa);
+            Proyecto proyecto = resEtapa.getProyecto();
+            proyecto.addEtapa(resEtapa);
+            proyectoRepository.save(proyecto);
+        } else {
+            etapaRepository.save(etapa);
+        }
         return "redirect:/proyecto/list";
     }
+
 }
