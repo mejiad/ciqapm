@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Slf4j
 @MappedSuperclass
-public abstract class BaseClass implements Serializable {
+public abstract class BaseClass  implements Serializable {
 
     @Column(name="status", length=10, unique=false)
     private String status = "Inicio";  // TODO: definir los status. Crear enum

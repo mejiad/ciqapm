@@ -24,6 +24,4 @@ public class Cliente {
 
     private String email;
 
-    @OneToMany
-    private List<Proyecto> proyectos;
 }

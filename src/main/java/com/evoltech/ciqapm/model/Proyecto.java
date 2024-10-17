@@ -1,16 +1,11 @@
 package com.evoltech.ciqapm.model;
 
-import com.evoltech.ciqapm.model.datos.DatosConahcyt;
-import com.evoltech.ciqapm.model.datos.DatosIndustria;
-import com.evoltech.ciqapm.model.datos.DatosInternos;
-import com.evoltech.ciqapm.model.datos.DatosPostgrado;
 import com.evoltech.ciqapm.model.jpa.BaseClass;
-import com.evoltech.ciqapm.service.EtapaService;
-import com.evoltech.ciqapm.service.ProyectoServicio;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,16 +20,23 @@ public class Proyecto extends BaseClass implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @Size(min = 1, max = 120, message = "El nombre debe ser menor de 120 caracteres.")
+    @NotNull(message = "El nombre del proyecto es requerido.")
     private String nombre;
 
+    @Size(min = 1, max = 250, message = "La descripción debe ser menor de 250 caracteres.")
+    @NotNull(message = "La descripción del proyecto es requerida.")
     private String descripcion;
 
+    @NotNull(message = "El tipo del proyecto no se ha seleccionado.")
     @Enumerated(EnumType.STRING)
     private TipoProyecto tipoProyecto;
 
+    @NotNull(message = "El estatus del proyecto no se ha seleccionado.")
     @Enumerated(EnumType.STRING)
     private Estado estatus;
 
+    @NotNull(message = "El responsable del proyecto no se ha seleccionado.")
     @ManyToOne
     @JoinColumn(name="responsable_id", nullable=false)
     private Personal responsable;
@@ -65,12 +67,12 @@ public class Proyecto extends BaseClass implements Serializable {
     }
 
     @PostLoad
-    public void  proyectLoad() {
+    public void  postLoadAvance() {
         this.avance = calculaAvance();
     }
 
     @PostUpdate
-    public void logUserUpdate() {
+    public void postUpdateAvance() {
         this.avance = calculaAvance();
     }
 }
