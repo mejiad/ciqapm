@@ -18,6 +18,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/etapa")
@@ -98,7 +99,13 @@ public class EtapaController {
    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
    public String saveEtapa(@Valid Etapa etapa, BindingResult result, Model model) {
         if(result.hasErrors()){
-            System.out.println("Hay errores");
+            var mod = result.getModel();
+            System.out.println("Numero de errores globales:" + result.getGlobalErrorCount());
+            mod.forEach((String k, Object obj) -> {
+                System.out.println("Error key: " + k + " Obj:" + obj);
+                System.out.println("++++++++++++++++++++++++");
+            });
+
             List<Estado> estados = List.of(Estado.values());
             List<Personal> personas = personalRepository.findAll();
             List<Servicio> servicios = servicioRepository.findAll();
@@ -118,20 +125,6 @@ public class EtapaController {
             etapaRepository.save(etapa);
         }
         return "redirect:/proyecto/list";
-    }
-
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(
-            MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        return errors;
     }
 
 }

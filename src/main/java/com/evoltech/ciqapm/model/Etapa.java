@@ -1,6 +1,7 @@
 package com.evoltech.ciqapm.model;
 
 import com.evoltech.ciqapm.model.jpa.BaseClass;
+import com.evoltech.ciqapm.validation.CheckEtapaDates;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @Entity
 @Data
 @NoArgsConstructor
+@CheckEtapaDates
 public class Etapa extends BaseClass {
 
     @Id

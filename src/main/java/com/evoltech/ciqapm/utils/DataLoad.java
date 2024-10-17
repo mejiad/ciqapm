@@ -301,7 +301,6 @@ public class DataLoad {
 
     private Etapa creaEtapa(Personal responsable, Proyecto proyecto, Servicio servicio,
                             LocalDate startDate) {
-        System.out.println("Proyecto donde se agragara la etapa: " + proyecto.getNombre());
         Etapa etapa = new Etapa();
         etapa.setResponsable(responsable);
         etapa.setProyecto(proyecto);
