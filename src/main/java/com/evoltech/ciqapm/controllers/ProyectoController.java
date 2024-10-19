@@ -155,7 +155,7 @@ public class ProyectoController {
     */
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveProyecto(@Valid Proyecto proyecto, BindingResult result, Model model) {
+    public String saveProyecto(@Valid Proyecto proyecto, String alumno,  BindingResult result, Model model) {
 
         System.out.println("Creación de proyecto");
         if(result.hasErrors()){
@@ -187,6 +187,7 @@ public class ProyectoController {
         }
         else {
             System.out.println("+++ NO Hay errores +++:" + proyecto.getNombre());
+            System.out.println("+++ NO Hay errores 2 +++:" + alumno);
             model.addAttribute("proyecto", proyecto);
             return "Proyecto/Edit";
         }

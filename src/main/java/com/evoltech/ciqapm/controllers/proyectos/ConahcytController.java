@@ -1,11 +1,13 @@
 package com.evoltech.ciqapm.controllers.proyectos;
 
+import com.evoltech.ciqapm.dto.ConahcytProyectoDto;
 import com.evoltech.ciqapm.dto.GanttDTO;
 import com.evoltech.ciqapm.model.*;
 import com.evoltech.ciqapm.model.datos.DatosConahcyt;
 import com.evoltech.ciqapm.repository.*;
 import com.evoltech.ciqapm.repository.datos.ConahcytRepository;
 import com.evoltech.ciqapm.service.ProyectoServicio;
+import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -129,7 +132,7 @@ public class ConahcytController {
 
     @GetMapping("/new")
     public String newConahcyt(Model model) {
-        Proyecto proyecto = new Proyecto();
+        ConahcytProyectoDto proyecto = new ConahcytProyectoDto();
         proyecto.setNombre("Primer Proyecto de prueba.");
         proyecto.setDescripcion("Descripción del proyecto.");
         List<Estado> estados = List.of(Estado.values());
@@ -137,7 +140,6 @@ public class ConahcytController {
         List<Cliente> clientes = clienteRepository.findAll();
         List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
         DatosConahcyt conahcyt = new DatosConahcyt();
-        proyecto.setTipoProyecto(TipoProyecto.CONAHCYT);
 
         model.addAttribute("proyecto", proyecto);
         model.addAttribute("estados", estados);
@@ -168,21 +170,48 @@ public class ConahcytController {
      */
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveProyecto(Proyecto proyecto, DatosConahcyt conahcyt, Model model) {
+    public String saveProyecto(@Valid ConahcytProyectoDto conacytProyecto, BindingResult result,  Model model) {
 
-        System.out.println("convocatoria Conacyt: " + conahcyt.getConvocatoria());
+        var mod = result.getModel();
+        if(result.hasErrors()){
+            if (!mod.isEmpty()) {
+                mod.forEach((String k, Object obj) -> {
+                    System.out.println("Error key: " + k + " Obj:" + obj);
+                    System.out.println("++++++++++++++++++++++++");
+                });
+            }
+            List<Estado> estados = List.of(Estado.values());
+            List<Personal> personas = personalRepository.findAll();
+            List<Cliente> clientes = clienteRepository.findAll();
+            List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
 
-        // TODO: Crear el directorio del id del proyecto
+            model.addAttribute("proyecto", conacytProyecto);
+            model.addAttribute("estados", estados);
+            model.addAttribute("personas", personas);
+            model.addAttribute("clientes", clientes);
+            model.addAttribute("tiposProyecto", tiposProyecto);
+            return "/conahcyt/Edit";
+        } else {
+            // TODO: Crear el directorio del id del proyecto
+            System.out.println("Inicio del save");
+            Proyecto proyecto = conacytProyecto.proyecto();
+            System.out.println("valor del status:" + proyecto.getStatus());
 
-        proyecto.setTipoProyecto(TipoProyecto.CONAHCYT);
-        Proyecto res = proyectoRepository.save(proyecto);
-        conahcyt.setProyecto(res);
-        conahcytRepository.save(conahcyt);
+            proyecto.setStatus(Estado.PROCESO.name());
+            proyecto.setEstatus(Estado.PROCESO);
 
-        // res = proyectoRepository.save(res);
+            DatosConahcyt conahcyt = conacytProyecto.conahcyt();
 
-        System.out.println("ID del nuevo proyecto: " + res.getId());
-        new File("src/main/resources/directory/" + res.getId()).mkdirs();
-        return "redirect:/proyecto/list";
+            Proyecto res = proyectoRepository.save(proyecto);
+            conahcyt.setProyecto(res);
+
+            conahcytRepository.save(conahcyt);
+
+            res = proyectoRepository.save(res);
+
+            System.out.println("ID del nuevo proyecto: " + res.getId());
+            new File("src/main/resources/directory/" + res.getId()).mkdirs();
+            return "redirect:/proyecto/list";
+        }
     }
 }

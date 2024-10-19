@@ -52,15 +52,6 @@
                                     <span th:text="${proyecto.responsable.nombre}">2</span>
                                 </p>
                             </div>
-                            <div class="mt-5 flex items-center space-x-3">
-
-                                <h3 class="truncate text-sm font-medium text-gray-900">
-                                    <span>Solicitado por:</span>
-                                </h3>
-                                <p class="truncate text-sm text-gray-500">
-                                    <span th:text="${proyecto.cliente.nombre}">2</span>
-                                </p>
-                            </div>
 
 
                             <div class="mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
@@ -90,13 +81,6 @@
                                                     Participantes
                                                 </a>
                                             </li>
-                                            <li class="z-30 flex-auto text-center">
-                                                <a class="z-30 flex items-center justify-center w-full px-0 py-2 text-sm mb-0 transition-all ease-in-out border-0 rounded-lg cursor-pointer text-slate-700 bg-inherit"
-                                                   data-tab-target="" role="tab" aria-selected="false"
-                                                   aria-controls="pagos">
-                                                    Pagos
-                                                </a>
-                                            </li>
                                         </ul>
 
                                         <div data-tab-content="" class="p-5">
@@ -108,9 +92,6 @@
                                             </div>
                                             <div class="hidden opacity-0" id="settings" role="tabpanel"
                                                  th:hx-get="@{/personal/list}" hx-trigger="load">
-                                            </div>
-                                            <div class="hidden opacity-0" id="pagos" role="tabpanel"
-                                                 th:hx-get="@{/pago/list(id=${proyecto.id})}" hx-trigger="load">
                                             </div>
                                         </div>
                                     </div>
