@@ -40,13 +40,16 @@ public class ConvocatoriaController {
     }
 
     @GetMapping("new")
-    public String newConvocatoria(){
+    public String newConvocatoria(Model model){
+        Convocatoria convocatoria = new Convocatoria();
+        model.addAttribute("convocatoria", convocatoria);
 
         return "Convocatoria/Edit";
     }
 
     @PostMapping("save")
     public String save(Convocatoria convocatoria, Model model){
-        return "redirect: convocatoria/list";
+        convocatoriaRepository.save(convocatoria);
+        return "redirect:/convocatoria/list";
     }
 }
