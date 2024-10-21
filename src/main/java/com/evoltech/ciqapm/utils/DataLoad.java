@@ -1,6 +1,7 @@
 package com.evoltech.ciqapm.utils;
 
 import com.evoltech.ciqapm.model.*;
+import com.evoltech.ciqapm.model.jpa.Convocatoria;
 import com.evoltech.ciqapm.repository.*;
 import com.evoltech.ciqapm.security.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,9 @@ public class DataLoad {
     PagoRepository pagoRepository;
 
     @Autowired
+    ConvocatoriaRepository convocatoriaRepository;
+
+    @Autowired
     PasswordEncoder passwordEncoder;
 
     @Autowired RandomService randomService;
@@ -48,6 +52,7 @@ public class DataLoad {
                     ServicioRepository servicioRepository, ProyectoRepository proyectoRepository,
                     EtapaRepository etapaRepository, DocumentoRepository documentoRepository,
                     UsuarioRepository usuarioRepository, ActividadRepository actividadRepository,
+                    ConvocatoriaRepository convocatoriaRepository,
                     PagoRepository pagoRepository,
                     PasswordEncoder passwordEncoder) {
 
@@ -61,6 +66,7 @@ public class DataLoad {
         this.actividadRepository = actividadRepository;
         this.passwordEncoder = passwordEncoder;
         this.pagoRepository =  pagoRepository;
+        this.convocatoriaRepository = convocatoriaRepository;
     }
 
     public void initializa() {
@@ -193,6 +199,11 @@ public class DataLoad {
         pago = createPago(proyecto2, stDate.plusDays(60), 30);
         pago = createPago(proyecto2, stDate.plusDays(120), 50);
 
+
+        Convocatoria convocatoria = createConvocatoria("Primer convocatoria");
+        convocatoria = createConvocatoria("Segunda Convocatoria");
+        convocatoria = createConvocatoria("Tercer Convocatoria");
+        convocatoria = createConvocatoria("Cuarta Convocatoria");
 
         System.out.println("Database Inicializada ...");
 
@@ -363,6 +374,17 @@ public class DataLoad {
         pago.setProyecto(proyecto);
 
         Pago res = pagoRepository.save(pago);
+        return res;
+    }
+
+    private Convocatoria createConvocatoria(String nombre){
+        Convocatoria convocatoria = new Convocatoria();
+        convocatoria.setNombre(nombre);
+        convocatoria.setDescripcion("Descripción de la convocatoria " + nombre);
+        convocatoria.setInicioVigencia(LocalDate.now());
+        convocatoria.setTerminoVigencia(LocalDate.now().plusMonths(10));
+
+        Convocatoria res = convocatoriaRepository.save(convocatoria);
         return res;
     }
 
