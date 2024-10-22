@@ -126,15 +126,13 @@ public class ConahcytController {
         List<Cliente> clientes = clienteRepository.findAll();
         List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
         List<Convocatoria> convocatorias = convocatoriaRepository.findAll();
-        DatosConahcyt conahcyt = new DatosConahcyt();
 
-        model.addAttribute("proyecto", proyecto);
+        model.addAttribute("conahcytDto", proyecto);
         model.addAttribute("estados", estados);
         model.addAttribute("personas", personas);
         model.addAttribute("clientes", clientes);
         model.addAttribute("tiposProyecto", tiposProyecto);
         model.addAttribute("convocatorias", convocatorias);
-        model.addAttribute("conahcyt", conahcyt);
 
         return "/Conahcyt/Edit";
     }

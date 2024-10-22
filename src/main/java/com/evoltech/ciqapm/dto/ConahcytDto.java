@@ -4,6 +4,7 @@ import com.evoltech.ciqapm.model.*;
 import com.evoltech.ciqapm.model.datos.DatosConahcyt;
 import com.evoltech.ciqapm.model.jpa.Convocatoria;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -16,12 +17,13 @@ public class ConahcytDto {
     @Id
     private Long id;
 
-    @Size(min = 1, max = 120, message = "El nombre debe ser menor de 120 caracteres.")
     @NotNull(message = "El nombre del proyecto es requerido.")
+    @NotEmpty(message = "No se permiten blancos")
     private String nombre;
 
     @Size(min = 1, max = 250, message = "La descripción debe ser menor de 250 caracteres.")
     @NotNull(message = "La descripción del proyecto es requerida.")
+    @NotEmpty(message = "No se permiten blancos")
     private String descripcion;
 
     @NotNull(message = "El estatus del proyecto no se ha seleccionado.")
