@@ -1,6 +1,7 @@
 package com.evoltech.ciqapm.model.datos;
 
 import com.evoltech.ciqapm.model.Proyecto;
+import com.evoltech.ciqapm.model.jpa.Convocatoria;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -16,7 +17,7 @@ public class DatosConahcyt {
     private Long id;
 
     @NotNull(message = "La convocatoria es un dato requerido.")
-    private String convocatoria;
+    private Convocatoria convocatoria;
 
     @NotNull(message = "El objetivo es un dato requerido.")
     private String objetivo;

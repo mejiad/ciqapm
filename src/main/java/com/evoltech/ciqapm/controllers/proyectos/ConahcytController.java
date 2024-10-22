@@ -1,9 +1,10 @@
 package com.evoltech.ciqapm.controllers.proyectos;
 
-import com.evoltech.ciqapm.dto.ConahcytProyectoDto;
+import com.evoltech.ciqapm.dto.ConahcytDto;
 import com.evoltech.ciqapm.dto.GanttDTO;
 import com.evoltech.ciqapm.model.*;
 import com.evoltech.ciqapm.model.datos.DatosConahcyt;
+import com.evoltech.ciqapm.model.jpa.Convocatoria;
 import com.evoltech.ciqapm.repository.*;
 import com.evoltech.ciqapm.repository.datos.ConahcytRepository;
 import com.evoltech.ciqapm.service.ProyectoServicio;
@@ -50,16 +51,21 @@ public class ConahcytController {
     @Autowired
     private final ConahcytRepository conahcytRepository;
 
+    @Autowired
+    private final ConvocatoriaRepository convocatoriaRepository;
+
     public ConahcytController(ProyectoServicio proyectoServicio, ProyectoRepository proyectoRepository,
                               EtapaRepository etapaRepository,
                               PersonalRepository personalRepository,
                               ConahcytRepository conahcytRepository,
+                              ConvocatoriaRepository convocatoriaRepository,
                               ClienteRepository clienteRepository) {
         this.proyectoServicio = proyectoServicio;
         this.proyectoRepository = proyectoRepository;
         this.etapaRepository = etapaRepository;
         this.personalRepository = personalRepository;
         this.clienteRepository = clienteRepository;
+        this.convocatoriaRepository = convocatoriaRepository;
         this.conahcytRepository = conahcytRepository;
     }
 
@@ -73,7 +79,7 @@ public class ConahcytController {
 
         model.addAttribute("proyectos", proyectos);
 
-        return "/conahcyt/List";
+        return "/Conahcyt/List";
     }
 
     @GetMapping("/view")
@@ -103,7 +109,7 @@ public class ConahcytController {
         model.addAttribute("proyecto", proyecto);
         model.addAttribute("etapas", ganttDTOS);
 
-        return "/Proyecto/View";
+        return "/Conahcyt/View";
     }
 
     @GetMapping("/edit")
@@ -111,34 +117,15 @@ public class ConahcytController {
         return "/Proyecto/Edit";
     }
 
-    @GetMapping("/newold")
-    public String newProyecto(Model model) {
-        Proyecto proyecto = new Proyecto();
-        proyecto.setNombre("Primer Proyecto de prueba.");
-        proyecto.setDescripcion("Descripción del proyecto.");
-        List<Estado> estados = List.of(Estado.values());
-        List<Personal> personas = personalRepository.findAll();
-        List<Cliente> clientes = clienteRepository.findAll();
-        List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
-
-        model.addAttribute("proyecto", proyecto);
-        model.addAttribute("estados", estados);
-        model.addAttribute("personas", personas);
-        model.addAttribute("clientes", clientes);
-        model.addAttribute("tiposProyecto", tiposProyecto);
-
-        return "/Proyecto/Edit";
-    }
 
     @GetMapping("/new")
     public String newConahcyt(Model model) {
-        ConahcytProyectoDto proyecto = new ConahcytProyectoDto();
-        proyecto.setNombre("Primer Proyecto de prueba.");
-        proyecto.setDescripcion("Descripción del proyecto.");
+        ConahcytDto proyecto = new ConahcytDto();
         List<Estado> estados = List.of(Estado.values());
         List<Personal> personas = personalRepository.findAll();
         List<Cliente> clientes = clienteRepository.findAll();
         List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
+        List<Convocatoria> convocatorias = convocatoriaRepository.findAll();
         DatosConahcyt conahcyt = new DatosConahcyt();
 
         model.addAttribute("proyecto", proyecto);
@@ -146,9 +133,10 @@ public class ConahcytController {
         model.addAttribute("personas", personas);
         model.addAttribute("clientes", clientes);
         model.addAttribute("tiposProyecto", tiposProyecto);
+        model.addAttribute("convocatorias", convocatorias);
         model.addAttribute("conahcyt", conahcyt);
 
-        return "/conahcyt/Edit";
+        return "/Conahcyt/Edit";
     }
 
     /*
@@ -170,7 +158,7 @@ public class ConahcytController {
      */
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveProyecto(@Valid ConahcytProyectoDto conacytProyecto, BindingResult result,  Model model) {
+    public String saveProyecto(@Valid ConahcytDto conacytProyecto, BindingResult result, Model model) {
 
         var mod = result.getModel();
         if(result.hasErrors()){
@@ -184,20 +172,20 @@ public class ConahcytController {
             List<Personal> personas = personalRepository.findAll();
             List<Cliente> clientes = clienteRepository.findAll();
             List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
+            List<Convocatoria> convocatorias = convocatoriaRepository.findAll();
 
             model.addAttribute("proyecto", conacytProyecto);
             model.addAttribute("estados", estados);
             model.addAttribute("personas", personas);
             model.addAttribute("clientes", clientes);
+            model.addAttribute("convocatorias", convocatorias);
             model.addAttribute("tiposProyecto", tiposProyecto);
-            return "/conahcyt/Edit";
+            return "/Conahcyt/Edit";
         } else {
             // TODO: Crear el directorio del id del proyecto
             System.out.println("Inicio del save");
             Proyecto proyecto = conacytProyecto.proyecto();
-            System.out.println("valor del status:" + proyecto.getStatus());
 
-            proyecto.setStatus(Estado.PROCESO.name());
             proyecto.setEstatus(Estado.PROCESO);
 
             DatosConahcyt conahcyt = conacytProyecto.conahcyt();
@@ -209,9 +197,9 @@ public class ConahcytController {
 
             res = proyectoRepository.save(res);
 
-            System.out.println("ID del nuevo proyecto: " + res.getId());
-            new File("src/main/resources/directory/" + res.getId()).mkdirs();
-            return "redirect:/proyecto/list";
+            new File("src/main/resources/directory/conahcyt" + res.getId()).mkdirs();
+
+            return "redirect:/conahcyt/view?id=" + res.getId();
         }
     }
 }

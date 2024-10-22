@@ -11,8 +11,10 @@ import java.util.Date;
 @MappedSuperclass
 public abstract class BaseClass  implements Serializable {
 
+    /*
     @Column(name="status", length=10, unique=false)
     private String status = "Inicio";  // TODO: definir los status. Crear enum
+     */
 
     @Column
     private LocalDate createDate;
@@ -42,14 +44,6 @@ public abstract class BaseClass  implements Serializable {
         this.userUpdate = userUpdate;
     }
 
-    public String getStatus(){
-        return status;
-    }
-
-    public void setStatus(String status){
-        this.status = status;
-    }
-
     public LocalDate getCreateDate(){
         return createDate;
     }
@@ -68,7 +62,6 @@ public abstract class BaseClass  implements Serializable {
 
     @PrePersist
     private void prePersist(){
-        status = "Creado";
         createDate = LocalDate.now();
         log.info("++++++ PrePersist." + this.getClass().getName());
     }

@@ -1,6 +1,7 @@
 package com.evoltech.ciqapm.controllers.proyectos;
 
 import com.evoltech.ciqapm.dto.GanttDTO;
+import com.evoltech.ciqapm.dto.IndustriaDto;
 import com.evoltech.ciqapm.model.*;
 import com.evoltech.ciqapm.model.datos.DatosConahcyt;
 import com.evoltech.ciqapm.model.datos.DatosIndustria;
@@ -85,6 +86,8 @@ public class IndustriaController {
         System.out.println("Nombre del usuario: " + username);
 
         Proyecto proyecto = proyectoRepository.getReferenceById(id);
+        DatosIndustria datosIndustria = industriaRepository.findByProyecto(proyecto);
+
         List<Etapa> etapas = etapaRepository.findByProyecto(proyecto);
 
         ArrayList<GanttDTO> ganttDTOS = new ArrayList<>();
@@ -99,7 +102,9 @@ public class IndustriaController {
             ganttDTOS.add(ganttDTO);
         });
 
-        model.addAttribute("proyecto", proyecto);
+        IndustriaDto industriaDto = new IndustriaDto(proyecto, datosIndustria);
+
+        model.addAttribute("proyecto", industriaDto);
         model.addAttribute("etapas", ganttDTOS);
 
         return "/industria/View";

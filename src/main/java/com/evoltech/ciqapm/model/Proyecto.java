@@ -44,10 +44,6 @@ public class Proyecto extends BaseClass implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Etapa> etapas = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name="cliente_id", nullable=true)
-    private Cliente cliente;
-
     @Transient
     private int avance;
 
