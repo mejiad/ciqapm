@@ -23,10 +23,6 @@ public class IndustriaDto {
     @NotNull(message = "La descripción del proyecto es requerida.")
     private String descripcion;
 
-    @NotNull(message = "El tipo del proyecto no se ha seleccionado.")
-    @Enumerated(EnumType.STRING)
-    private TipoProyecto tipoProyecto;
-
     @NotNull(message = "El estatus del proyecto no se ha seleccionado.")
     @Enumerated(EnumType.STRING)
     private Estado estatus;
@@ -40,6 +36,8 @@ public class IndustriaDto {
     @JoinColumn(name="cliente_id", nullable=true)
     private Cliente cliente;
 
+    private TipoProyecto tipoProyecto;
+
     private Double presupuesto;
 
 
@@ -52,7 +50,26 @@ public class IndustriaDto {
         this.setEstatus(proyecto.getEstatus());
         this.setPresupuesto(datosIndustria.getPresupuesto());
         this.setResponsable(proyecto.getResponsable());
-        this.setTipoProyecto(proyecto.getTipoProyecto());
+    }
+
+    public Proyecto getProyecto(){
+        Proyecto proyecto = new Proyecto();
+
+        proyecto.setDescripcion(this.getDescripcion());
+        proyecto.setNombre(this.getNombre());
+        proyecto.setEstatus(this.getEstatus());
+        proyecto.setResponsable(this.getResponsable());
+        proyecto.setTipoProyecto(TipoProyecto.INDUSTRIA);
+
+        return  proyecto;
+    }
+
+    public DatosIndustria getDatosIndustria(){
+        DatosIndustria datosIndustria = new DatosIndustria();
+        datosIndustria.setCliente(this.getCliente());
+        datosIndustria.setPresupuesto(this.getPresupuesto());
+
+        return datosIndustria;
     }
 
 

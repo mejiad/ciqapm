@@ -17,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,7 +74,7 @@ public class IndustriaController {
 
         model.addAttribute("proyectos", proyectos);
 
-        return "/industria/List";
+        return "/Industria/List";
     }
 
     @GetMapping("/view")
@@ -107,7 +108,7 @@ public class IndustriaController {
         model.addAttribute("proyecto", industriaDto);
         model.addAttribute("etapas", ganttDTOS);
 
-        return "/industria/View";
+        return "/Industria/View";
     }
 
     @GetMapping("/edit")
@@ -119,23 +120,23 @@ public class IndustriaController {
     @GetMapping("/new")
     public String newIndustria(Model model) {
         Proyecto proyecto = new Proyecto();
-        proyecto.setNombre("Primer Proyecto de prueba.");
-        proyecto.setDescripcion("Descripción del proyecto.");
         List<Estado> estados = List.of(Estado.values());
         List<Personal> personas = personalRepository.findAll();
         List<Cliente> clientes = clienteRepository.findAll();
-        List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
-        DatosIndustria industria = new DatosIndustria();
-        proyecto.setTipoProyecto(TipoProyecto.CONAHCYT);
+        // List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
 
-        model.addAttribute("proyecto", proyecto);
+        DatosIndustria industria = new DatosIndustria();
+        proyecto.setTipoProyecto(TipoProyecto.INDUSTRIA);
+        IndustriaDto industriaDto = new IndustriaDto();
+
+        model.addAttribute("proyecto", industriaDto);
         model.addAttribute("estados", estados);
         model.addAttribute("personas", personas);
         model.addAttribute("clientes", clientes);
-        model.addAttribute("tiposProyecto", tiposProyecto);
+        // model.addAttribute("tiposProyecto", tiposProyecto);
         model.addAttribute("industria", industria);
 
-        return "/industria/Edit";
+        return "/Industria/Edit";
     }
 
     /*
@@ -144,18 +145,28 @@ public class IndustriaController {
     */
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveProyecto(Proyecto proyecto, DatosIndustria industria, Model model) {
+    public String saveProyecto(IndustriaDto industriaDto, BindingResult result, Model model) {
 
-        proyecto.setTipoProyecto(TipoProyecto.INDUSTRIA);
-        Proyecto res = proyectoRepository.save(proyecto);
-        industria.setProyecto(res);
+        if(result.hasErrors()){
+            System.out.println("Errores del edit");
 
-        industria.setProyecto(res);
-        industriaRepository.save(industria);
+            return "/Industria/Edit";
+        } else {
+            Proyecto proyecto = industriaDto.getProyecto();
+            DatosIndustria industria = industriaDto.getDatosIndustria();
 
-        new File("src/main/resources/directory/" + res.getId()).mkdirs();
+            proyecto.setTipoProyecto(TipoProyecto.INDUSTRIA);
+            Proyecto res = proyectoRepository.save(proyecto);
 
-        return "redirect:/proyecto/list";
+            industria.setProyecto(res);
+
+            industria.setProyecto(res);
+            industriaRepository.save(industria);
+
+            new File("src/main/resources/directory/industria" + res.getId()).mkdirs();
+            return "redirect:/industria/list";
+        }
+
     }
 
 }
