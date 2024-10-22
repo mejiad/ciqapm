@@ -49,6 +49,9 @@ public class DataLoad {
     IndustriaRepository industriaRepository;
 
     @Autowired
+    AlumnoRepository alumnoRepository;
+
+    @Autowired
     PasswordEncoder passwordEncoder;
 
     @Autowired RandomService randomService;
@@ -60,6 +63,7 @@ public class DataLoad {
                     ConvocatoriaRepository convocatoriaRepository,
                     PagoRepository pagoRepository,
                     IndustriaRepository industriaRepository,
+                    AlumnoRepository alumnoRepository,
                     PasswordEncoder passwordEncoder) {
 
         this.personalRepository = repository;
@@ -72,6 +76,7 @@ public class DataLoad {
         this.actividadRepository = actividadRepository;
         this.passwordEncoder = passwordEncoder;
         this.pagoRepository =  pagoRepository;
+        this.alumnoRepository = alumnoRepository;
         this.convocatoriaRepository = convocatoriaRepository;
     }
 
@@ -210,6 +215,23 @@ public class DataLoad {
         convocatoria = createConvocatoria("Segunda Convocatoria");
         convocatoria = createConvocatoria("Tercer Convocatoria");
         convocatoria = createConvocatoria("Cuarta Convocatoria");
+
+        Alumno alumno = createAlumno();
+        alumno = createAlumno();
+        alumno = createAlumno();
+        alumno = createAlumno();
+        alumno = createAlumno();
+        alumno = createAlumno();
+        alumno = createAlumno();
+        alumno = createAlumno();
+        alumno = createAlumno();
+        alumno = createAlumno();
+        alumno = createAlumno();
+        alumno = createAlumno();
+        alumno = createAlumno();
+        alumno = createAlumno();
+        alumno = createAlumno();
+        alumno = createAlumno();
 
         System.out.println("Database Inicializada ...");
 
@@ -425,6 +447,15 @@ public class DataLoad {
         convocatoria.setTerminoVigencia(LocalDate.now().plusMonths(10));
 
         Convocatoria res = convocatoriaRepository.save(convocatoria);
+        return res;
+    }
+
+    private Alumno createAlumno(){
+        Alumno alumno = new Alumno();
+        alumno.setNombre(randomService.nombre());
+        alumno.setMatricula(randomService.rfc());
+        alumno.setEmail(randomService.email());
+        Alumno res = alumnoRepository.save(alumno);
         return res;
     }
 
