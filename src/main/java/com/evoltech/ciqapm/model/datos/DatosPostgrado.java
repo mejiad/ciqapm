@@ -1,7 +1,9 @@
 package com.evoltech.ciqapm.model.datos;
 
+import com.evoltech.ciqapm.model.Alumno;
 import com.evoltech.ciqapm.model.Proyecto;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +16,8 @@ public class DatosPostgrado {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String alumno;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Alumno alumno;
 
     private String notas;
 

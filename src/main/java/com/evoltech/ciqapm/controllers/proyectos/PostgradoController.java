@@ -1,11 +1,15 @@
 package com.evoltech.ciqapm.controllers.proyectos;
 
 import com.evoltech.ciqapm.dto.GanttDTO;
+import com.evoltech.ciqapm.dto.PostgradoDto;
 import com.evoltech.ciqapm.model.*;
 import com.evoltech.ciqapm.model.datos.DatosConahcyt;
+import com.evoltech.ciqapm.model.datos.DatosPostgrado;
 import com.evoltech.ciqapm.repository.*;
 import com.evoltech.ciqapm.repository.datos.ConahcytRepository;
+import com.evoltech.ciqapm.repository.datos.PostgradoRepository;
 import com.evoltech.ciqapm.service.ProyectoServicio;
+import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +47,10 @@ public class PostgradoController {
     @Autowired
     private final PersonalRepository personalRepository;
     @Autowired
-    private final ClienteRepository clienteRepository;
+    private final AlumnoRepository alumnoRepository;
+
+    @Autowired
+    private final PostgradoRepository postgradoRepository;
 
     @Autowired
     private final ConahcytRepository conahcytRepository;
@@ -51,13 +59,14 @@ public class PostgradoController {
                                EtapaRepository etapaRepository,
                                PersonalRepository personalRepository,
                                ConahcytRepository conahcytRepository,
-                               ClienteRepository clienteRepository) {
+                               AlumnoRepository alumnoRepository, PostgradoRepository postgradoRepository) {
         this.proyectoServicio = proyectoServicio;
         this.proyectoRepository = proyectoRepository;
         this.etapaRepository = etapaRepository;
         this.personalRepository = personalRepository;
-        this.clienteRepository = clienteRepository;
+        this.alumnoRepository = alumnoRepository;
         this.conahcytRepository = conahcytRepository;
+        this.postgradoRepository = postgradoRepository;
     }
 
     @GetMapping("/list")
@@ -70,7 +79,7 @@ public class PostgradoController {
 
         model.addAttribute("proyectos", proyectos);
 
-        return "/postgrado/List";
+        return "/Postgrado/List";
     }
 
     @GetMapping("/view")
@@ -100,53 +109,29 @@ public class PostgradoController {
         model.addAttribute("proyecto", proyecto);
         model.addAttribute("etapas", ganttDTOS);
 
-        return "/Proyecto/View";
+        return "/Postgrado/View";
     }
 
     @GetMapping("/edit")
     public String editProyecto(Model model) {
-        return "/Proyecto/Edit";
+        return "/Postgrado/Edit";
     }
 
     @GetMapping("/new")
-    public String newProyecto(Model model) {
-        Proyecto proyecto = new Proyecto();
-        proyecto.setNombre("Primer Proyecto de prueba.");
-        proyecto.setDescripcion("Descripción del proyecto.");
+    public String newPostgrado(Model model) {
+        PostgradoDto proyecto = new PostgradoDto();
         List<Estado> estados = List.of(Estado.values());
         List<Personal> personas = personalRepository.findAll();
-        List<Cliente> clientes = clienteRepository.findAll();
+        List<Alumno> alumnos = alumnoRepository.findAll();
         List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
 
         model.addAttribute("proyecto", proyecto);
         model.addAttribute("estados", estados);
         model.addAttribute("personas", personas);
-        model.addAttribute("clientes", clientes);
+        model.addAttribute("alumnos", alumnos);
         model.addAttribute("tiposProyecto", tiposProyecto);
 
-        return "/postgrado/Edit";
-    }
-
-    @GetMapping("/newConahcyt")
-    public String newConahcyt(Model model) {
-        Proyecto proyecto = new Proyecto();
-        proyecto.setNombre("Primer Proyecto de prueba.");
-        proyecto.setDescripcion("Descripción del proyecto.");
-        List<Estado> estados = List.of(Estado.values());
-        List<Personal> personas = personalRepository.findAll();
-        List<Cliente> clientes = clienteRepository.findAll();
-        List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
-        DatosConahcyt conahcyt = new DatosConahcyt();
-        proyecto.setTipoProyecto(TipoProyecto.CONAHCYT);
-
-        model.addAttribute("proyecto", proyecto);
-        model.addAttribute("estados", estados);
-        model.addAttribute("personas", personas);
-        model.addAttribute("clientes", clientes);
-        model.addAttribute("tiposProyecto", tiposProyecto);
-        model.addAttribute("conahcyt", conahcyt);
-
-        return "/Proyecto/EditConahcyt";
+        return "/Postgrado/Edit";
     }
 
     /*
@@ -155,32 +140,30 @@ public class PostgradoController {
     */
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveProyecto(Proyecto proyecto, Model model) {
+    public String saveProyecto(@Valid PostgradoDto postgradoDto, BindingResult result, Model model) {
 
-        // TODO: Crear el directorio del id del proyecto
-        Proyecto res = proyectoRepository.save(proyecto);
+        if(result.hasErrors()){
+            System.out.println("Hay errores");
+            return "/Postgrado/Edit";
 
-        System.out.println("ID del nuevo proyecto: " + res.getId());
-        new File("src/main/resources/directory/" + res.getId()).mkdirs();
-        return "redirect:/proyecto/list";
+        } else {
+            System.out.println("NO Hay errores");
+            Proyecto proyecto = postgradoDto.getProyecto();
+            proyecto.setTipoProyecto(TipoProyecto.POSTGRADO);
+
+            DatosPostgrado datosPostgrado = postgradoDto.getDatosPostgrado();
+
+            var res = proyectoRepository.save(proyecto);
+            datosPostgrado.setProyecto(res);
+
+            new File("src/main/resources/directory/" + res.getId()).mkdirs();
+
+            return "redirect:/proyecto/list";
+
+        }
+
     }
 
-    @PostMapping(value = "/saveConahcyt", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveProyecto(Proyecto proyecto, DatosConahcyt conahcyt, Model model) {
 
-        System.out.println("convocatoria Conacyt: " + conahcyt.getConvocatoria());
 
-        // TODO: Crear el directorio del id del proyecto
-
-        proyecto.setTipoProyecto(TipoProyecto.CONAHCYT);
-        Proyecto res = proyectoRepository.save(proyecto);
-        conahcyt.setProyecto(res);
-        conahcytRepository.save(conahcyt);
-
-        // res = proyectoRepository.save(res);
-
-        System.out.println("ID del nuevo proyecto: " + res.getId());
-        new File("src/main/resources/directory/" + res.getId()).mkdirs();
-        return "redirect:/proyecto/list";
-    }
 }
