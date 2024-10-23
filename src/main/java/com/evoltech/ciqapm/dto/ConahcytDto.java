@@ -48,7 +48,7 @@ public class ConahcytDto {
         Proyecto proyecto = new Proyecto();
         proyecto.setNombre(nombre);
 
-        proyecto.setDescripcion(descripcion);
+        proyecto.setDescripcion(this.descripcion);
 
         proyecto.setEstatus(Estado.PROCESO);
 
@@ -70,7 +70,7 @@ public class ConahcytDto {
     public ConahcytDto(Proyecto proyecto, DatosConahcyt datosConahcyt) {
         this.id = proyecto.getId();
         this.nombre = proyecto.getNombre();
-        this.descripcion = proyecto().getDescripcion();
+        this.descripcion = proyecto.getDescripcion();
         this.estatus = proyecto.getEstatus();
         this.responsable = proyecto.getResponsable();
         this.convocatoria = datosConahcyt.getConvocatoria();

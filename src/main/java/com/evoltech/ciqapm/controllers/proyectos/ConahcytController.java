@@ -93,6 +93,11 @@ public class ConahcytController {
 
         Proyecto proyecto = proyectoRepository.getReferenceById(id);
         List<Etapa> etapas = etapaRepository.findByProyecto(proyecto);
+        DatosConahcyt datosConahcyt = conahcytRepository.findByProyecto(proyecto);
+        ConahcytDto conahcytDto = new ConahcytDto(proyecto, datosConahcyt);
+        System.out.println("Descripcion: " + conahcytDto.getDescripcion());
+        System.out.println("Descripcion Proyecto: " + proyecto.getDescripcion());
+        int avance = proyecto.getAvance();
 
         ArrayList<GanttDTO> ganttDTOS = new ArrayList<>();
 
@@ -106,8 +111,9 @@ public class ConahcytController {
             ganttDTOS.add(ganttDTO);
         });
 
-        model.addAttribute("proyecto", proyecto);
+        model.addAttribute("conahcytDto", conahcytDto);
         model.addAttribute("etapas", ganttDTOS);
+        model.addAttribute("avance", avance);
 
         return "/Conahcyt/View";
     }
@@ -157,6 +163,7 @@ public class ConahcytController {
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String saveProyecto(@Valid ConahcytDto conacytProyecto, BindingResult result, Model model) {
+
 
         var mod = result.getModel();
         if(result.hasErrors()){
