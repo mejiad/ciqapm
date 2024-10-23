@@ -16,6 +16,7 @@ public class DatosConahcyt {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @OneToOne
     @NotNull(message = "La convocatoria es un dato requerido.")
     private Convocatoria convocatoria;
 
