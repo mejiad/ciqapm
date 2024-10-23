@@ -18,12 +18,12 @@ public class ConahcytDto {
     private Long id;
 
     @NotNull(message = "El nombre del proyecto es requerido.")
-    @NotEmpty(message = "No se permiten blancos")
+    @NotEmpty(message = "El nombre del proyecto no permite blancos")
     private String nombre;
 
-    @Size(min = 1, max = 250, message = "La descripción debe ser menor de 250 caracteres.")
+    @Size(min = 1, max = 250, message = "La descripción debe tener entre 1 y 250 caracteres.")
     @NotNull(message = "La descripción del proyecto es requerida.")
-    @NotEmpty(message = "No se permiten blancos")
+    @NotEmpty(message = "La descripción no permite blancos")
     private String descripcion;
 
     @NotNull(message = "El estatus del proyecto no se ha seleccionado.")
@@ -39,6 +39,8 @@ public class ConahcytDto {
     private Convocatoria convocatoria;
 
     @NotNull(message = "El objetivo es un dato requerido.")
+    @NotEmpty(message = "El objetivo del proyecto no permite blancos")
+    @Size(min = 1, max = 250, message = "El objetivo debe tener entre 1 y 250 caracteres.")
     private String objetivo;
 
 
