@@ -66,7 +66,7 @@
                                                 <div class="mt-2">
                                                     <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
                                                         <input type="text" th:value="*{nombre}" name="nombre" id="nombre"
-                                                               class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-sky-400 focus:ring-0 sm:text-sm sm:leading-6">
+                                                               class="block p-2 font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-sky-400 focus:ring-0 sm:text-sm sm:leading-6">
                                                     </div>
                                                 </div>
                                             </div>
@@ -77,7 +77,7 @@
                                                 <div class="mt-2">
                                                     <textarea id="descripcion" name="descripcion" rows="3"
                                                               th:value="*{descripcion}"
-                                                              class="block font-normal w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6">[[${conahcytDto.descripcion}]]</textarea>
+                                                              class="block p-2 font-normal w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6">[[${conahcytDto.descripcion}]]</textarea>
 
                                                 </div>
                                                 <p class="text-sm text-gray-400 italic font-normal">Breve descripción del objetivo del
@@ -131,7 +131,10 @@
                                                 <label for="objetivo"
                                                        class="block text-sm font-medium leading-6 text-sky-900">Objetivo: </label>
                                                 <div class="mt-2">
-                                                    <input id="objetivo" name="objetivo" th:value="*{objetivo}" class="block font-normal w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6"></input>
+                                                    <textarea id="objetivo" name="objetivo" rows="3"
+                                                              th:value="*{objetivo}"
+                                                              class="block p-2 font-normal w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6">[[${conahcytDto.objetivo}]]</textarea>
+
                                                 </div>
                                                 <p class="text-sm text-gray-400 italic font-normal">Breve descripción del objetivo del
                                                     proyecto.</p>
