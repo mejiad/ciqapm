@@ -156,6 +156,8 @@ public class PostgradoController {
             var res = proyectoRepository.save(proyecto);
             datosPostgrado.setProyecto(res);
 
+            postgradoRepository.save(datosPostgrado);
+
             new File("src/main/resources/directory/" + res.getId()).mkdirs();
 
             return "redirect:/proyecto/list";
