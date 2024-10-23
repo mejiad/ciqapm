@@ -211,10 +211,14 @@ public class DataLoad {
         pago = createPago(proyecto2, stDate.plusDays(120), 50);
 
 
-        Convocatoria convocatoria = createConvocatoria("Primer convocatoria");
-        convocatoria = createConvocatoria("Segunda Convocatoria");
-        convocatoria = createConvocatoria("Tercer Convocatoria");
-        convocatoria = createConvocatoria("Cuarta Convocatoria");
+        Convocatoria convocatoria = createConvocatoria("Primer convocatoria", TipoConvocatoria.CONAHCYT);
+        convocatoria = createConvocatoria("Segunda Convocatoria", TipoConvocatoria.CONAHCYT);
+        convocatoria = createConvocatoria("Tercer Convocatoria", TipoConvocatoria.INTERNA);
+        convocatoria = createConvocatoria("Cuarta Convocatoria", TipoConvocatoria.INTERNA);
+        convocatoria = createConvocatoria("Quinta Convocatoria", TipoConvocatoria.INTERNA);
+        convocatoria = createConvocatoria("Sexta Convocatoria", TipoConvocatoria.CONAHCYT);
+        convocatoria = createConvocatoria("Séptima Convocatoria", TipoConvocatoria.INTERNA);
+        convocatoria = createConvocatoria("Octava Convocatoria", TipoConvocatoria.CONAHCYT);
 
         Alumno alumno = createAlumno();
         alumno = createAlumno();
@@ -439,12 +443,13 @@ public class DataLoad {
         return res;
     }
 
-    private Convocatoria createConvocatoria(String nombre){
+    private Convocatoria createConvocatoria(String nombre, TipoConvocatoria tipo){
         Convocatoria convocatoria = new Convocatoria();
         convocatoria.setNombre(nombre);
         convocatoria.setDescripcion("Descripción de la convocatoria " + nombre);
         convocatoria.setInicioVigencia(LocalDate.now());
         convocatoria.setTerminoVigencia(LocalDate.now().plusMonths(10));
+        convocatoria.setTipo(tipo);
 
         Convocatoria res = convocatoriaRepository.save(convocatoria);
         return res;

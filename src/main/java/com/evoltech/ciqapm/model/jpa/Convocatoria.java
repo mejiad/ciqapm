@@ -1,5 +1,6 @@
 package com.evoltech.ciqapm.model.jpa;
 
+import com.evoltech.ciqapm.model.TipoConvocatoria;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +23,9 @@ public class Convocatoria extends BaseClass implements Serializable {
 
     @NotNull(message = "El nombre es requerido.")
     private String nombre;
+
+    @NotNull(message = "El tipo de convocatoria es requerido.")
+    private TipoConvocatoria tipo;
 
     @NotNull(message = "La descripción es requerido.")
     private String descripcion;

@@ -1,5 +1,7 @@
 package com.evoltech.ciqapm.controllers;
 
+import com.evoltech.ciqapm.model.TipoConvocatoria;
+import com.evoltech.ciqapm.model.TipoProyecto;
 import com.evoltech.ciqapm.model.jpa.Convocatoria;
 import com.evoltech.ciqapm.repository.ConvocatoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +44,9 @@ public class ConvocatoriaController {
     @GetMapping("new")
     public String newConvocatoria(Model model){
         Convocatoria convocatoria = new Convocatoria();
+        List<TipoConvocatoria> tipos = List.of(TipoConvocatoria.values());
         model.addAttribute("convocatoria", convocatoria);
+        model.addAttribute("tipos", tipos);
 
         return "Convocatoria/Edit";
     }
