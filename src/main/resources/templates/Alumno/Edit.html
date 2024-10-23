@@ -23,127 +23,46 @@
                     </div>
                     <div class="divide-y divide-gray-300/50">
                         <div class="space-y-6 py-8 text-base leading-7 text-gray-600">
-                            <h2 class="text-3xl font-extrabold leading-6 text-sky-700">Proyecto CONAHCYT</h2>
+                            <h2 class="text-3xl font-extrabold leading-6 text-sky-700">Alumno CIQA</h2>
                         </div>
                         <div class="pt-4 text-base font-semibold leading-7">
 
-                            <form action="#" th:action="@{/conahcyt/save}" th:object="${proyecto}" method="post">
+                            <form action="#" th:action="@{/alumno/save}" th:object="${alumno}" method="post">
                                 <div class="space-y-2">
                                     <div class="border-b border-gray-900/10 pb-12">
                                         <div class="mt-10 grid grid-cols-1 gap-x-12 gap-y-8 sm:grid-cols-6">
                                             <div class="sm:col-span-4">
                                                 <label for="nombre"
                                                        class="block text-sm font-medium leading-6 text-sky-900">Nombre
-                                                    del proyecto:</label>
+                                                    del Alumno:</label>
                                                 <div class="mt-2">
                                                     <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
-                                                        <input type="text" name="nombre" id="nombre"
-                                                               class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-sky-400 focus:ring-0 sm:text-sm sm:leading-6">
+                                                        <input type="text" th:value="*{nombre}" name="nombre" id="nombre" class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-sky-400 focus:ring-0 sm:text-sm sm:leading-6">
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-span-full">
-                                                <label for="descripcion"
-                                                       class="block text-sm font-medium leading-6 text-sky-900">Descripción</label>
+                                                <label for="matricula"
+                                                       class="block text-sm font-medium leading-6 text-sky-900">matricula</label>
                                                 <div class="mt-2">
-                                                    <textarea id="descripcion" name="descripcion" rows="3"
-                                                              class="block font-normal w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6"></textarea>
+                                                    <input type="text" th:value="*{matricula}" name="matricula" id="matricula" class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-sky-400 focus:ring-0 sm:text-sm sm:leading-6">
                                                 </div>
                                                 <p class="text-sm text-gray-400 italic font-normal">Breve descripción del objetivo del
                                                     proyecto.</p>
-                                            </div>
-
-                                            <!--INDUSTRIA,
-                                            INTERNOS,
-                                            POSTGRADO,
-                                            CONAHCYT-->
-
-                                            <!--
-                                            <div class="sm:col-span-3">
-                                                <label for="tipoProyecto"
-                                                       class="block text-sm font-medium leading-6 text-sky-900">Tipo de Proyecto: </label>
-                                                <div class="mt-0">
-                                                    <select id="tipoProyecto" name="tipoProyecto"
-                                                            class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                                        <option th:value="*{tipoProyecto}"
-                                                                th:text="*{tipoProyecto?.nombre}"></option>
-                                                        <option th:each="tp : ${tiposProyecto}" th:value="${tp}"
-                                                                th:text="${tp}">
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            -->
-
-                                            <div class="sm:col-span-3">
-                                                <label for="responsable"
-                                                       class="block text-sm font-medium leading-6 text-sky-900">Responsable: </label>
-                                                <div class="mt-2">
-                                                    <select id="responsable" name="responsable"
-                                                            class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                                        <option th:value="*{responsable?.id}"
-                                                                th:text="*{responsable?.nombre}"></option>
-                                                        <option th:each="persona : ${personas}" th:value="${persona.id}"
-                                                                th:text="${persona.nombre}"
-                                                                th:selected="${responsable?.id}">>
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="sm:col-span-3">
-                                                <label class="block text-sm font-medium leading-6 text-sky-900">Estatus: </label>
-                                                <div class="mt-2">
-                                                    <select id="estatus" name="estatus"
-                                                            class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                                        <option th:value="*{estatus}" th:text="*{estatus}"></option>
-                                                        <option th:each="estado : ${estados}" th:value="${estado}"
-                                                                th:text="${estado}"></option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="sm:col-span-3">
-                                                <label for="convocatoria"
-                                                       class="block text-sm font-medium leading-6 text-sky-900">convocatoria: </label>
-                                                <div class="mt-2">
-                                                    <select id="convocatoria" name="convocatoria"
-                                                            class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                                        <option th:value="*{convocatoria?.id}"
-                                                                th:text="*{convocatoria?.nombre}"></option>
-                                                        <option th:each="convocatoria : ${convocatorias}" th:value="${convocatoria.id}"
-                                                                th:text="${convocatoria.nombre}"
-                                                                th:selected="${convocatoria?.id}">>
-                                                        </option>
-                                                    </select>
-                                                </div>
                                             </div>
 
                                             <div class="col-span-full">
-                                                <label for="objetivo"
-                                                       class="block text-sm font-medium leading-6 text-sky-900">objetivo</label>
+                                                <label for="email"
+                                                       class="block text-sm font-medium leading-6 text-sky-900">email</label>
                                                 <div class="mt-2">
-                                                    <input id="objetivo" name="objetivo" th:value="*{objetivo}" class="block font-normal w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6"></input>
+                                                    <input id="email" name="email" th:value="*{email}"
+                                                           class="block font-normal w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6"></input>
                                                 </div>
                                                 <p class="text-sm text-gray-400 italic font-normal">Breve descripción del objetivo del
                                                     proyecto.</p>
                                             </div>
 
-
-                                   <!--         <div class="sm:col-span-3">
-                                                <label for="cliente"
-                                                       class="block text-sm font-medium leading-6 text-sky-900">Cliente: </label>
-                                                <div class="mt-2">
-                                                    <select id="cliente" name="cliente"
-                                                            class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                                        <option th:value="*{cliente?.id}"
-                                                                th:text="*{cliente?.nombre}"></option>
-                                                        <option th:each="cte : ${clientes}" th:value="${cte.id}"
-                                                                th:text="${cte.nombre}">
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>-->
 
                                         </div>
                                     </div>
@@ -160,10 +79,8 @@
                                     </button>
                                 </div>
                             </form>
-
                             <p class="text-white">Perfect for learning how the framework palabra palabra|||:w works,
                                 prototyping a new idea, or creating a demo to share online.</p>
-
                         </div>
                     </div>
                 </div>
