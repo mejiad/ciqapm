@@ -13,14 +13,12 @@
     <div th:insert="~{header}"></div>
     <main class="lg:pl-72">
 
-        <div class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12">
+        <div class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50">
             <img src="/images/beams.jpg" alt=""
                  class="absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2" width="1308"/>
             <div class="absolute inset-0 bg-[url(/images/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
-            <div class="relative bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-fit sm:rounded-lg sm:px-10">
+            <div class="relative bg-white px-6 pt-4 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-10 sm:rounded-lg sm:px-10">
                 <div class="mx-auto max-w-screen-lg">
-                    <div class="mt-3 sm:ml-4 sm:mt-0">
-                    </div>
                     <div class="divide-y divide-gray-300/50">
                         <div class="space-y-6 py-8 text-base leading-7 text-gray-600">
                             <h2 class="text-3xl font-extrabold leading-6 text-sky-700">Alumno CIQA</h2>
@@ -37,40 +35,43 @@
                                                     del Alumno:</label>
                                                 <div class="mt-2">
                                                     <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
-                                                        <input type="text" th:value="*{nombre}" name="nombre" id="nombre" class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-sky-400 focus:ring-0 sm:text-sm sm:leading-6">
+                                                        <input type="text" th:value="*{nombre}" name="nombre"
+                                                               id="nombre"
+                                                               class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-sky-400 focus:ring-0 sm:text-sm sm:leading-6">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="sm:col-span-4">
+                                                <label for="matricula"
+                                                       class="block text-sm font-medium leading-6 text-sky-900">Matricula:</label>
+                                                <div class="mt-2">
+                                                    <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
+                                                        <input type="text" th:value="*{matricula}" name="matricula"
+                                                               id="matricula"
+                                                               class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-sky-400 focus:ring-0 sm:text-sm sm:leading-6">
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-span-full">
-                                                <label for="matricula"
-                                                       class="block text-sm font-medium leading-6 text-sky-900">matricula</label>
-                                                <div class="mt-2">
-                                                    <input type="text" th:value="*{matricula}" name="matricula" id="matricula" class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-sky-400 focus:ring-0 sm:text-sm sm:leading-6">
-                                                </div>
-                                                <p class="text-sm text-gray-400 italic font-normal">Breve descripción del objetivo del
-                                                    proyecto.</p>
-                                            </div>
-
-                                            <div class="col-span-full">
+                                            <div class="sm:col-span-4">
                                                 <label for="email"
-                                                       class="block text-sm font-medium leading-6 text-sky-900">email</label>
+                                                       class="block text-sm font-medium leading-6 text-sky-900">Matricula:</label>
                                                 <div class="mt-2">
-                                                    <input id="email" name="email" th:value="*{email}"
-                                                           class="block font-normal w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6"></input>
+                                                    <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
+                                                        <input type="text" th:value="*{email}" name="email"
+                                                               id="email"
+                                                               class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-sky-400 focus:ring-0 sm:text-sm sm:leading-6">
+                                                    </div>
                                                 </div>
-                                                <p class="text-sm text-gray-400 italic font-normal">Breve descripción del objetivo del
-                                                    proyecto.</p>
                                             </div>
-
-
                                         </div>
                                     </div>
 
                                 </div>
 
                                 <div class="mt-6 flex items-center justify-end gap-x-6">
-                                    <button type="button" onclick="history.back();" class="text-sm font-semibold leading-6 text-sky-900">
+                                    <button type="button" onclick="history.back();"
+                                            class="text-sm font-semibold leading-6 text-sky-900">
                                         Cancelar
                                     </button>
                                     <button type="submit"
@@ -79,8 +80,6 @@
                                     </button>
                                 </div>
                             </form>
-                            <p class="text-white">Perfect for learning how the framework palabra palabra|||:w works,
-                                prototyping a new idea, or creating a demo to share online.</p>
                         </div>
                     </div>
                 </div>
