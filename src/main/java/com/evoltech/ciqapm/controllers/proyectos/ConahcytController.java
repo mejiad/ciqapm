@@ -92,6 +92,7 @@ public class ConahcytController {
         System.out.println("Nombre del usuario: " + username);
 
         Proyecto proyecto = proyectoRepository.getReferenceById(id);
+        System.out.println("Proyecto: " + proyecto.getId() + " " + proyecto.getNombre());
         List<Etapa> etapas = etapaRepository.findByProyecto(proyecto);
         DatosConahcyt datosConahcyt = conahcytRepository.findByProyecto(proyecto);
         ConahcytDto conahcytDto = new ConahcytDto(proyecto, datosConahcyt);

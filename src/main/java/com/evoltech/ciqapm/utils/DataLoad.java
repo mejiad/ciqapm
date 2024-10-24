@@ -1,9 +1,11 @@
 package com.evoltech.ciqapm.utils;
 
 import com.evoltech.ciqapm.model.*;
+import com.evoltech.ciqapm.model.datos.DatosConahcyt;
 import com.evoltech.ciqapm.model.datos.DatosIndustria;
 import com.evoltech.ciqapm.model.jpa.Convocatoria;
 import com.evoltech.ciqapm.repository.*;
+import com.evoltech.ciqapm.repository.datos.ConahcytRepository;
 import com.evoltech.ciqapm.repository.datos.IndustriaRepository;
 import com.evoltech.ciqapm.security.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class DataLoad {
@@ -52,6 +55,9 @@ public class DataLoad {
     AlumnoRepository alumnoRepository;
 
     @Autowired
+    ConahcytRepository conahcytRepository;
+
+    @Autowired
     PasswordEncoder passwordEncoder;
 
     @Autowired RandomService randomService;
@@ -60,9 +66,9 @@ public class DataLoad {
                     ServicioRepository servicioRepository, ProyectoRepository proyectoRepository,
                     EtapaRepository etapaRepository, DocumentoRepository documentoRepository,
                     UsuarioRepository usuarioRepository, ActividadRepository actividadRepository,
-                    ConvocatoriaRepository convocatoriaRepository,
                     PagoRepository pagoRepository,
                     IndustriaRepository industriaRepository,
+                    ConahcytRepository conahcytRepository,
                     AlumnoRepository alumnoRepository,
                     PasswordEncoder passwordEncoder) {
 
@@ -77,6 +83,7 @@ public class DataLoad {
         this.passwordEncoder = passwordEncoder;
         this.pagoRepository =  pagoRepository;
         this.alumnoRepository = alumnoRepository;
+        this.conahcytRepository = conahcytRepository;
         this.convocatoriaRepository = convocatoriaRepository;
     }
 
@@ -101,6 +108,15 @@ public class DataLoad {
         Servicio servicio3 = createServicio();
         Servicio servicio4 = createServicio();
         Servicio servicio5 = createServicio();
+
+        Convocatoria convocatoria = createConvocatoria("Primer convocatoria", TipoConvocatoria.CONAHCYT);
+        convocatoria = createConvocatoria("Segunda Convocatoria", TipoConvocatoria.CONAHCYT);
+        convocatoria = createConvocatoria("Tercer Convocatoria", TipoConvocatoria.INTERNA);
+        convocatoria = createConvocatoria("Cuarta Convocatoria", TipoConvocatoria.INTERNA);
+        convocatoria = createConvocatoria("Quinta Convocatoria", TipoConvocatoria.INTERNA);
+        convocatoria = createConvocatoria("Sexta Convocatoria", TipoConvocatoria.CONAHCYT);
+        convocatoria = createConvocatoria("Séptima Convocatoria", TipoConvocatoria.INTERNA);
+        convocatoria = createConvocatoria("Octava Convocatoria", TipoConvocatoria.CONAHCYT);
 
         Proyecto proyecto1 = createProyecto("1000", personal1, cliente1);
         Proyecto proyecto2 = createProyecto("1001", personal1, cliente2);
@@ -211,14 +227,7 @@ public class DataLoad {
         pago = createPago(proyecto2, stDate.plusDays(120), 50);
 
 
-        Convocatoria convocatoria = createConvocatoria("Primer convocatoria", TipoConvocatoria.CONAHCYT);
-        convocatoria = createConvocatoria("Segunda Convocatoria", TipoConvocatoria.CONAHCYT);
-        convocatoria = createConvocatoria("Tercer Convocatoria", TipoConvocatoria.INTERNA);
-        convocatoria = createConvocatoria("Cuarta Convocatoria", TipoConvocatoria.INTERNA);
-        convocatoria = createConvocatoria("Quinta Convocatoria", TipoConvocatoria.INTERNA);
-        convocatoria = createConvocatoria("Sexta Convocatoria", TipoConvocatoria.CONAHCYT);
-        convocatoria = createConvocatoria("Séptima Convocatoria", TipoConvocatoria.INTERNA);
-        convocatoria = createConvocatoria("Octava Convocatoria", TipoConvocatoria.CONAHCYT);
+
 
         Alumno alumno = createAlumno();
         alumno = createAlumno();
@@ -284,7 +293,8 @@ public class DataLoad {
         datosIndustria.setPresupuesto(randomService.generaCostoRandom());
 
         proyecto.setResponsable(responsable);
-        proyecto.setTipoProyecto(randomService.generaProyectoTipo());
+        //proyecto.setTipoProyecto(randomService.generaProyectoTipo());
+        proyecto.setTipoProyecto(TipoProyecto.INDUSTRIA);
         proyecto.setNombre("Proyecto-" + post);
         proyecto.setDescripcion(randomService.descripcion(250));
         proyecto.setEstatus(Estado.PROCESO);
@@ -299,9 +309,10 @@ public class DataLoad {
 
     private Proyecto createProyectoConahcyt(String post, Personal responsable, Cliente cliente) {
         Proyecto proyecto = new Proyecto();
-        DatosIndustria datosIndustria = new DatosIndustria();
-        datosIndustria.setCliente(cliente);
-        datosIndustria.setPresupuesto(randomService.generaCostoRandom());
+        DatosConahcyt datosConahcyt = new DatosConahcyt();
+        List<Convocatoria> convocatorias = convocatoriaRepository.findAll();
+        datosConahcyt.setConvocatoria(convocatorias.getFirst());
+        datosConahcyt.setObjetivo(randomService.descripcion(20));
 
         proyecto.setResponsable(responsable);
         proyecto.setTipoProyecto(TipoProyecto.CONAHCYT);
@@ -310,9 +321,9 @@ public class DataLoad {
         proyecto.setEstatus(Estado.PROCESO);
 
         Proyecto res = proyectoRepository.save(proyecto);
+        datosConahcyt.setProyecto(res);
 
-        datosIndustria.setProyecto(res);
-        DatosIndustria resDatosIndustria = industriaRepository.save(datosIndustria);
+        DatosConahcyt resDatosConahcyt = conahcytRepository.save(datosConahcyt);
 
         return res;
     }
