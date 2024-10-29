@@ -12,7 +12,7 @@
     <script src="/htmx.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col min-h-min">
 <div th:insert="~{sidebar}"></div>
 <div th:insert="~{header}"></div>
 <main class="py-0 lg:pl-72">
@@ -32,7 +32,7 @@
 
                 <div class="antialiased sans-serif bg-gray-100 h-screen">
                     <div x-data="app()" x-init="[initDate(), getNoOfDays()]" x-cloak>
-                        <div class="container mx-auto px-4 py-8">
+                        <div class="container ">
 
                             <!-- <div class="font-bold text-gray-800 text-xl mb-4">
                                 Schedule Tasks
