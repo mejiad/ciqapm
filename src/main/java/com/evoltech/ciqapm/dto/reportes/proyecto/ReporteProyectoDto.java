@@ -6,5 +6,7 @@ import com.evoltech.ciqapm.model.TipoProyecto;
 import java.time.LocalDate;
 import java.util.List;
 
-public record ReporteProyectoDto(String nombre, TipoProyecto tipoProyecto, LocalDate fechaCreacion, Estado estado, List<Etapa> etapas) {
+public record ReporteProyectoDto(String nombre, TipoProyecto tipoProyecto,
+                                 LocalDate fechaCreacion, Estado estado, List<Etapa> etapas,
+                                 String nombreResponsable, int avance, Long id) {
 }
