@@ -104,7 +104,7 @@ public class ConahcytController {
 
         etapas.forEach(etapa -> {
             GanttDTO ganttDTO = new GanttDTO(etapa.getId().toString(),
-                    etapa.getNombre(), etapa.getServicio().getNombre(),
+                    etapa.getNombre(), etapa.getServicio().getClave(),
                     // LocalDate.of(2020,10,12).format(df),
                     etapa.getFechaEstimadaInicio().format(df),
                     etapa.getFechaEstimadaTerminacion().format(df) ,

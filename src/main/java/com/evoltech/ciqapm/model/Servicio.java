@@ -2,6 +2,7 @@ package com.evoltech.ciqapm.model;
 
 import com.evoltech.ciqapm.model.jpa.BaseClass;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,14 +17,17 @@ public class Servicio extends BaseClass {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String nombre;
+    private String clave;
 
+    @Size(min = 1, max = 500)
     private String descripcion;
 
-    private int horasPromedioRealizacion;
-
-    private String entregableEsperado;
+    private String cveSat;
 
     private Double costo;
+
+    private Double precioInt;
+
+    private Double precioVta;
 
 }

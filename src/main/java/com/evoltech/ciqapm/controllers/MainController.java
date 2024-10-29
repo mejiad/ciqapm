@@ -90,20 +90,7 @@ public class MainController {
         return "redirect:/home";
     }
 
-    @GetMapping("/add_01")
-    @ResponseBody
-    public String add_01(Model model){
-        Servicio servicio = new Servicio();
-        servicio.setId(0L);
-        servicio.setNombre("Primer servicio");
-        servicio.setDescripcion("Decripcion primer servicio");
-        servicio.setCosto(100.9);
-        servicio.setEntregableEsperado("Reporte de etapa");
-        servicio.setHorasPromedioRealizacion(100);
-        servicioService.save(servicio);
 
-        return "Servicio salvado";
-    }
 
     @GetMapping("/add_02")
     @ResponseBody
@@ -193,17 +180,8 @@ public class MainController {
         return newEtapa;
     }
 
-    private Servicio creaServicio(){
-        Servicio servicio = new Servicio();
-        servicio.setId(null);
-        servicio.setNombre("Primer servicio");
-        servicio.setDescripcion("Ir por las cocas");
-        servicio.setEntregableEsperado("Dos botellas de vidrio de cocas");
-        servicio.setCosto(123.34);
 
-        Servicio res = servicioService.save(servicio);
-        return  res;
-    }
+
 
     private Personal creaPersonal() {
         java.util.Currency rate;
