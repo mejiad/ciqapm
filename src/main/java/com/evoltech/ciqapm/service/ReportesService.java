@@ -29,7 +29,9 @@ public class ReportesService {
         List<Proyecto> proyectos = proyectoRepository.findAll();
         proyectos.forEach(proyecto -> {
             ReporteProyectoDto pdto = new ReporteProyectoDto(proyecto.getNombre(),proyecto.getTipoProyecto(),
-                    proyecto.getCreateDate(),proyecto.getEstatus(), null);
+                    proyecto.getCreateDate(),proyecto.getEstatus(), null, proyecto.getResponsable().getNombre(),
+                    proyecto.getAvance(), proyecto.getId());
+
             lista.add(pdto);
         });
 
@@ -44,7 +46,8 @@ public class ReportesService {
             List<Etapa> etapas = etapaRepository.findByProyecto(proyecto);
             if (etapas.size() > 0) {
                 ReporteProyectoDto pdto = new ReporteProyectoDto(proyecto.getNombre(),proyecto.getTipoProyecto(),
-                    proyecto.getCreateDate(),proyecto.getEstatus(), etapas);
+                    proyecto.getCreateDate(),proyecto.getEstatus(), etapas, proyecto.getResponsable().getNombre(),
+                    proyecto.getAvance(), proyecto.getId());
                 dtos.add(pdto);
             }
         });
