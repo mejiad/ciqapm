@@ -30,7 +30,7 @@ public class Etapa extends BaseClass {
     @NotBlank(message = "Descripción de la Etapa es un campo requerido.")
     private String descripcion;
 
-    @NotNull(message = "El servicio es un dato requerido.")
+    // @NotNull(message = "El servicio es un dato requerido.")
     @ManyToOne
     @JoinColumn(name = "servicio_id", nullable = true)
     private Servicio servicio;

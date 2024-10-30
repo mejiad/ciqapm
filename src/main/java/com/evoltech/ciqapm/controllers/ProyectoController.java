@@ -93,7 +93,7 @@ public class ProyectoController {
 
         etapas.forEach(etapa -> {
             GanttDTO ganttDTO = new GanttDTO(etapa.getId().toString(),
-                    etapa.getNombre(), etapa.getServicio().getClave(),
+                    etapa.getNombre(), (etapa.getServicio() != null) ? etapa.getServicio().getClave() : "Sin servicio",
                     // LocalDate.of(2020,10,12).format(df),
                     etapa.getFechaEstimadaInicio().format(df),
                     etapa.getFechaEstimadaTerminacion().format(df) ,
