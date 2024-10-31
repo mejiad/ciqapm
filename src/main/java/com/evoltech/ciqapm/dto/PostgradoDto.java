@@ -3,6 +3,7 @@ package com.evoltech.ciqapm.dto;
 import com.evoltech.ciqapm.model.Alumno;
 import com.evoltech.ciqapm.model.Proyecto;
 import com.evoltech.ciqapm.model.TipoProyecto;
+import com.evoltech.ciqapm.model.datos.DatosIndustria;
 import com.evoltech.ciqapm.model.datos.DatosPostgrado;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

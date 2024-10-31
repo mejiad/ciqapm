@@ -143,33 +143,6 @@ public class IndustriaController {
     }
 
     /*
-    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveDocumento(Documento documento, Model model){
-
-    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveProyecto(IndustriaDto industriaDto, BindingResult result, Model model) {
-
-        if(result.hasErrors()){
-            System.out.println("Errores del edit");
-
-            return "/Industria/Edit";
-        } else {
-            Proyecto proyecto = industriaDto.getProyecto();
-            DatosIndustria industria = industriaDto.getDatosIndustria();
-
-            proyecto.setTipoProyecto(TipoProyecto.INDUSTRIA);
-            Proyecto res = proyectoRepository.save(proyecto);
-
-            industria.setProyecto(res);
-
-            industria.setProyecto(res);
-            industriaRepository.save(industria);
-
-            new File("src/main/resources/directory/industria" + res.getId()).mkdirs();
-            return "redirect:/industria/list";
-        }
-
-    }
     */
 
 

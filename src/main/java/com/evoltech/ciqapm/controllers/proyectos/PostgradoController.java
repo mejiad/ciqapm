@@ -1,9 +1,11 @@
 package com.evoltech.ciqapm.controllers.proyectos;
 
 import com.evoltech.ciqapm.dto.GanttDTO;
+import com.evoltech.ciqapm.dto.IndustriaDto;
 import com.evoltech.ciqapm.dto.PostgradoDto;
 import com.evoltech.ciqapm.model.*;
 import com.evoltech.ciqapm.model.datos.DatosConahcyt;
+import com.evoltech.ciqapm.model.datos.DatosIndustria;
 import com.evoltech.ciqapm.model.datos.DatosPostgrado;
 import com.evoltech.ciqapm.repository.*;
 import com.evoltech.ciqapm.repository.datos.ConahcytRepository;
@@ -92,6 +94,8 @@ public class PostgradoController {
         System.out.println("Nombre del usuario: " + username);
 
         Proyecto proyecto = proyectoRepository.getReferenceById(id);
+        DatosPostgrado datosPostgrado = postgradoRepository.findByProyecto(proyecto);
+
         List<Etapa> etapas = etapaRepository.findByProyecto(proyecto);
 
         ArrayList<GanttDTO> ganttDTOS = new ArrayList<>();
@@ -107,6 +111,7 @@ public class PostgradoController {
         });
 
         model.addAttribute("proyecto", proyecto);
+        model.addAttribute("datosPostgrado", datosPostgrado);
         model.addAttribute("etapas", ganttDTOS);
 
         return "/Postgrado/View";
@@ -119,17 +124,23 @@ public class PostgradoController {
 
     @GetMapping("/new")
     public String newPostgrado(Model model) {
-        PostgradoDto proyecto = new PostgradoDto();
+        Proyecto proyecto = new Proyecto();
+
         List<Estado> estados = List.of(Estado.values());
         List<Personal> personas = personalRepository.findAll();
         List<Alumno> alumnos = alumnoRepository.findAll();
         List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
 
-        model.addAttribute("proyecto", proyecto);
+        DatosPostgrado datosPostgrado = new DatosPostgrado();
+        proyecto.setTipoProyecto(TipoProyecto.INDUSTRIA);
+        PostgradoDto postgradoDto = new PostgradoDto();
+
+        model.addAttribute("postgradoDto", postgradoDto);
         model.addAttribute("estados", estados);
         model.addAttribute("personas", personas);
         model.addAttribute("alumnos", alumnos);
         model.addAttribute("tiposProyecto", tiposProyecto);
+        model.addAttribute("datosPostgrado", datosPostgrado);
 
         return "/Postgrado/Edit";
     }
@@ -141,8 +152,47 @@ public class PostgradoController {
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String saveProyecto(@Valid PostgradoDto postgradoDto, BindingResult result, Model model) {
-
+        var mod = result.getModel();
         if(result.hasErrors()){
+            System.out.println("++ Hay errores ++++++++++++++");
+            if (!mod.isEmpty()) {
+                mod.forEach((String k, Object obj) -> {
+                    System.out.println("Error key: " + k + " Obj:" + obj);
+                    System.out.println("++++++++++++++++++++++++");
+                });
+            }
+            List<Estado> estados = List.of(Estado.values());
+            List<Personal> personas = personalRepository.findAll();
+            List<Alumno> alumnos= alumnoRepository.findAll();
+            //List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
+
+            model.addAttribute("postgradoDto", postgradoDto);
+            model.addAttribute("estados", estados);
+            model.addAttribute("personas", personas);
+            model.addAttribute("alumnos", alumnos);
+            //model.addAttribute("tiposProyecto", tiposProyecto);
+            return "/Postgrado/Edit";
+        } else {
+            // TODO: Crear el directorio del id del proyecto
+            System.out.println("Inicio del save");
+            Proyecto proyecto = postgradoDto.getProyecto();
+
+            proyecto.setEstatus(Estado.PROCESO);
+
+            DatosPostgrado postgrado = postgradoDto.getDatosPostgrado();
+
+            Proyecto res = proyectoRepository.save(proyecto);
+            postgrado.setProyecto(res);
+
+            postgradoRepository.save(postgrado);
+
+            res = proyectoRepository.save(res);
+
+            new File("src/main/resources/directory/postgrado" + res.getId()).mkdirs();
+
+            return "redirect:/postgrado/view?id=" + res.getId();
+        }
+       /* if(result.hasErrors()){
             System.out.println("Hay errores");
             return "/Postgrado/Edit";
 
@@ -162,7 +212,7 @@ public class PostgradoController {
 
             return "redirect:/proyecto/list";
 
-        }
+        }*/
 
     }
 
