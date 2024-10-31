@@ -17,13 +17,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.*;
 
 @Slf4j
 @Controller
@@ -90,126 +84,6 @@ public class MainController {
         return "redirect:/home";
     }
 
-
-
-    @GetMapping("/add_02")
-    @ResponseBody
-    public String add_02(Model model) {
-        Personal personal = new Personal();
-
-        personal.setId(0L);
-        personal.setNombre("Nombre del Empleado 1");
-        personal.setApellidos("Apellidos empleado 1");
-        personal.setCategoria(PersonalCategoria.ITA);
-        model.addAttribute("Attr", "Valor de attr 1");
-
-
-        Personal personal1 = personalServicio.addPersonal(personal);
-
-        return "Personal saved";
-    }
-
-    @GetMapping("/add_03")
-    @ResponseBody
-    public String add_03(Model model){
-        Personal personal = new Personal();
-
-        personal.setId(0L);
-        personal.setNombre("Nombre del Empleado 1");
-        personal.setApellidos("Apellidos empleado 1");
-        personal.setCategoria(PersonalCategoria.ITA);
-        model.addAttribute("Attr", "Valor de attr 1");
-
-        Personal personal1 = personalServicio.addPersonal(personal);
-
-        Etapa etapa = new Etapa();
-        etapa.setId(0L);
-        etapa.setNombre("Etapa 1");
-        etapa.setDescripcion("Etapa 1");
-        etapa.setEntregable("El entregable de etapa 1 es un paletón");
-        etapa.setFechaEstimadaTerminacion(LocalDate.now());
-        etapa.setResponsable(personal1);
-
-        Etapa newEtapa = etapaService.save(etapa);
-
-        return "Etapa salvada: " + newEtapa.getId();
-    }
-
-    @GetMapping("/add_04")
-    @ResponseBody
-    public String add_o4(Model model){
-
-
-        Proyecto proyecto = creaProyecto();
-
-        return "Proyecto salvado: " + proyecto.getNombre();
-    }
-
-
-
-    @GetMapping("get_01")
-    @ResponseBody
-    public String get_01(@RequestParam("id") Long id, Model model){
-        String ret = "";
-        creaPersonal();
-        try {
-            Personal personal = personalServicio.findById(id);
-            System.out.println("+++ " + personal.getCategoria());
-            ret = personal.getCategoria().toString();
-        } catch (Exception e) {
-            log.error("No existe el id:" + id);
-            ret = "No existe el id:" + id;
-        }
-        return ret;
-    }
-
-    private Etapa creaEtapa(){
-
-        Personal personal1 = creaPersonal();
-
-        Etapa etapa = new Etapa();
-        etapa.setId(0L);
-        etapa.setNombre("Etapa 1");
-        etapa.setDescripcion("Etapa 1");
-        etapa.setEntregable("El entregable de etapa 1 es un paletón");
-        etapa.setFechaEstimadaTerminacion(LocalDate.now());
-        etapa.setResponsable(personal1);
-
-        Etapa newEtapa = etapaService.save(etapa);
-
-        return newEtapa;
-    }
-
-
-
-
-    private Personal creaPersonal() {
-        java.util.Currency rate;
-        java.util.Currency currency = java.util.Currency.getInstance("MXN");
-        Personal personal = new Personal();
-        personal.setId(0L);
-        personal.setNombre("Nombre del Empleado 1");
-        personal.setApellidos("Apellidos empleado 1");
-        personal.setCategoria(PersonalCategoria.ITA);
-        personal.setRate(new BigDecimal(10.20));
-
-        Personal personal1 = personalServicio.addPersonal(personal);
-        return personal1;
-    }
-
-    private Proyecto creaProyecto() {
-
-        Proyecto proyecto = new Proyecto();
-        proyecto.setNombre("Proyecto de prueba");
-        proyecto.setDescripcion("Descripción del proyecto");
-        proyecto.setResponsable(creaPersonal());
-        proyecto.setTipoProyecto(TipoProyecto.INDUSTRIA);
-        proyecto.setEtapas(List.of(creaEtapa(), creaEtapa()));
-
-        Proyecto newProyecto = proyectoServicio.save(proyecto);
-
-        return newProyecto;
-    }
 
     private Usuario creaUsuario() {
         Usuario usuario = new Usuario();

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,10 +7,11 @@
     <link th:href="@{/main.css}" rel="stylesheet" />
     <title>Lista de participantes</title>
 </head>
-<body>
-
-
-
+<body class="flex flex-col min-h-screen">
+<div>
+    <div th:insert="~{sidebar}"></div>
+    <div th:insert="~{header}"></div>
+    <main class="lg:pl-72">
 <div class="px-4 sm:px-6 lg:px-8">
     <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">
@@ -65,6 +66,8 @@
             </div>
         </div>
     </div>
+</div>
+</main>
 </div>
 
 

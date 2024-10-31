@@ -1,11 +1,30 @@
 package com.evoltech.ciqapm.model;
 
 public enum PersonalCategoria {
-
-    ITC,
-    ITB,
+    IAB,
+    IAC,
     ITA,
-    TTC,
+    ITB,
+    ITC,
+    K12,
+    M11,
+    N10,
+    N11,
+    N12,
+    N13,
+    N16,
+    N17,
+    N18,
+    N19,
+    N21,
+    N5,
+    N6,
+    N8,
+    N9,
+    O23,
+    TAB,
+    TAC,
+    TTA,
     TTB,
-    TTA
+    TTC
 }
