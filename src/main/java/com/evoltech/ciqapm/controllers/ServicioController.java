@@ -1,6 +1,9 @@
 package com.evoltech.ciqapm.controllers;
 
+import com.evoltech.ciqapm.model.Etapa;
+import com.evoltech.ciqapm.model.Proyecto;
 import com.evoltech.ciqapm.model.Servicio;
+import com.evoltech.ciqapm.repository.ServicioRepository;
 import com.evoltech.ciqapm.service.ServicioService;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,9 +23,12 @@ import java.util.Objects;
 public class ServicioController {
     @Autowired
     ServicioService servicioService;
+    private final ServicioRepository servicioRepository;
 
-    public ServicioController(ServicioService servicioService) {
+    public ServicioController(ServicioService servicioService,
+                              ServicioRepository servicioRepository) {
         this.servicioService = servicioService;
+        this.servicioRepository = servicioRepository;
     }
 
     @GetMapping("/list")
@@ -121,7 +127,11 @@ public class ServicioController {
     }
 
     @GetMapping("/edit")
-    public String editServicio(Model model){
+    public String editEtapa(@RequestParam Long id, Model model){
+        Servicio servicio = servicioRepository.getReferenceById(id);
+        model.addAttribute("servicio", servicio);
+        model.addAttribute("model", model);
+
         return "/Servicio/Edit";
     }
 
@@ -131,8 +141,7 @@ public class ServicioController {
     }
 
     @PostMapping("/save")
-    public String saveServicio(Model model){
-        return "/Servicio/List";
+    public String saveServicio(Model model){return "/Servicio/List";
     }
 
     private List<Integer> pageSequence(Integer current, Integer pages, Integer size){
