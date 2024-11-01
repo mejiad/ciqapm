@@ -1,14 +1,138 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <script src="/htmx.min.js"></script>
-    <link th:href="@{/main.css}" rel="stylesheet" />
-    <title>Edit Etapa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Información del ciente</title>
 </head>
-<body>
-<h1>Edit Etapa</h1>
+<body class="flex flex-col min-h-min">
+<div>
+    <div th:insert="~{sidebar}"></div>
+    <div th:insert="~{header}"></div>
+    <main class="lg:pl-72">
 
+        <div class="relative flex min-h-min flex-col justify-center overflow-hidden bg-gray-50">
+            <img src="/images/beams.jpg" alt=""
+                 class="absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2" width="1308"/>
+            <div class="absolute inset-0 bg-[url(/images/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
+            <div class="relative bg-white px-6 pt-4 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-10 sm:rounded-lg sm:px-10">
+                <div class="mx-auto max-w-screen-lg">
+                    <div class="divide-y divide-gray-300/50">
+                        <div class="space-y-6 py-8 text-base leading-7 text-gray-600">
+                            <h2 class="text-3xl font-extrabold leading-6 text-sky-700">Datos del Cliente</h2>
+                        </div>
+                        <div class="pt-4 text-base font-semibold leading-7">
+
+                            <form action="#" th:action="@{/cliente/save}" th:object="${cliente}" method="post">
+                                <div class="space-y-2">
+                                    <div class="border-b border-gray-900/10 pb-12">
+                                        <div class="block text-sm font-medium leading-6 text-red-600">
+                                            <ul>
+                                                <li>
+                                                    <p th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}"></p>
+
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('rfc')}" th:errors="*{rfc}">RFC error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('nombreContacto')}" th:errors="*{nombreContacto}">Nombre contacto error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}">telefono error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email error</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+
+                                        <div class="mt-10 grid grid-cols-1 gap-x-12 gap-y-8 sm:grid-cols-6">
+                                            <div class="sm:col-span-4">
+                                                <label for="nombre"
+                                                       class="block text-sm font-medium leading-6 text-sky-900">Razón social:</label>
+                                                <div class="mt-2">
+                                                    <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
+                                                        <input type="text" th:value="*{nombre}" name="nombre" id="nombre"
+                                                               class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-sky-400 focus:ring-0 sm:text-sm sm:leading-6">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="sm:col-span-4">
+                                                <label for="rfc"
+                                                       class="block text-sm font-medium leading-6 text-sky-900">R.F.C:</label>
+                                                <div class="mt-2">
+                                                    <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
+                                                        <input type="text" th:value="*{rfc}" name="rfc" id="rfc"
+                                                               class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-sky-400 focus:ring-0 sm:text-sm sm:leading-6">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="sm:col-span-4">
+                                                <label for="nombreContacto"
+                                                       class="block text-sm font-medium leading-6 text-sky-900">Nombre del contacto:</label>
+                                                <div class="mt-2">
+                                                    <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
+                                                        <input type="text" th:value="*{nombreContacto}" name="nombreContacto" id="nombreContacto"
+                                                               class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-sky-400 focus:ring-0 sm:text-sm sm:leading-6">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="sm:col-span-4">
+                                                <label for="telefono"
+                                                       class="block text-sm font-medium leading-6 text-sky-900">Teléfono:</label>
+                                                <div class="mt-2">
+                                                    <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
+                                                        <input type="text" th:value="*{telefono}" name="telefono" id="telefono"
+                                                               class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-sky-400 focus:ring-0 sm:text-sm sm:leading-6">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="sm:col-span-4">
+                                                <label for="email"
+                                                       class="block text-sm font-medium leading-6 text-sky-900">Email:</label>
+                                                <div class="mt-2">
+                                                    <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
+                                                        <input type="text" th:value="*{email}" name="email" id="email"
+                                                               class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-sky-400 focus:ring-0 sm:text-sm sm:leading-6">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="mt-6 flex items-center justify-end gap-x-6">
+                                    <button type="button" class="text-sm font-semibold leading-6 text-sky-900">
+                                        Cancelar
+                                    </button>
+                                    <button type="submit"
+                                            class="rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600">
+                                        Salvar
+                                    </button>
+                                </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div th:insert="~{footer}"></div>
+
+
+    </main>
+</div>
+</main>
+</div>
 </body>
-</html>
+
