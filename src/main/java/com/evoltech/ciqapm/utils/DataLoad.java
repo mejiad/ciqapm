@@ -2150,6 +2150,7 @@ public class DataLoad {
         createPersonalCiqa("00121","HORTENSIA ORTEGA ORTIZ",464.47,"ITB");
         createPersonalCiqa("00123","JUAN FRANCISCO GONZALEZ GARCIA",245.07,"TAC");
         createPersonalCiqa("00125","ANABEL OCHOA CORDOBA",350.39,"TTC");
+        /*
         createPersonalCiqa("00133","REBECA BETANCOURT GALINDO",521.14,"ITC");
         createPersonalCiqa("00141","MARTHA ELDA HURTADO SUAREZ",329.98,"TTC");
         createPersonalCiqa("00143","JAVIER CHAVEZ CUELLAR",133.16,"N9");
@@ -2333,6 +2334,8 @@ public class DataLoad {
         createPersonalCiqa("00990","NORMA LETICIA CONTRERAS LOPEZ",177.11,"N17");
         createPersonalCiqa("00996","CLAUDIO ADOLFO ARREDONDO ELIZONDO",119.74,"TTC");
         createPersonalCiqa("00997","FRANCISCO PRADO CASTAÑUELA",98.59,"N9");
+
+         */
 
     }
 

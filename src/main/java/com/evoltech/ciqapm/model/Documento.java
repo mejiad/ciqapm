@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.print.DocFlavor;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -23,5 +25,8 @@ public class Documento extends BaseClass {
 
     @ManyToOne
     private Proyecto proyecto;
+
+    @Lob
+    private byte[] data;
 
 }

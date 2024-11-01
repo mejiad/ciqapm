@@ -23,8 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Service
-public class FileSystemStorageService implements StorageService{
+public class FileSystemStorageService {
     private static final Logger log = LoggerFactory.getLogger(FileSystemStorageService.class);
 
     private final Path rootLocation;
@@ -40,13 +39,11 @@ public class FileSystemStorageService implements StorageService{
     }
 
 
-    @Override
     public void init() {
         log.info("Initializing FileSystemStorageService.");
 
     }
 
-    @Override
     public String store(MultipartFile file) {
 
         String newFileName = generateFileName(file);
@@ -88,7 +85,6 @@ public class FileSystemStorageService implements StorageService{
         }
     }
 
-    @Override
     public Stream<Path> loadAll() {
         try {
             log.info("Root location: " + this.rootLocation.toAbsolutePath().toString());
@@ -101,12 +97,10 @@ public class FileSystemStorageService implements StorageService{
         }
     }
 
-    @Override
     public Path load(String filename) {
         return rootLocation.resolve(filename);
     }
 
-    @Override
     public Resource loadAsResource(String filename) {
         try {
             Path file = load(filename);

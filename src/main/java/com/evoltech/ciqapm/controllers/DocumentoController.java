@@ -5,7 +5,9 @@ import com.evoltech.ciqapm.model.Personal;
 import com.evoltech.ciqapm.model.Proyecto;
 import com.evoltech.ciqapm.repository.DocumentoRepository;
 import com.evoltech.ciqapm.repository.ProyectoRepository;
+import com.evoltech.ciqapm.service.DatabaseStorageService;
 import com.evoltech.ciqapm.service.StorageService;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -25,6 +27,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.file.Path;
 import java.security.cert.TrustAnchor;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -41,7 +44,7 @@ public class DocumentoController {
     @Autowired
     ProyectoRepository proyectoRepository;
 
-    public DocumentoController(DocumentoRepository documentoRepository, StorageService storageService) {
+    public DocumentoController(DocumentoRepository documentoRepository, DatabaseStorageService storageService) {
         this.documentoRepository = documentoRepository;
         this.storageService = storageService;
     }
@@ -49,7 +52,9 @@ public class DocumentoController {
     @GetMapping("/list")
     public String listDocumento(@RequestParam("id") Long id, Model model){
         Proyecto proyecto = proyectoRepository.getReferenceById(id);
+
         List<Documento> documentos = documentoRepository.findByProyecto(proyecto);
+        // List<Documento> documentos = new ArrayList<>();
 
         model.addAttribute("proyecto", proyecto);
         model.addAttribute("documentos", documentos);
@@ -105,7 +110,7 @@ public class DocumentoController {
 
         Documento documento = new Documento();
 
-        System.out.println("Documento salvado ID: " + nombre);
+        System.out.println("Documento salvado nombre: " + nombre);
         System.out.println("File: " + file.getOriginalFilename());
         System.out.println("Name: " + nombre.toString());
         System.out.println("Descripcion: " + descripcion.toString());
@@ -117,32 +122,37 @@ public class DocumentoController {
         documento.setNombre(nombre.toString());
         documento.setProyecto(proyectoObj);
 
-        String newFilename = storageService.store(file);
-        documento.setNombreArchivo(newFilename);
+        byte[] contenido = storageService.storeDB(file);
+        System.out.println("Longitud: " + contenido.length);
+        documento.setNombreArchivo(file.getOriginalFilename());
+        documento.setData(contenido);
         Documento doc =  documentoRepository.save(documento);
 
         return "redirect:/proyecto/list";
     }
 
+    @Transactional
     @GetMapping( value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE )
-    public ResponseEntity download(@RequestParam("file") String filename) throws IOException {
+    public ResponseEntity download(@RequestParam("id") Long id) throws IOException {
 
         // String fileName = URLEncoder.encode(tchCeResource.getRname(), "UTF-8");
         // fileName = URLDecoder.decode(fileName, "ISO8859_1");
         // response.setContentType("application/x-msdownload");
         // response.setHeader("Content-disposition", "attachment; filename="+ filename);
 
-        Path path = storageService.load(filename);
-        Resource resource = storageService.loadAsResource(filename);
+        Documento documento = documentoRepository.getReferenceById(id);
 
-        byte[] contenido = resource.getContentAsByteArray();
-        for (byte b : contenido) {
-            System.out.print(((char) b));
-        }
+        String filename = documento.getNombreArchivo();
+        System.out.println("Filename:" + filename);
+
+        Path path = storageService.load(filename);
+        // Resource resource = storageService.loadAsResource(filename);
+
+        // byte[] contenido = resource.getContentAsByteArray();
+        byte[] contenido = documento.getData();
+        System.out.println("Contenido:" + contenido.toString());
 
         System.out.println("Path: " + path.toAbsolutePath());
-
-        // return contenido;
 
         return ResponseEntity.ok().header("Content-disposition", "attachment; filename="+ filename).body(contenido);
     }
