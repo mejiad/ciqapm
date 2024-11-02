@@ -37,6 +37,9 @@
                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                             Archivo
                         </th>
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                            Tipo Documento
+                        </th>
                         <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
                             <span class="sr-only">Edit</span>
                         </th>
@@ -52,6 +55,9 @@
                         </td>
                         <td th:text="${documento.nombreArchivo}"
                             class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Archivo
+                        </td>
+                        <td th:text="${documento.tipoDocumento}"
+                            class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Tipo Documento
                         </td>
                         <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                             <a th:href="@{/documento/download(id=${documento.id})}">

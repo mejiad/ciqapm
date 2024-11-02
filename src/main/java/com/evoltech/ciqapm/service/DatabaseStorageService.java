@@ -90,7 +90,7 @@ public class DatabaseStorageService implements StorageService{
             }
 
             try (InputStream inputStream = file.getInputStream()) {
-                Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
+                // Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
                 contenido = new byte[(int) inputStream.available()];
                 contenido = file.getBytes();
 

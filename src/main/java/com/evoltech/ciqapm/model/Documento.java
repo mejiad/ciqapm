@@ -23,6 +23,9 @@ public class Documento extends BaseClass {
 
     private String nombreArchivo;
 
+    @Enumerated(EnumType.STRING)
+    private TipoDocumento tipoDocumento;
+
     @ManyToOne
     private Proyecto proyecto;
 
