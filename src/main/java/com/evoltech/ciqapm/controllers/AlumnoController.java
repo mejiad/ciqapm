@@ -4,6 +4,7 @@ import com.evoltech.ciqapm.model.Alumno;
 import com.evoltech.ciqapm.repository.AlumnoRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,16 +39,26 @@ public class AlumnoController {
         return "/Alumno/Edit";
     }
 
-    @PostMapping("/save")
+    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String saveAlumno(@Valid Alumno alumno, BindingResult result, Model model){
-        if (result.hasErrors()){
-            System.out.println("Hay errores");
-            return "/Alumno/Edit";
+
+        var mod = result.getModel();
+        if(result.hasErrors()){
+            System.out.println("++ Hay errores en el alumno ++++++++++++++");
+            if (!mod.isEmpty()) {
+                mod.forEach((String k, Object obj) -> {
+                    System.out.println("Error key: " + k + " Obj:" + obj);
+                    System.out.println("++++++++++++++++++++++++");
+                });
+            }
+
+            model.addAttribute("alumno", alumno);
+            return "/alumno/Edit";
         } else {
+            System.out.println("Inicio del save");
             alumnoRepository.save(alumno);
-            List<Alumno> alumnos = alumnoRepository.findAll();
-            model.addAttribute("alumnos", alumnos);
-            return "Alumno/List";
+            return "redirect:/alumno/list";
+
         }
     }
 

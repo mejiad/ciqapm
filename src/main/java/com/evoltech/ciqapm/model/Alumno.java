@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -30,6 +31,7 @@ public class Alumno {
 
     @NotNull(message = "El email debe ser digitado.")
     @NotEmpty(message = "El email debe ser digitado.")
+    @Email(message= "Debe capturar una dirección válida")
     private String email;
 
 }

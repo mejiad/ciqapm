@@ -28,6 +28,24 @@
                             <form action="#" th:action="@{/alumno/save}" th:object="${alumno}" method="post">
                                 <div class="space-y-2">
                                     <div class="border-b border-gray-900/10 pb-12">
+                                        <div class="block text-sm font-medium leading-6 text-red-600">
+                                            <ul>
+                                                <li>
+                                                    <p th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}"></p>
+
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('matricula')}" th:errors="*{matricula}">Matricula error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email error</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+
                                         <div class="mt-10 grid grid-cols-1 gap-x-12 gap-y-8 sm:grid-cols-6">
                                             <div class="sm:col-span-4">
                                                 <label for="nombre"
@@ -43,7 +61,7 @@
                                             </div>
                                             <div class="sm:col-span-4">
                                                 <label for="matricula"
-                                                       class="block text-sm font-medium leading-6 text-sky-900">Matricula:</label>
+                                                       class="block text-sm font-medium leading-6 text-sky-900">Matrícula:</label>
                                                 <div class="mt-2">
                                                     <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
                                                         <input type="text" th:value="*{matricula}" name="matricula"
@@ -55,7 +73,7 @@
 
                                             <div class="sm:col-span-4">
                                                 <label for="email"
-                                                       class="block text-sm font-medium leading-6 text-sky-900">Matricula:</label>
+                                                       class="block text-sm font-medium leading-6 text-sky-900">Correo electrónico:</label>
                                                 <div class="mt-2">
                                                     <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
                                                         <input type="text" th:value="*{email}" name="email"
