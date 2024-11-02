@@ -1,8 +1,6 @@
 package com.evoltech.ciqapm.controllers;
 
-import com.evoltech.ciqapm.model.Documento;
-import com.evoltech.ciqapm.model.Personal;
-import com.evoltech.ciqapm.model.Proyecto;
+import com.evoltech.ciqapm.model.*;
 import com.evoltech.ciqapm.repository.DocumentoRepository;
 import com.evoltech.ciqapm.repository.ProyectoRepository;
 import com.evoltech.ciqapm.service.DatabaseStorageService;
@@ -83,10 +81,12 @@ public class DocumentoController {
     public String newDocumento(@RequestParam("id") Long id, Model model){
         Documento documento = new Documento();
         Proyecto proyecto = proyectoRepository.getReferenceById(id);
+        List<TipoDocumento> tiposDocumento = List.of(TipoDocumento.values());
         documento.setProyecto(proyecto);
 
         model.addAttribute("documento", documento);
         model.addAttribute("proyecto", proyecto);
+        model.addAttribute("tiposDocumento", tiposDocumento);
 
         return "/Documento/Edit";
     }
@@ -105,6 +105,7 @@ public class DocumentoController {
     public String saveDocumento(@RequestBody MultipartFile file,
                                 @RequestParam String nombre,
                                 @RequestParam String descripcion,
+                                @RequestParam String tipoDocumento,
                                 @RequestParam String proyecto
                                 ) {
 
@@ -115,12 +116,15 @@ public class DocumentoController {
         System.out.println("Name: " + nombre.toString());
         System.out.println("Descripcion: " + descripcion.toString());
         System.out.println("Proyecto: " + proyecto.toString());
+        System.out.println("TipoDocumento: " + tipoDocumento.toString());
+
         Long proyectoId = Long.parseLong(proyecto.toString());
         Proyecto proyectoObj = proyectoRepository.getReferenceById(proyectoId);
         documento.setNombreArchivo(file.getOriginalFilename());
         documento.setDescripcion(descripcion.toString());
         documento.setNombre(nombre.toString());
         documento.setProyecto(proyectoObj);
+        documento.setTipoDocumento(TipoDocumento.valueOf(tipoDocumento));
 
         byte[] contenido = storageService.storeDB(file);
         System.out.println("Longitud: " + contenido.length);

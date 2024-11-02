@@ -1,5 +1,6 @@
 package com.evoltech.ciqapm.model.datos;
 
+import com.evoltech.ciqapm.model.FaseConahcyt;
 import com.evoltech.ciqapm.model.Proyecto;
 import com.evoltech.ciqapm.model.jpa.Convocatoria;
 import jakarta.persistence.*;
@@ -25,5 +26,10 @@ public class DatosConahcyt {
     @OneToOne
     @JoinColumn(name="proyecto_id", nullable=false)
     private Proyecto proyecto;
+
+    @NotNull(message = "La fase es requerida.")
+    @Enumerated(EnumType.STRING)
+    private FaseConahcyt fase;
+
 
 }

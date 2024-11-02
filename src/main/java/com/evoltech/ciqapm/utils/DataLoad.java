@@ -359,6 +359,7 @@ public class DataLoad {
 
         Proyecto res = proyectoRepository.save(proyecto);
         datosConahcyt.setProyecto(res);
+        datosConahcyt.setFase(FaseConahcyt.ACTIVACION_EJECUCION);
 
         DatosConahcyt resDatosConahcyt = conahcytRepository.save(datosConahcyt);
 

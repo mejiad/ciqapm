@@ -49,6 +49,23 @@
                                                 </div>
                                                 <p class="text-sm leading-6 text-gray-300 italic font-normal">Breve descripción de esta parte del proyecto.</p>
                                             </div>
+
+                                            <div class="sm:col-span-3">
+                                                <label for="tipoDocumento"
+                                                       class="block text-sm font-medium leading-6 text-sky-900">Tipo de Documento: </label>
+                                                <div class="mt-0">
+                                                    <select id="tipoDocumento" name="tipoDocumento"
+                                                            class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                                        <option th:value="*{tipoDocumento}"
+                                                                th:text="*{tipoDocumento}"></option>
+                                                        <option th:each="td : ${tiposDocumento}" th:value="${td}"
+                                                                th:text="${td}">
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
                                             <div class="col-span-full">
                                                 <label for="proyecto" class="block text-sm font-medium leading-6 text-sky-900">Proyecto</label>
                                                 <div class="mt-2">
