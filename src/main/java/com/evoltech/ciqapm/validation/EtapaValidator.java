@@ -16,8 +16,12 @@ public class EtapaValidator implements ConstraintValidator<CheckEtapaDates, Etap
         boolean result = true;
         var inicio = etapa.getFechaEstimadaInicio();
         var fin = etapa.getFechaEstimadaTerminacion();
-        if (fin.isBefore(inicio)){
+        if (inicio == null || fin == null){
             result = false;
+        } else {
+            if (fin.isBefore(inicio)) {
+                result = false;
+            }
         }
 
         return result;

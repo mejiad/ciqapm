@@ -124,7 +124,9 @@ public class EtapaController {
         } else {
             etapaRepository.save(etapa);
         }
-        return "redirect:/proyecto/list";
-    }
+        //return "redirect:/proyecto/list";
+        return "redirect:/proyecto/view?id=" + etapa.getProyecto().getId();
+
+   }
 
 }
