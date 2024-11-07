@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface PersonalRepository extends JpaRepository<Personal, Long> {
-    List<Personal> findByCategoria(PersonalCategoria personalCategoria);
+    List<Personal> findByNombreContainsIgnoreCase(String nombre);
 }

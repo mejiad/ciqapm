@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Servicio</title>
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+<script src="https://unpkg.com/htmx.org@2.0.3" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+<h1>Search de Servicio</h1>
+
+
+<div th:fragment="result_table">
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Categoría</th>
+            <th>Nombre</th>
+            <th>Add</th>
+        </tr>
+        </thead>
+        <tbody id="search-results">
+        <tr th:each="persona : ${personal}">
+            <td th:text="${persona.id}">ID</td>
+            <td th:text="${persona.categoria}">Categoría</td>
+            <td th:text="${persona.nombre}">Nombre</td>
+            <td>
+                <a th:hx-get="@{/cotizaPersonal/add(id=${persona.id})}" hx-target="#message">
+                    Add
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div th:fragment="list">
+
+    <form th:action="@{/cotizaPersonal/getarray}" method="get">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Categoría</th>
+                <th>Nombre</th>
+                <th>Add</th>
+            </tr>
+            </thead>
+            <tbody id="list-results">
+            <tr th:each="persona : ${personal}">
+                <td th:text="${persona.id}" >ID</td>
+                <td th:text="${persona.categoria}">Categoría</td>
+                <td th:text="${persona.nombre}">Nombre</td>
+            </tr>
+            </tbody>
+        </table>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+</body>
+</html>

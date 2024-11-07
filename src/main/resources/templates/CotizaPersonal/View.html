@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="/htmx.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Info del Proyecto</title>
+</head>
+<body class="flex flex-col min-h-screen">
+<div>
+    <div th:insert="~{sidebar}"></div>
+    <div th:insert="~{header}"></div>
+    <main class="lg:pl-72">
+
+        <div class="relative flex min-h-min flex-col justify-center overflow-hidden bg-gray-50">
+            <img alt="" class="absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2"
+                 src="/images/beams.jpg" width="1308"/>
+            <div class="absolute inset-0 bg-[url(/images/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
+            <div class="relative bg-white px-6 pt-4 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-10 sm:rounded-lg sm:px-10">
+                <div class="mx-auto max-w-screen-lg">
+                    <div class="divide-y divide-gray-300/50">
+                        <div class="space-y-6 py-8 text-base leading-7 text-gray-600">
+                            <h2 class="text-3xl font-extrabold leading-6 text-sky-700">Información de Cotización</h2>
+                        </div>
+                        <div class="pt-4 text-base font-semibold leading-7">
+                            <div class="mt-5 flex items-center space-x-3">
+                                <div class="mt-5 flex items-center space-x-3">
+                                    <h3 class="truncate text-sm font-medium text-gray-900">
+                                        <span>ID:</span>
+                                    </h3>
+                                    <p class="truncate text-sm text-gray-500">
+                                        <span th:text="${cotizaServicio.id}">2</span>
+                                    </p>
+                                </div>
+                                <div class="mt-5 flex items-center space-x-3">
+                                    <h3 class="truncate text-sm font-medium text-gray-900">
+                                        <span>Descripcion Servicio:</span>
+                                    </h3>
+                                    <p class="truncate text-sm text-gray-500">
+                                        <span th:text="${cotizaServicio.servicio.descripcion}">2</span>
+                                    </p>
+                                </div>
+                                <div class="mt-5 flex items-center space-x-3">
+                                    <h3 class="truncate text-sm font-medium text-gray-900">
+                                        <span>Precio Venta:</span>
+                                    </h3>
+                                    <p class="truncate text-sm text-gray-500">
+                                        <span th:text="${cotizaServicio.servicio.precioVta}">2</span>
+                                    </p>
+                                </div>
+                                <div class="mt-5 flex items-center space-x-3">
+                                    <h3 class="truncate text-sm font-medium text-gray-900">
+                                        <span>Cantidad:</span>
+                                    </h3>
+                                    <p class="truncate text-sm text-gray-500">
+                                        <span th:text="${cotizaServicio.cantidad}">2</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:insert="~{footer}"></div>
+        </div>
+    </main>
+</div>
+
+<!-- from cdn -->
+<script src="https://unpkg.com/@material-tailwind/html@latest/scripts/tabs.js"></script>
+
+</body>
+</html>
+

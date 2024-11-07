@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<H1>Summary</h1>
+
+<form th:action="@{/cotizaPersonal/postarray}" th:object="${wrapper}" method="post">
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Categoría</th>
+      <th>Nombre</th>
+      <th>Tarifa/Hrs</th>
+      <th>Horas a Ocupar</th>
+    </tr>
+    </thead>
+    <tbody id="list-results">
+    <tr th:each="cust, itemStat : *{personal}">
+      <td><input th:field="*{personal[__${itemStat.index}__].personal.id}" readonly /></td>
+      <td><input th:field="*{personal[__${itemStat.index}__].personal.categoria}" readonly /></td>
+      <td><input th:field="*{personal[__${itemStat.index}__].personal.nombre}" readonly /></td>
+      <td><input th:field="*{personal[__${itemStat.index}__].personal.rate}" readonly /></td>
+      <td><input th:field="*{personal[__${itemStat.index}__].horas}" /></td>
+    </tr>
+    </tbody>
+  </table>
+  <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>
