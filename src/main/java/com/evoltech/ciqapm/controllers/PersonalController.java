@@ -1,15 +1,19 @@
 package com.evoltech.ciqapm.controllers;
 
+import com.evoltech.ciqapm.model.Estado;
 import com.evoltech.ciqapm.model.Personal;
 import com.evoltech.ciqapm.model.PersonalCategoria;
+import com.evoltech.ciqapm.model.Servicio;
 import com.evoltech.ciqapm.repository.PersonalRepository;
 import com.evoltech.ciqapm.service.PersonalServicio;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -52,39 +56,55 @@ public class PersonalController {
     }
 
     @GetMapping("/edit")
-    public String editPersonal(Model model){
+    public String editPersonal(@RequestParam Long id, Model model){
+        Personal personal = personalRepository.getReferenceById(id);
+        List<PersonalCategoria> personalCategorias = List.of(PersonalCategoria.values());
+        model.addAttribute("personal", personal);
+        model.addAttribute("categorias", personalCategorias);
+        System.out.println(" ---------- las categorias son:" + personalCategorias.size());
         return "/Personal/Edit";
     }
 
     @GetMapping("/new")
     public String newPersonal(Model model){
         Personal personal = new Personal();
-        model.addAttribute("persona", personal);
+        List<PersonalCategoria> personalCategorias = List.of(PersonalCategoria.values());
+        model.addAttribute("personal", personal);
+        model.addAttribute("categorias", personalCategorias);
+        System.out.println(" ---------- las categorias son:" + personalCategorias.size());
 
         return "/Personal/Edit";
     }
 
-    /*
-    @PostMapping(value = "/save")
-    public String savePersonal(@RequestParam MultiValueMap body, Model model){
-        System.out.println("Nombre en save:" + body.getFirst("nombre"));
-        Personal personal = new Personal();
-        personal.setId(0L);
-        personal.setNombre(new String(String.valueOf(body.getFirst("nombre"))));
-        personal.setApellidos(new String(String.valueOf(body.getFirst("apellidos"))));
-        personal.setCategoria(PersonalCategoria.valueOf(new String(String.valueOf(body.getFirst("categoria")))));
-        personal.setRate(new BigDecimal(String.valueOf(body.getFirst("rate"))));
-        personalRepository.save(personal);
-        return "redirect:/personal/list";
-    }
-     */
-
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String savePersonal(Personal persona, Model model){
+    public String savePersonal(@Valid Personal personal, BindingResult result, Model model){
 
-        System.out.println("ID: " + persona.getId());
-        personalRepository.save(persona);
+        var mod = result.getModel();
+        if(result.hasErrors()){
+            System.out.println("++ Hay errores en el empleado ++++++++++++++");
+            if (!mod.isEmpty()) {
+                mod.forEach((String k, Object obj) -> {
+                    System.out.println("Error key: " + k + " Obj:" + obj);
+                    System.out.println("++++++++++++++++++++++++");
+                });
+            }
+            List<PersonalCategoria> personalCategorias = List.of(PersonalCategoria.values());
+            model.addAttribute("categorias", personalCategorias);
+            model.addAttribute("personal", personal);
+            return "/personal/Edit";
+        } else {
+            System.out.println("Inicio del save");
 
-        return "redirect:/personal/list";
+            String clave = personal.getClave().toUpperCase();
+            String nombre = personal.getNombre().toUpperCase();
+            personal.setClave(clave);
+            personal.setNombre(nombre);
+
+            personalRepository.save(personal);
+            return "redirect:/personal/list";
+
+        }
     }
+
+
 }
