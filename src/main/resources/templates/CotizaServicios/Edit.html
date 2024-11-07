@@ -21,17 +21,17 @@
                 <div class="mx-auto max-w-screen-lg">
                     <div class="divide-y divide-gray-300/50">
                         <div class="space-y-6 py-8 text-base leading-7 text-gray-600">
-                            <h2 class="text-3xl font-extrabold leading-6 text-sky-700">Cotizacion</h2>
+                            <h2 class="text-3xl font-extrabold leading-6 text-sky-700">Servicio</h2>
                         </div>
                         <div class="pt-4 text-base font-semibold leading-7">
 
-                            <form action="#" th:action="@{/cotizacion/save}" th:object="${cotizacion}" method="post">
+                            <form action="#" th:action="@{/cotizaServicios/save}" th:object="${cotizaServicio}" method="post">
                                 <div class="space-y-2">
                                     <div class="border-b border-gray-900/10 pb-12">
 
                                         <div class="block text-sm font-medium leading-6 text-red-600">
                                             <ul>
-                                                <li>
+                                   <!--             <li>
                                                     <p th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}"></p>
                                                 </li>
                                                 <li>
@@ -54,7 +54,7 @@
                                                 </li>
                                                 <li>
                                                     <span th:if="${#fields.hasErrors('costoTotalHrsHombre')}" th:errors="*{costoTotalHrsHombre}">Nombre error</span>
-                                                </li>
+                                                </li>-->
                                             </ul>
                                         </div>
 

@@ -3,12 +3,11 @@ package com.evoltech.ciqapm.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ManyToAny;
 
 @Entity
 @Data
 @NoArgsConstructor
-public class CotizacionServicios {
+public class CotizaPersonal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -17,6 +16,8 @@ public class CotizacionServicios {
     @ManyToOne
     private Cotizacion cotizacion;
 
-    private Servicio servicio;
+    private Personal personal;
+
+    private int horas;
 
 }

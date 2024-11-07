@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-public class CotizacionPersonal {
+public class CotizaServicio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -16,9 +16,10 @@ public class CotizacionPersonal {
     @ManyToOne
     private Cotizacion cotizacion;
 
-    private Personal personal;
+    @ManyToOne
+    private Servicio servicio;
 
-    private int horas;
+    private Integer cantidad;
 
 
 }

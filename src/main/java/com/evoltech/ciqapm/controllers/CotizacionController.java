@@ -4,12 +4,12 @@ import com.evoltech.ciqapm.model.Cotizacion;
 import com.evoltech.ciqapm.repository.CotizacionPersonalRepository;
 import com.evoltech.ciqapm.repository.CotizacionRepository;
 import com.evoltech.ciqapm.repository.CotizacionServiciosRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,6 +41,14 @@ public class CotizacionController {
         return "/Cotizacion/List";
     }
 
+    @GetMapping("view/{id}")
+    private String viewById(@PathVariable("id") Long id, Model model){
+
+        Cotizacion cotizacion = cotizacionRepository.getReferenceById(id);
+        model.addAttribute("cotizacion", cotizacion);
+        return "/Cotizacion/View";
+    }
+
     @GetMapping("view")
     private String view(@RequestParam("id") Long id, Model model){
 
@@ -55,6 +63,28 @@ public class CotizacionController {
 
         model.addAttribute("cotizacion", cotizacion);
         return "/Cotizacion/Edit";
+    }
+
+
+    @GetMapping("new")
+    private String nuevaCotizacion(Model model) {
+        Cotizacion cotizacion = new Cotizacion();
+
+        model.addAttribute("cotizacion", cotizacion);
+        return "Cotizacion/Edit";
+    }
+
+
+    @PostMapping("save")
+    private String salvar(@Valid Cotizacion cotizacion, Model model, BindingResult result){
+
+        if(result.hasErrors()){
+
+        } else {
+
+        }
+
+        return "redirect:/cotizacion/list";
     }
 
 }

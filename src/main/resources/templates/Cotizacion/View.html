@@ -67,14 +67,7 @@
                                     <span th:text="${cotizacion.pasajes}">2</span>
                                 </p>
                             </div>
-                            <div class="mt-5 flex items-center space-x-3">
-                                <h3 class="truncate text-sm font-medium text-gray-900">
-                                    <span>Servicios:</span>
-                                </h3>
-                                <p class="truncate text-sm text-gray-500">
-                                    <span th:text="${cotizacion.pruebasServicios}">2</span>
-                                </p>
-                            </div>
+
                             <div class="mt-5 flex items-center space-x-3">
                                 <h3 class="truncate text-sm font-medium text-gray-900">
                                     <span>Costo Total Hrs Hombre:</span>
@@ -108,7 +101,7 @@
                                         </ul>
                                         <div data-tab-content="" class="p-5">
                                             <div id="servicios" role="tabpanel"
-                                                 th:hx-get="@{/etapa/list(id=${cotizacion.id})}" hx-trigger="load">
+                                                 th:hx-get="@{/cotiza/list(id=${cotizacion.id})}" hx-trigger="load">
                                             </div>
                                             <div class="hidden opacity-0" id="personal" role="tabpanel"
                                                  th:hx-get="@{/documento/list(id=${cotizacion.id})}" hx-trigger="load">
@@ -120,14 +113,6 @@
 
                             </div>
 
-                            <div class="mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                                <div th:insert="~{Plot/Gantt}"></div>
-
-                            </div>
-
-
-
-                            <!-- CONTENIDO ... -->
                         </div>
 
                     </div>

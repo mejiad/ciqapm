@@ -2351,7 +2351,8 @@ public class DataLoad {
         cotizacion.setMateriales(randomService.generaCostoRandom());
         cotizacion.setViaticos(randomService.generaCostoRandom());
         cotizacion.setPasajes(randomService.generaCostoRandom());
-        cotizacion.setPruebasServicios(randomService.generaCostoRandom());
+        cotizacion.setCostoTotal(randomService.generaCostoRandom());
+        cotizacion.setTotalServicios(randomService.generaCostoRandom());
         cotizacion.setCostoTotalHrsHombre(randomService.generaCostoRandom());
 
         cotizacionRepository.save(cotizacion);
