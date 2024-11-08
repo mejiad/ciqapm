@@ -43,9 +43,10 @@ public class CotizacionController {
 
     @GetMapping("view/{id}")
     private String viewById(@PathVariable("id") Long id, Model model){
-
         Cotizacion cotizacion = cotizacionRepository.getReferenceById(id);
+        Double subtotal = cotizacion.getPasajes() + cotizacion.getMateriales() +cotizacion.getViaticos() + cotizacion.getCostoTotalHrsHombre();
         model.addAttribute("cotizacion", cotizacion);
+        model.addAttribute("subtotal", subtotal);
         return "/Cotizacion/View";
     }
 
@@ -53,7 +54,9 @@ public class CotizacionController {
     private String view(@RequestParam("id") Long id, Model model){
 
         Cotizacion cotizacion = cotizacionRepository.getReferenceById(id);
+        Double subtotal = cotizacion.getPasajes() + cotizacion.getMateriales() +cotizacion.getViaticos() + cotizacion.getCostoTotalHrsHombre();
         model.addAttribute("cotizacion", cotizacion);
+        model.addAttribute("subtotal", subtotal);
         return "/Cotizacion/View";
     }
 
