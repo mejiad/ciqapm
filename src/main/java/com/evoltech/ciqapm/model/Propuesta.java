@@ -23,6 +23,8 @@ public class Propuesta {
 
     private LocalDate fechaCargaDocumento;
 
+    @ManyToOne
+    @JoinColumn(name="proyecto", nullable=false)
     private Proyecto proyecto;
 
     @Enumerated(EnumType.STRING)
