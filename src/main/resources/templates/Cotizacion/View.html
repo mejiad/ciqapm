@@ -21,78 +21,72 @@
                 <div class="mx-auto max-w-screen-lg">
                     <div class="divide-y divide-gray-300/50">
 
-                        <div class="space-y-6 py-8 text-base leading-7 text-gray-600">
-                            <h2 class="text-3xl font-extrabold leading-6 text-sky-700">Información de Cotización</h2>
-                        </div>
                         <div class="pt-4 text-base font-semibold leading-7">
+                            <div class="p-6 border border-gray-200 rounded-3xl w-full group transition-all duration-500 hover:border-gray-400 ">
+                                <h2
+                                        class="font-manrope font-bold text-3xl leading-10 text-sky-800 pb-6 border-b border-gray-200 ">
+                                    Cotización No. <span class="uppercase" th:text="${cotizacion.numero}">2</span>
+                                </h2>
+                                <div class="data py-6 border-b border-gray-200">
+                                    <div class="flex items-center justify-left gap-4 mb-5">
+                                        <p class="font-normal text-lg leading-8 text-gray-400 transition-all duration-500 group-hover:text-gray-700">Nombre:</p>
+                                        <p class="font-medium text-lg leading-8 text-gray-900">
+                                            <span th:text="${cotizacion.nombre}">2</span>
+                                        </p>
+                                    </div>
+                                    <div class="flex items-center justify-between gap-4 mb-5">
+                                        <p class="font-normal text-lg leading-8 text-gray-400 transition-all duration-500 group-hover:text-gray-700">Total de materiales</p>
+                                        <p class="font-medium text-lg leading-8 text-gray-900">
+                                            <span th:inline="text">$ [[${#numbers.formatDecimal(cotizacion.materiales, 0, 'COMMA', 2, 'POINT')}]]</span>
 
-                            <div class="mt-5 flex items-center space-x-3">
+                                        </p>
+                                    </div>
+                                    <div class="flex items-center justify-between gap-4 mb-5">
+                                        <p class="font-normal text-lg leading-8 text-gray-400 transition-all duration-500 group-hover:text-gray-700">Total de viáticos</p>
+                                        <p class="font-medium text-lg leading-8 text-gray-900">
+                                            <span th:inline="text">$ [[${#numbers.formatDecimal(cotizacion.viaticos, 0, 'COMMA', 2, 'POINT')}]]</span>
 
-                                <h3 class="text-sm font-medium text-gray-900">
-                                    <span>Número:</span>
-                                </h3>
-                                <p class="text-sm text-gray-500">
-                                    <span th:text="${cotizacion.numero}">2</span>
-                                </p>
-                            </div>
-                            <div class="mt-5 flex items-center space-x-3">
-                                <h3 class="truncate text-sm font-medium text-gray-900">
-                                    <span>Nombre:</span>
-                                </h3>
-                                <p class="truncate text-sm text-gray-500">
-                                    <span th:text="${cotizacion.nombre}">2</span>
-                                </p>
-                            </div>
-                            <div class="mt-5 flex items-center space-x-3">
-                                <h3 class="truncate text-sm font-medium text-gray-900">
-                                    <span>Materiales:</span>
-                                </h3>
-                                <p class="truncate text-sm text-gray-500">
-                                    <span th:text="${cotizacion.materiales}">2</span>
-                                </p>
-                            </div>
-                            <div class="mt-5 flex items-center space-x-3">
-                                <h3 class="truncate text-sm font-medium text-gray-900">
-                                    <span>Viáticos:</span>
-                                </h3>
-                                <p class="truncate text-sm text-gray-500">
-                                    <span th:text="${cotizacion.viaticos}">2</span>
-                                </p>
-                            </div>
-                            <div class="mt-5 flex items-center space-x-3">
-                                <h3 class="truncate text-sm font-medium text-gray-900">
-                                    <span>Pasajes:</span>
-                                </h3>
-                                <p class="truncate text-sm text-gray-500">
-                                    <span th:text="${cotizacion.pasajes}">2</span>
-                                </p>
-                            </div>
+                                        </p>
+                                    </div>
+                                    <div class="flex items-center justify-between gap-4 mb-5">
+                                        <p class="font-normal text-lg leading-8 text-gray-400 transition-all duration-500 group-hover:text-gray-700">Total de pasajes</p>
+                                        <p class="font-medium text-lg leading-8 text-gray-900">
+                                            <span th:inline="text">$ [[${#numbers.formatDecimal(cotizacion.pasajes, 0, 'COMMA', 2, 'POINT')}]]</span>
 
-                            <div class="mt-5 flex items-center space-x-3">
-                                <h3 class="truncate text-sm font-medium text-gray-900">
-                                    <span>Costo Total Hrs Hombre:</span>
-                                </h3>
-                                <p class="truncate text-sm text-gray-500">
-                                    <span th:text="${cotizacion.costoTotalHrsHombre}">2</span>
-                                </p>
+                                        </p>
+                                    </div>
+                                    <div class="flex items-center justify-between gap-4 mb-5">
+                                        <p class="font-normal text-lg leading-8 text-gray-400 transition-all duration-500 group-hover:text-gray-700">Total de horas hombre</p>
+                                        <p class="font-medium text-lg leading-8 text-gray-900">
+                                            <span th:inline="text">$ [[${#numbers.formatDecimal(cotizacion.costoTotalHrsHombre, 0, 'COMMA', 2, 'POINT')}]]</span>
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="total flex items-center justify-between pt-6">
+                                    <p class="font-normal text-xl leading-8 text-black ">Subtotal</p>
+                                    <h5 class="font-manrope font-bold text-2xl leading-9 text-green-600">
+                                        <span th:inline="text">$ [[${#numbers.formatDecimal(subtotal, 0, 'COMMA', 2, 'POINT')}]]</span>
+                                    </h5>
+                                </div>
                             </div>
 
 
-                            <div class="mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
 
+                            <div class="mt-6 border border-gray-200 rounded-3xl w-full group transition-all duration-500 hover:border-gray-400 ">
                                 <div class="w-full">
                                     <div class="relative right-0">
-                                        <ul class="relative flex flex-wrap px-1.5 py-1.5 list-none rounded-md bg-slate-100"
+                                        <ul class="relative flex flex-wrap px-1.5 py-1.5 list-none rounded-3xl bg-sky-700 text-lg"
                                             data-tabs="tabs" role="list">
                                             <li class="z-30 flex-auto text-center">
-                                                <a class="z-30 flex items-center justify-center w-full px-0 py-2 text-sm mb-0 transition-all ease-in-out border-0 rounded-md cursor-pointer text-slate-600 bg-inherit"
+                                                <a class="z-30 flex items-center justify-center w-full px-0 py-2 mb-0 transition-all ease-in-out border-0 rounded-2xl cursor-pointer text-slate-300 bg-inherit"
                                                    data-tab-target="" role="tab" aria-selected="true"
                                                    aria-controls="servicios">
                                                     Servicios
                                                 </a>
                                             </li>
                                             <li class="z-30 flex-auto text-center">
-                                                <a class="z-30 flex items-center justify-center w-full px-0 py-2 mb-0 text-sm transition-all ease-in-out border-0 rounded-lg cursor-pointer text-slate-600 bg-inherit"
+                                                <a class="z-30 flex items-center justify-center w-full px-0 py-2 mb-0 transition-all ease-in-out border-0 rounded-lg cursor-pointer text-slate-300 bg-inherit"
                                                    data-tab-target="" role="tab" aria-selected="false"
                                                    aria-controls="personal">
                                                     Personal
