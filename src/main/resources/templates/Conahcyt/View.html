@@ -100,7 +100,7 @@
                                                 <a class="z-30 flex items-center justify-center w-full px-0 py-2 text-sm mb-0 transition-all ease-in-out border-0 rounded-lg cursor-pointer text-slate-700 bg-inherit"
                                                    data-tab-target="" role="tab" aria-selected="false"
                                                    aria-controls="pagos">
-                                                    Pagos
+                                                    Propuesta
                                                 </a>
                                             </li>
                                         </ul>
@@ -116,7 +116,7 @@
                                                  th:hx-get="@{/personal/list}" hx-trigger="load">
                                             </div>
                                             <div class="hidden opacity-0" id="pagos" role="tabpanel"
-                                                 th:hx-get="@{/pago/list(id=${conahcytDto.id})}" hx-trigger="load">
+                                                 th:hx-get="@{/propuesta/list(id=${conahcytDto.id})}" hx-trigger="load">
                                             </div>
                                         </div>
                                     </div>

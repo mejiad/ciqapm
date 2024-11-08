@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="/htmx.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Info de la etapa</title>
+</head>
+<body class="flex flex-col min-h-screen">
+<div>
+    <div th:insert="~{sidebar}"></div>
+    <div th:insert="~{header}"></div>
+    <main class="lg:pl-72">
+
+        <div class="relative flex min-h-min flex-col justify-center overflow-hidden bg-gray-50">
+            <img src="/images/beams.jpg" alt=""
+                 class="absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2" width="1308"/>
+            <div class="absolute inset-0 bg-[url(/images/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
+            <div class="relative bg-white px-6 pt-4 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-10 sm:rounded-lg sm:px-10">
+                <div class="mx-auto max-w-screen-lg">
+                    <div class="divide-y divide-gray-300/50">
+                        <div class="space-y-6 py-8 text-base leading-7 text-gray-600">
+                            <h2 class="text-3xl font-extrabold leading-6 text-sky-700">Información de la etapa</h2>
+                        </div>
+                        <div class="pt-0 text-base font-semibold leading-7">
+
+                            <form action="#" th:action="@{/etapa/save}" th:object="${etapa}" method="post">
+                                <div class="space-y-2">
+                                    <div class="border-b border-gray-900/10 pb-12">
+                                        <div class="block text-sm font-medium leading-6 text-red-600">
+                                            <ul>
+                                                <li>
+                                                    <p th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}"></p>
+
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('descripcion')}"
+                                                          th:errors="*{descripcion}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('entregable')}"
+                                                          th:errors="*{entregable}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('fechaEstimadaInicio')}"
+                                                          th:errors="*{fechaEstimadaInicio}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('fechaEstimadaTerminacion')}"
+                                                          th:errors="*{fechaEstimadaTerminacion}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('responsable')}" th:errors="*{responsable}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('servicio')}" th:errors="*{servicio}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}">Nombre error</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="mt-2 grid grid-cols-1 gap-x-12 gap-y-8 sm:grid-cols-6">
+
+                                            <div class="sm:col-span-4">
+                                                <label for="nombre"
+                                                       class="block text-sm font-medium leading-6 text-sky-900">Nombre
+                                                    de la etapa:</label>
+                                                <div class="mt-0">
+                                                    <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
+                                                        <input type="text" name="nombre" id="nombre"
+                                                               th:value="*{nombre}"
+                                                               class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 font-normal">
+
+                                                        <input type="hidden" id="id" name="id" th:value="*{id}"></input>
+                                                        <input type="hidden" id="proyecto" name="proyecto"
+                                                               th:value="*{proyecto.id}"></input>
+                                                    </div>
+                                                    <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Nombre error</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-span-full">
+                                                <label for="descripcion"
+                                                       class="block text-sm font-medium leading-6 text-sky-900">Descripción</label>
+                                                <div class="mt-0">
+                                                    <textarea id="descripcion" name="descripcion" rows="3"
+                                                              th:value="*{descripcion}"
+                                                              class="block  font-normal w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6">[[${etapa.descripcion}]]</textarea>
+                                                </div>
+                                                <p class="text-sm leading-6 text-gray-300 italic font-normal">Breve
+                                                    descripción de esta parte del proyecto.</p>
+                                            </div>
+
+                                            <div class="sm:col-span-4">
+                                                <label for="servicio"
+                                                       class="block text-sm font-medium leading-6 text-sky-900">Servicio: </label>
+                                                <div class="mt-0">
+                                                    <select id="servicio" name="servicio"
+                                                            class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                                        <option th:value="*{servicio?.id}"
+                                                                th:text="*{servicio?.nombre}"></option>
+                                                        <option th:each="ser : ${servicios}" th:value="${ser.id}"
+                                                                th:text="${ser.nombre}" th:selected="${servicio?.id}">>
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="sm:col-span-3">
+                                                <label for="responsable"
+                                                       class="block text-sm font-medium leading-6 text-sky-900">Responsable: </label>
+                                                <div class="mt-2">
+                                                    <select id="responsable" name="responsable"
+                                                            class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                                        <option th:value="*{responsable?.id}"
+                                                                th:text="*{responsable?.nombre}"></option>
+                                                        <option th:each="persona : ${personas}" th:value="${persona.id}"
+                                                                th:text="${persona.nombre}"
+                                                                th:selected="${responsable?.id}">>
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="sm:col-span-4">
+                                                <label for="entregable"
+                                                       class="block text-sm font-medium leading-6 text-sky-900">Entregable:</label>
+                                                <div class="mt-0">
+                                                    <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
+                                                        <input type="text" name="entregable" id="entregable"
+                                                               th:value="*{entregable}"
+                                                               class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="sm:col-span-4">
+                                                <label for="pctCompleto"
+                                                       class="block text-sm font-medium leading-6 text-sky-900">Porcentaje de avance:</label>
+                                                <div class="mt-0">
+                                                    <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
+                                                        <input type="text" name="pctCompleto" id="pctCompleto"
+                                                               th:value="*{pctCompleto}"
+                                                               class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="sm:col-span-4 text-sm font-normal text-sky-900">
+                                                <label for="fechaEstimadaInicio"
+                                                       class="block text-sm font-normal leading-6 text-sky-900">Periodo
+                                                    estimado: </label>
+                                                <div class="mt-0 block">
+                                                    <input type="date" id="fechaEstimadaInicio"
+                                                           class="text-sm font-normal leading-6 text-sky-900"
+                                                           name="fechaEstimadaInicio"
+                                                           th:value="${etapa?.fechaEstimadaInicio}"> - hasta -
+                                                    <input type="date" id="fechaEstimadaTerminacion"
+                                                           class="text-sm font-normal leading-6 text-sky-900"
+                                                           name="fechaEstimadaTerminacion"
+                                                           th:value="${etapa?.fechaEstimadaTerminacion}">
+
+
+                                                </div>
+                                                <span th:if="${#fields.hasErrors('fechaEstimadaInicio')}"
+                                                      th:errors="*{fechaEstimadaInicio}">Nombre error</span>
+                                                <span th:if="${#fields.hasErrors('fechaEstimadaTerminacion')}"
+                                                      th:errors="*{fechaEstimadaTerminacion}">Nombre error</span>
+                                            </div>
+                                            <div class="sm:col-span-3">
+                                                <label class="block text-sm font-medium leading-6 text-sky-900">Estatus: </label>
+                                                <div class="mt-2">
+                                                    <select id="estado" name="estado"
+                                                            class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                                        <option th:value="*{estado}" th:text="*{estado}"></option>
+                                                        <option th:each="estado : ${estados}" th:value="${estado}"
+                                                                th:text="${estado}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-6 my-12 flex items-center justify-end gap-x-6">
+                                        <button type="button" onclick="history.back();"
+                                                class="text-sm font-semibold leading-6 text-sky-900">
+                                            Cancelar
+                                        </button>
+                                        <button type="submit"
+                                                class="rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600">
+                                            Guardar
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+
+                            <div class="mt-12 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                                <div class="w-full">
+                                    <div class="relative right-0">
+                                        <ul class="relative flex flex-wrap px-1.5 py-1.5 list-none rounded-md bg-slate-100"
+                                            data-tabs="tabs" role="list">
+                                            <li class="z-30 flex-auto text-center">
+                                                <a class="z-30 flex items-center justify-center w-full px-0 py-2 text-sm mb-0 transition-all ease-in-out border-0 rounded-md cursor-pointer text-slate-600 bg-inherit"
+                                                   data-tab-target="" role="tab" aria-selected="true"
+                                                   aria-controls="dashboard">
+                                                    Actividades realizadas en la etapa
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                        <div data-tab-content="" class="p-5">
+                                            <div id="dashboard" role="tabpanel"
+                                                 th:hx-get="@{/actividad/list(id=${etapa.id})}"
+                                                 hx-trigger="load">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div th:insert="~{footer}"></div>
+
+
+    </main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+
+</body>
