@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <script src="/htmx.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Reporte de alumnos </title>
+    <title>Listado de cotizaciones</title>
 </head>
 <body class="flex flex-col min-h-screen">
 <div>
@@ -42,10 +42,10 @@
                                     <table class="min-w-full divide-y divide-gray-300">
                                         <thead>
                                         <tr>
-                                            <th scope="col"
+                                            <!--<th scope="col"
                                                 class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                                 ID
-                                            </th>
+                                            </th>-->
                                             <th scope="col"
                                                 class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                                 Clave
@@ -78,9 +78,9 @@
                                         </thead>
                                         <tbody class="divide-y divide-gray-200">
                                         <tr th:each="cotizacion : ${cotizaciones}">
-                                            <td th:text="${cotizacion.id}"
+                                           <!-- <td th:text="${cotizacion.id}"
                                                 class="px-3 py-4 text-sm text-gray-500">Id
-                                            </td>
+                                            </td>-->
                                             <td th:text="${cotizacion.numero}"
                                                 class="px-3 py-4 text-sm text-gray-500">numero
                                             </td>
@@ -88,20 +88,20 @@
                                                 class="px-3 py-4 text-sm text-gray-500">Nombre
                                             </td>
                                             <td th:text="${cotizacion.costoTotalHrsHombre}"
-                                                class="px-3 py-4 text-sm text-gray-500">Costo Total Hrs Hombre
+                                                class="px-3 py-4 text-sm text-gray-500 text-right">Total Hrs Hombre
                                             </td>
                                             <td th:text="${cotizacion.materiales}"
-                                                class="px-3 py-4 text-sm text-gray-500">Costo Materiales
+                                                class="px-3 py-4 text-sm text-gray-500 text-right">Total Materiales
                                             </td>
                                             <td th:text="${cotizacion.viaticos}"
-                                                class="px-3 py-4 text-sm text-gray-500">Costo Viaticos
+                                                class="px-3 py-4 text-sm text-gray-500 text-right">Total Viaticos
                                             </td>
                                             <td th:text="${cotizacion.pasajes}"
-                                                class="px-3 py-4 text-sm text-gray-500">Costo Pasajes
+                                                class="px-3 py-4 text-sm text-gray-500 text-right">Total Pasajes
                                             </td>
                                             <td>
                                                 <a th:href="@{/cotizacion/view(id=${cotizacion.id})}"
-                                                   class="whitespace text-sky-600 text-sm hover:text-sky-900">View</a>
+                                                   class="whitespace pl-4 text-sky-600 text-sm hover:text-sky-900">Ver</a>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -120,4 +120,4 @@
     </main>
 </div>
 </body>
-
+</html>
