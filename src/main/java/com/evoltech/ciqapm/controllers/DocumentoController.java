@@ -66,7 +66,7 @@ public class DocumentoController {
         try {
             documento = documentoRepository.getReferenceById(id);
         } catch(Exception e){
-            log.error("Error al leer Personal con id:" + id);
+            log.error("Error al leer Empleado con id:" + id);
         }
         model.addAttribute("documento", documento);
         return "Documento/View";
@@ -97,9 +97,9 @@ public class DocumentoController {
      Se debe procesar para guardar en el directorio del proyetco
      1. Generar el directorio del proyecto al crear un nuevo proyecto.
      */
-    /*
+    /*56
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String savePersonal(Personal persona, Model model){
+    public String saveEmpleado(Empleado empleado, Model model){
      */
     @PostMapping(value = "/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String saveDocumento(@RequestBody MultipartFile file,

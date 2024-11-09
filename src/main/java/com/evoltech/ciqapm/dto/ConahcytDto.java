@@ -33,7 +33,7 @@ public class ConahcytDto {
     @NotNull(message = "El responsable del proyecto no se ha seleccionado.")
     @ManyToOne
     @JoinColumn(name="responsable_id", nullable=false)
-    private Personal responsable;
+    private Empleado responsable;
 
     @NotNull(message = "La convocatoria es un dato requerido.")
     private Convocatoria convocatoria;

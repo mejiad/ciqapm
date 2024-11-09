@@ -1,14 +1,10 @@
 package com.evoltech.ciqapm.controllers.proyectos;
 
-import com.evoltech.ciqapm.dto.ConahcytDto;
 import com.evoltech.ciqapm.dto.GanttDTO;
 import com.evoltech.ciqapm.dto.IndustriaDto;
 import com.evoltech.ciqapm.model.*;
-import com.evoltech.ciqapm.model.datos.DatosConahcyt;
 import com.evoltech.ciqapm.model.datos.DatosIndustria;
-import com.evoltech.ciqapm.model.jpa.Convocatoria;
 import com.evoltech.ciqapm.repository.*;
-import com.evoltech.ciqapm.repository.datos.ConahcytRepository;
 import com.evoltech.ciqapm.repository.datos.IndustriaRepository;
 import com.evoltech.ciqapm.service.ProyectoServicio;
 import jakarta.validation.Valid;
@@ -47,7 +43,7 @@ public class IndustriaController {
     @Autowired
     EtapaRepository etapaRepository;
     @Autowired
-    private final PersonalRepository personalRepository;
+    private final EmpleadoRepository personalRepository;
     @Autowired
     private final ClienteRepository clienteRepository;
 
@@ -56,7 +52,7 @@ public class IndustriaController {
 
     public IndustriaController(ProyectoServicio proyectoServicio, ProyectoRepository proyectoRepository,
                                EtapaRepository etapaRepository,
-                               PersonalRepository personalRepository,
+                               EmpleadoRepository personalRepository,
                                IndustriaRepository industriaRepository,
                                ClienteRepository clienteRepository) {
         this.proyectoServicio = proyectoServicio;
@@ -124,7 +120,7 @@ public class IndustriaController {
     public String newIndustria(Model model) {
         Proyecto proyecto = new Proyecto();
         List<Estado> estados = List.of(Estado.values());
-        List<Personal> personas = personalRepository.findAll();
+        List<Empleado> personas = personalRepository.findAll();
         List<Cliente> clientes = clienteRepository.findAll();
         // List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
 
@@ -159,7 +155,7 @@ public class IndustriaController {
                 });
             }
             List<Estado> estados = List.of(Estado.values());
-            List<Personal> personas = personalRepository.findAll();
+            List<Empleado> personas = personalRepository.findAll();
             List<Cliente> clientes = clienteRepository.findAll();
             //List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
 

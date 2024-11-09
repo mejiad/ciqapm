@@ -46,7 +46,7 @@ public class Cotizacion {
 
      */
 
-    // private List<Personal> empleados = new ArrayList<>();
+    // private List<Empleado> empleados = new ArrayList<>();
 
     private Double costoTotal;
 
@@ -66,8 +66,8 @@ public class Cotizacion {
      */
 
     /*
-    private void addEmpleado(Personal personal){
-        empleados.add(personal);
+    private void addEmpleado(Empleado empleado){
+        empleados.add(empleado);
     }
      */
 

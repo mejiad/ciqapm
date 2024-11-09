@@ -19,7 +19,7 @@ public class Propuesta {
 
     private String descripcion;
 
-    private Personal responsable;
+    private Empleado responsable;
 
     private LocalDate fechaCargaDocumento;
 

@@ -20,7 +20,7 @@ import java.util.stream.IntStream;
 @Service
 public class DataLoad {
     @Autowired
-    PersonalRepository personalRepository;
+    EmpleadoRepository personalRepository;
 
     @Autowired
     ClienteRepository clienteRepository;
@@ -67,7 +67,7 @@ public class DataLoad {
 
     @Autowired RandomService randomService;
 
-    public DataLoad(PersonalRepository repository, ClienteRepository clienteRepository,
+    public DataLoad(EmpleadoRepository repository, ClienteRepository clienteRepository,
                     ServicioRepository servicioRepository, ProyectoRepository proyectoRepository,
                     EtapaRepository etapaRepository, DocumentoRepository documentoRepository,
                     UsuarioRepository usuarioRepository, ActividadRepository actividadRepository,
@@ -98,22 +98,22 @@ public class DataLoad {
     public void initializa() {
         System.out.println("Inicializando la base...");
         /*
-        Personal personal1 = createPersonal(PersonalCategoria.ITA);
-        Personal personal2 = createPersonal(PersonalCategoria.ITB);
-        Personal personal3 = createPersonal(PersonalCategoria.ITC);
-        Personal personal4 = createPersonal(PersonalCategoria.TTA);
-        Personal personal5 = createPersonal(PersonalCategoria.TTB);
-        Personal personal6 = createPersonal(PersonalCategoria.TTC);
+        Empleado empleado1 = createEmpleado(EmpleadoCategoria.ITA);
+        Empleado empleado2 = createEmpleado(EmpleadoCategoria.ITB);
+        Empleado empleado3 = createEmpleado(EmpleadoCategoria.ITC);
+        Empleado empleado4 = createEmpleado(EmpleadoCategoria.TTA);
+        Empleado empleado5 = createEmpleado(EmpleadoCategoria.TTB);
+        Empleado empleado6 = createEmpleado(EmpleadoCategoria.TTC);
          */
 
-        Personal personal1 =createPersonalCiqa("00007","JESUS GUADALUPE QUIROZ LOPEZ",357.86,"TTC");
-        Personal personal2 =createPersonalCiqa("00028","JESUS GILBERTO RODRIGUEZ VELAZQUEZ",359.51,"TTC");
-        Personal personal3 =createPersonalCiqa("00032","ODILIA PEREZ CAMACHO",537.46,"ITC");
-        Personal personal4 =createPersonalCiqa("00033","LUIS ALFONSO GARCIA CERDA",490.41,"ITC");
-        Personal personal5 =createPersonalCiqa("00047","GLADYS DE LOS SANTOS VILLARREAL",406.30,"IAC");
-        Personal personal6 =createPersonalCiqa("00049","J GUADALUPE TELLES PADILLA",351.97,"TTC");
+        Empleado personal1 = createEmpleadoCiqa("00007","JESUS GUADALUPE QUIROZ LOPEZ",357.86,"TTC");
+        Empleado personal2 = createEmpleadoCiqa("00028","JESUS GILBERTO RODRIGUEZ VELAZQUEZ",359.51,"TTC");
+        Empleado personal3 = createEmpleadoCiqa("00032","ODILIA PEREZ CAMACHO",537.46,"ITC");
+        Empleado personal4 = createEmpleadoCiqa("00033","LUIS ALFONSO GARCIA CERDA",490.41,"ITC");
+        Empleado personal5 = createEmpleadoCiqa("00047","GLADYS DE LOS SANTOS VILLARREAL",406.30,"IAC");
+        Empleado personal6 = createEmpleadoCiqa("00049","J GUADALUPE TELLES PADILLA",351.97,"TTC");
 
-        createAllPersonal();
+        createAllEmpleados();
 
         Cliente cliente1 = createCliente("100");
         Cliente cliente2 = createCliente("101");
@@ -284,28 +284,15 @@ public class DataLoad {
 
     }
 
-    /*
-    private Personal createPersonal(PersonalCategoria categoria) {
-        Personal personal = new Personal();
-        personal.setNombre(randomService.nombre());
-        personal.setCategoria(randomService.generaPersonalCategoria());
-        personal.setRate(new BigDecimal("10.30"));
-        personal.setUserUpdate("Update user- ");
-        personal.setCreateUser("Create user- ");
 
-        Personal res = personalRepository.save(personal);
-        return res;
-    }
-     */
-
-    private Personal createPersonalCiqa(String clave, String nombre, Double rate, String categoriaStr) {
-        Personal personal = new Personal();
+    private Empleado createEmpleadoCiqa(String clave, String nombre, Double rate, String categoriaStr) {
+        Empleado personal = new Empleado();
         personal.setClave(clave);
         personal.setNombre(nombre);
         personal.setRate(new BigDecimal(rate));
-        personal.setCategoria(PersonalCategoria.valueOf(categoriaStr));
+        personal.setCategoria(EmpleadoCategoria.valueOf(categoriaStr));
 
-        Personal res = personalRepository.save(personal);
+        Empleado res = personalRepository.save(personal);
         return res;
     }
 
@@ -323,7 +310,7 @@ public class DataLoad {
 
 
 
-    private Proyecto createProyecto(String post, Personal responsable, Cliente cliente) {
+    private Proyecto createProyecto(String post, Empleado responsable, Cliente cliente) {
         Proyecto proyecto = new Proyecto();
         DatosIndustria datosIndustria = new DatosIndustria();
         datosIndustria.setCliente(cliente);
@@ -344,7 +331,7 @@ public class DataLoad {
         return res;
     }
 
-    private Proyecto createProyectoConahcyt(String post, Personal responsable, Cliente cliente) {
+    private Proyecto createProyectoConahcyt(String post, Empleado responsable, Cliente cliente) {
         Proyecto proyecto = new Proyecto();
         DatosConahcyt datosConahcyt = new DatosConahcyt();
         List<Convocatoria> convocatorias = convocatoriaRepository.findAll();
@@ -366,7 +353,7 @@ public class DataLoad {
         return res;
     }
 
-    private Proyecto createProyectoIndustria(String post, Personal responsable, Cliente cliente) {
+    private Proyecto createProyectoIndustria(String post, Empleado responsable, Cliente cliente) {
         Proyecto proyecto = new Proyecto();
         DatosIndustria datosIndustria = new DatosIndustria();
         datosIndustria.setCliente(cliente);
@@ -385,7 +372,7 @@ public class DataLoad {
         return res;
     }
 
-    private Proyecto createProyectoInternos(String post, Personal responsable, Cliente cliente) {
+    private Proyecto createProyectoInternos(String post, Empleado responsable, Cliente cliente) {
         Proyecto proyecto = new Proyecto();
         DatosIndustria datosIndustria = new DatosIndustria();
         datosIndustria.setCliente(cliente);
@@ -405,7 +392,7 @@ public class DataLoad {
         return res;
     }
 
-    private Proyecto createProyectoPosgrado(String post, Personal responsable, Cliente cliente) {
+    private Proyecto createProyectoPosgrado(String post, Empleado responsable, Cliente cliente) {
         Proyecto proyecto = new Proyecto();
         DatosIndustria datosIndustria = new DatosIndustria();
         datosIndustria.setCliente(cliente);
@@ -425,7 +412,7 @@ public class DataLoad {
         return res;
     }
 
-    private Etapa creaEtapa(Personal responsable, Proyecto proyecto, Servicio servicio,
+    private Etapa creaEtapa(Empleado responsable, Proyecto proyecto, Servicio servicio,
                             LocalDate startDate) {
         Etapa etapa = new Etapa();
         etapa.setResponsable(responsable);
@@ -466,7 +453,7 @@ public class DataLoad {
         return res;
     }
 
-    private Actividad creaActividad(Etapa etapa, Personal personal) {
+    private Actividad creaActividad(Etapa etapa, Empleado personal) {
         Actividad actividad = new Actividad();
         actividad.setNombre("Actividad de prueba");
         actividad.setDescripcion(randomService.descripcion(120));
@@ -2129,217 +2116,215 @@ public class DataLoad {
     }
 
 
-    private void createAllPersonal(){
+    private void createAllEmpleados(){
         /*
-        createPersonalCiqa("00007","JESUS GUADALUPE QUIROZ LOPEZ",357.86,"TTC");
-        createPersonalCiqa("00028","JESUS GILBERTO RODRIGUEZ VELAZQUEZ",359.51,"TTC");
-        createPersonalCiqa("00032","ODILIA PEREZ CAMACHO",537.46,"ITC");
-        createPersonalCiqa("00033","LUIS ALFONSO GARCIA CERDA",490.41,"ITC");
-        createPersonalCiqa("00047","GLADYS DE LOS SANTOS VILLARREAL",406.30,"IAC");
-        createPersonalCiqa("00049","J GUADALUPE TELLES PADILLA",351.97,"TTC");
+        createEmpleadoCiqa("00007","JESUS GUADALUPE QUIROZ LOPEZ",357.86,"TTC");
+        createEmpleadoCiqa("00028","JESUS GILBERTO RODRIGUEZ VELAZQUEZ",359.51,"TTC");
+        createEmpleadoCiqa("00032","ODILIA PEREZ CAMACHO",537.46,"ITC");
+        createEmpleadoCiqa("00033","LUIS ALFONSO GARCIA CERDA",490.41,"ITC");
+        createEmpleadoCiqa("00047","GLADYS DE LOS SANTOS VILLARREAL",406.30,"IAC");
+        createEmpleadoCiqa("00049","J GUADALUPE TELLES PADILLA",351.97,"TTC");
         */
-        createPersonalCiqa("00050","HENED SAADE CABALLERO",348.39,"TTC");
-        createPersonalCiqa("00061","JULIO CESAR CISNEROS MACHORRO",174.51,"N13");
-        createPersonalCiqa("00071","ENRIQUE JAVIER JIMENEZ REGALADO",433.42,"ITC");
-        createPersonalCiqa("00075","NORMA GUADALUPE CISNEROS MACHORRO",237.45,"N19");
-        createPersonalCiqa("00077","RENE DARIO PERALTA RODRIGUEZ",449.20,"ITC");
-        createPersonalCiqa("00089","LUIS FRANCISCO RAMOS DE VALLE",453.07,"ITC");
-        createPersonalCiqa("00090","PABLO ACUÑA VAZQUEZ",350.28,"TTC");
-        createPersonalCiqa("00098","ALFREDO ROSALES JASSO",478.78,"ITC");
-        createPersonalCiqa("00108","MARIA ESTHER TREVIÑO MARTINEZ",435.76,"ITC");
-        createPersonalCiqa("00111","MARIO REYES AGUIRRE",302.41,"TTA");
-        createPersonalCiqa("00113","CLAUDIA CECILIA RIVERA VALLEJO",392.16,"ITA");
-        createPersonalCiqa("00115","FRANCISCO JOEL VALERO CADENA",337.75,"TTC");
-        createPersonalCiqa("00120","JESUS ALEJANDRO ESPINOSA MUÑOZ",369.50,"TTC");
-        createPersonalCiqa("00121","HORTENSIA ORTEGA ORTIZ",464.47,"ITB");
-        createPersonalCiqa("00123","JUAN FRANCISCO GONZALEZ GARCIA",245.07,"TAC");
-        createPersonalCiqa("00125","ANABEL OCHOA CORDOBA",350.39,"TTC");
-        /*
-        createPersonalCiqa("00133","REBECA BETANCOURT GALINDO",521.14,"ITC");
-        createPersonalCiqa("00141","MARTHA ELDA HURTADO SUAREZ",329.98,"TTC");
-        createPersonalCiqa("00143","JAVIER CHAVEZ CUELLAR",133.16,"N9");
-        createPersonalCiqa("00144","MARIO HUMBERTO PALACIOS MEZTA",346.77,"TTC");
-        createPersonalCiqa("00146","SILVIA ROCHA HERNANDEZ",227.36,"N21");
-        createPersonalCiqa("00147","JAVIER GARCIA JIMENEZ",207.02,"N16");
-        createPersonalCiqa("00148","ROBERTO BENAVIDES CANTU",599.28,"ITC");
-        createPersonalCiqa("00152","MARIA ISABEL MORALES CARRANZA",182.94,"N13");
-        createPersonalCiqa("00156","DAMASO NAVARRO RODRIGUEZ",428.59,"ITC");
-        createPersonalCiqa("00158","ESMERALDA MONSERRAT SAUCEDO SALAZAR",582.62,"ITA");
-        createPersonalCiqa("00161","ANTONIO SERGUEI LEDEZMA PEREZ",462.55,"ITB");
-        createPersonalCiqa("00165","EDUARDO MANUEL ARIAS MARIN",562.46,"ITC");
-        createPersonalCiqa("00166","FRANCISCO JAVIER RODRIGUEZ GONZALEZ",543.39,"ITC");
-        createPersonalCiqa("00167","ROSA JULIA RODRIGUEZ GONZALEZ",328.05,"IAB");
-        createPersonalCiqa("00172","MARICELA GARCIA ZAMORA",348.91,"ITC");
-        createPersonalCiqa("00182","ELVIA GUADALUPE GONZALEZ GONZALEZ",354.88,"TTC");
-        createPersonalCiqa("00185","RAMIRO GUERRERO SANTOS",433.20,"TTC");
-        createPersonalCiqa("00190","NICOLAS VAZQUEZ SANCHEZ",142.86,"ITC");
-        createPersonalCiqa("00202","FRANCISCO JAVIER CERVANTES RENTERIA",129.73,"N9");
-        createPersonalCiqa("00207","MARIA TERESA RODRIGUEZ HERNANDEZ",457.36,"TTC");
-        createPersonalCiqa("00212","JOSE ANGEL SANCHEZ MOLINA",358.31,"N9");
-        createPersonalCiqa("00214","FEDERICO CERDA RAMIREZ",340.58,"IAC");
-        createPersonalCiqa("00222","NANCY GUADALUPE ESPINOSA PINALES",357.90,"TTC");
-        createPersonalCiqa("00225","JESUS OLIVO PADILLA",375.40,"TTC");
-        createPersonalCiqa("00233","JOSE LUIS SAUCEDO MORALES",364.48,"TTC");
-        createPersonalCiqa("00243","MYRIAM LOZANO ESTRADA",349.89,"IAC");
-        createPersonalCiqa("00245","AIDA ESMERALDA GARCIA VALDEZ",390.35,"TTC");
-        createPersonalCiqa("00246","GREGORIO CADENAS PLIEGO",563.91,"TTC");
-        createPersonalCiqa("00249","BEATRIZ ELVIRA REYES VIELMA",346.50,"IAC");
-        createPersonalCiqa("00252","ALBERTO RIVERA ELIZONDO",342.99,"ITC");
-        createPersonalCiqa("00253","SERGIO ZERTUCHE RODRIGUEZ",338.77,"TTC");
-        createPersonalCiqa("00254","SILVIA GUADALUPE SOLIS ROSALES",500.30,"TTC");
-        createPersonalCiqa("00256","LUIS ALBERTO VILLARREAL CARDENAS",434.57,"TTC");
-        createPersonalCiqa("00258","RAMON ENRIQUE DIAZ DE LEON GOMEZ",598.35,"ITA");
-        createPersonalCiqa("00262","GLORIA ALEJANDRA NERY MEDINA",290.68,"ITB");
-        createPersonalCiqa("00268","MARIA DEL ROSARIO RANGEL RAMIREZ",354.82,"ITC");
-        createPersonalCiqa("00269","HORTENSIA MALDONADO TEXTLE",370.40,"TTB");
-        createPersonalCiqa("00270","JOSE ROMAN TORRES LUBIAN",417.22,"TTC");
-        createPersonalCiqa("00272","JORGE CARLOS RAMIREZ CONTRERAS",399.05,"IAC");
-        createPersonalCiqa("00273","RICARDO ACOSTA ORTIZ",518.17,"ITB");
-        createPersonalCiqa("00274","EDUARDO FLORES BARRERA",344.60,"ITA");
-        createPersonalCiqa("00276","CARLOS ALBERTO AVILA ORTA",485.53,"ITC");
-        createPersonalCiqa("00285","OLIVERIO SANTIAGO RODRIGUEZ FERNANDEZ",535.15,"TTC");
-        createPersonalCiqa("00292","FLORENTINO SORIANO CORRAL",649.82,"ITC");
-        createPersonalCiqa("00293","CARLOS ALBERTO DE LA PEÑA VALDES",312.19,"ITC");
-        createPersonalCiqa("00294","JULIETA SANCHEZ SALAZAR",351.41,"ITC");
-        createPersonalCiqa("00299","ENRIQUE SALDIVAR GUERRA",566.52,"TTA");
-        createPersonalCiqa("00309","LUIS ERNESTO ELIZALDE HERRERA",486.85,"TTC");
-        createPersonalCiqa("00316","SAUL SANCHEZ VALDES",573.19,"ITC");
-        createPersonalCiqa("00317","JUAN GUILLERMO MARTINEZ COLUNGA",530.69,"ITC");
-        createPersonalCiqa("00333","DIANA IRIS MEDELLIN BANDA",335.37,"ITC");
-        createPersonalCiqa("00338","LUIS ENRIQUE REYES VIELMA",366.80,"ITC");
-        createPersonalCiqa("00339","MARIA GUADALUPE NEIRA VELAZQUEZ",532.04,"TTC");
-        createPersonalCiqa("00345","ADAN HERRERA GUERRERO",375.23,"TTC");
-        createPersonalCiqa("00358","EDUARDO ALFONSO TREVIÑO LOPEZ",333.16,"ITC");
-        createPersonalCiqa("00365","GABRIELA PADRON GAMBOA",378.40,"TTC");
-        createPersonalCiqa("00366","LETICIA LARIOS LOPEZ",362.05,"TTC");
-        createPersonalCiqa("00370","HUGO FELIPE JIMENEZ DE LA ROSA ZUÑIGA",345.65,"TTC");
-        createPersonalCiqa("00371","ROGELIO BERNAL GARZA",381.36,"ITB");
-        createPersonalCiqa("00377","JOSE LUIS DE LA PEÑA SOLIS",324.58,"TTC");
-        createPersonalCiqa("00382","RICARDO MENDOZA CARRIZALES",331.05,"TTC");
-        createPersonalCiqa("00383","HERMINIA SOLEDAD CERDA Y MENESES",338.14,"TTB");
-        createPersonalCiqa("00390","MA. GUADALUPE MENDEZ PADILLA",362.99,"TTC");
-        createPersonalCiqa("00400","RAFAEL AGUIRRE FLORES",392.16,"TTC");
-        createPersonalCiqa("00402","LAYZA ALEJANDRINA ARIZMENDI GALAVIZ",294.46,"TTC");
-        createPersonalCiqa("00403","ANA KAREN GARAY CARRIZALES",157.67,"ITA");
-        createPersonalCiqa("00404","JAVIER GUDIÑO RIVERA",329.90,"TTC");
-        createPersonalCiqa("00407","SAGRARIO MARTINEZ MONTEMAYOR",347.47,"O23");
-        createPersonalCiqa("00409","BLANCA CECILIA CONTRERAS TORRES",157.66,"IAB");
-        createPersonalCiqa("00410","HECTOR RICARDO LOPEZ GONZALEZ",554.76,"ITC");
-        createPersonalCiqa("00413","JOSE LOPEZ RIVERA",349.83,"O23");
-        createPersonalCiqa("00414","JESUS ALFONSO MERCADO SILVA",204.99,"ITB");
-        createPersonalCiqa("00417","JANETT ANAID VALDEZ GARZA",335.68,"TTC");
-        createPersonalCiqa("00422","ISRAEL ALEJANDRO GRANADOS LUGO",193.00,"TAC");
-        createPersonalCiqa("00425","BERTHA ALICIA PUENTE URBINA",323.86,"TTC");
-        createPersonalCiqa("00427","CARMEN NATIVIDAD ALVARADO CANCHE",221.85,"N19");
-        createPersonalCiqa("00428","MONA KASSEM",257.39,"TTC");
-        createPersonalCiqa("00429","OUSSAMA MOUNZER",354.67,"TAC");
-        createPersonalCiqa("00431","JOELIS RODRIGUEZ HERNANDEZ",338.81,"IAC");
-        createPersonalCiqa("00434","MARTHA ROA LUNA",267.12,"ITC");
-        createPersonalCiqa("00438","SANDY MARCELA ACOSTA MENDOZA",141.53,"ITA");
-        createPersonalCiqa("00441","SEYMA ANAHI DE LEON RIVERA",214.79,"TTC");
-        createPersonalCiqa("00443","MAYRA DEYANIRA LOPEZ BUSTOS",184.08,"N13");
-        createPersonalCiqa("00445","FRANCISCO JAVIER ENRIQUEZ MEDRANO",486.18,"TAB");
-        createPersonalCiqa("00453","GERALDINA RODRIGUEZ RIOJAS",250.31,"N18");
-        createPersonalCiqa("00460","VALERIA FUENTES SANCHEZ",137.41,"ITA");
-        createPersonalCiqa("00461","ANA VERONICA ALMANZA AYALA",135.86,"TTC");
-        createPersonalCiqa("00465","NARCEDALIA ORTEGA GONZALEZ",166.94,"N12");
-        createPersonalCiqa("00466","JOSE ALBERTO RODRIGUEZ GONZALEZ",277.39,"N12");
-        createPersonalCiqa("00468","PABLO GONZALEZ MORONES",263.94,"N17");
-        createPersonalCiqa("00469","ALEJANDRA MAGAHALI LECUONA NAVA",139.80,"TTC");
-        createPersonalCiqa("00470","ROBERTO YAÑEZ MACIAS",262.60,"TTC");
-        createPersonalCiqa("00471","JESUS FRANCISCO LARA SANCHEZ",283.64,"N13");
-        createPersonalCiqa("00472","JOSE ANTONIO SANCHEZ FERNANDEZ",291.30,"TTC");
-        createPersonalCiqa("00474","GLADIS YAKELINE CORTEZ MAZATAN",325.88,"TTC");
-        createPersonalCiqa("00477","MARIA DE LOURDES GUILLEN CISNEROS",332.46,"ITB");
-        createPersonalCiqa("00479","RAQUEL LEDEZMA RODRIGUEZ",305.90,"TTC");
-        createPersonalCiqa("00480","GERMAN ALVARADO TENORIO",263.16,"TTC");
-        createPersonalCiqa("00482","YOLANDA ORTEGA ORTEGA",258.03,"TTC");
-        createPersonalCiqa("00484","ZUREIMA GARCIA HERNANDEZ",261.79,"TTC");
-        createPersonalCiqa("00485","LUCIANO DA SILVA",333.02,"TTC");
-        createPersonalCiqa("00486","MILDRED FLORES GUERRERO",259.29,"TTC");
-        createPersonalCiqa("00487","URIEL ALEJANDRO SIERRA GOMEZ",317.57,"ITC");
-        createPersonalCiqa("00488","MYRNA SALINAS HERNANDEZ",282.32,"TTC");
-        createPersonalCiqa("00489","ERNESTO HERNANDEZ HERNANDEZ",465.05,"IAC");
-        createPersonalCiqa("00490","JOSE FRANCISCO HERNANDEZ GAMEZ",363.36,"TTC");
-        createPersonalCiqa("00491","DIANA MORALES ACOSTA",287.79,"ITC");
-        createPersonalCiqa("00493","PAULO CESAR CEPEDA IZQUIERDO",121.62,"ITB");
-        createPersonalCiqa("00494","VICTOR JAVIER CRUZ DELGADO",239.52,"ITB");
-        createPersonalCiqa("00495","CARLOS ALBERTO YAÑEZ FLORES",101.01,"N10");
-        createPersonalCiqa("00496","DANIEL CASTELLANOS GARCIA",121.31,"IAB");
-        createPersonalCiqa("00497","VICTOR EDUARDO COMPARAN PADILLA",312.90,"N8");
-        createPersonalCiqa("00498","GRACIELA SUAREZ HERRERA",129.22,"N11");
-        createPersonalCiqa("00500","IVANA MOGGIO",542.68,"TTC");
-        createPersonalCiqa("00501","ADRIEN GALLOU",267.69,"N10");
-        createPersonalCiqa("00502","FRANCISCO MARCELO LARA VIVEROS",257.43,"ITC");
-        createPersonalCiqa("00504","FRANCISCO JAVIER MEDELLIN RODRIGUEZ",281.72,"ITA");
-        createPersonalCiqa("00505","CINDY PAOLA AVALOS REYES",172.49,"ITA");
-        createPersonalCiqa("00506","ANTONIO MARTINEZ MARTINEZ",92.15,"ITC");
-        createPersonalCiqa("00507","AUDBERTO REYES ROSAS",244.01,"N18");
-        createPersonalCiqa("00508","IVAN DE JESUS ZAPATA GONZALEZ",299.94,"N6");
-        createPersonalCiqa("00509","PERLA ELVIA GARCIA CASILLAS",364.42,"IAC");
-        createPersonalCiqa("00510","ANA IntStream.range(0, 10).forEach(n -> System.out.println(n));MARGARITA RODRIGUEZ HERNANDEZ",328.20,"ITA");
-        createPersonalCiqa("00512","MARISOL TOVAR COLUNGA",111.86,"ITB");
-        createPersonalCiqa("00514","ISRAEL SIFUENTES NIEVES",255.21,"ITA");
-        createPersonalCiqa("00515","GINA MARLENE FABELA SANCHEZ",118.75,"N10");
-        createPersonalCiqa("00516","ROBERTO ESPINOSA NEIRA",226.29,"TTC");
-        createPersonalCiqa("00517","MARIA LIZET GARCIA SALAZAR",241.10,"N10");
-        createPersonalCiqa("00518","RODOLFO CRUZ SILVA",373.27,"TTB");
-        createPersonalCiqa("00519","FATIMA GRAJALES SARABIA",162.12,"TTC");
-        createPersonalCiqa("00520","NORMA LILIA GARCIA LOPEZ",73.29,"ITC");
-        createPersonalCiqa("00523","JESUS HERIBERTO RODRIGUEZ TOBIAS",318.74,"TAC");
-        createPersonalCiqa("00524","LUIS GERARDO SARMIENTO LOPEZ",162.78,"N10");
-        createPersonalCiqa("00526","JULIETA TORRES GONZALEZ",715.84,"IAC");
-        createPersonalCiqa("00527","FABIOLA YANETH CASTELLANOS PADILLA",280.95,"TTC");
-        createPersonalCiqa("00528","PEDRO CIPRIANO GARCIA HERNANDEZ",107.17,"K12");
-        createPersonalCiqa("00529","ILEANA VERA REYES",308.47,"TTC");
-        createPersonalCiqa("00530","FRANCISCO PRADO PRUNEDA",82.50,"N8");
-        createPersonalCiqa("00531","MARTIN PRADO CASTAÑUELA",40.27,"IAC");
-        createPersonalCiqa("00532","CELESTE GALILEA GARCIA TORRES",48.82,"N5");
-        createPersonalCiqa("00533","ANGEL EDUARDO MORALES MONTOYA",40.27,"N5");
-        createPersonalCiqa("00534","ZAIRA CAROLINA MEZQUITIC VALDEZ",0.00,"N8");
-        createPersonalCiqa("00535","LUIS FEDERICO HERNANDEZ REYES",24.78,"N5");
-        createPersonalCiqa("00536","ANDREA CAMACHO VAZQUEZ",47.96,"N9");
-        createPersonalCiqa("00545","CINTHIA MARIBEL RAMIREZ BARRAZA",292.33,"N5");
-        createPersonalCiqa("00565","ANTELMO RODOLFO YASSER RUIZ MARTINEZ",300.72,"N9");
-        createPersonalCiqa("00588","DANIEL ALEJANDRO ALVARADO MEDRANO",321.92,"TTC");
-        createPersonalCiqa("00590","MARCO ANTONIO CASTILLO CAMPOHERMOSO",305.31,"TTC");
-        createPersonalCiqa("00600","MONICA AIMEE CENICEROS REYES",331.82,"TTB");
-        createPersonalCiqa("00610","MARA GRICELDA ESPARZA DE LEON",300.32,"ITA");
-        createPersonalCiqa("00643","EDITH SAYURI SIFUENTES FLORES",327.13,"TTC");
-        createPersonalCiqa("00649","JUAN URIEL PEÑA CASTILLO",273.44,"TTB");
-        createPersonalCiqa("00650","JOSUE DE JESUS CAMPOS OYERVIDES",319.98,"M11");
-        createPersonalCiqa("00680","RAUL HERRERA MENDOZA",288.11,"TTA");
-        createPersonalCiqa("00696","CESAR ALEJANDRO RAMIREZ MIRELES",74.44,"TTC");
-        createPersonalCiqa("00703","MARIA ALMENDRA ORDAZ QUINTERO",253.75,"TTC");
-        createPersonalCiqa("00716","JUDITH NAZARETH CABELLO ROMERO",323.10,"N8");
-        createPersonalCiqa("00727","JESUS ANGEL CEPEDA GARZA",315.93,"TTC");
-        createPersonalCiqa("00785","MAIBY VALLE ORTA",287.70,"TTC");
-        createPersonalCiqa("00790","ANTONIO CARDENAS FLORES",358.84,"TTC");
-        createPersonalCiqa("00800","CARLOS ALBERTO GALLARDO VEGA",294.06,"IAB");
-        createPersonalCiqa("00802","CARLOS JOSE ESPINOZA GONZALEZ",308.46,"ITA");
-        createPersonalCiqa("00810","ADRIANA BERENICE ESPINOZA MARTINEZ",358.46,"TTC");
-        createPersonalCiqa("00813","MARCELO ISRAEL ULLOA PEREZ",267.80,"ITB");
-        createPersonalCiqa("00817","MARLENE RODRIGUEZ RODRIGUEZ",296.18,"ITB");
-        createPersonalCiqa("00823","ADOLFO BAYLON PALOMINO",300.12,"TTA");
-        createPersonalCiqa("00829","JOSE ALEJANDRO DIAZ ELIZONDO",292.69,"TTA");
-        createPersonalCiqa("00830","RUBEN SALDIVAR GUERRERO",289.42,"TTC");
-        createPersonalCiqa("00833","ROCIO MINERVA GUERRERO RAMOS",160.73,"TTC");
-        createPersonalCiqa("00841","NORA AZUCENA VILLALPANDO VARGAS",199.30,"IAC");
-        createPersonalCiqa("00850","JAIRO VAZQUEZ LEE",274.23,"O23");
-        createPersonalCiqa("00853","GILBERTO FRANCISCO HURTADO LOPEZ",299.70,"N18");
-        createPersonalCiqa("00856","JANETH ADRIANA PEREZ CHANTACO",299.65,"TTB");
-        createPersonalCiqa("00859","FRANCISCA MARTINA CABELLO SANDOVAL",152.49,"TTC");
-        createPersonalCiqa("00899","IRMA ORALIA SOLIS DE LA PEÑA",337.09,"TTC");
-        createPersonalCiqa("00903","EFRAIN ALVIDREZ RAMOS",331.69,"N13");
-        createPersonalCiqa("00912","DIANA LIMON ORTIZ",143.13,"TTC");
-        createPersonalCiqa("00955","DIANA AZUCENA TELLEZ CAMACHO",181.97,"TTB");
-        createPersonalCiqa("00968","ENRIQUE DIAZ BARRIGA CASTRO",322.81,"ITC");
-        createPersonalCiqa("00988","JOSE DE JESUS GUTIERREZ MORENO",122.26,"N11");
-        createPersonalCiqa("00990","NORMA LETICIA CONTRERAS LOPEZ",177.11,"N17");
-        createPersonalCiqa("00996","CLAUDIO ADOLFO ARREDONDO ELIZONDO",119.74,"TTC");
-        createPersonalCiqa("00997","FRANCISCO PRADO CASTAÑUELA",98.59,"N9");
+        createEmpleadoCiqa("00050","HENED SAADE CABALLERO",348.39,"TTC");
+        createEmpleadoCiqa("00061","JULIO CESAR CISNEROS MACHORRO",174.51,"N13");
+        createEmpleadoCiqa("00071","ENRIQUE JAVIER JIMENEZ REGALADO",433.42,"ITC");
+        createEmpleadoCiqa("00075","NORMA GUADALUPE CISNEROS MACHORRO",237.45,"N19");
+        createEmpleadoCiqa("00077","RENE DARIO PERALTA RODRIGUEZ",449.20,"ITC");
+        createEmpleadoCiqa("00089","LUIS FRANCISCO RAMOS DE VALLE",453.07,"ITC");
+        createEmpleadoCiqa("00090","PABLO ACUÑA VAZQUEZ",350.28,"TTC");
+        createEmpleadoCiqa("00098","ALFREDO ROSALES JASSO",478.78,"ITC");
+        createEmpleadoCiqa("00108","MARIA ESTHER TREVIÑO MARTINEZ",435.76,"ITC");
+        createEmpleadoCiqa("00111","MARIO REYES AGUIRRE",302.41,"TTA");
+        createEmpleadoCiqa("00113","CLAUDIA CECILIA RIVERA VALLEJO",392.16,"ITA");
+        createEmpleadoCiqa("00115","FRANCISCO JOEL VALERO CADENA",337.75,"TTC");
+        createEmpleadoCiqa("00120","JESUS ALEJANDRO ESPINOSA MUÑOZ",369.50,"TTC");
+        createEmpleadoCiqa("00121","HORTENSIA ORTEGA ORTIZ",464.47,"ITB");
+        createEmpleadoCiqa("00123","JUAN FRANCISCO GONZALEZ GARCIA",245.07,"TAC");
+        createEmpleadoCiqa("00125","ANABEL OCHOA CORDOBA",350.39,"TTC");
+        createEmpleadoCiqa("00133","REBECA BETANCOURT GALINDO",521.14,"ITC");
+        createEmpleadoCiqa("00141","MARTHA ELDA HURTADO SUAREZ",329.98,"TTC");
+        createEmpleadoCiqa("00143","JAVIER CHAVEZ CUELLAR",133.16,"N9");
+        createEmpleadoCiqa("00144","MARIO HUMBERTO PALACIOS MEZTA",346.77,"TTC");
+        createEmpleadoCiqa("00146","SILVIA ROCHA HERNANDEZ",227.36,"N21");
+        createEmpleadoCiqa("00147","JAVIER GARCIA JIMENEZ",207.02,"N16");
+        createEmpleadoCiqa("00148","ROBERTO BENAVIDES CANTU",599.28,"ITC");
+        createEmpleadoCiqa("00152","MARIA ISABEL MORALES CARRANZA",182.94,"N13");
+        createEmpleadoCiqa("00156","DAMASO NAVARRO RODRIGUEZ",428.59,"ITC");
+        createEmpleadoCiqa("00158","ESMERALDA MONSERRAT SAUCEDO SALAZAR",582.62,"ITA");
+        createEmpleadoCiqa("00161","ANTONIO SERGUEI LEDEZMA PEREZ",462.55,"ITB");
+        createEmpleadoCiqa("00165","EDUARDO MANUEL ARIAS MARIN",562.46,"ITC");
+        createEmpleadoCiqa("00166","FRANCISCO JAVIER RODRIGUEZ GONZALEZ",543.39,"ITC");
+        createEmpleadoCiqa("00167","ROSA JULIA RODRIGUEZ GONZALEZ",328.05,"IAB");
+        createEmpleadoCiqa("00172","MARICELA GARCIA ZAMORA",348.91,"ITC");
+        createEmpleadoCiqa("00182","ELVIA GUADALUPE GONZALEZ GONZALEZ",354.88,"TTC");
+        createEmpleadoCiqa("00185","RAMIRO GUERRERO SANTOS",433.20,"TTC");
+        createEmpleadoCiqa("00190","NICOLAS VAZQUEZ SANCHEZ",142.86,"ITC");
+        createEmpleadoCiqa("00202","FRANCISCO JAVIER CERVANTES RENTERIA",129.73,"N9");
+        createEmpleadoCiqa("00207","MARIA TERESA RODRIGUEZ HERNANDEZ",457.36,"TTC");
+        createEmpleadoCiqa("00212","JOSE ANGEL SANCHEZ MOLINA",358.31,"N9");
+        createEmpleadoCiqa("00214","FEDERICO CERDA RAMIREZ",340.58,"IAC");
+        createEmpleadoCiqa("00222","NANCY GUADALUPE ESPINOSA PINALES",357.90,"TTC");
+        createEmpleadoCiqa("00225","JESUS OLIVO PADILLA",375.40,"TTC");
+        createEmpleadoCiqa("00233","JOSE LUIS SAUCEDO MORALES",364.48,"TTC");
+        createEmpleadoCiqa("00243","MYRIAM LOZANO ESTRADA",349.89,"IAC");
+        createEmpleadoCiqa("00245","AIDA ESMERALDA GARCIA VALDEZ",390.35,"TTC");
+        createEmpleadoCiqa("00246","GREGORIO CADENAS PLIEGO",563.91,"TTC");
+        createEmpleadoCiqa("00249","BEATRIZ ELVIRA REYES VIELMA",346.50,"IAC");
+        createEmpleadoCiqa("00252","ALBERTO RIVERA ELIZONDO",342.99,"ITC");
+        createEmpleadoCiqa("00253","SERGIO ZERTUCHE RODRIGUEZ",338.77,"TTC");
+        createEmpleadoCiqa("00254","SILVIA GUADALUPE SOLIS ROSALES",500.30,"TTC");
+        createEmpleadoCiqa("00256","LUIS ALBERTO VILLARREAL CARDENAS",434.57,"TTC");
+        createEmpleadoCiqa("00258","RAMON ENRIQUE DIAZ DE LEON GOMEZ",598.35,"ITA");
+        createEmpleadoCiqa("00262","GLORIA ALEJANDRA NERY MEDINA",290.68,"ITB");
+        createEmpleadoCiqa("00268","MARIA DEL ROSARIO RANGEL RAMIREZ",354.82,"ITC");
+        createEmpleadoCiqa("00269","HORTENSIA MALDONADO TEXTLE",370.40,"TTB");
+        createEmpleadoCiqa("00270","JOSE ROMAN TORRES LUBIAN",417.22,"TTC");
+        createEmpleadoCiqa("00272","JORGE CARLOS RAMIREZ CONTRERAS",399.05,"IAC");
+        createEmpleadoCiqa("00273","RICARDO ACOSTA ORTIZ",518.17,"ITB");
+        createEmpleadoCiqa("00274","EDUARDO FLORES BARRERA",344.60,"ITA");
+        createEmpleadoCiqa("00276","CARLOS ALBERTO AVILA ORTA",485.53,"ITC");
+        createEmpleadoCiqa("00285","OLIVERIO SANTIAGO RODRIGUEZ FERNANDEZ",535.15,"TTC");
+        createEmpleadoCiqa("00292","FLORENTINO SORIANO CORRAL",649.82,"ITC");
+        createEmpleadoCiqa("00293","CARLOS ALBERTO DE LA PEÑA VALDES",312.19,"ITC");
+        createEmpleadoCiqa("00294","JULIETA SANCHEZ SALAZAR",351.41,"ITC");
+        createEmpleadoCiqa("00299","ENRIQUE SALDIVAR GUERRA",566.52,"TTA");
+        createEmpleadoCiqa("00309","LUIS ERNESTO ELIZALDE HERRERA",486.85,"TTC");
+        createEmpleadoCiqa("00316","SAUL SANCHEZ VALDES",573.19,"ITC");
+        createEmpleadoCiqa("00317","JUAN GUILLERMO MARTINEZ COLUNGA",530.69,"ITC");
+        createEmpleadoCiqa("00333","DIANA IRIS MEDELLIN BANDA",335.37,"ITC");
+        createEmpleadoCiqa("00338","LUIS ENRIQUE REYES VIELMA",366.80,"ITC");
+        createEmpleadoCiqa("00339","MARIA GUADALUPE NEIRA VELAZQUEZ",532.04,"TTC");
+        createEmpleadoCiqa("00345","ADAN HERRERA GUERRERO",375.23,"TTC");
+        createEmpleadoCiqa("00358","EDUARDO ALFONSO TREVIÑO LOPEZ",333.16,"ITC");
+        createEmpleadoCiqa("00365","GABRIELA PADRON GAMBOA",378.40,"TTC");
+        createEmpleadoCiqa("00366","LETICIA LARIOS LOPEZ",362.05,"TTC");
+        createEmpleadoCiqa("00370","HUGO FELIPE JIMENEZ DE LA ROSA ZUÑIGA",345.65,"TTC");
+        createEmpleadoCiqa("00371","ROGELIO BERNAL GARZA",381.36,"ITB");
+        createEmpleadoCiqa("00377","JOSE LUIS DE LA PEÑA SOLIS",324.58,"TTC");
+        createEmpleadoCiqa("00382","RICARDO MENDOZA CARRIZALES",331.05,"TTC");
+        createEmpleadoCiqa("00383","HERMINIA SOLEDAD CERDA Y MENESES",338.14,"TTB");
+        createEmpleadoCiqa("00390","MA. GUADALUPE MENDEZ PADILLA",362.99,"TTC");
+        createEmpleadoCiqa("00400","RAFAEL AGUIRRE FLORES",392.16,"TTC");
+        createEmpleadoCiqa("00402","LAYZA ALEJANDRINA ARIZMENDI GALAVIZ",294.46,"TTC");
+        createEmpleadoCiqa("00403","ANA KAREN GARAY CARRIZALES",157.67,"ITA");
+        createEmpleadoCiqa("00404","JAVIER GUDIÑO RIVERA",329.90,"TTC");
+        createEmpleadoCiqa("00407","SAGRARIO MARTINEZ MONTEMAYOR",347.47,"O23");
+        createEmpleadoCiqa("00409","BLANCA CECILIA CONTRERAS TORRES",157.66,"IAB");
+        createEmpleadoCiqa("00410","HECTOR RICARDO LOPEZ GONZALEZ",554.76,"ITC");
+        createEmpleadoCiqa("00413","JOSE LOPEZ RIVERA",349.83,"O23");
+        createEmpleadoCiqa("00414","JESUS ALFONSO MERCADO SILVA",204.99,"ITB");
+        createEmpleadoCiqa("00417","JANETT ANAID VALDEZ GARZA",335.68,"TTC");
+        createEmpleadoCiqa("00422","ISRAEL ALEJANDRO GRANADOS LUGO",193.00,"TAC");
+        createEmpleadoCiqa("00425","BERTHA ALICIA PUENTE URBINA",323.86,"TTC");
+        createEmpleadoCiqa("00427","CARMEN NATIVIDAD ALVARADO CANCHE",221.85,"N19");
+        createEmpleadoCiqa("00428","MONA KASSEM",257.39,"TTC");
+        createEmpleadoCiqa("00429","OUSSAMA MOUNZER",354.67,"TAC");
+        createEmpleadoCiqa("00431","JOELIS RODRIGUEZ HERNANDEZ",338.81,"IAC");
+        createEmpleadoCiqa("00434","MARTHA ROA LUNA",267.12,"ITC");
+        createEmpleadoCiqa("00438","SANDY MARCELA ACOSTA MENDOZA",141.53,"ITA");
+        createEmpleadoCiqa("00441","SEYMA ANAHI DE LEON RIVERA",214.79,"TTC");
+        createEmpleadoCiqa("00443","MAYRA DEYANIRA LOPEZ BUSTOS",184.08,"N13");
+        createEmpleadoCiqa("00445","FRANCISCO JAVIER ENRIQUEZ MEDRANO",486.18,"TAB");
+        createEmpleadoCiqa("00453","GERALDINA RODRIGUEZ RIOJAS",250.31,"N18");
+        createEmpleadoCiqa("00460","VALERIA FUENTES SANCHEZ",137.41,"ITA");
+        createEmpleadoCiqa("00461","ANA VERONICA ALMANZA AYALA",135.86,"TTC");
+        createEmpleadoCiqa("00465","NARCEDALIA ORTEGA GONZALEZ",166.94,"N12");
+        createEmpleadoCiqa("00466","JOSE ALBERTO RODRIGUEZ GONZALEZ",277.39,"N12");
+        createEmpleadoCiqa("00468","PABLO GONZALEZ MORONES",263.94,"N17");
+        createEmpleadoCiqa("00469","ALEJANDRA MAGAHALI LECUONA NAVA",139.80,"TTC");
+        createEmpleadoCiqa("00470","ROBERTO YAÑEZ MACIAS",262.60,"TTC");
+        createEmpleadoCiqa("00471","JESUS FRANCISCO LARA SANCHEZ",283.64,"N13");
+        createEmpleadoCiqa("00472","JOSE ANTONIO SANCHEZ FERNANDEZ",291.30,"TTC");
+        createEmpleadoCiqa("00474","GLADIS YAKELINE CORTEZ MAZATAN",325.88,"TTC");
+        createEmpleadoCiqa("00477","MARIA DE LOURDES GUILLEN CISNEROS",332.46,"ITB");
+        createEmpleadoCiqa("00479","RAQUEL LEDEZMA RODRIGUEZ",305.90,"TTC");
+        createEmpleadoCiqa("00480","GERMAN ALVARADO TENORIO",263.16,"TTC");
+        createEmpleadoCiqa("00482","YOLANDA ORTEGA ORTEGA",258.03,"TTC");
+        createEmpleadoCiqa("00484","ZUREIMA GARCIA HERNANDEZ",261.79,"TTC");
+        createEmpleadoCiqa("00485","LUCIANO DA SILVA",333.02,"TTC");
+        createEmpleadoCiqa("00486","MILDRED FLORES GUERRERO",259.29,"TTC");
+        createEmpleadoCiqa("00487","URIEL ALEJANDRO SIERRA GOMEZ",317.57,"ITC");
+        createEmpleadoCiqa("00488","MYRNA SALINAS HERNANDEZ",282.32,"TTC");
+        createEmpleadoCiqa("00489","ERNESTO HERNANDEZ HERNANDEZ",465.05,"IAC");
+        createEmpleadoCiqa("00490","JOSE FRANCISCO HERNANDEZ GAMEZ",363.36,"TTC");
+        createEmpleadoCiqa("00491","DIANA MORALES ACOSTA",287.79,"ITC");
+        createEmpleadoCiqa("00493","PAULO CESAR CEPEDA IZQUIERDO",121.62,"ITB");
+        createEmpleadoCiqa("00494","VICTOR JAVIER CRUZ DELGADO",239.52,"ITB");
+        createEmpleadoCiqa("00495","CARLOS ALBERTO YAÑEZ FLORES",101.01,"N10");
+        createEmpleadoCiqa("00496","DANIEL CASTELLANOS GARCIA",121.31,"IAB");
+        createEmpleadoCiqa("00497","VICTOR EDUARDO COMPARAN PADILLA",312.90,"N8");
+        createEmpleadoCiqa("00498","GRACIELA SUAREZ HERRERA",129.22,"N11");
+        createEmpleadoCiqa("00500","IVANA MOGGIO",542.68,"TTC");
+        createEmpleadoCiqa("00501","ADRIEN GALLOU",267.69,"N10");
+        createEmpleadoCiqa("00502","FRANCISCO MARCELO LARA VIVEROS",257.43,"ITC");
+        createEmpleadoCiqa("00504","FRANCISCO JAVIER MEDELLIN RODRIGUEZ",281.72,"ITA");
+        createEmpleadoCiqa("00505","CINDY PAOLA AVALOS REYES",172.49,"ITA");
+        createEmpleadoCiqa("00506","ANTONIO MARTINEZ MARTINEZ",92.15,"ITC");
+        createEmpleadoCiqa("00507","AUDBERTO REYES ROSAS",244.01,"N18");
+        createEmpleadoCiqa("00508","IVAN DE JESUS ZAPATA GONZALEZ",299.94,"N6");
+        createEmpleadoCiqa("00509","PERLA ELVIA GARCIA CASILLAS",364.42,"IAC");
+        createEmpleadoCiqa("00510","ANA IntStream.range(0, 10).forEach(n -> System.out.println(n));MARGARITA RODRIGUEZ HERNANDEZ",328.20,"ITA");
+        createEmpleadoCiqa("00512","MARISOL TOVAR COLUNGA",111.86,"ITB");
+        createEmpleadoCiqa("00514","ISRAEL SIFUENTES NIEVES",255.21,"ITA");
+        createEmpleadoCiqa("00515","GINA MARLENE FABELA SANCHEZ",118.75,"N10");
+        createEmpleadoCiqa("00516","ROBERTO ESPINOSA NEIRA",226.29,"TTC");
+        createEmpleadoCiqa("00517","MARIA LIZET GARCIA SALAZAR",241.10,"N10");
+        createEmpleadoCiqa("00518","RODOLFO CRUZ SILVA",373.27,"TTB");
+        createEmpleadoCiqa("00519","FATIMA GRAJALES SARABIA",162.12,"TTC");
+        createEmpleadoCiqa("00520","NORMA LILIA GARCIA LOPEZ",73.29,"ITC");
+        createEmpleadoCiqa("00523","JESUS HERIBERTO RODRIGUEZ TOBIAS",318.74,"TAC");
+        createEmpleadoCiqa("00524","LUIS GERARDO SARMIENTO LOPEZ",162.78,"N10");
+        createEmpleadoCiqa("00526","JULIETA TORRES GONZALEZ",715.84,"IAC");
+        createEmpleadoCiqa("00527","FABIOLA YANETH CASTELLANOS PADILLA",280.95,"TTC");
+        createEmpleadoCiqa("00528","PEDRO CIPRIANO GARCIA HERNANDEZ",107.17,"K12");
+        createEmpleadoCiqa("00529","ILEANA VERA REYES",308.47,"TTC");
+        createEmpleadoCiqa("00530","FRANCISCO PRADO PRUNEDA",82.50,"N8");
+        createEmpleadoCiqa("00531","MARTIN PRADO CASTAÑUELA",40.27,"IAC");
+        createEmpleadoCiqa("00532","CELESTE GALILEA GARCIA TORRES",48.82,"N5");
+        createEmpleadoCiqa("00533","ANGEL EDUARDO MORALES MONTOYA",40.27,"N5");
+        createEmpleadoCiqa("00534","ZAIRA CAROLINA MEZQUITIC VALDEZ",0.00,"N8");
+        createEmpleadoCiqa("00535","LUIS FEDERICO HERNANDEZ REYES",24.78,"N5");
+        createEmpleadoCiqa("00536","ANDREA CAMACHO VAZQUEZ",47.96,"N9");
+        createEmpleadoCiqa("00545","CINTHIA MARIBEL RAMIREZ BARRAZA",292.33,"N5");
+        createEmpleadoCiqa("00565","ANTELMO RODOLFO YASSER RUIZ MARTINEZ",300.72,"N9");
+        createEmpleadoCiqa("00588","DANIEL ALEJANDRO ALVARADO MEDRANO",321.92,"TTC");
+        createEmpleadoCiqa("00590","MARCO ANTONIO CASTILLO CAMPOHERMOSO",305.31,"TTC");
+        createEmpleadoCiqa("00600","MONICA AIMEE CENICEROS REYES",331.82,"TTB");
+        createEmpleadoCiqa("00610","MARA GRICELDA ESPARZA DE LEON",300.32,"ITA");
+        createEmpleadoCiqa("00643","EDITH SAYURI SIFUENTES FLORES",327.13,"TTC");
+        createEmpleadoCiqa("00649","JUAN URIEL PEÑA CASTILLO",273.44,"TTB");
+        createEmpleadoCiqa("00650","JOSUE DE JESUS CAMPOS OYERVIDES",319.98,"M11");
+        createEmpleadoCiqa("00680","RAUL HERRERA MENDOZA",288.11,"TTA");
+        createEmpleadoCiqa("00696","CESAR ALEJANDRO RAMIREZ MIRELES",74.44,"TTC");
+        createEmpleadoCiqa("00703","MARIA ALMENDRA ORDAZ QUINTERO",253.75,"TTC");
+        createEmpleadoCiqa("00716","JUDITH NAZARETH CABELLO ROMERO",323.10,"N8");
+        createEmpleadoCiqa("00727","JESUS ANGEL CEPEDA GARZA",315.93,"TTC");
+        createEmpleadoCiqa("00785","MAIBY VALLE ORTA",287.70,"TTC");
+        createEmpleadoCiqa("00790","ANTONIO CARDENAS FLORES",358.84,"TTC");
+        createEmpleadoCiqa("00800","CARLOS ALBERTO GALLARDO VEGA",294.06,"IAB");
+        createEmpleadoCiqa("00802","CARLOS JOSE ESPINOZA GONZALEZ",308.46,"ITA");
+        createEmpleadoCiqa("00810","ADRIANA BERENICE ESPINOZA MARTINEZ",358.46,"TTC");
+        createEmpleadoCiqa("00813","MARCELO ISRAEL ULLOA PEREZ",267.80,"ITB");
+        createEmpleadoCiqa("00817","MARLENE RODRIGUEZ RODRIGUEZ",296.18,"ITB");
+        createEmpleadoCiqa("00823","ADOLFO BAYLON PALOMINO",300.12,"TTA");
+        createEmpleadoCiqa("00829","JOSE ALEJANDRO DIAZ ELIZONDO",292.69,"TTA");
+        createEmpleadoCiqa("00830","RUBEN SALDIVAR GUERRERO",289.42,"TTC");
+        createEmpleadoCiqa("00833","ROCIO MINERVA GUERRERO RAMOS",160.73,"TTC");
+        createEmpleadoCiqa("00841","NORA AZUCENA VILLALPANDO VARGAS",199.30,"IAC");
+        createEmpleadoCiqa("00850","JAIRO VAZQUEZ LEE",274.23,"O23");
+        createEmpleadoCiqa("00853","GILBERTO FRANCISCO HURTADO LOPEZ",299.70,"N18");
+        createEmpleadoCiqa("00856","JANETH ADRIANA PEREZ CHANTACO",299.65,"TTB");
+        createEmpleadoCiqa("00859","FRANCISCA MARTINA CABELLO SANDOVAL",152.49,"TTC");
+        createEmpleadoCiqa("00899","IRMA ORALIA SOLIS DE LA PEÑA",337.09,"TTC");
+        createEmpleadoCiqa("00903","EFRAIN ALVIDREZ RAMOS",331.69,"N13");
+        createEmpleadoCiqa("00912","DIANA LIMON ORTIZ",143.13,"TTC");
+        createEmpleadoCiqa("00955","DIANA AZUCENA TELLEZ CAMACHO",181.97,"TTB");
+        createEmpleadoCiqa("00968","ENRIQUE DIAZ BARRIGA CASTRO",322.81,"ITC");
+        createEmpleadoCiqa("00988","JOSE DE JESUS GUTIERREZ MORENO",122.26,"N11");
+        createEmpleadoCiqa("00990","NORMA LETICIA CONTRERAS LOPEZ",177.11,"N17");
+        createEmpleadoCiqa("00996","CLAUDIO ADOLFO ARREDONDO ELIZONDO",119.74,"TTC");
+        createEmpleadoCiqa("00997","FRANCISCO PRADO CASTAÑUELA",98.59,"N9");
 
-         */
 
     }
 

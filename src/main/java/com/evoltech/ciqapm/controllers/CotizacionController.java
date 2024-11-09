@@ -1,7 +1,7 @@
 package com.evoltech.ciqapm.controllers;
 
 import com.evoltech.ciqapm.model.Cotizacion;
-import com.evoltech.ciqapm.repository.CotizacionPersonalRepository;
+import com.evoltech.ciqapm.repository.CotizacionEmpleadoRepository;
 import com.evoltech.ciqapm.repository.CotizacionRepository;
 import com.evoltech.ciqapm.repository.CotizacionServiciosRepository;
 import jakarta.validation.Valid;
@@ -21,14 +21,14 @@ public class CotizacionController {
     private CotizacionRepository cotizacionRepository;
 
     @Autowired
-    private CotizacionPersonalRepository cotizacionPersonalRepository;
+    private CotizacionEmpleadoRepository cotizacionEmpleadoRepository;
 
     @Autowired
     private CotizacionServiciosRepository cotizacionServiciosRepository;
 
-    public CotizacionController(CotizacionRepository cotizacionRepository, CotizacionPersonalRepository cotizacionPersonalRepository, CotizacionServiciosRepository cotizacionServiciosRepository) {
+    public CotizacionController(CotizacionRepository cotizacionRepository, CotizacionEmpleadoRepository cotizacionEmpleadoRepository, CotizacionServiciosRepository cotizacionServiciosRepository) {
         this.cotizacionRepository = cotizacionRepository;
-        this.cotizacionPersonalRepository = cotizacionPersonalRepository;
+        this.cotizacionEmpleadoRepository = cotizacionEmpleadoRepository;
         this.cotizacionServiciosRepository = cotizacionServiciosRepository;
     }
 

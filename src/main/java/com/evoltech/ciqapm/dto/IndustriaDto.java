@@ -30,7 +30,7 @@ public class IndustriaDto {
     @NotNull(message = "El responsable del proyecto no se ha seleccionado.")
     @ManyToOne
     @JoinColumn(name="responsable_id", nullable=false)
-    private Personal responsable;
+    private Empleado responsable;
 
     @ManyToOne
     @JoinColumn(name="cliente_id", nullable=true)

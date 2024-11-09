@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.*;
 
 @Entity
 @Data
@@ -42,5 +41,5 @@ public class Actividad extends BaseClass {
 
     @ManyToOne
     @JoinColumn(name="realizado_por", nullable=true)
-    private Personal realizadoPor;
+    private Empleado realizadoPor;
 }

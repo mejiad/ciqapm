@@ -1,11 +1,8 @@
 package com.evoltech.ciqapm.controllers.proyectos;
 
 import com.evoltech.ciqapm.dto.GanttDTO;
-import com.evoltech.ciqapm.dto.IndustriaDto;
 import com.evoltech.ciqapm.dto.PostgradoDto;
 import com.evoltech.ciqapm.model.*;
-import com.evoltech.ciqapm.model.datos.DatosConahcyt;
-import com.evoltech.ciqapm.model.datos.DatosIndustria;
 import com.evoltech.ciqapm.model.datos.DatosPostgrado;
 import com.evoltech.ciqapm.repository.*;
 import com.evoltech.ciqapm.repository.datos.ConahcytRepository;
@@ -47,7 +44,7 @@ public class PostgradoController {
     @Autowired
     EtapaRepository etapaRepository;
     @Autowired
-    private final PersonalRepository personalRepository;
+    private final EmpleadoRepository personalRepository;
     @Autowired
     private final AlumnoRepository alumnoRepository;
 
@@ -59,7 +56,7 @@ public class PostgradoController {
 
     public PostgradoController(ProyectoServicio proyectoServicio, ProyectoRepository proyectoRepository,
                                EtapaRepository etapaRepository,
-                               PersonalRepository personalRepository,
+                               EmpleadoRepository personalRepository,
                                ConahcytRepository conahcytRepository,
                                AlumnoRepository alumnoRepository, PostgradoRepository postgradoRepository) {
         this.proyectoServicio = proyectoServicio;
@@ -127,7 +124,7 @@ public class PostgradoController {
         Proyecto proyecto = new Proyecto();
 
         List<Estado> estados = List.of(Estado.values());
-        List<Personal> personas = personalRepository.findAll();
+        List<Empleado> personas = personalRepository.findAll();
         List<Alumno> alumnos = alumnoRepository.findAll();
         List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
 
@@ -162,7 +159,7 @@ public class PostgradoController {
                 });
             }
             List<Estado> estados = List.of(Estado.values());
-            List<Personal> personas = personalRepository.findAll();
+            List<Empleado> personas = personalRepository.findAll();
             List<Alumno> alumnos= alumnoRepository.findAll();
             //List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
 

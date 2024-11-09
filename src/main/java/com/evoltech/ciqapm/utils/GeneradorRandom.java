@@ -1,15 +1,11 @@
 package com.evoltech.ciqapm.utils;
 
 import com.evoltech.ciqapm.model.Estado;
-import com.evoltech.ciqapm.model.PersonalCategoria;
+import com.evoltech.ciqapm.model.EmpleadoCategoria;
 import com.evoltech.ciqapm.model.TipoProyecto;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationStartingEvent;
 import org.springframework.stereotype.Component;
-import org.unbescape.csv.CsvEscape;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -175,10 +171,10 @@ public class GeneradorRandom {
         return etapaEntregable.get(enteroMax(etapaEntregable.size()-1));
     }
 
-    public PersonalCategoria generaPersonalCategoria() {
-        int len = PersonalCategoria.values().length;
+    public EmpleadoCategoria generaEmpleadoCategoria() {
+        int len = EmpleadoCategoria.values().length;
 
-        return Arrays.stream(PersonalCategoria.values()).toList().get(enteroMax(len -1));
+        return Arrays.stream(EmpleadoCategoria.values()).toList().get(enteroMax(len -1));
     }
 
     public TipoProyecto generaProyectoTipo() {

@@ -27,7 +27,8 @@ public class DatosConahcyt {
     @JoinColumn(name="proyecto_id", nullable=false)
     private Proyecto proyecto;
 
-    @NotNull(message = "La fase es requerida.")
+    // @NotNull(message = "La fase es requerida.")
+    // TODO: Inicializar la fase
     @Enumerated(EnumType.STRING)
     private FaseConahcyt fase;
 

@@ -39,7 +39,7 @@ public class Proyecto extends BaseClass implements Serializable {
     @NotNull(message = "El responsable del proyecto no se ha seleccionado.")
     @ManyToOne
     @JoinColumn(name="responsable_id", nullable=false)
-    private Personal responsable;
+    private Empleado responsable;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Etapa> etapas = new ArrayList<>();

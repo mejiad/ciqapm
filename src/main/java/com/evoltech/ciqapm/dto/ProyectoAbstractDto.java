@@ -1,13 +1,12 @@
 package com.evoltech.ciqapm.dto;
 
 import com.evoltech.ciqapm.model.Estado;
-import com.evoltech.ciqapm.model.Personal;
+import com.evoltech.ciqapm.model.Empleado;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 public abstract class ProyectoAbstractDto {
@@ -31,5 +30,5 @@ public abstract class ProyectoAbstractDto {
     @NotNull(message = "El responsable del proyecto no se ha seleccionado.")
     @ManyToOne
     @JoinColumn(name="responsable_id", nullable=false)
-    private Personal responsable;
+    private Empleado responsable;
 }

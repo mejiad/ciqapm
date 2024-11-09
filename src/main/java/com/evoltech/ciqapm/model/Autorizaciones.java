@@ -21,7 +21,7 @@ public class Autorizaciones {
     private NivelAutorizacion nivelAutorizacion;
     private TipoAutorizacion autorizacionDepto;
     private String nota;
-    private Personal personaAutoriza;
+    private Empleado personaAutoriza;
     private LocalDate fechaAutorizacionDepto;
 
 }

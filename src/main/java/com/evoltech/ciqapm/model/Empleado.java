@@ -2,19 +2,17 @@ package com.evoltech.ciqapm.model;
 
 import com.evoltech.ciqapm.model.jpa.BaseClass;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.extern.java.Log;
 
 import java.math.BigDecimal;
 
 @Entity
 @Data
 @NoArgsConstructor
-public class Personal extends BaseClass {
+public class Empleado extends BaseClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -28,7 +26,7 @@ public class Personal extends BaseClass {
 
     @NotNull(message = "La categoria es un dato requerido.")
     @Enumerated(EnumType.STRING)
-    private PersonalCategoria categoria;
+    private EmpleadoCategoria categoria;
 
     @NotNull(message = "La tarifa es un dato requerido.")
     private BigDecimal rate;

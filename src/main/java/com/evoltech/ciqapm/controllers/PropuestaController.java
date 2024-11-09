@@ -1,13 +1,12 @@
 package com.evoltech.ciqapm.controllers;
 
 import com.evoltech.ciqapm.model.Estado;
-import com.evoltech.ciqapm.model.Personal;
+import com.evoltech.ciqapm.model.Empleado;
 import com.evoltech.ciqapm.model.Propuesta;
 import com.evoltech.ciqapm.model.Proyecto;
-import com.evoltech.ciqapm.repository.PersonalRepository;
+import com.evoltech.ciqapm.repository.EmpleadoRepository;
 import com.evoltech.ciqapm.repository.PropuestaRepository;
 import com.evoltech.ciqapm.repository.ProyectoRepository;
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,13 +29,13 @@ public class PropuestaController {
     ProyectoRepository proyectoRepository;
 
     @Autowired
-    PersonalRepository personalRepository;
+    EmpleadoRepository personalRepository;
 
     @GetMapping("list")
     private String lista(@RequestParam("id") Long id, Model model){
         Proyecto proyecto = proyectoRepository.getReferenceById(id);
         List<Propuesta> propuestas = propuestaRepository.findByProyecto(proyecto);
-        List<Personal> personas = personalRepository.findAll();
+        List<Empleado> personas = personalRepository.findAll();
         List<Estado> estados = List.of(Estado.values());
 
         model.addAttribute("personas", personas);
@@ -52,7 +51,7 @@ public class PropuestaController {
         Proyecto proyecto = proyectoRepository.getReferenceById(id);
 
         Propuesta propuesta = new Propuesta();
-        List<Personal> personas = personalRepository.findAll();
+        List<Empleado> personas = personalRepository.findAll();
         List<Estado> estados = List.of(Estado.values());
 
         model.addAttribute("estados", estados);

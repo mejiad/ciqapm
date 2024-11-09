@@ -2,7 +2,7 @@ package com.evoltech.ciqapm.controllers;
 
 import com.evoltech.ciqapm.model.*;
 import com.evoltech.ciqapm.repository.ActividadRepository;
-import com.evoltech.ciqapm.repository.PersonalRepository;
+import com.evoltech.ciqapm.repository.EmpleadoRepository;
 import com.evoltech.ciqapm.repository.EtapaRepository;
 import com.evoltech.ciqapm.repository.ProyectoRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/actividad")
 public class ActividadController {
-    private final PersonalRepository personalRepository;
+    private final EmpleadoRepository personalRepository;
 
     @Autowired
     ProyectoRepository proyectoRepository;
@@ -35,7 +35,7 @@ public class ActividadController {
     public ActividadController(ProyectoRepository proyectoRepository,
                                EtapaRepository etapaRepository,
                                ActividadRepository actividadRepository,
-                               PersonalRepository personalRepository) {
+                               EmpleadoRepository personalRepository) {
         this.proyectoRepository = proyectoRepository;
         this.etapaRepository = etapaRepository;
         this.actividadRepository = actividadRepository;
@@ -83,7 +83,7 @@ public class ActividadController {
     public String newActividad(@RequestParam("id") Long id, Model model){
         Etapa etapa = etapaRepository.getReferenceById(id);
         List<ActividadEstado> estados = List.of(ActividadEstado.values());
-        List<Personal> personas = personalRepository.findAll();
+        List<Empleado> personas = personalRepository.findAll();
         Actividad actividad = new Actividad();
         actividad.setEtapa(etapa);
         model.addAttribute("estados", estados);

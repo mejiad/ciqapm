@@ -5,13 +5,12 @@ package com.evoltech.ciqapm.utils;
  */
 
 import com.evoltech.ciqapm.model.Estado;
-import com.evoltech.ciqapm.model.PersonalCategoria;
+import com.evoltech.ciqapm.model.EmpleadoCategoria;
 import com.evoltech.ciqapm.model.TipoProyecto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Random;
 
 @Service
 public class RandomService {
@@ -64,8 +63,8 @@ public class RandomService {
         return startDate.plusDays(offset_inicio);
     }
 
-    public PersonalCategoria generaPersonalCategoria() {
-        return generadorRandom.generaPersonalCategoria();
+    public EmpleadoCategoria generaEmpleadoCategoria() {
+        return generadorRandom.generaEmpleadoCategoria();
     }
 
     public TipoProyecto generaProyectoTipo(){

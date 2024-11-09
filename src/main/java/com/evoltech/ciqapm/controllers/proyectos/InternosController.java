@@ -41,7 +41,7 @@ public class InternosController {
     @Autowired
     EtapaRepository etapaRepository;
     @Autowired
-    private final PersonalRepository personalRepository;
+    private final EmpleadoRepository personalRepository;
     @Autowired
     private final ClienteRepository clienteRepository;
 
@@ -50,7 +50,7 @@ public class InternosController {
 
     public InternosController(ProyectoServicio proyectoServicio, ProyectoRepository proyectoRepository,
                               EtapaRepository etapaRepository,
-                              PersonalRepository personalRepository,
+                              EmpleadoRepository personalRepository,
                               ConahcytRepository conahcytRepository,
                               ClienteRepository clienteRepository) {
         this.proyectoServicio = proyectoServicio;
@@ -118,7 +118,7 @@ public class InternosController {
         proyecto.setNombre("Primer Proyecto de prueba.");
         proyecto.setDescripcion("Descripción del proyecto.");
         List<Estado> estados = List.of(Estado.values());
-        List<Personal> personas = personalRepository.findAll();
+        List<Empleado> personas = personalRepository.findAll();
         List<Cliente> clientes = clienteRepository.findAll();
         List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
         DatosInternos internos = new DatosInternos();

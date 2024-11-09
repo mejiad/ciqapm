@@ -41,7 +41,7 @@ public class ConahcytController {
     @Autowired
     EtapaRepository etapaRepository;
     @Autowired
-    private final PersonalRepository personalRepository;
+    private final EmpleadoRepository personalRepository;
     @Autowired
     private final ClienteRepository clienteRepository;
 
@@ -53,7 +53,7 @@ public class ConahcytController {
 
     public ConahcytController(ProyectoServicio proyectoServicio, ProyectoRepository proyectoRepository,
                               EtapaRepository etapaRepository,
-                              PersonalRepository personalRepository,
+                              EmpleadoRepository personalRepository,
                               ConahcytRepository conahcytRepository,
                               ConvocatoriaRepository convocatoriaRepository,
                               ClienteRepository clienteRepository) {
@@ -167,7 +167,7 @@ public class ConahcytController {
     public String newConahcyt(Model model) {
         ConahcytDto proyecto = new ConahcytDto();
         List<Estado> estados = List.of(Estado.values());
-        List<Personal> personas = personalRepository.findAll();
+        List<Empleado> personas = personalRepository.findAll();
         List<Cliente> clientes = clienteRepository.findAll();
         List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
         List<Convocatoria> convocatorias = convocatoriaRepository.findAll();
@@ -213,7 +213,7 @@ public class ConahcytController {
                 });
             }
             List<Estado> estados = List.of(Estado.values());
-            List<Personal> personas = personalRepository.findAll();
+            List<Empleado> personas = personalRepository.findAll();
             List<Cliente> clientes = clienteRepository.findAll();
             List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
             List<Convocatoria> convocatorias = convocatoriaRepository.findAll();

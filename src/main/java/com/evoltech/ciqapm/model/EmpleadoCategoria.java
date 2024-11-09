@@ -1,6 +1,6 @@
 package com.evoltech.ciqapm.model;
 
-public enum PersonalCategoria {
+public enum EmpleadoCategoria {
     IAB,
     IAC,
     ITA,

@@ -1,9 +1,6 @@
 package com.evoltech.ciqapm.controllers;
 
-import com.evoltech.ciqapm.model.Alumno;
 import com.evoltech.ciqapm.model.Cliente;
-import com.evoltech.ciqapm.model.Estado;
-import com.evoltech.ciqapm.model.Personal;
 import com.evoltech.ciqapm.repository.ClienteRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

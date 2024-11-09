@@ -2,8 +2,7 @@ package com.evoltech.ciqapm.controllers;
 
 import com.evoltech.ciqapm.model.*;
 import com.evoltech.ciqapm.repository.*;
-import com.evoltech.ciqapm.utils.CotizaPersonalWrapper;
-import com.evoltech.ciqapm.utils.CotizaServiciosWrapper;
+import com.evoltech.ciqapm.utils.CotizaEmpleadoWrapper;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,31 +17,31 @@ import java.util.List;
 
 @Controller
 @RequestMapping("cotizaPersonal")
-public class CotizaPersonalController {
+public class CotizaEmpleadoController {
 
     @Autowired
-    PersonalRepository personalRepository;
+    EmpleadoRepository empleadoRepository;
     @Autowired
     CotizacionRepository cotizacionRepository;
     @Autowired
-    CotizacionPersonalRepository cotizacionPersonalRepository;
+    CotizacionEmpleadoRepository cotizacionEmpleadoRepository;
 
-    public CotizaPersonalController(PersonalRepository personalRepository,
+    public CotizaEmpleadoController(EmpleadoRepository empleadoRepository,
                                     CotizacionRepository cotizacionRepository,
-                                    CotizacionPersonalRepository cotizacionPersonalRepository) {
-        this.personalRepository = personalRepository;
+                                    CotizacionEmpleadoRepository cotizacionEmpleadoRepository) {
+        this.empleadoRepository = empleadoRepository;
         this.cotizacionRepository = cotizacionRepository;
-        this.cotizacionPersonalRepository = cotizacionPersonalRepository;
+        this.cotizacionEmpleadoRepository = cotizacionEmpleadoRepository;
     }
 
     @GetMapping("/list")
     private String listaCotizaServicio(@RequestParam("id") Long id, Model model){
         Cotizacion cotizacion = cotizacionRepository.getReferenceById(id);
 
-        List<CotizaPersonal> cotizacionPersonal = cotizacionPersonalRepository.findByCotizacion(cotizacion);
-        System.out.println("CotizaPersonal:" + cotizacionPersonal.size());
+        List<CotizaEmpleado> cotizaEmpleados = cotizacionEmpleadoRepository.findByCotizacion(cotizacion);
+        System.out.println("CotizaEmpleados:" + cotizaEmpleados.size());
         model.addAttribute("cotizacionId", id);
-        model.addAttribute("cotizaPersonal", cotizacionPersonal);
+        model.addAttribute("cotizaEmpleados", cotizaEmpleados);
         return "/CotizaPersonal/List";
     }
 
@@ -61,7 +60,7 @@ public class CotizaPersonalController {
     @PostMapping("/search")
     public String lookup(String search, Model model) {
         System.out.println("Searching...");
-        List<Personal> personal = personalRepository.findByNombreContainsIgnoreCase(search);
+        List<Empleado> personal = empleadoRepository.findByNombreContainsIgnoreCase(search);
         System.out.println("Servicios size:" + personal.size());
 
         // servicios.stream().map(servicio -> servicio.getDescripcion()).forEach(System.out::println);
@@ -70,17 +69,15 @@ public class CotizaPersonalController {
         return "CotizaPersonal/Result :: result_table";
     }
 
+    public String addEmpleado(@RequestParam("id") Long id, HttpSession session, Model model){
+        List<Empleado> lista = new ArrayList<>();
 
-    @GetMapping("/add")
-    public String addPersonal(@RequestParam("id") Long id, HttpSession session, Model model){
-        List<Personal> lista = new ArrayList<>();
-
-        List<Personal> listaPrevia = (List<Personal>)session.getAttribute("lista");
+        List<Empleado> listaPrevia = (List<Empleado>)session.getAttribute("lista");
         if(listaPrevia != null) {
             listaPrevia.stream().forEach(lista::add);
         }
 
-        Personal personal = personalRepository.getReferenceById(id);
+        Empleado personal = empleadoRepository.getReferenceById(id);
 
         if (personal != null){
             lista.add(personal);
@@ -95,36 +92,36 @@ public class CotizaPersonalController {
 
     @GetMapping("/getarray")
     public String getarray(HttpSession session, Model model){
-        CotizaPersonalWrapper cotizaPersonalWrapper = new CotizaPersonalWrapper();
+        CotizaEmpleadoWrapper cotizaEmpleadoWrapper = new CotizaEmpleadoWrapper();
 
-        List<Personal> listaPrevia = (List<Personal>) session.getAttribute("lista");
+        List<Empleado> listaPrevia = (List<Empleado>) session.getAttribute("lista");
         if(listaPrevia != null){
             listaPrevia.stream().forEach(p -> {
-                CotizaPersonal cs = new CotizaPersonal();
-                cs.setPersonal(p);
+                CotizaEmpleado cs = new CotizaEmpleado();
+                cs.setEmpleado(p);
                 cs.setHoras(1);
-                cotizaPersonalWrapper.getPersonal().add(cs);
+                cotizaEmpleadoWrapper.getEmpleados().add(cs);
             });
         }
-        model.addAttribute("wrapper", cotizaPersonalWrapper);
+        model.addAttribute("wrapper", cotizaEmpleadoWrapper);
         return "CotizaPersonal/Summary";
     }
 
     @PostMapping("/postarray")
-    public String postArray(CotizaPersonalWrapper personalWrapper,
+    public String postArray(CotizaEmpleadoWrapper personalWrapper,
                             HttpSession session, Model model){
         session.removeAttribute("lista");
         Long id = (Long) session.getAttribute("cotizacionId");
         System.out.println("Cotizacion ID:" + id);
         Cotizacion cotizacion = cotizacionRepository.getReferenceById(id);
 
-        List<CotizaPersonal> cotizaPersonal = personalWrapper.getPersonal();
+        List<CotizaEmpleado> cotizaEmpleados = personalWrapper.getEmpleados();
 
-        cotizaPersonal.stream().forEach(co -> co.setCotizacion(cotizacion));
+        cotizaEmpleados.stream().forEach(co -> co.setCotizacion(cotizacion));
 
-        cotizaPersonal.stream().map(CotizaPersonal::getCotizacion).forEach(c -> System.out.println(c.getNombre()));
+        cotizaEmpleados.stream().map(CotizaEmpleado::getCotizacion).forEach(c -> System.out.println(c.getNombre()));
 
-        cotizaPersonal.stream().forEach(co -> cotizacionPersonalRepository.save(co));
+        cotizaEmpleados.stream().forEach(co -> cotizacionEmpleadoRepository.save(co));
 
 
         model.addAttribute("wrapper", personalWrapper);
@@ -133,10 +130,10 @@ public class CotizaPersonalController {
     }
 
     @GetMapping("view")
-    private String viewCotizaPersonal(@RequestParam Long id, Model model){
-        CotizaPersonal cotizaPersonal = cotizacionPersonalRepository.getReferenceById(id);
+    private String viewCotizaEmpleado(@RequestParam Long id, Model model){
+        CotizaEmpleado cotizaEmpleado = cotizacionEmpleadoRepository.getReferenceById(id);
 
-        model.addAttribute("cotizaPersonal", cotizaPersonal);
+        model.addAttribute("cotizaEmpleado", cotizaEmpleado);
 
         return "CotizaPersonal/View";
     }

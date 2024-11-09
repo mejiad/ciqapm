@@ -3,7 +3,7 @@ package com.evoltech.ciqapm.controllers;
 import com.evoltech.ciqapm.model.*;
 import com.evoltech.ciqapm.security.Usuario;
 import com.evoltech.ciqapm.service.EtapaService;
-import com.evoltech.ciqapm.service.PersonalServicio;
+import com.evoltech.ciqapm.service.EmpleadoServicio;
 import com.evoltech.ciqapm.service.ProyectoServicio;
 import com.evoltech.ciqapm.service.ServicioService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,7 +28,7 @@ public class MainController {
     ServicioService servicioService;
 
     @Autowired
-    PersonalServicio personalServicio;
+    EmpleadoServicio personalServicio;
 
     @Autowired
     EtapaService etapaService;
@@ -42,7 +42,7 @@ public class MainController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    public MainController(ServicioService servicioService, PersonalServicio personalServicio,
+    public MainController(ServicioService servicioService, EmpleadoServicio personalServicio,
                           EtapaService etapaService,
                           ProyectoServicio proyectoServicio,
                           UsuarioRepository usuarioRepository,

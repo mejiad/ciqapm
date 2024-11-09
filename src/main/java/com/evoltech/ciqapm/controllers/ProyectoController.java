@@ -10,7 +10,6 @@ import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.web.config.HateoasAwareSpringDataWebConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,7 +42,7 @@ public class ProyectoController {
     @Autowired
     EtapaRepository etapaRepository;
     @Autowired
-    private final PersonalRepository personalRepository;
+    private final EmpleadoRepository personalRepository;
     @Autowired
     private final ClienteRepository clienteRepository;
 
@@ -52,7 +51,7 @@ public class ProyectoController {
 
     public ProyectoController(ProyectoServicio proyectoServicio, ProyectoRepository proyectoRepository,
                               EtapaRepository etapaRepository,
-                              PersonalRepository personalRepository,
+                              EmpleadoRepository personalRepository,
                               ConahcytRepository conahcytRepository,
                               ClienteRepository clienteRepository
                               ) {
@@ -116,7 +115,7 @@ public class ProyectoController {
     public String newProyecto(Model model) {
         Proyecto proyecto = new Proyecto();
         List<Estado> estados = List.of(Estado.values());
-        List<Personal> personas = personalRepository.findAll();
+        List<Empleado> personas = personalRepository.findAll();
         List<Cliente> clientes = clienteRepository.findAll();
         List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
 
@@ -133,7 +132,7 @@ public class ProyectoController {
     public String newConahcyt(Model model) {
         Proyecto proyecto = new Proyecto();
         List<Estado> estados = List.of(Estado.values());
-        List<Personal> personas = personalRepository.findAll();
+        List<Empleado> personas = personalRepository.findAll();
         List<Cliente> clientes = clienteRepository.findAll();
         List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
         DatosConahcyt conahcyt = new DatosConahcyt();
@@ -173,7 +172,7 @@ public class ProyectoController {
             System.out.println("Nombre:" + proyecto.getNombre());
 
             List<Estado> estados = List.of(Estado.values());
-            List<Personal> personas = personalRepository.findAll();
+            List<Empleado> personas = personalRepository.findAll();
             List<Cliente> clientes = clienteRepository.findAll();
             List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
 

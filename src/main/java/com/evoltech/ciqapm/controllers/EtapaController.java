@@ -2,23 +2,19 @@ package com.evoltech.ciqapm.controllers;
 
 import com.evoltech.ciqapm.model.*;
 import com.evoltech.ciqapm.repository.EtapaRepository;
-import com.evoltech.ciqapm.repository.PersonalRepository;
+import com.evoltech.ciqapm.repository.EmpleadoRepository;
 import com.evoltech.ciqapm.repository.ProyectoRepository;
 import com.evoltech.ciqapm.repository.ServicioRepository;
 import com.evoltech.ciqapm.service.EtapaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/etapa")
@@ -32,12 +28,12 @@ public class EtapaController {
 
     @Autowired
     ProyectoRepository proyectoRepository;
-    private final PersonalRepository personalRepository;
+    private final EmpleadoRepository personalRepository;
     private final ServicioRepository servicioRepository;
 
     public EtapaController(EtapaService etapaService, EtapaRepository etapaRepository,
                            ProyectoRepository proyectoRepository,
-                           PersonalRepository personalRepository,
+                           EmpleadoRepository personalRepository,
                            ServicioRepository servicioRepository) {
         this.etapaService = etapaService;
         this.etapaRepository = etapaRepository;
@@ -68,7 +64,7 @@ public class EtapaController {
     public String editEtapa(@RequestParam Long id, Model model){
         Etapa etapa = etapaRepository.getReferenceById(id);
         List<Estado> estados = List.of(Estado.values());
-        List<Personal> personas = personalRepository.findAll();
+        List<Empleado> personas = personalRepository.findAll();
         System.out.println("------ no. de personas: " + personas.size());
         List<Servicio> servicios = servicioRepository.findAll();
         Proyecto proyecto = etapa.getProyecto();
@@ -84,7 +80,7 @@ public class EtapaController {
     public String newEtapa(@RequestParam Long id,  Model model) {
         Proyecto proyecto = proyectoRepository.getReferenceById(id);
         List<Estado> estados = List.of(Estado.values());
-        List<Personal> personas = personalRepository.findAll();
+        List<Empleado> personas = personalRepository.findAll();
         List<Servicio> servicios = servicioRepository.findAll();
         Etapa etapa = new Etapa();
         etapa.setProyecto(proyecto);
@@ -107,7 +103,7 @@ public class EtapaController {
             });
 
             List<Estado> estados = List.of(Estado.values());
-            List<Personal> personas = personalRepository.findAll();
+            List<Empleado> personas = personalRepository.findAll();
             List<Servicio> servicios = servicioRepository.findAll();
             model.addAttribute("etapa", etapa);
             model.addAttribute("estados", estados);
