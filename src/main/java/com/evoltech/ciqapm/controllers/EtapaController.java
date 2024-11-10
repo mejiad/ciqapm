@@ -84,6 +84,9 @@ public class EtapaController {
         List<Servicio> servicios = servicioRepository.findAll();
         Etapa etapa = new Etapa();
         etapa.setProyecto(proyecto);
+        etapa.setPctCompleto(0);
+        etapa.setEstado(Estado.CREACION);
+
         model.addAttribute("etapa", etapa);
         model.addAttribute("proyecto", proyecto);
         model.addAttribute("estados", estados);
@@ -96,11 +99,6 @@ public class EtapaController {
    public String saveEtapa(@Valid Etapa etapa, BindingResult result, Model model) {
         if(result.hasErrors()){
             var mod = result.getModel();
-            System.out.println("Numero de errores globales:" + result.getGlobalErrorCount());
-            mod.forEach((String k, Object obj) -> {
-                System.out.println("Error key: " + k + " Obj:" + obj);
-                System.out.println("++++++++++++++++++++++++");
-            });
 
             List<Estado> estados = List.of(Estado.values());
             List<Empleado> personas = personalRepository.findAll();
@@ -112,6 +110,9 @@ public class EtapaController {
             return "Etapa/Edit";
         }
         if (etapa.getId() == null || etapa.getId() == 0) {
+            etapa.setPctCompleto(0);
+            etapa.setId(0L);
+            etapa.setEstado(Estado.CREACION);
             etapa.setPctCompleto(0);
             Etapa resEtapa = etapaRepository.save(etapa);
             Proyecto proyecto = resEtapa.getProyecto();

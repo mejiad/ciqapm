@@ -172,6 +172,8 @@ public class ConahcytController {
         List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
         List<Convocatoria> convocatorias = convocatoriaRepository.findAll();
 
+        proyecto.setEstatus(Estado.CREACION);
+
         model.addAttribute("conahcytDto", proyecto);
         model.addAttribute("estados", estados);
         model.addAttribute("personas", personas);
@@ -226,8 +228,6 @@ public class ConahcytController {
             model.addAttribute("tiposProyecto", tiposProyecto);
             return "/Conahcyt/Edit";
         } else {
-            // TODO: Crear el directorio del id del proyecto
-            System.out.println("Inicio del save");
             Proyecto proyecto = conacytProyecto.proyecto();
 
             proyecto.setEstatus(Estado.PROCESO);
