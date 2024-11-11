@@ -69,6 +69,7 @@ public class CotizaEmpleadoController {
         return "CotizaPersonal/Result :: result_table";
     }
 
+    @GetMapping("/add")
     public String addEmpleado(@RequestParam("id") Long id, HttpSession session, Model model){
         List<Empleado> lista = new ArrayList<>();
 
