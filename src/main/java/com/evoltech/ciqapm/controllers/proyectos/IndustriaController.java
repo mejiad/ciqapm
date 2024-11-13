@@ -86,9 +86,9 @@ public class IndustriaController {
         System.out.println("Nombre del usuario: " + username);
 
         Proyecto proyecto = proyectoRepository.getReferenceById(id);
-        DatosIndustria datosIndustria = industriaRepository.findByProyecto(proyecto);
+        Industria industria = industriaRepository.getReferenceById(id);
 
-        List<Etapa> etapas = etapaRepository.findByProyecto(proyecto);
+        List<Etapa> etapas = etapaRepository.findByProyecto(industria);
 
         ArrayList<GanttDTO> ganttDTOS = new ArrayList<>();
 
@@ -102,9 +102,8 @@ public class IndustriaController {
             ganttDTOS.add(ganttDTO);
         });
 
-        IndustriaDto industriaDto = new IndustriaDto(proyecto, datosIndustria);
 
-        model.addAttribute("proyecto", industriaDto);
+        model.addAttribute("proyecto", industria);
         model.addAttribute("etapas", ganttDTOS);
 
         return "/Industria/View";
@@ -144,7 +143,7 @@ public class IndustriaController {
 
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveProyecto(@Valid IndustriaDto industriaDto, BindingResult result, Model model) {
+    public String saveProyecto(@Valid Industria industria, BindingResult result, Model model) {
         var mod = result.getModel();
         if(result.hasErrors()){
             System.out.println("++ Hay errores ++++++++++++++");
@@ -159,27 +158,17 @@ public class IndustriaController {
             List<Cliente> clientes = clienteRepository.findAll();
             //List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
 
-            model.addAttribute("industriaDto", industriaDto);
+            model.addAttribute("industriaDto", industria);
             model.addAttribute("estados", estados);
             model.addAttribute("personas", personas);
             model.addAttribute("clientes", clientes);
             //model.addAttribute("tiposProyecto", tiposProyecto);
             return "/Industria/Edit";
         } else {
-            // TODO: Crear el directorio del id del proyecto
             System.out.println("Inicio del save");
-            Proyecto proyecto = industriaDto.getProyecto();
-
+            Industria proyecto = industria;
             proyecto.setEstatus(Estado.PROCESO);
-
-            DatosIndustria industria = industriaDto.getDatosIndustria();
-
-            Proyecto res = proyectoRepository.save(proyecto);
-            industria.setProyecto(res);
-
-            industriaRepository.save(industria);
-
-            res = proyectoRepository.save(res);
+            Industria res = industriaRepository.save(industria);
 
             new File("src/main/resources/directory/industria" + res.getId()).mkdirs();
 

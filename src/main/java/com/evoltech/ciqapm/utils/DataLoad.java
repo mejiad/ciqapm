@@ -1,8 +1,6 @@
 package com.evoltech.ciqapm.utils;
 
 import com.evoltech.ciqapm.model.*;
-import com.evoltech.ciqapm.model.datos.DatosConahcyt;
-import com.evoltech.ciqapm.model.datos.DatosIndustria;
 import com.evoltech.ciqapm.model.jpa.Convocatoria;
 import com.evoltech.ciqapm.repository.*;
 import com.evoltech.ciqapm.repository.datos.ConahcytRepository;
@@ -60,6 +58,9 @@ public class DataLoad {
 
     @Autowired
     CotizacionRepository cotizacionRepository;
+
+    //@Autowired
+    //ProyectoDetailsRepository proyectoDetailsRepository;
 
 
     @Autowired
@@ -155,8 +156,8 @@ public class DataLoad {
         Proyecto proyecto4 = createProyecto("1002", personal3, cliente4);
         Proyecto proyecto5 = createProyecto("1004", personal4, cliente5);
 
-        Proyecto proyecto6 = createProyectoConahcyt("1005", personal4, cliente5);
-        Proyecto proyecto7 = createProyectoConahcyt("1006", personal4, cliente5);
+        Proyecto proyecto6 = createProyectoConahcyt("1005", personal4);
+        Proyecto proyecto7 = createProyectoConahcyt("1006", personal4);
 
         Proyecto proyecto8 = createProyectoIndustria("1007", personal1, cliente5);
         Proyecto proyecto9 = createProyectoIndustria("1008", personal1, cliente5);
@@ -164,8 +165,8 @@ public class DataLoad {
         Proyecto proyecto10 = createProyectoInternos("1009", personal3, cliente5);
         Proyecto proyecto11 = createProyectoInternos("1010", personal2, cliente5);
 
-        Proyecto proyecto12 = createProyectoPosgrado("1011", personal2, cliente5);
-        Proyecto proyecto13 = createProyectoPosgrado("1012", personal2, cliente5);
+        // Proyecto proyecto12 = createProyectoPosgrado("1011", personal2, cliente5);
+        // Proyecto proyecto13 = createProyectoPosgrado("1012", personal2, cliente5);
 
         LocalDate startDate = LocalDate.of(2024, 5, 10 );
         Etapa etapa1 = creaEtapa(personal1, proyecto1, servicio1, startDate);
@@ -246,20 +247,6 @@ public class DataLoad {
         Etapa etapa8_p4 = creaEtapa(personal5, proyecto2, servicio3, startDate.plusDays(90));
 
 
-        LocalDate stDate = proyecto1.getCreateDate();
-        Pago pago = createPago(proyecto1, stDate.plusDays(10), 30);
-        pago = createPago(proyecto1, stDate.plusDays(60), 30);
-        pago = createPago(proyecto1, stDate.plusDays(90), 40);
-
-
-        stDate = proyecto2.getCreateDate();
-        pago = createPago(proyecto2, stDate.plusDays(30), 20);
-        pago = createPago(proyecto2, stDate.plusDays(60), 30);
-        pago = createPago(proyecto2, stDate.plusDays(120), 50);
-
-
-
-
         Alumno alumno = createAlumno();
         alumno = createAlumno();
         alumno = createAlumno();
@@ -308,106 +295,68 @@ public class DataLoad {
         return res;
     }
 
-
-
     private Proyecto createProyecto(String post, Empleado responsable, Cliente cliente) {
-        Proyecto proyecto = new Proyecto();
-        DatosIndustria datosIndustria = new DatosIndustria();
-        datosIndustria.setCliente(cliente);
-        datosIndustria.setPresupuesto(randomService.generaCostoRandom());
+        Industria industria = new Industria();
+        industria.setCliente(cliente);
+        industria.setPresupuesto(randomService.generaCostoRandom());
 
-        proyecto.setResponsable(responsable);
-        //proyecto.setTipoProyecto(randomService.generaProyectoTipo());
-        proyecto.setTipoProyecto(TipoProyecto.INDUSTRIA);
-        proyecto.setNombre("Proyecto-" + post);
-        proyecto.setDescripcion(randomService.descripcion(250));
-        proyecto.setEstatus(Estado.PROCESO);
+        industria.setResponsable(responsable);
+        industria.setTipoProyecto(TipoProyecto.INDUSTRIA);
+        industria.setNombre("Proyecto-" + post);
+        industria.setDescripcion(randomService.descripcion(250));
+        industria.setEstatus(Estado.PROCESO);
 
-        Proyecto res = proyectoRepository.save(proyecto);
-
-        datosIndustria.setProyecto(res);
-        DatosIndustria resDatosIndustria = industriaRepository.save(datosIndustria);
+        Industria res = industriaRepository.save(industria);
 
         return res;
     }
 
-    private Proyecto createProyectoConahcyt(String post, Empleado responsable, Cliente cliente) {
-        Proyecto proyecto = new Proyecto();
-        DatosConahcyt datosConahcyt = new DatosConahcyt();
+    private Proyecto createProyectoConahcyt(String post, Empleado responsable) {
+        Conahcyt proyecto = new Conahcyt();
         List<Convocatoria> convocatorias = convocatoriaRepository.findAll();
-        datosConahcyt.setConvocatoria(convocatorias.getFirst());
-        datosConahcyt.setObjetivo(randomService.descripcion(20));
+        proyecto.setConvocatoria(convocatorias.getFirst());
+        proyecto.setObjetivo(randomService.descripcion(20));
 
         proyecto.setResponsable(responsable);
         proyecto.setTipoProyecto(TipoProyecto.CONAHCYT);
         proyecto.setNombre("Proyecto-" + post);
         proyecto.setDescripcion(randomService.descripcion(250));
         proyecto.setEstatus(Estado.PROCESO);
+        proyecto.setFase(FaseConahcyt.ACTIVACION_EJECUCION);
+        proyecto.setPropuesta("Propuesta dumnmy");
 
-        Proyecto res = proyectoRepository.save(proyecto);
-        datosConahcyt.setProyecto(res);
-        datosConahcyt.setFase(FaseConahcyt.ACTIVACION_EJECUCION);
-
-        DatosConahcyt resDatosConahcyt = conahcytRepository.save(datosConahcyt);
+        Conahcyt res = conahcytRepository.save(proyecto);
 
         return res;
     }
 
     private Proyecto createProyectoIndustria(String post, Empleado responsable, Cliente cliente) {
-        Proyecto proyecto = new Proyecto();
-        DatosIndustria datosIndustria = new DatosIndustria();
-        datosIndustria.setCliente(cliente);
-        datosIndustria.setPresupuesto(randomService.generaCostoRandom());
+        Industria industria = new Industria();
+        industria.setCliente(cliente);
+        industria.setPresupuesto(randomService.generaCostoRandom());
 
-        proyecto.setResponsable(responsable);
-        proyecto.setTipoProyecto(TipoProyecto.INDUSTRIA);
-        proyecto.setNombre("Proyecto-" + post);
-        proyecto.setDescripcion(randomService.descripcion(250));
-        proyecto.setEstatus(Estado.PROCESO);
+        industria.setResponsable(responsable);
+        industria.setTipoProyecto(TipoProyecto.INDUSTRIA);
+        industria.setNombre("Proyecto-" + post);
+        industria.setDescripcion(randomService.descripcion(250));
+        industria.setEstatus(Estado.PROCESO);
 
-        Proyecto res = proyectoRepository.save(proyecto);
-
-        datosIndustria.setProyecto(res);
-        DatosIndustria resDatosIndustria = industriaRepository.save(datosIndustria);
+        Industria res = industriaRepository.save(industria);
         return res;
     }
 
     private Proyecto createProyectoInternos(String post, Empleado responsable, Cliente cliente) {
-        Proyecto proyecto = new Proyecto();
-        DatosIndustria datosIndustria = new DatosIndustria();
-        datosIndustria.setCliente(cliente);
-        datosIndustria.setPresupuesto(randomService.generaCostoRandom());
+        Industria industria = new Industria();
+        industria.setCliente(cliente);
+        industria.setPresupuesto(randomService.generaCostoRandom());
 
-        proyecto.setResponsable(responsable);
-        proyecto.setTipoProyecto(TipoProyecto.INTERNOS);
-        proyecto.setNombre("Proyecto-" + post);
-        proyecto.setDescripcion(randomService.descripcion(250));
-        proyecto.setEstatus(Estado.PROCESO);
+        industria.setResponsable(responsable);
+        industria.setTipoProyecto(TipoProyecto.INTERNOS);
+        industria.setNombre("Proyecto-" + post);
+        industria.setDescripcion(randomService.descripcion(250));
+        industria.setEstatus(Estado.PROCESO);
 
-        Proyecto res = proyectoRepository.save(proyecto);
-
-        datosIndustria.setProyecto(res);
-        DatosIndustria resDatosIndustria = industriaRepository.save(datosIndustria);
-
-        return res;
-    }
-
-    private Proyecto createProyectoPosgrado(String post, Empleado responsable, Cliente cliente) {
-        Proyecto proyecto = new Proyecto();
-        DatosIndustria datosIndustria = new DatosIndustria();
-        datosIndustria.setCliente(cliente);
-        datosIndustria.setPresupuesto(randomService.generaCostoRandom());
-
-        proyecto.setResponsable(responsable);
-        proyecto.setTipoProyecto(TipoProyecto.POSTGRADO);
-        proyecto.setNombre("Proyecto-" + post);
-        proyecto.setDescripcion(randomService.descripcion(250));
-        proyecto.setEstatus(Estado.PROCESO);
-
-        Proyecto res = proyectoRepository.save(proyecto);
-
-        datosIndustria.setProyecto(res);
-        DatosIndustria resDatosIndustria = industriaRepository.save(datosIndustria);
+        Industria res = industriaRepository.save(industria);
 
         return res;
     }
@@ -464,18 +413,6 @@ public class DataLoad {
         actividad.setRealizadoPor(personal);
 
         Actividad res = actividadRepository.save(actividad);
-        return res;
-    }
-
-    private Pago createPago(Proyecto proyecto, LocalDate ld, int pct){
-        Pago pago = new Pago();
-        pago.setId(0L);
-        pago.setFechaFacturacion(ld);
-        pago.setEstado(PagosEstado.PENDIENTE);
-        pago.setPorcentajePago(pct);
-        pago.setProyecto(proyecto);
-
-        Pago res = pagoRepository.save(pago);
         return res;
     }
 

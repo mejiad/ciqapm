@@ -90,12 +90,11 @@ public class ConahcytController {
         String username = auth.getName();
         System.out.println("Nombre del usuario: " + username);
 
-        Proyecto proyecto = proyectoRepository.getReferenceById(id);
+        Proyecto proyecto = conahcytRepository.getReferenceById(id);
         System.out.println("Proyecto: " + proyecto.getId() + " " + proyecto.getNombre());
         List<Etapa> etapas = etapaRepository.findByProyecto(proyecto);
-        DatosConahcyt datosConahcyt = conahcytRepository.findByProyecto(proyecto);
-        ConahcytDto conahcytDto = new ConahcytDto(proyecto, datosConahcyt);
-        System.out.println("Descripcion: " + conahcytDto.getDescripcion());
+        Conahcyt conahcyt = conahcytRepository.getReferenceById(id);
+        System.out.println("Descripcion: " + conahcyt.getDescripcion());
         System.out.println("Descripcion Proyecto: " + proyecto.getDescripcion());
         int avance = proyecto.getAvance();
 
@@ -111,7 +110,7 @@ public class ConahcytController {
             ganttDTOS.add(ganttDTO);
         });
 
-        model.addAttribute("conahcytDto", conahcytDto);
+        model.addAttribute("conahcytDto", conahcyt);
         model.addAttribute("etapas", ganttDTOS);
         model.addAttribute("avance", avance);
 
@@ -132,9 +131,8 @@ public class ConahcytController {
         Proyecto proyecto = proyectoRepository.getReferenceById(id);
         System.out.println("Proyecto: " + proyecto.getId() + " " + proyecto.getNombre());
         List<Etapa> etapas = etapaRepository.findByProyecto(proyecto);
-        DatosConahcyt datosConahcyt = conahcytRepository.findByProyecto(proyecto);
-        ConahcytDto conahcytDto = new ConahcytDto(proyecto, datosConahcyt);
-        System.out.println("Descripcion: " + conahcytDto.getDescripcion());
+        Conahcyt conahcyt = conahcytRepository.getReferenceById(id);
+        System.out.println("Descripcion: " + conahcyt.getDescripcion());
         System.out.println("Descripcion Proyecto: " + proyecto.getDescripcion());
         int avance = proyecto.getAvance();
 
@@ -150,7 +148,7 @@ public class ConahcytController {
             ganttDTOS.add(ganttDTO);
         });
 
-        model.addAttribute("conahcytDto", conahcytDto);
+        model.addAttribute("conahcytDto", conahcyt);
         model.addAttribute("etapas", ganttDTOS);
         model.addAttribute("avance", avance);
 
@@ -203,7 +201,7 @@ public class ConahcytController {
      */
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveProyecto(@Valid ConahcytDto conacytProyecto, BindingResult result, Model model) {
+    public String saveProyecto(@Valid Conahcyt conacyt, BindingResult result, Model model) {
 
 
         var mod = result.getModel();
@@ -220,7 +218,7 @@ public class ConahcytController {
             List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
             List<Convocatoria> convocatorias = convocatoriaRepository.findAll();
 
-            model.addAttribute("proyecto", conacytProyecto);
+            model.addAttribute("proyecto", conacyt);
             model.addAttribute("estados", estados);
             model.addAttribute("personas", personas);
             model.addAttribute("clientes", clientes);
@@ -228,18 +226,10 @@ public class ConahcytController {
             model.addAttribute("tiposProyecto", tiposProyecto);
             return "/Conahcyt/Edit";
         } else {
-            Proyecto proyecto = conacytProyecto.proyecto();
+            Conahcyt proyecto = conacyt;
 
             proyecto.setEstatus(Estado.PROCESO);
-
-            DatosConahcyt conahcyt = conacytProyecto.conahcyt();
-
-            Proyecto res = proyectoRepository.save(proyecto);
-            conahcyt.setProyecto(res);
-
-            conahcytRepository.save(conahcyt);
-
-            res = proyectoRepository.save(res);
+            Conahcyt res = conahcytRepository.save(proyecto);
 
             new File("src/main/resources/directory/conahcyt" + res.getId()).mkdirs();
 

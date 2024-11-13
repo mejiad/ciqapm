@@ -199,16 +199,13 @@ public class ProyectoController {
     }
 
     @PostMapping(value = "/saveConahcyt", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveProyecto(Proyecto proyecto, DatosConahcyt conahcyt, Model model) {
-
-        System.out.println("convocatoria Conacyt: " + conahcyt.getConvocatoria());
+    public String saveProyecto(Conahcyt proyecto, Model model) {
 
         // TODO: Crear el directorio del id del proyecto
 
         proyecto.setTipoProyecto(TipoProyecto.CONAHCYT);
         Proyecto res = proyectoRepository.save(proyecto);
-        conahcyt.setProyecto(res);
-        conahcytRepository.save(conahcyt);
+        conahcytRepository.save(proyecto);
 
         // res = proyectoRepository.save(res);
 

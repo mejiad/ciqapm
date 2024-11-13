@@ -8,67 +8,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
-public class Proyecto extends BaseClass implements Serializable {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class Proyecto  extends AbstractProyecto {
+     private String uuid;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-
-    @Size(min = 1, max = 120, message = "El nombre debe ser menor de 120 caracteres.")
-    @NotNull(message = "El nombre del proyecto es requerido.")
-    private String nombre;
-
-    @Size(min = 1, max = 250, message = "La descripción debe ser menor de 250 caracteres.")
-    @NotNull(message = "La descripción del proyecto es requerida.")
-    private String descripcion;
-
-    @NotNull(message = "El tipo del proyecto no se ha seleccionado.")
-    @Enumerated(EnumType.STRING)
-    private TipoProyecto tipoProyecto;
-
-    @NotNull(message = "El estatus del proyecto no se ha seleccionado.")
-    @Enumerated(EnumType.STRING)
-    private Estado estatus;
-
-    @NotNull(message = "El responsable del proyecto no se ha seleccionado.")
-    @ManyToOne
-    @JoinColumn(name="responsable_id", nullable=false)
-    private Empleado responsable;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Etapa> etapas = new ArrayList<>();
-
-    @Transient
-    private int avance;
-
-    public void addEtapa(Etapa etapa){
-        this.etapas.add(etapa);
-    }
-
-    private int calculaAvance() {
-        int pct = 0;
-        List<Etapa> etapas = this.getEtapas();
-
-        int etapaSum = etapas.stream().mapToInt(Etapa::getPctCompleto).sum();
-        if (etapas.size() > 0){
-            pct = etapaSum / etapas.size();
-        }
-        return pct;
-    }
-
-    @PostLoad
-    public void  postLoadAvance() {
-        this.avance = calculaAvance();
-    }
-
-    @PostUpdate
-    public void postUpdateAvance() {
-        this.avance = calculaAvance();
-    }
 }
