@@ -16,7 +16,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Proyecto  extends AbstractProyecto {
+public class Proyecto extends AbstractProyecto implements Serializable {
      private String uuid;
-
 }
