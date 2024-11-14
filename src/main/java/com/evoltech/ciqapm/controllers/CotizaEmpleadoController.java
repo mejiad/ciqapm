@@ -42,7 +42,7 @@ public class CotizaEmpleadoController {
         System.out.println("CotizaEmpleados:" + cotizaEmpleados.size());
         model.addAttribute("cotizacionId", id);
         model.addAttribute("cotizaEmpleados", cotizaEmpleados);
-        return "/CotizaPersonal/List";
+        return "CotizaPersonal/List";
     }
 
     @GetMapping("/new")

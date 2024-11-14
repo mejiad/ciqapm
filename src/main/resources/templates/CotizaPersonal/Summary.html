@@ -145,24 +145,24 @@
                     </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200" id="list-results">
-                    <tr th:each="cust, itemStat : *{personal}">
+                    <tr th:each="cust, itemStat : *{empleados}">
                       <td class="px-2 py-2 text-xs text-gray-500">
-                        <input th:field="*{personal[__${itemStat.index}__].personal.id}"
+                        <input th:field="*{empleados[__${itemStat.index}__].empleado.id}"
                                readonly/>
                       <td class="px-2 py-2 text-xs text-gray-500">
-                        <input th:field="*{personal[__${itemStat.index}__].personal.categoria}"
+                        <input th:field="*{empleados[__${itemStat.index}__].empleado.categoria}"
                                readonly/>
                       </td>
                       <td class="px-2 py-2 text-xs text-gray-500">
-                        <input th:field="*{personal[__${itemStat.index}__].personal.nombre}"
+                        <input th:field="*{empleados[__${itemStat.index}__].empleado.nombre}"
                                readonly/>
                       </td>
                       <td class="px-2 py-2 text-xs text-gray-500 text-right">
-                        <input th:field="*{personal[__${itemStat.index}__].personal.rate}"
+                        <input th:field="*{empleados[__${itemStat.index}__].empleado.rate}"
                                readonly/>
                       </td>
                       <td class="px-2 py-2 text-xs text-gray-500">
-                        <input th:field="*{personal[__${itemStat.index}__].horas}"
+                        <input th:field="*{empleados[__${itemStat.index}__].horas}"
                                class="block p-2 font-normal w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6"></input>
 
                       </td>

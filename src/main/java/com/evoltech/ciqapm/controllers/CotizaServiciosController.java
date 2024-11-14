@@ -76,7 +76,7 @@ public class CotizaServiciosController {
     public String addServicio(@RequestParam("id") Long id, HttpSession session, Model model){
         List<Servicio> lista = new ArrayList<>();
 
-        List<Servicio> listaPrevia = (List<Servicio>)session.getAttribute("lista");
+        List<Servicio> listaPrevia = (List<Servicio>)session.getAttribute("listaServicios");
         if(listaPrevia != null) {
             listaPrevia.stream().forEach(lista::add);
         }
@@ -87,7 +87,7 @@ public class CotizaServiciosController {
             lista.add(servicio);
         }
 
-        session.setAttribute("lista",lista);
+        session.setAttribute("listaServicios",lista);
 
         model.addAttribute("servicios", lista);
 
@@ -98,7 +98,7 @@ public class CotizaServiciosController {
     public String getarray(HttpSession session, Model model){
         CotizaServiciosWrapper cotizaServiciosWrapper = new CotizaServiciosWrapper();
 
-        List<Servicio> listaPrevia = (List<Servicio>) session.getAttribute("lista");
+        List<Servicio> listaPrevia = (List<Servicio>) session.getAttribute("listaServicios");
         if(listaPrevia != null){
             listaPrevia.stream().forEach(p -> {
                 CotizaServicio cs = new CotizaServicio();
@@ -114,7 +114,7 @@ public class CotizaServiciosController {
     @PostMapping("/postarray")
     public String postArray(CotizaServiciosWrapper serviciosWrapper,
                             HttpSession session, Model model){
-        session.removeAttribute("lista");
+        session.removeAttribute("listaServicios");
         Long id = (Long) session.getAttribute("cotizacionId");
         System.out.println("Cotizacion ID:" + id);
         Cotizacion cotizacion = cotizacionRepository.getReferenceById(id);

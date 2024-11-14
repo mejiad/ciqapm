@@ -16,6 +16,7 @@ public class CotizaEmpleado {
     @ManyToOne
     private Cotizacion cotizacion;
 
+    @ManyToOne
     private Empleado empleado;
 
     private int horas;
