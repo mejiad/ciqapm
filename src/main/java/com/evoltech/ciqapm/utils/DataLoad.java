@@ -42,9 +42,6 @@ public class DataLoad {
     ActividadRepository actividadRepository;
 
     @Autowired
-    PagoRepository pagoRepository;
-
-    @Autowired
     ConvocatoriaRepository convocatoriaRepository;
 
     @Autowired
@@ -72,7 +69,6 @@ public class DataLoad {
                     ServicioRepository servicioRepository, ProyectoRepository proyectoRepository,
                     EtapaRepository etapaRepository, DocumentoRepository documentoRepository,
                     UsuarioRepository usuarioRepository, ActividadRepository actividadRepository,
-                    PagoRepository pagoRepository,
                     IndustriaRepository industriaRepository,
                     ConahcytRepository conahcytRepository,
                     AlumnoRepository alumnoRepository,
@@ -89,7 +85,6 @@ public class DataLoad {
         this.usuarioRepository = usuarioRepository;
         this.actividadRepository = actividadRepository;
         this.passwordEncoder = passwordEncoder;
-        this.pagoRepository =  pagoRepository;
         this.alumnoRepository = alumnoRepository;
         this.conahcytRepository = conahcytRepository;
         this.cotizacionRepository = cotizacionRepository;

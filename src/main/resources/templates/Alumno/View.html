@@ -64,46 +64,38 @@
                                             <li class="z-30 flex-auto text-center">
                                                 <a class="z-30 flex items-center justify-center w-full px-0 py-2 text-sm mb-0 transition-all ease-in-out border-0 rounded-md cursor-pointer text-slate-600 bg-inherit"
                                                    data-tab-target="" role="tab" aria-selected="true"
-                                                   aria-controls="dashboard">
+                                                   aria-controls="etapas">
                                                     Etapas
                                                 </a>
                                             </li>
                                             <li class="z-30 flex-auto text-center">
                                                 <a class="z-30 flex items-center justify-center w-full px-0 py-2 mb-0 text-sm transition-all ease-in-out border-0 rounded-lg cursor-pointer text-slate-600 bg-inherit"
                                                    data-tab-target="" role="tab" aria-selected="false"
-                                                   aria-controls="profile">
+                                                   aria-controls="documentos">
                                                     Documentos
                                                 </a>
                                             </li>
                                             <li class="z-30 flex-auto text-center">
                                                 <a class="z-30 flex items-center justify-center w-full px-0 py-2 text-sm mb-0 transition-all ease-in-out border-0 rounded-lg cursor-pointer text-slate-700 bg-inherit"
                                                    data-tab-target="" role="tab" aria-selected="false"
-                                                   aria-controls="settings">
+                                                   aria-controls="participantes">
                                                     Participantes
                                                 </a>
                                             </li>
-                                            <li class="z-30 flex-auto text-center">
-                                                <a class="z-30 flex items-center justify-center w-full px-0 py-2 text-sm mb-0 transition-all ease-in-out border-0 rounded-lg cursor-pointer text-slate-700 bg-inherit"
-                                                   data-tab-target="" role="tab" aria-selected="false"
-                                                   aria-controls="pagos">
-                                                    Pagos
-                                                </a>
-                                            </li>
+
                                         </ul>
 
                                         <div data-tab-content="" class="p-5">
-                                            <div id="dashboard" role="tabpanel"
+                                            <div id="etapas" role="tabpanel"
                                                  th:hx-get="@{/etapa/list(id=${proyecto.id})}" hx-trigger="load">
                                             </div>
-                                            <div class="hidden opacity-0" id="profile" role="tabpanel"
+                                            <div class="hidden opacity-0" id="documentos" role="tabpanel"
                                                  th:hx-get="@{/documento/list(id=${proyecto.id})}" hx-trigger="load">
                                             </div>
-                                            <div class="hidden opacity-0" id="settings" role="tabpanel"
+                                            <div class="hidden opacity-0" id="participantes" role="tabpanel"
                                                  th:hx-get="@{/empleado/list}" hx-trigger="load">
                                             </div>
-                                            <div class="hidden opacity-0" id="pagos" role="tabpanel"
-                                                 th:hx-get="@{/pago/list(id=${proyecto.id})}" hx-trigger="load">
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
