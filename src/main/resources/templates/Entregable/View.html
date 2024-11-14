@@ -11,7 +11,7 @@
 <div>
     <div th:insert="~{sidebar}"></div>
     <div th:insert="~{header}"></div>
-    <main class="lg:pl-64">
+    <main class="lg:pl-72">
 
         <div class="relative flex min-h-min flex-col justify-center overflow-hidden bg-gray-50">
             <img src="/images/beams.jpg" alt=""
@@ -29,7 +29,40 @@
                                 <div class="space-y-2">
                                     <div class="border-b border-gray-900/10 pb-12">
                                         <div class="block text-sm font-medium leading-6 text-red-600">
+                                            <ul>
+                                                <li>
+                                                    <p th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}"></p>
 
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('descripcion')}"
+                                                          th:errors="*{descripcion}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('entregable')}"
+                                                          th:errors="*{entregable}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('fechaEstimadaInicio')}"
+                                                          th:errors="*{fechaEstimadaInicio}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('fechaEstimadaTerminacion')}"
+                                                          th:errors="*{fechaEstimadaTerminacion}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('responsable')}" th:errors="*{responsable}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('servicio')}" th:errors="*{servicio}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}">Nombre error</span>
+                                                </li>
+                                            </ul>
                                         </div>
                                         <div class="mt-2 grid grid-cols-1 gap-x-12 gap-y-8 sm:grid-cols-6">
 
@@ -39,7 +72,7 @@
                                                     de la etapa:</label>
                                                 <div class="mt-0">
                                                     <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
-                                                        <input type="text" name="nombre" id="nombre" readonly
+                                                        <input type="text" name="nombre" id="nombre"
                                                                th:value="*{nombre}"
                                                                class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 font-normal">
 
@@ -55,20 +88,35 @@
                                                        class="block text-sm font-medium leading-6 text-sky-900">Descripción</label>
                                                 <div class="mt-0">
                                                     <textarea id="descripcion" name="descripcion" rows="3"
-                                                              th:value="*{descripcion}" readonly
+                                                              th:value="*{descripcion}"
                                                               class="block  font-normal w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6">[[${etapa.descripcion}]]</textarea>
                                                 </div>
                                                 <p class="text-sm leading-6 text-gray-300 italic font-normal">Breve
                                                     descripción de esta parte del proyecto.</p>
                                             </div>
 
-
+                                            <div class="sm:col-span-4">
+                                                <label for="servicio"
+                                                       class="block text-sm font-medium leading-6 text-sky-900">Servicio: </label>
+                                                <div class="mt-0">
+                                                    <select id="servicio" name="servicio"
+                                                            class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                                        <option th:value="*{servicio?.id}"
+                                                                th:text="*{servicio?.nombre}"></option>
+                                                        <option th:each="ser : ${servicios}" th:value="${ser.id}"
+                                                                th:text="${ser.nombre}" th:selected="${servicio?.id}">>
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div class="sm:col-span-3">
                                                 <label for="responsable"
                                                        class="block text-sm font-medium leading-6 text-sky-900">Responsable: </label>
                                                 <div class="mt-2">
-                                                    <select id="responsable" name="responsable" disabled
+                                                    <select id="responsable" name="responsable"
                                                             class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                                        <option th:value="*{responsable?.id}"
+                                                                th:text="*{responsable?.nombre}"></option>
                                                         <option th:each="persona : ${personas}" th:value="${persona.id}"
                                                                 th:text="${persona.nombre}"
                                                                 th:selected="${responsable?.id}">>
@@ -92,7 +140,7 @@
                                                        class="block text-sm font-medium leading-6 text-sky-900">Porcentaje de avance:</label>
                                                 <div class="mt-0">
                                                     <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
-                                                        <input type="text" name="pctCompleto" id="pctCompleto" readonly
+                                                        <input type="text" name="pctCompleto" id="pctCompleto"
                                                                th:value="*{pctCompleto}"
                                                                class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
                                                     </div>
@@ -106,19 +154,23 @@
                                                     <input type="date" id="fechaEstimadaInicio"
                                                            class="text-sm font-normal leading-6 text-sky-900"
                                                            name="fechaEstimadaInicio"
-                                                           th:value="${etapa?.fechaEstimadaInicio}" readonly> - hasta -
+                                                           th:value="${etapa?.fechaEstimadaInicio}"> - hasta -
                                                     <input type="date" id="fechaEstimadaTerminacion"
                                                            class="text-sm font-normal leading-6 text-sky-900"
                                                            name="fechaEstimadaTerminacion"
-                                                           th:value="${etapa?.fechaEstimadaTerminacion}" readonly>
+                                                           th:value="${etapa?.fechaEstimadaTerminacion}">
 
 
                                                 </div>
+                                                <span th:if="${#fields.hasErrors('fechaEstimadaInicio')}"
+                                                      th:errors="*{fechaEstimadaInicio}">Nombre error</span>
+                                                <span th:if="${#fields.hasErrors('fechaEstimadaTerminacion')}"
+                                                      th:errors="*{fechaEstimadaTerminacion}">Nombre error</span>
                                             </div>
                                             <div class="sm:col-span-3">
                                                 <label class="block text-sm font-medium leading-6 text-sky-900">Estatus: </label>
                                                 <div class="mt-2">
-                                                    <select id="estado" name="estado" disabled
+                                                    <select id="estado" name="estado"
                                                             class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
                                                         <option th:value="*{estado}" th:text="*{estado}"></option>
                                                         <option th:each="estado : ${estados}" th:value="${estado}"
@@ -143,60 +195,31 @@
                                 </div>
                             </form>
 
-                            <div class="mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+
+                            <div class="mt-12 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
                                 <div class="w-full">
                                     <div class="relative right-0">
                                         <ul class="relative flex flex-wrap px-1.5 py-1.5 list-none rounded-md bg-slate-100"
                                             data-tabs="tabs" role="list">
                                             <li class="z-30 flex-auto text-center">
-                                                <a aria-controls="dashboard"
-                                                   aria-selected="true" class="z-30 flex items-center justify-center w-full px-0 py-2 text-sm mb-0 transition-all ease-in-out border-0 rounded-md cursor-pointer text-slate-600 bg-inherit" data-tab-target=""
-                                                   role="tab">
-                                                    Actividades
-                                                </a>
-                                            </li>
-                                            <li class="z-30 flex-auto text-center">
-                                                <a aria-controls="profile"
-                                                   aria-selected="false" class="z-30 flex items-center justify-center w-full px-0 py-2 mb-0 text-sm transition-all ease-in-out border-0 rounded-lg cursor-pointer text-slate-600 bg-inherit" data-tab-target=""
-                                                   role="tab">
-                                                    Documentos
-                                                </a>
-                                            </li>
-                                            <li class="z-30 flex-auto text-center">
-                                                <a aria-controls="settings"
-                                                   aria-selected="false" class="z-30 flex items-center justify-center w-full px-0 py-2 text-sm mb-0 transition-all ease-in-out border-0 rounded-lg cursor-pointer text-slate-700 bg-inherit" data-tab-target=""
-                                                   role="tab">
-                                                    Participantes
-                                                </a>
-                                            </li>
-                                            <li class="z-30 flex-auto text-center">
-                                                <a aria-controls="pagos"
-                                                   aria-selected="false" class="z-30 flex items-center justify-center w-full px-0 py-2 text-sm mb-0 transition-all ease-in-out border-0 rounded-lg cursor-pointer text-slate-700 bg-inherit" data-tab-target=""
-                                                   role="tab">
-                                                    Entregables
+                                                <a class="z-30 flex items-center justify-center w-full px-0 py-2 text-sm mb-0 transition-all ease-in-out border-0 rounded-md cursor-pointer text-slate-600 bg-inherit"
+                                                   data-tab-target="" role="tab" aria-selected="true"
+                                                   aria-controls="dashboard">
+                                                    Actividades realizadas en la etapa
                                                 </a>
                                             </li>
                                         </ul>
 
-                                        <div class="p-5" data-tab-content="">
-                                            <div hx-trigger="load" id="dashboard"
-                                                 role="tabpanel" th:hx-get="@{/etapa/list(id=${etapa.id})}">
-                                            </div>
-                                            <div class="hidden opacity-0" hx-trigger="load" id="profile"
-                                                 role="tabpanel" th:hx-get="@{/documento/list(id=${etapa.id})}">
-                                            </div>
-                                            <div class="hidden opacity-0" hx-trigger="load" id="settings"
-                                                 role="tabpanel" th:hx-get="@{/empleado/list}">
-                                            </div>
-                                            <div class="hidden opacity-0" hx-trigger="load" id="pagos"
-                                                 role="tabpanel" th:hx-get="@{/entregable/list(id=${etapa.id})}">
+                                        <div data-tab-content="" class="p-5">
+                                            <div id="dashboard" role="tabpanel"
+                                                 th:hx-get="@{/actividad/list(id=${etapa.id})}"
+                                                 hx-trigger="load">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
-
-
 
                         </div>
                     </div>
@@ -211,9 +234,5 @@
     </main>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
-<!-- from node_modules -->
-<script src="node_modules/@material-tailwind/html/scripts/tabs.js"></script>
 
-<!-- from cdn -->
-<script src="https://unpkg.com/@material-tailwind/html@latest/scripts/tabs.js"></script>
 </body>

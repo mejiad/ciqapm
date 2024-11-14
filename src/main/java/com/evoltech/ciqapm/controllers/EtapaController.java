@@ -56,8 +56,19 @@ public class EtapaController {
     }
 
     @GetMapping("/view")
-    public String viewEtapa(Model model){
-        return "/Etapa/View";
+        public String viewEtapa(@RequestParam Long id, Model model){
+            Etapa etapa = etapaRepository.getReferenceById(id);
+            List<Estado> estados = List.of(Estado.values());
+            List<Empleado> personas = personalRepository.findAll();
+            System.out.println("------ no. de personas: " + personas.size());
+            List<Servicio> servicios = servicioRepository.findAll();
+            Proyecto proyecto = etapa.getProyecto();
+            model.addAttribute("etapa", etapa);
+            model.addAttribute("proyecto", proyecto);
+            model.addAttribute("estados", estados);
+            model.addAttribute("personas", personas);
+            model.addAttribute("servicios", servicios);
+            return "/Etapa/View";
     }
 
     @GetMapping("/edit")
