@@ -11,7 +11,7 @@
 <div>
     <div th:insert="~{sidebar}"></div>
     <div th:insert="~{header}"></div>
-    <main >
+    <main class="lg:pl-64">
 
         <div class="relative flex min-h-min flex-col justify-center overflow-hidden bg-gray-50">
             <img src="/images/beams.jpg" alt=""
@@ -25,12 +25,6 @@
                                 <h2 class="text-3xl font-extrabold leading-6 text-sky-700">Cotizaciones</h2>
                             </div>
                             <div class="mt-3 sm:ml-4 sm:mt-0">
-                                <a th:href="@{/cotizacion/new(id=${proyecto.id})}">
-                                    <button type="button"
-                                            class="inline-flex items-center rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600">
-                                        + Cotización
-                                    </button>
-                                </a>
                             </div>
                         </div>
 

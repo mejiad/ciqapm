@@ -1,9 +1,13 @@
 package com.evoltech.ciqapm.controllers;
 
 import com.evoltech.ciqapm.model.Cotizacion;
+import com.evoltech.ciqapm.model.Industria;
+import com.evoltech.ciqapm.model.Proyecto;
 import com.evoltech.ciqapm.repository.CotizacionEmpleadoRepository;
 import com.evoltech.ciqapm.repository.CotizacionRepository;
 import com.evoltech.ciqapm.repository.CotizacionServiciosRepository;
+import com.evoltech.ciqapm.repository.ProyectoRepository;
+import com.evoltech.ciqapm.repository.datos.IndustriaRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,18 +30,35 @@ public class CotizacionController {
     @Autowired
     private CotizacionServiciosRepository cotizacionServiciosRepository;
 
-    public CotizacionController(CotizacionRepository cotizacionRepository, CotizacionEmpleadoRepository cotizacionEmpleadoRepository, CotizacionServiciosRepository cotizacionServiciosRepository) {
+    @Autowired
+    private IndustriaRepository industriaRepository;
+
+    public CotizacionController(CotizacionRepository cotizacionRepository, CotizacionEmpleadoRepository cotizacionEmpleadoRepository,
+                                CotizacionServiciosRepository cotizacionServiciosRepository,
+                                ProyectoRepository proyectoRepository) {
         this.cotizacionRepository = cotizacionRepository;
         this.cotizacionEmpleadoRepository = cotizacionEmpleadoRepository;
         this.cotizacionServiciosRepository = cotizacionServiciosRepository;
+        this.industriaRepository = industriaRepository;
+    }
+
+    @GetMapping("listAll")
+    private String listAll( Model model){
+        List<Cotizacion> cotizaciones = cotizacionRepository.findAll();
+        System.out.println("======== List de todas las cotizacion =========");
+
+        model.addAttribute("cotizaciones", cotizaciones);
+        return "/Cotizacion/ListAll";
     }
 
     @GetMapping("list")
-    private String list(Model model){
-
-        List<Cotizacion> cotizaciones = cotizacionRepository.findAll();
+    private String list(@RequestParam("id") Long id, Model model){
+        Industria industria = industriaRepository.getReferenceById(id);
+        List<Cotizacion> cotizaciones = cotizacionRepository.findByIndustria(industria);
+        System.out.println("======== List de cotizacion =========");
 
         model.addAttribute("cotizaciones", cotizaciones);
+        model.addAttribute("proyecto", industria);
         return "/Cotizacion/List";
     }
 
@@ -70,8 +91,10 @@ public class CotizacionController {
 
 
     @GetMapping("new")
-    private String nuevaCotizacion(Model model) {
+    private String nuevaCotizacion(@RequestParam("id") Long id,  Model model) {
+        Industria industria = industriaRepository.getReferenceById(id);
         Cotizacion cotizacion = new Cotizacion();
+        cotizacion.setIndustria(industria);
 
         model.addAttribute("cotizacion", cotizacion);
         return "Cotizacion/Edit";
@@ -82,12 +105,12 @@ public class CotizacionController {
     private String salvar(@Valid Cotizacion cotizacion, Model model, BindingResult result){
 
         if(result.hasErrors()){
+            System.out.println("Errores es la captura de datos.");
 
         } else {
-
+            cotizacionRepository.save(cotizacion);
         }
-
-        return "redirect:/cotizacion/list";
+        return "redirect:/cotizacion/view?id=" + cotizacion.getId();
     }
 
 }

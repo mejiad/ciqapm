@@ -44,6 +44,7 @@ public class IndustriaController {
     EtapaRepository etapaRepository;
     @Autowired
     private final EmpleadoRepository personalRepository;
+
     @Autowired
     private final ClienteRepository clienteRepository;
 

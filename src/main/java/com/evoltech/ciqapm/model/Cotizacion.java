@@ -14,13 +14,15 @@ import java.util.List;
 @NoArgsConstructor
 public class Cotizacion {
 
-    // TODO: responsable, cliente, vigencia, proyecto(?)
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @NotNull(message = "La clave es requerida.")
     private String numero;
+
+    @ManyToOne
+    private Industria industria;
 
     @NotNull(message = "El nombre es obligatorio.")
     private String nombre;
@@ -34,19 +36,15 @@ public class Cotizacion {
     @NotNull(message = "El costo de material debe ser introducido.")
     private Double pasajes;
 
-    @NotNull(message = "El costo total pruebas debe ser introducido.")
     private Double totalServicios;
 
-    @NotNull(message = "El costo total de horas ser introducido.")
     private Double costoTotalHrsHombre;
 
-    /*
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Servicio> servicioList = new ArrayList<>();
+    private List<Servicio> servicios = new ArrayList<>();
 
-     */
-
-    // private List<Empleado> empleados = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Empleado> empleados = new ArrayList<>();
 
     private Double costoTotal;
 
@@ -58,18 +56,13 @@ public class Cotizacion {
 
     private Double precioMinimoVenta;
 
-    /*
     private void addServicio(Servicio servicio){
-        servicioList.add(servicio);
+        servicios.add(servicio);
     }
 
-     */
-
-    /*
     private void addEmpleado(Empleado empleado){
         empleados.add(empleado);
     }
-     */
 
     private BigDecimal costoTotalServicios(){
         /*

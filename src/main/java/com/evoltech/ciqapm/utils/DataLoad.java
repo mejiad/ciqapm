@@ -158,6 +158,10 @@ public class DataLoad {
 
         Proyecto proyecto8 = createProyectoIndustria("1007", personal1, cliente5);
         Proyecto proyecto9 = createProyectoIndustria("1008", personal1, cliente5);
+        Proyecto proyecto12 = createProyectoIndustria("1077", personal1, cliente5);
+        Proyecto proyecto19 = createProyectoIndustria("1088", personal1, cliente5);
+
+
 
         Proyecto proyecto10 = createProyectoInternos("1009", personal3, cliente5);
         Proyecto proyecto11 = createProyectoInternos("1010", personal2, cliente5);
