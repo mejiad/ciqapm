@@ -31,8 +31,8 @@ public class Etapa extends BaseClass {
     private String descripcion;
 
     @NotNull(message = "El servicio es un dato requerido.")
-    @ManyToOne
-    // @JoinColumn(name = "servicio_id", nullable = false)
+    @ManyToOne (fetch = FetchType.EAGER)
+    @JoinColumn(name = "servicio_id", nullable = false)
     private Servicio servicio;
 
     @NotNull(message = "El responsable es un dato requerido.")
