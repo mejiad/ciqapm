@@ -56,6 +56,9 @@ public class DataLoad {
     @Autowired
     CotizacionRepository cotizacionRepository;
 
+    @Autowired
+    EmpConahcytRepository empConahcytRepository;
+
     //@Autowired
     //ProyectoDetailsRepository proyectoDetailsRepository;
 
@@ -74,6 +77,7 @@ public class DataLoad {
                     AlumnoRepository alumnoRepository,
                     CotizacionRepository cotizacionRepository,
                     ConvocatoriaRepository convocatoriaRepository,
+                    EmpConahcytRepository empConahcytRepository,
                     PasswordEncoder passwordEncoder) {
 
         this.personalRepository = repository;
@@ -89,6 +93,7 @@ public class DataLoad {
         this.conahcytRepository = conahcytRepository;
         this.cotizacionRepository = cotizacionRepository;
         this.convocatoriaRepository = convocatoriaRepository;
+        this.empConahcytRepository = empConahcytRepository;
     }
 
     public void initializa() {
@@ -151,10 +156,18 @@ public class DataLoad {
         Proyecto proyecto4 = createProyecto("1002", personal3, cliente4);
         Proyecto proyecto5 = createProyecto("1004", personal4, cliente5);
 
-        Proyecto proyecto6 = createProyectoConahcyt("1005", personal4);
-        Proyecto proyecto7 = createProyectoConahcyt("1006", personal4);
-        Proyecto proyecto61 = createProyectoConahcyt("1055", personal4);
-        Proyecto proyecto71 = createProyectoConahcyt("1056", personal4);
+        Conahcyt proyecto6 = createProyectoConahcyt("1005", personal4);
+        Conahcyt proyecto7 = createProyectoConahcyt("1006", personal4);
+        Conahcyt proyecto61 = createProyectoConahcyt("1055", personal4);
+        Conahcyt proyecto71 = createProyectoConahcyt("1056", personal4);
+
+        addParticipanteConahcyt(proyecto6, personal1);
+        addParticipanteConahcyt(proyecto6, personal2);
+        addParticipanteConahcyt(proyecto6, personal3);
+
+        addParticipanteConahcyt(proyecto7, personal1);
+        addParticipanteConahcyt(proyecto7, personal2);
+        addParticipanteConahcyt(proyecto7, personal3);
 
         Proyecto proyecto8 = createProyectoIndustria("1007", personal1, cliente5);
         Proyecto proyecto9 = createProyectoIndustria("1008", personal1, cliente5);
@@ -273,6 +286,15 @@ public class DataLoad {
     }
 
 
+    private EmpConahcyt addParticipanteConahcyt(Conahcyt conahcyt, Empleado empleado){
+        EmpConahcyt empConahcyt = new EmpConahcyt();
+        empConahcyt.setConahcyt(conahcyt);
+        empConahcyt.setEmpleado(empleado);
+        EmpConahcyt res = empConahcytRepository.save(empConahcyt);
+        return res;
+    }
+
+
     private Empleado createEmpleadoCiqa(String clave, String nombre, Double rate, String categoriaStr) {
         Empleado personal = new Empleado();
         personal.setClave(clave);
@@ -312,7 +334,7 @@ public class DataLoad {
         return res;
     }
 
-    private Proyecto createProyectoConahcyt(String post, Empleado responsable) {
+    private Conahcyt createProyectoConahcyt(String post, Empleado responsable) {
         Conahcyt proyecto = new Conahcyt();
         List<Convocatoria> convocatorias = convocatoriaRepository.findAll();
         proyecto.setConvocatoria(convocatorias.getFirst());
