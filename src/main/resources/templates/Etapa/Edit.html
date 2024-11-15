@@ -111,14 +111,25 @@
                                                 <label class="block text-sm font-medium leading-6 text-sky-900"
                                                        for="servicio">Servicio: </label>
                                                 <div class="mt-0">
-                                                    <select class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6" id="servicio"
-                                                            name="servicio">
-                                                        <option th:text="*{servicio?.descripcion}"
-                                                                th:value="*{servicio?.id}"></option>
-                                                        <option th:each="ser : ${servicios}" th:selected="${servicio?.id}"
-                                                                th:text="${ser.descripcion}"
-                                                                th:value="${ser.id}">>
+                                                    <!--
+                                                    <select class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                                            id="servicio"
+                                                            name="servicio" >
+                                                        <option th:each="ser : ${servicios}"
+                                                                th:text="${ser.descripcion}" th:selected=""
+                                                                th:value="${ser.id}">
                                                         </option>
+                                                    </select>
+                                                    -->
+                                                        <select id="servicio" name="servicio"
+                                                            class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
+
+                                                        <option th:each="choice : ${servicios}"
+                                                                th:value="${choice.id}"
+                                                                th:attr="choiceid=${choice.id}, categoryid=*{servicio.id}, showselected=(${choice.id} == *{servicio.id})"
+                                                                th:selected="(${choice.id} == *{servicio.id})"
+                                                                th:readonly="(${choice.id} == *{servicio.id})"
+                                                                th:text="${choice.descripcion}"></option>
                                                     </select>
                                                 </div>
                                             </div>
