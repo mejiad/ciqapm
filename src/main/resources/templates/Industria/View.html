@@ -17,19 +17,22 @@
 
         /* Style tab links */
         .tablink {
-          background-color: #cdcdcd;
+          background-color: #608BC1;
           color: white;
           float: left;
           border: none;
           outline: none;
           cursor: pointer;
           padding: 14px 16px;
+          border-radius: 20px 20px 0px 0px;
           font-size: 17px;
           width: 20%;
+          border-bottom: 5px solid #133E87;
+
         }
 
         .tablink:hover {
-          background-color: #777;
+          background-color: #CBDCEB;
         }
 
         /* Style the tab content (and add height:100% for full page content) */
@@ -44,7 +47,7 @@
         #Etapas {background-color: #fff;}
         #Documentos {background-color: #fff;}
         #Particiapntes {background-color: #fff;}
-        #Cotización {background-color: #fff;}
+        #Propuesta {background-color: #fff;}
     </style>
 
 
@@ -66,7 +69,7 @@
                             <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                                 <p>
                                     <span th:text="${proyecto.nombre}"
-                                          class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"></span>
+                                          class="self-center text-2xl font-semibold whitespace-nowrap"></span>
                                 </p>
                             </div>
                         </nav>
@@ -74,11 +77,11 @@
                         <div class="pt-2 text-base font-normal leading-7">
 
                             <div class="font-semibold">
-                                <button class="tablink" onclick="openPage('Info', this, '#778da9')"  id="defaultOpen">Info</button>
-                                <button class="tablink" onclick="openPage('Cotización', this, '#778da9')">Cotizaciones</button>
-                                <button class="tablink" onclick="openPage('Participantes', this, '#778da9')">Participantes</button>
-                                <button class="tablink" onclick="openPage('Etapas', this, '#778da9')">Etapas </button>
-                                <button class="tablink" onclick="openPage('Documentos', this, '#778da9')">Documentos</button>
+                                <button class="tablink" onclick="openPage('Info', this, '#133E87')"  id="defaultOpen">Info</button>
+                                <button class="tablink" onclick="openPage('Cotización', this, '#133E87')">Cotizaciones</button>
+                                <button class="tablink" onclick="openPage('Participantes', this, '#133E87')">Participantes</button>
+                                <button class="tablink" onclick="openPage('Etapas', this, '#133E87')">Etapas </button>
+                                <button class="tablink" onclick="openPage('Documentos', this, '#133E87')">Documentos</button>
                             </div>
                             <div id="Info" class="tabcontent">
                                 <div class="mt-1 flex items-center space-x-3">

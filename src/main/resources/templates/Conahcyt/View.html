@@ -17,19 +17,22 @@
 
         /* Style tab links */
         .tablink {
-          background-color: #cdcdcd;
+          background-color: #608BC1;
           color: white;
           float: left;
           border: none;
           outline: none;
           cursor: pointer;
           padding: 14px 16px;
+          border-radius: 20px 20px 0px 0px;
           font-size: 17px;
           width: 20%;
+          border-bottom: 5px solid #133E87;
+
         }
 
         .tablink:hover {
-          background-color: #777;
+          background-color: #CBDCEB;
         }
 
         /* Style the tab content (and add height:100% for full page content) */
@@ -66,7 +69,7 @@
                             <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                                 <p>
                                     <span th:text="${conahcytDto.nombre}"
-                                          class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"></span>
+                                          class="self-center text-2xl font-semibold whitespace-nowrap"></span>
                                 </p>
                                 <!--      <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                                           <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Get started</button>
@@ -80,11 +83,11 @@
                         <div class="pt-2 text-base font-normal leading-7">
 
                             <div class="font-semibold">
-                            <button class="tablink" onclick="openPage('Info', this, '#778da9')"  id="defaultOpen">Info</button>
-                            <button class="tablink" onclick="openPage('Propuesta', this, '#778da9')">Propuesta</button>
-                            <button class="tablink" onclick="openPage('Participantes', this, '#778da9')">Participantes</button>
-                            <button class="tablink" onclick="openPage('Etapas', this, '#778da9')">Etapas </button>
-                            <button class="tablink" onclick="openPage('Documentos', this, '#778da9')">Documentos</button>
+                            <button class="tablink" onclick="openPage('Info', this, '#133E87')"  id="defaultOpen">Info</button>
+                            <button class="tablink" onclick="openPage('Propuesta', this, '#133E87')">Propuesta</button>
+                            <button class="tablink" onclick="openPage('Participantes', this, '#133E87')">Participantes</button>
+                            <button class="tablink" onclick="openPage('Etapas', this, '#133E87')">Etapas </button>
+                            <button class="tablink" onclick="openPage('Documentos', this, '#133E87')">Documentos</button>
                             </div>
                             <div id="Info" class="tabcontent">
                                 <div class="mt-1 flex items-center space-x-3">
