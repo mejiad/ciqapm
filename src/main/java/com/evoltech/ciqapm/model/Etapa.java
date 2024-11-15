@@ -32,7 +32,7 @@ public class Etapa extends BaseClass {
 
     @NotNull(message = "El servicio es un dato requerido.")
     @ManyToOne
-    @JoinColumn(name = "servicio_id", nullable = false)
+    // @JoinColumn(name = "servicio_id", nullable = false)
     private Servicio servicio;
 
     @NotNull(message = "El responsable es un dato requerido.")

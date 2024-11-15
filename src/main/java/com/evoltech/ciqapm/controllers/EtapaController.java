@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -93,9 +94,11 @@ public class EtapaController {
         List<Estado> estados = List.of(Estado.values());
         List<Empleado> personas = personalRepository.findAll();
         List<Servicio> servicios = servicioRepository.findAll();
+        Servicio servicioDummy = servicioRepository.getReferenceById(1L);
         Etapa etapa = new Etapa();
         etapa.setProyecto(proyecto);
         etapa.setPctCompleto(0);
+        // etapa.setServicio(servicioDummy);
         etapa.setEstado(Estado.CREACION);
 
         model.addAttribute("etapa", etapa);
@@ -108,6 +111,7 @@ public class EtapaController {
 
    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
    public String saveEtapa(@Valid Etapa etapa, BindingResult result, Model model) {
+       System.out.println("Inicio de save");
         if(result.hasErrors()){
             var mod = result.getModel();
 
