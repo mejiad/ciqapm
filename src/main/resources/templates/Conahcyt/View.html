@@ -26,7 +26,7 @@
           padding: 10px 12px;
           border-radius: 20px 20px 0px 0px;
           font-size: 17px;
-          width: 20%;
+          width: 16.66%;
           border-bottom: 2px solid #608BC1;
 
         }
@@ -50,6 +50,7 @@
         #Documentos {background-color: #fff;}
         #Particiapntes {background-color: #fff;}
         #Propuesta {background-color: #fff;}
+        #Gant {background-color: #fff;}
     </style>
 
 
@@ -67,7 +68,7 @@
             <div class="relative bg-white px-6 pt-4 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-10 sm:rounded-lg sm:px-10">
                 <div class="mx-auto max-w-screen-lg">
                     <div class="divide-y divide-gray-300/50">
-                        <nav class="bg-white border-gray-200 dark:bg-gray-900">
+                        <nav class="bg-white">
                             <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                                 <p>
                                     <span th:text="${conahcytDto.nombre}"
@@ -90,6 +91,7 @@
                             <button class="tablink" onclick="openPage('Participantes', this, '#608BC1')">Participantes</button>
                             <button class="tablink" onclick="openPage('Etapas', this, '#608BC1')">Etapas </button>
                             <button class="tablink" onclick="openPage('Documentos', this, '#608BC1')">Documentos</button>
+                            <button class="tablink" onclick="openPage('Gant', this, '#608BC1')">Gráficas</button>
                             </div>
                             <div id="Info" class="tabcontent">
                                 <div class="mt-1 flex items-center space-x-3">
@@ -148,6 +150,9 @@
                             <div id="Propuesta" class="tabcontent">
                                 <div th:hx-get="@{/propuesta/list(id=${conahcytDto.id})}" hx-trigger="load"></div>
                             </div>
+                            <div id="Gant" class="tabcontent">
+                                <div th:insert="~{Plot/Gantt}"></div>
+                            </div>
 
                             <script>
                                 function openPage(pageName,elmnt,color) {
@@ -174,12 +179,6 @@
                                 // Get the element with id="defaultOpen" and click on it
                                 document.getElementById("defaultOpen").click();
                             </script>
-
-                            <div class="mt-1 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                                <div th:insert="~{Plot/Gantt}"></div>
-                            </div>
-
-
                             <!-- CONTENIDO ... -->
                         </div>
 
