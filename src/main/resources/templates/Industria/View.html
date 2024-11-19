@@ -5,50 +5,56 @@
     <meta charset="UTF-8">
     <script src="/htmx.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        * {box-sizing: border-box}
+    <head>
+        <meta charset="UTF-8">
+        <script src="/htmx.min.js"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            * {box-sizing: border-box}
 
-        /* Set height of body and the document to 100% */
-        body, html {
-          height: 100%;
-          margin: 0;
-          font-family: Arial;
-        }
+            /* Set height of body and the document to 100% */
+            body, html {
+              height: 100%;
+              margin: 0;
+              font-family: Arial;
+            }
 
-        /* Style tab links */
-        .tablink {
-          background-color: #608BC1;
-          color: white;
-          float: left;
-          border: none;
-          outline: none;
-          cursor: pointer;
-          padding: 14px 16px;
-          border-radius: 20px 20px 0px 0px;
-          font-size: 17px;
-          width: 20%;
-          border-bottom: 5px solid #133E87;
+            /* Style tab links */
+            .tablink {
+              background-color: #fff;
+              color:  #133E87;
+              float: left;
+              border: none;
+              outline: none;
+              cursor: pointer;
+              padding: 10px 12px;
+              border-radius: 20px 20px 0px 0px;
+              font-size: 17px;
+              width: 20%;
+              border-bottom: 2px solid #608BC1;
 
-        }
+            }
 
-        .tablink:hover {
-          background-color: #CBDCEB;
-        }
+            .tablink:hover {
+              background-color: #fff;
+                        color: #ed7f3d;
 
-        /* Style the tab content (and add height:100% for full page content) */
-        .tabcontent {
-          color: white;
-          display: none;
-          padding: 100px 20px;
-          height: 100%;
-        }
+            }
 
-        #Info {background-color: #fff;}
-        #Etapas {background-color: #fff;}
-        #Documentos {background-color: #fff;}
-        #Particiapntes {background-color: #fff;}
-        #Propuesta {background-color: #fff;}
-    </style>
+            /* Style the tab content (and add height:100% for full page content) */
+            .tabcontent {
+              color: white;
+              display: none;
+              padding: 100px 20px;
+              height: 100%;
+            }
+
+            #Info {background-color: #fff;}
+            #Etapas {background-color: #fff;}
+            #Documentos {background-color: #fff;}
+            #Particiapntes {background-color: #fff;}
+            #Cotizacion {background-color: #fff;}
+        </style>
 
 
     <title>Info del Proyecto</title>
@@ -77,11 +83,11 @@
                         <div class="pt-2 text-base font-normal leading-7">
 
                             <div class="font-semibold">
-                                <button class="tablink" onclick="openPage('Info', this, '#133E87')"  id="defaultOpen">Info</button>
-                                <button class="tablink" onclick="openPage('Cotización', this, '#133E87')">Cotizaciones</button>
-                                <button class="tablink" onclick="openPage('Participantes', this, '#133E87')">Participantes</button>
-                                <button class="tablink" onclick="openPage('Etapas', this, '#133E87')">Etapas </button>
-                                <button class="tablink" onclick="openPage('Documentos', this, '#133E87')">Documentos</button>
+                                <button class="tablink" onclick="openPage('Info', this, '#608BC1')"  id="defaultOpen">Info</button>
+                                <button class="tablink" onclick="openPage('Cotizacion', this, '#608BC1')">Cotizaciones</button>
+                                <button class="tablink" onclick="openPage('Participantes', this, '#608BC1')">Participantes</button>
+                                <button class="tablink" onclick="openPage('Etapas', this, '#608BC1')">Etapas </button>
+                                <button class="tablink" onclick="openPage('Documentos', this, '#608BC1')">Documentos</button>
                             </div>
                             <div id="Info" class="tabcontent">
                                 <div class="mt-1 flex items-center space-x-3">
@@ -129,7 +135,7 @@
                                 <div th:hx-get="@{/empleado/list}" hx-trigger="load"></div>
                             </div>
 
-                            <div id="Cotización" class="tabcontent">
+                            <div id="Cotizacion" class="tabcontent">
                                 <div th:hx-get="@{/cotizacion/list(id=${proyecto.id})}" hx-trigger="load"></div>
                             </div>
 
@@ -142,10 +148,17 @@
                                   }
                                   tablinks = document.getElementsByClassName("tablink");
                                   for (i = 0; i < tablinks.length; i++) {
-                                    tablinks[i].style.backgroundColor = "";
+                                    tablinks[i].style.color = "";
+                                    tablinks[i].style.borderColor = "#608BC1";
+                                    tablinks[i].style.borderWidth = "";
+                                    tablinks[i].style.fontWeight = "normal"
                                   }
                                   document.getElementById(pageName).style.display = "block";
-                                  elmnt.style.backgroundColor = color;
+                                  elmnt.style.color = color;
+                                  elmnt.style.borderColor = color;
+                                  elmnt.style.borderWidth = "5px";
+                                  elmnt.style.fontWeight = "bold"
+
                                 }
 
                                 // Get the element with id="defaultOpen" and click on it

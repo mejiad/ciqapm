@@ -136,9 +136,17 @@ public class EtapaController {
         } else {
             etapaRepository.save(etapa);
         }
+        String tp = etapa.getProyecto().getTipoProyecto().toString();
         //return "redirect:/proyecto/list";
-        return "redirect:/proyecto/view?id=" + etapa.getProyecto().getId();
-
+        if (tp.equals("CONAHCYT")) {
+            return "redirect:/conahcyt/view?id=" + etapa.getProyecto().getId();
+        } else if (tp.equals("INDUSTRIA")) {
+            return "redirect:/industriar/view?id=" + etapa.getProyecto().getId();
+        } else if (tp.equals("INTERNOS")) {
+            return "redirect:/interno/view?id=" + etapa.getProyecto().getId();
+        } else {
+            return "redirect:/proyecto/view?id=" + etapa.getProyecto().getId();
+        }
    }
 
 }
