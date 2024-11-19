@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -54,6 +56,15 @@ public class Etapa extends BaseClass {
     @NotNull(message = "El estado es requerido.")
     @Enumerated(EnumType.STRING)
     private Estado estado;
+
+    @ManyToMany (cascade = CascadeType.ALL)
+    private List<Empleado> participantes = new ArrayList<>();
+
+
+    public void addParticipante(Empleado empleado){
+        participantes.add(empleado);
+    }
+
 }
 
 /*

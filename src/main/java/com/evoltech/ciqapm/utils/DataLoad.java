@@ -197,6 +197,16 @@ public class DataLoad {
         proyecto1.addEtapa(etapa7);
         Etapa etapa8 = creaEtapa(personal5, proyecto7, servicio3, startDate.plusDays(90));
         proyecto1.addEtapa(etapa8);
+
+        etapa6.addParticipante(personal1);
+        etapa6.addParticipante(personal2);
+        etapa6.addParticipante(personal3);
+        etapa6.addParticipante(personal4);
+        // addParticipanteEtapaConahcyt(etapa6, personal1);
+        // addParticipanteEtapaConahcyt(etapa6, personal2);
+        // addParticipanteEtapaConahcyt(etapa6, personal3);
+        // addParticipanteEtapaConahcyt(etapa7, personal1);
+        // addParticipanteEtapaConahcyt(etapa7, personal3);
         proyectoRepository.save(proyecto1);
 
         Documento doc1 = creaDocumento("primer documento", proyecto1);
@@ -294,6 +304,11 @@ public class DataLoad {
         return res;
     }
 
+    private Etapa addParticipanteEtapaConahcyt(Etapa etapa, Empleado empleado){
+        etapa.addParticipante(empleado);
+        Etapa res = etapaRepository.save(etapa);
+        return res;
+    }
 
     private Empleado createEmpleadoCiqa(String clave, String nombre, Double rate, String categoriaStr) {
         Empleado personal = new Empleado();
