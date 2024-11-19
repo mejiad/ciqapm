@@ -62,6 +62,25 @@ public class PropuestaController {
         return "Propuesta/Edit";
     }
 
+    @GetMapping("edit")
+    private String edit(@RequestParam("id") Long id, Model model) {
+        Propuesta propuesta = propuestaRepository.getReferenceById(id);
+
+        model.addAttribute("propuesta", propuesta);
+
+        return "Propuesta/View";
+    }
+
+    @GetMapping("view")
+    private String view(@RequestParam("id") Long id, Model model) {
+        Propuesta propuesta = propuestaRepository.getReferenceById(id);
+
+        model.addAttribute("propuesta", propuesta);
+
+        return "Propuesta/View";
+    }
+
+
     @PostMapping("save")
     private String salvar(Propuesta propuesta, BindingResult result, Model model) {
 

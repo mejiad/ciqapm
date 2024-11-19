@@ -67,8 +67,12 @@
                                 class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Fecha de carga
                             </td>
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                <a th:href="@{/propuesta/edit(id=${propuesta.id})}"
-                                   class="text-sky-600 hover:text-sky-900">Edit</a>
+                                <a th:href="@{/propuesta/view(id=${propuesta.id})}"
+                                   class="text-sky-600 hover:text-sky-900">View</a>
+                            </td>
+                            <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                                <a th:href="@{/documento/propuesta(id=${propuesta.proyecto.id})}"
+                                   class="text-sky-600 hover:text-sky-900">Upload</a>
                             </td>
                         </tr>
                         </tbody>

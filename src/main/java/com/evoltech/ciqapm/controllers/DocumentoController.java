@@ -91,6 +91,20 @@ public class DocumentoController {
         return "/Documento/Edit";
     }
 
+    @GetMapping("/propuesta")
+    public String newPropuesta(@RequestParam("id") Long id, Model model){
+        Documento documento = new Documento();
+        Proyecto proyecto = proyectoRepository.getReferenceById(id);
+        List<TipoDocumento> tiposDocumento = List.of(TipoDocumento.values());
+        documento.setProyecto(proyecto);
+
+        model.addAttribute("documento", documento);
+        model.addAttribute("proyecto", proyecto);
+        model.addAttribute("tiposDocumento", tiposDocumento);
+
+        return "/Documento/Edit";
+    }
+
     /*
      necesitamos el archivo en multipart además de los datos que se
      deben guardar en la base de datos.

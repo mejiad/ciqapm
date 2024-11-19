@@ -19,6 +19,7 @@ public class Propuesta {
 
     private String descripcion;
 
+    @OneToOne
     private Empleado responsable;
 
     private LocalDate fechaCargaDocumento;
