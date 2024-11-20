@@ -6,6 +6,7 @@ import com.evoltech.ciqapm.repository.EmpleadoRepository;
 import com.evoltech.ciqapm.repository.ProyectoRepository;
 import com.evoltech.ciqapm.repository.ServicioRepository;
 import com.evoltech.ciqapm.service.EtapaService;
+import com.evoltech.ciqapm.utils.BreadcrumbService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -44,7 +45,7 @@ public class EtapaController {
     }
 
     @GetMapping("/list")
-    public String listEtapa(@RequestParam("id") Long id, Model model){
+    public String listEtapa(@RequestParam("id") Long id, Model model) {
         System.out.println("Numero de proyecto desde etapa:" + id);
         Proyecto proyecto = proyectoRepository.getReferenceById(id);
         model.addAttribute("proyecto", proyecto);
@@ -57,23 +58,31 @@ public class EtapaController {
     }
 
     @GetMapping("/view")
-        public String viewEtapa(@RequestParam Long id, Model model){
-            Etapa etapa = etapaRepository.getReferenceById(id);
-            List<Estado> estados = List.of(Estado.values());
-            List<Empleado> personas = personalRepository.findAll();
-            System.out.println("------ no. de personas: " + personas.size());
-            List<Servicio> servicios = servicioRepository.findAll();
-            Proyecto proyecto = etapa.getProyecto();
-            model.addAttribute("etapa", etapa);
-            model.addAttribute("proyecto", proyecto);
-            model.addAttribute("estados", estados);
-            model.addAttribute("personas", personas);
-            model.addAttribute("servicios", servicios);
-            return "/Etapa/View";
+    public String viewEtapa(@RequestParam Long id, Model model) {
+        BreadcrumbService breadcrumbService = new BreadcrumbService();
+        Etapa etapa = etapaRepository.getReferenceById(id);
+        String pathTipoProyecto = breadcrumbService.getPathTipoProyecto(etapa.getProyecto());
+        String pathProyecto = breadcrumbService.getPathProyecto(etapa.getProyecto());
+        String tagTipoProyecto = breadcrumbService.getTagTipoProyecto(etapa.getProyecto());
+
+        List<Estado> estados = List.of(Estado.values());
+        List<Empleado> personas = personalRepository.findAll();
+        System.out.println("------ no. de personas: " + personas.size());
+        List<Servicio> servicios = servicioRepository.findAll();
+        Proyecto proyecto = etapa.getProyecto();
+        model.addAttribute("etapa", etapa);
+        model.addAttribute("proyecto", proyecto);
+        model.addAttribute("estados", estados);
+        model.addAttribute("personas", personas);
+        model.addAttribute("servicios", servicios);
+        model.addAttribute("pathTipoProyecto", pathTipoProyecto);
+        model.addAttribute("pathProyecto", pathProyecto);
+        model.addAttribute("tagTipoProyecto", tagTipoProyecto);
+        return "/Etapa/View";
     }
 
     @GetMapping("/edit")
-    public String editEtapa(@RequestParam Long id, Model model){
+    public String editEtapa(@RequestParam Long id, Model model) {
         Etapa etapa = etapaRepository.getReferenceById(id);
         List<Estado> estados = List.of(Estado.values());
         List<Empleado> personas = personalRepository.findAll();
@@ -89,7 +98,7 @@ public class EtapaController {
     }
 
     @GetMapping("/new")
-    public String newEtapa(@RequestParam Long id,  Model model) {
+    public String newEtapa(@RequestParam Long id, Model model) {
         Proyecto proyecto = proyectoRepository.getReferenceById(id);
         List<Estado> estados = List.of(Estado.values());
         List<Empleado> personas = personalRepository.findAll();
@@ -109,10 +118,10 @@ public class EtapaController {
         return "/Etapa/Edit";
     }
 
-   @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-   public String saveEtapa(@Valid Etapa etapa, BindingResult result, Model model) {
-       System.out.println("Inicio de save");
-        if(result.hasErrors()){
+    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String saveEtapa(@Valid Etapa etapa, BindingResult result, Model model) {
+        System.out.println("Inicio de save");
+        if (result.hasErrors()) {
             var mod = result.getModel();
 
             List<Estado> estados = List.of(Estado.values());
@@ -147,6 +156,6 @@ public class EtapaController {
         } else {
             return "redirect:/proyecto/view?id=" + etapa.getProyecto().getId();
         }
-   }
+    }
 
 }
