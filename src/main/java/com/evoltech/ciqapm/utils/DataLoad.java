@@ -59,6 +59,9 @@ public class DataLoad {
     @Autowired
     EmpConahcytRepository empConahcytRepository;
 
+    @Autowired
+    EmpIndustriaRepository empIndustriaRepository;
+
     //@Autowired
     //ProyectoDetailsRepository proyectoDetailsRepository;
 
@@ -78,6 +81,7 @@ public class DataLoad {
                     CotizacionRepository cotizacionRepository,
                     ConvocatoriaRepository convocatoriaRepository,
                     EmpConahcytRepository empConahcytRepository,
+                    EmpIndustriaRepository empIndustriaRepository,
                     PasswordEncoder passwordEncoder) {
 
         this.personalRepository = repository;
@@ -156,46 +160,45 @@ public class DataLoad {
         Proyecto proyecto4 = createProyecto("1002", personal3, cliente4);
         Proyecto proyecto5 = createProyecto("1004", personal4, cliente5);
 
-        Conahcyt proyecto6 = createProyectoConahcyt("1005", personal4);
-        Conahcyt proyecto7 = createProyectoConahcyt("1006", personal4);
-        Conahcyt proyecto61 = createProyectoConahcyt("1055", personal4);
-        Conahcyt proyecto71 = createProyectoConahcyt("1056", personal4);
+        Conahcyt conahcyt_1 = createProyectoConahcyt("1005", personal4);
+        Conahcyt conahcyt_2 = createProyectoConahcyt("1006", personal4);
+        Conahcyt conahcyt_3 = createProyectoConahcyt("1055", personal4);
+        Conahcyt conahcyt_4 = createProyectoConahcyt("1056", personal4);
 
-        addParticipanteConahcyt(proyecto6, personal1);
-        addParticipanteConahcyt(proyecto6, personal2);
-        addParticipanteConahcyt(proyecto6, personal3);
+        addParticipanteConahcyt(conahcyt_1, personal1);
+        addParticipanteConahcyt(conahcyt_1, personal2);
+        addParticipanteConahcyt(conahcyt_1, personal3);
 
-        addParticipanteConahcyt(proyecto7, personal1);
-        addParticipanteConahcyt(proyecto7, personal2);
-        addParticipanteConahcyt(proyecto7, personal3);
+        addParticipanteConahcyt(conahcyt_2, personal1);
+        addParticipanteConahcyt(conahcyt_2, personal2);
+        addParticipanteConahcyt(conahcyt_2, personal3);
 
-        Proyecto proyecto8 = createProyectoIndustria("1007", personal1, cliente5);
-        Proyecto proyecto9 = createProyectoIndustria("1008", personal1, cliente5);
-        Proyecto proyecto12 = createProyectoIndustria("1077", personal1, cliente5);
-        Proyecto proyecto19 = createProyectoIndustria("1088", personal1, cliente5);
+        Industria industria_1 = createProyectoIndustria("1007", personal1, cliente5);
+        Industria industria_2 = createProyectoIndustria("1008", personal1, cliente5);
+        Industria industria_3 = createProyectoIndustria("1077", personal1, cliente5);
+        Industria industria_4 = createProyectoIndustria("1088", personal1, cliente5);
 
 
-
-        Proyecto proyecto10 = createProyectoInternos("1009", personal3, cliente5);
-        Proyecto proyecto11 = createProyectoInternos("1010", personal2, cliente5);
+        Proyecto interno_1 = createProyectoInternos("1009", personal3, cliente5);
+        Proyecto interno_2 = createProyectoInternos("1010", personal2, cliente5);
 
         LocalDate startDate = LocalDate.of(2024, 5, 10 );
-        Etapa etapa1 = creaEtapa(personal1, proyecto1, servicio1, startDate);
+        Etapa etapa1 = creaEtapa(personal1, industria_1, servicio1, startDate);
         proyecto1.addEtapa(etapa1);
-        Etapa etapa2 = creaEtapa(personal2, proyecto1, servicio2, startDate.plusDays(15));
+        Etapa etapa2 = creaEtapa(personal2, industria_1, servicio2, startDate.plusDays(15));
         proyecto1.addEtapa(etapa2);
-        Etapa etapa3 = creaEtapa(personal3, proyecto1, servicio3, startDate.plusDays(25));
+        Etapa etapa3 = creaEtapa(personal3, industria_2, servicio3, startDate.plusDays(25));
         proyecto1.addEtapa(etapa3);
-        Etapa etapa4 = creaEtapa(personal1, proyecto1, servicio1, startDate.plusDays(12));
+        Etapa etapa4 = creaEtapa(personal1, industria_2, servicio1, startDate.plusDays(12));
         proyecto1.addEtapa(etapa4);
 
-        Etapa etapa5 = creaEtapa(personal2, proyecto6, servicio2, startDate.plusDays(10));
+        Etapa etapa5 = creaEtapa(personal2, conahcyt_1, servicio2, startDate.plusDays(10));
         proyecto1.addEtapa(etapa5);
-        Etapa etapa6 = creaEtapa(personal3, proyecto6, servicio1, startDate.plusDays(40));
+        Etapa etapa6 = creaEtapa(personal3, conahcyt_1, servicio1, startDate.plusDays(40));
         proyecto1.addEtapa(etapa6);
-        Etapa etapa7 = creaEtapa(personal4, proyecto7, servicio2, startDate.plusDays(60));
+        Etapa etapa7 = creaEtapa(personal4, conahcyt_2, servicio2, startDate.plusDays(60));
         proyecto1.addEtapa(etapa7);
-        Etapa etapa8 = creaEtapa(personal5, proyecto7, servicio3, startDate.plusDays(90));
+        Etapa etapa8 = creaEtapa(personal5, conahcyt_2, servicio3, startDate.plusDays(90));
         proyecto1.addEtapa(etapa8);
 
         etapa6.addParticipante(personal1);
@@ -212,8 +215,8 @@ public class DataLoad {
         Documento doc1 = creaDocumento("primer documento", proyecto1);
         Documento doc2 = creaDocumento("segundo documento", proyecto1);
         Documento doc3 = creaDocumento("tercer documento", proyecto1);
-        Documento doc4 = creaDocumento("cuarto documento", proyecto6);
-        Documento doc5 = creaDocumento("quinto documento", proyecto7);
+        Documento doc4 = creaDocumento("cuarto documento", conahcyt_1);
+        Documento doc5 = creaDocumento("quinto documento", conahcyt_2);
         Documento doc6 = creaDocumento("sexto documento", proyecto3);
 
         Usuario usr1 = creaUsuario("user01", "pass01");
@@ -241,14 +244,14 @@ public class DataLoad {
         Etapa etapa8_p8 = creaEtapa(personal5, proyecto2, servicio3, startDate.plusDays(10));
         proyecto2.addEtapa(etapa1_p2);
         proyecto2.addEtapa(etapa2_p2);
-        proyecto6.addEtapa(etapa3_p2);
-        proyecto6.addEtapa(etapa4_p2);
-        proyecto7.addEtapa(etapa5_p2);
-        proyecto7.addEtapa(etapa6_p2);
-        proyecto7.addEtapa(etapa7_p2);
+        conahcyt_1.addEtapa(etapa3_p2);
+        conahcyt_1.addEtapa(etapa4_p2);
+        conahcyt_2.addEtapa(etapa5_p2);
+        conahcyt_2.addEtapa(etapa6_p2);
+        conahcyt_2.addEtapa(etapa7_p2);
         proyectoRepository.save(proyecto2);
-        proyectoRepository.save(proyecto6);
-        proyectoRepository.save(proyecto7);
+        proyectoRepository.save(conahcyt_1);
+        proyectoRepository.save(conahcyt_2);
 
         startDate = LocalDate.of(2025, 2, 10 );
         Etapa etapa1_p3 = creaEtapa(personal1, proyecto2, servicio1, startDate);
@@ -302,6 +305,16 @@ public class DataLoad {
         empConahcyt.setEmpleado(empleado);
         empConahcyt.setHoras(10);
         EmpConahcyt res = empConahcytRepository.save(empConahcyt);
+        return res;
+    }
+
+
+    private EmpIndustria addParticipanteIndustria(Industria industria, Empleado empleado){
+        EmpIndustria empIndustria = new EmpIndustria();
+        empIndustria.setIndustria(industria);
+        empIndustria.setEmpleado(empleado);
+        empIndustria.setHoras(10);
+        EmpIndustria res = empIndustriaRepository.save(empIndustria);
         return res;
     }
 
@@ -369,7 +382,7 @@ public class DataLoad {
         return res;
     }
 
-    private Proyecto createProyectoIndustria(String post, Empleado responsable, Cliente cliente) {
+    private Industria createProyectoIndustria(String post, Empleado responsable, Cliente cliente) {
         Industria industria = new Industria();
         industria.setCliente(cliente);
         industria.setPresupuesto(randomService.generaCostoRandom());
