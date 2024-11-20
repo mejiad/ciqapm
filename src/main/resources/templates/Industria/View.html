@@ -136,7 +136,7 @@
                                 <div th:hx-get="@{/documento/list(id=${proyecto.id})}" hx-trigger="load"></div>
                             </div>
                             <div id="Participantes" class="tabcontent">
-                                <div th:hx-get="@{/empleado/list}" hx-trigger="load"></div>
+                                <div th:hx-get="@{/empIndustria/list(id=${proyecto.id})}" hx-trigger="load"></div>
                             </div>
 
                             <div id="Cotizacion" class="tabcontent">
