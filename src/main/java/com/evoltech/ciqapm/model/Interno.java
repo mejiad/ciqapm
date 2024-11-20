@@ -1,22 +1,22 @@
 package com.evoltech.ciqapm.model;
 
 import com.evoltech.ciqapm.model.jpa.Convocatoria;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.mapping.ToOne;
 
 @Entity
 @Data
 @NoArgsConstructor
-public class Internos extends Proyecto {
+public class Interno extends Proyecto {
 
     @NotNull
     private String propuesta;
 
     @NotNull(message = "La convocatoria es un dato requerido.")
+    @ManyToOne
     private Convocatoria convocatoria;
 
     @NotNull(message = "El objetivo es un dato requerido.")
