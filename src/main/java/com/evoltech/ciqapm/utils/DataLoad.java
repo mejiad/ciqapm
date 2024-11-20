@@ -300,6 +300,7 @@ public class DataLoad {
         EmpConahcyt empConahcyt = new EmpConahcyt();
         empConahcyt.setConahcyt(conahcyt);
         empConahcyt.setEmpleado(empleado);
+        empConahcyt.setHoras(10);
         EmpConahcyt res = empConahcytRepository.save(empConahcyt);
         return res;
     }
