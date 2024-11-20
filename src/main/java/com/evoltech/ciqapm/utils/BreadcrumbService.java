@@ -2,7 +2,7 @@ package com.evoltech.ciqapm.utils;
 
 import com.evoltech.ciqapm.model.Conahcyt;
 import com.evoltech.ciqapm.model.Industria;
-import com.evoltech.ciqapm.model.Internos;
+import com.evoltech.ciqapm.model.Interno;
 import com.evoltech.ciqapm.model.Proyecto;
 
 public class BreadcrumbService {
@@ -13,7 +13,7 @@ public class BreadcrumbService {
             pathTipo = "/conahcyt/list";
         } else if (proyecto  instanceof Industria) {
             pathTipo = "/industria/list";
-        } else if (proyecto  instanceof Internos)  {
+        } else if (proyecto  instanceof Interno)  {
             pathTipo = "/internos/list";
         } else {
             pathTipo = "/home";
@@ -27,7 +27,7 @@ public class BreadcrumbService {
             pathProyecto = "/conahcyt/view?id=" + proyecto.getId();
         } else if (proyecto  instanceof Industria) {
             pathProyecto = "/industria/view?id=" + proyecto.getId();
-        } else if (proyecto  instanceof Internos)  {
+        } else if (proyecto  instanceof Interno)  {
             pathProyecto = "/internos/view?id=" + proyecto.getId();
         } else {
             pathProyecto = "/home";
@@ -41,7 +41,7 @@ public class BreadcrumbService {
             tag = "Proyectos CONAHCYT";
         } else if (proyecto  instanceof Industria) {
             tag = "Proyectos Idustria";
-        } else if (proyecto  instanceof Internos)  {
+        } else if (proyecto  instanceof Interno)  {
             tag = "Proyectos Internos";
         } else {
             tag = "Proyecto";
