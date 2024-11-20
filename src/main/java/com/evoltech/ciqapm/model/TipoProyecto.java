@@ -3,7 +3,7 @@ package com.evoltech.ciqapm.model;
 public enum TipoProyecto {
 
     INDUSTRIA,
-    INTERNOS,
+    INTERNO,
     POSTGRADO,
     CONAHCYT
 }

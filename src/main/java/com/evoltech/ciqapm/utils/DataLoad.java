@@ -5,6 +5,7 @@ import com.evoltech.ciqapm.model.jpa.Convocatoria;
 import com.evoltech.ciqapm.repository.*;
 import com.evoltech.ciqapm.repository.datos.ConahcytRepository;
 import com.evoltech.ciqapm.repository.datos.IndustriaRepository;
+import com.evoltech.ciqapm.repository.datos.InternoRepository;
 import com.evoltech.ciqapm.security.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -70,6 +71,8 @@ public class DataLoad {
     PasswordEncoder passwordEncoder;
 
     @Autowired RandomService randomService;
+    @Autowired
+    private InternoRepository internoRepository;
 
     public DataLoad(EmpleadoRepository repository, ClienteRepository clienteRepository,
                     ServicioRepository servicioRepository, ProyectoRepository proyectoRepository,
@@ -179,8 +182,8 @@ public class DataLoad {
         Industria industria_4 = createProyectoIndustria("1088", personal1, cliente5);
 
 
-        Proyecto interno_1 = createProyectoInternos("1009", personal3, cliente5);
-        Proyecto interno_2 = createProyectoInternos("1010", personal2, cliente5);
+        Proyecto interno_1 = createProyectoInterno("1009", personal3, cliente5, convocatoria);
+        Proyecto interno_2 = createProyectoInterno("1010", personal2, cliente5, convocatoria);
 
         LocalDate startDate = LocalDate.of(2024, 5, 10 );
         Etapa etapa1 = creaEtapa(personal1, industria_1, servicio1, startDate);
@@ -397,18 +400,18 @@ public class DataLoad {
         return res;
     }
 
-    private Proyecto createProyectoInternos(String post, Empleado responsable, Cliente cliente) {
-        Industria industria = new Industria();
-        industria.setCliente(cliente);
-        industria.setPresupuesto(randomService.generaCostoRandom());
+    private Interno createProyectoInterno(String post, Empleado responsable, Cliente cliente, Convocatoria convocatoria) {
+        Interno interno = new Interno();
 
-        industria.setResponsable(responsable);
-        industria.setTipoProyecto(TipoProyecto.INTERNOS);
-        industria.setNombre("Proyecto-" + post);
-        industria.setDescripcion(randomService.descripcion(250));
-        industria.setEstatus(Estado.PROCESO);
-
-        Industria res = industriaRepository.save(industria);
+        interno.setResponsable(responsable);
+        interno.setTipoProyecto(TipoProyecto.INTERNO);
+        interno.setNombre("Proyecto-" + post);
+        interno.setDescripcion(randomService.descripcion(250));
+        interno.setEstatus(Estado.PROCESO);
+        interno.setPropuesta("Propuesta dumnmy");
+        interno.setObjetivo("Objetivo");
+        interno.setConvocatoria(convocatoria);
+        Interno res = internoRepository.save(interno);
 
         return res;
     }

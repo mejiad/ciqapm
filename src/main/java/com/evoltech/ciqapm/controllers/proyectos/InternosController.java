@@ -2,10 +2,10 @@ package com.evoltech.ciqapm.controllers.proyectos;
 
 import com.evoltech.ciqapm.dto.GanttDTO;
 import com.evoltech.ciqapm.model.*;
-import com.evoltech.ciqapm.model.datos.DatosConahcyt;
 import com.evoltech.ciqapm.model.datos.DatosInternos;
 import com.evoltech.ciqapm.repository.*;
 import com.evoltech.ciqapm.repository.datos.ConahcytRepository;
+import com.evoltech.ciqapm.repository.datos.InternoRepository;
 import com.evoltech.ciqapm.service.ProyectoServicio;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/internos")
+@RequestMapping("/interno")
 public class InternosController {
 
     private static final Logger log = LogManager.getLogger(InternosController.class);
@@ -36,42 +36,36 @@ public class InternosController {
     ProyectoServicio proyectoServicio;
 
     @Autowired
-    ProyectoRepository proyectoRepository;
+    EtapaRepository etapaRepository;
 
     @Autowired
-    EtapaRepository etapaRepository;
-    @Autowired
     private final EmpleadoRepository personalRepository;
+
     @Autowired
     private final ClienteRepository clienteRepository;
 
     @Autowired
-    private final ConahcytRepository conahcytRepository;
+    private final InternoRepository internoRepository;
 
     public InternosController(ProyectoServicio proyectoServicio, ProyectoRepository proyectoRepository,
                               EtapaRepository etapaRepository,
                               EmpleadoRepository personalRepository,
-                              ConahcytRepository conahcytRepository,
+                              InternoRepository internoRepository,
                               ClienteRepository clienteRepository) {
         this.proyectoServicio = proyectoServicio;
-        this.proyectoRepository = proyectoRepository;
         this.etapaRepository = etapaRepository;
         this.personalRepository = personalRepository;
         this.clienteRepository = clienteRepository;
-        this.conahcytRepository = conahcytRepository;
+        this.internoRepository = internoRepository;
     }
 
     @GetMapping("/list")
     public String listProyecto(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        System.out.println("Usuario loggeado:" + username);
-
-        List<Proyecto> proyectos = proyectoRepository.findByTipoProyecto(TipoProyecto.INTERNOS);
-
+        List<Interno> proyectos = internoRepository.findAll();
         model.addAttribute("proyectos", proyectos);
-
-        return "/internos/List";
+        return "/Interno/List";
     }
 
     @GetMapping("/view")
@@ -83,7 +77,7 @@ public class InternosController {
         String username = auth.getName();
         System.out.println("Nombre del usuario: " + username);
 
-        Proyecto proyecto = proyectoRepository.getReferenceById(id);
+        Interno proyecto = internoRepository.getReferenceById(id);
         List<Etapa> etapas = etapaRepository.findByProyecto(proyecto);
 
         ArrayList<GanttDTO> ganttDTOS = new ArrayList<>();
@@ -101,12 +95,12 @@ public class InternosController {
         model.addAttribute("proyecto", proyecto);
         model.addAttribute("etapas", ganttDTOS);
 
-        return "/Proyecto/View";
+        return "/Interno/View";
     }
 
     @GetMapping("/edit")
     public String editProyecto(Model model) {
-        return "/Proyecto/Edit";
+        return "/Interno/Edit";
     }
 
 
@@ -114,7 +108,7 @@ public class InternosController {
 
     @GetMapping("/new")
     public String newInternos(Model model) {
-        Proyecto proyecto = new Proyecto();
+        Interno proyecto = new Interno();
         proyecto.setNombre("Primer Proyecto de prueba.");
         proyecto.setDescripcion("Descripción del proyecto.");
         List<Estado> estados = List.of(Estado.values());
@@ -122,7 +116,7 @@ public class InternosController {
         List<Cliente> clientes = clienteRepository.findAll();
         List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
         DatosInternos internos = new DatosInternos();
-        proyecto.setTipoProyecto(TipoProyecto.INTERNOS);
+        proyecto.setTipoProyecto(TipoProyecto.INTERNO);
 
         model.addAttribute("proyecto", proyecto);
         model.addAttribute("estados", estados);
@@ -131,7 +125,7 @@ public class InternosController {
         model.addAttribute("tiposProyecto", tiposProyecto);
         model.addAttribute("internos", internos);
 
-        return "/internos/Edit";
+        return "/Interno/Edit";
     }
 
     /*
@@ -139,24 +133,24 @@ public class InternosController {
     public String saveDocumento(Documento documento, Model model){
     */
 
+    // TODO: Borrar
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveProyecto(Proyecto proyecto, Model model) {
+    public String saveProyectoOld(Interno proyecto, Model model) {
 
-        // TODO: Crear el directorio del id del proyecto
-        Proyecto res = proyectoRepository.save(proyecto);
+        Interno res = internoRepository.save(proyecto);
 
         System.out.println("ID del nuevo proyecto: " + res.getId());
         new File("src/main/resources/directory/" + res.getId()).mkdirs();
-        return "redirect:/proyecto/list";
+        return "redirect:/interno/list";
     }
 
-    @PostMapping(value = "/saveConahcyt", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveProyecto(Conahcyt proyecto, Model model) {
+    @PostMapping(value = "/saveInterno", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String saveProyecto(Interno proyecto, Model model) {
 
         // TODO: Crear el directorio del id del proyecto
 
-        proyecto.setTipoProyecto(TipoProyecto.CONAHCYT);
-        Conahcyt res = conahcytRepository.save(proyecto);
+        proyecto.setTipoProyecto(TipoProyecto.INTERNO);
+        Interno res = internoRepository.save(proyecto);
 
         System.out.println("ID del nuevo proyecto: " + res.getId());
         new File("src/main/resources/directory/" + res.getId()).mkdirs();
