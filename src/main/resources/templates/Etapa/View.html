@@ -5,6 +5,52 @@
     <meta charset="UTF-8">
     <script src="/htmx.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {box-sizing: border-box}
+
+        /* Set height of body and the document to 100% */
+        body, html {
+          height: 100%;
+          margin: 0;
+          font-family: Arial;
+        }
+
+        /* Style tab links */
+        .tablink {
+          background-color: #fff;
+          color:  #133E87;
+          float: left;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          padding: 10px 12px;
+          border-radius: 20px 20px 0px 0px;
+          font-size: 17px;
+          width: 33.33%;
+          border-bottom: 2px solid #608BC1;
+
+        }
+
+        .tablink:hover {
+          background-color: #fff;
+                    color: #ed7f3d;
+
+        }
+
+        /* Style the tab content (and add height:100% for full page content) */
+        .tabcontent {
+          color: white;
+          display: none;
+          padding: 100px 20px;
+          height: 100%;
+        }
+
+        #Info {background-color: #fff;}
+        #Activiades {background-color: #fff;}
+        #Entregables {background-color: #fff;}
+    </style>
+
+
     <title>Info de la etapa</title>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -19,185 +65,153 @@
             <div class="absolute inset-0 bg-[url(/images/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
             <div class="relative bg-white px-6 pt-4 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-10 sm:rounded-lg sm:px-10">
                 <div class="mx-auto max-w-screen-lg">
-                    <div class="divide-y divide-gray-300/50">
-                        <div class="space-y-6 py-8 text-base leading-7 text-gray-600">
-                            <h2 class="text-3xl font-extrabold leading-6 text-sky-700">Información de la etapa</h2>
-                        </div>
-                        <div class="pt-0 text-base font-semibold leading-7">
-
-                            <form action="#" th:action="@{/etapa/save}" th:object="${etapa}" method="post">
-                                <div class="space-y-2">
-                                    <div class="border-b border-gray-900/10 pb-12">
-                                        <div class="block text-sm font-medium leading-6 text-red-600">
-
-                                        </div>
-                                        <div class="mt-2 grid grid-cols-1 gap-x-12 gap-y-8 sm:grid-cols-6">
-
-                                            <div class="sm:col-span-4">
-                                                <label for="nombre"
-                                                       class="block text-sm font-medium leading-6 text-sky-900">Nombre
-                                                    de la etapa:</label>
-                                                <div class="mt-0">
-                                                    <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
-                                                        <input type="text" name="nombre" id="nombre" readonly
-                                                               th:value="*{nombre}"
-                                                               class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 font-normal">
-
-                                                        <input type="hidden" id="id" name="id" th:value="*{id}"></input>
-                                                        <input type="hidden" id="proyecto" name="proyecto"
-                                                               th:value="*{proyecto.id}"></input>
-                                                    </div>
-                                                    <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Nombre error</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-span-full">
-                                                <label for="descripcion"
-                                                       class="block text-sm font-medium leading-6 text-sky-900">Descripción</label>
-                                                <div class="mt-0">
-                                                    <textarea id="descripcion" name="descripcion" rows="3"
-                                                              th:value="*{descripcion}" readonly
-                                                              class="block  font-normal w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6">[[${etapa.descripcion}]]</textarea>
-                                                </div>
-                                                <p class="text-sm leading-6 text-gray-300 italic font-normal">Breve
-                                                    descripción de esta parte del proyecto.</p>
-                                            </div>
-
-
-                                            <div class="sm:col-span-3">
-                                                <label for="responsable"
-                                                       class="block text-sm font-medium leading-6 text-sky-900">Responsable: </label>
-                                                <div class="mt-2">
-                                                    <select id="responsable" name="responsable" disabled
-                                                            class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                                        <option th:each="persona : ${personas}" th:value="${persona.id}"
-                                                                th:text="${persona.nombre}"
-                                                                th:selected="${responsable?.id}">>
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="sm:col-span-4">
-                                                <label for="entregable"
-                                                       class="block text-sm font-medium leading-6 text-sky-900">Entregable:</label>
-                                                <div class="mt-0">
-                                                    <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
-                                                        <input type="text" name="entregable" id="entregable"
-                                                               th:value="*{entregable}"
-                                                               class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="sm:col-span-4">
-                                                <label for="pctCompleto"
-                                                       class="block text-sm font-medium leading-6 text-sky-900">Porcentaje de avance:</label>
-                                                <div class="mt-0">
-                                                    <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
-                                                        <input type="text" name="pctCompleto" id="pctCompleto" readonly
-                                                               th:value="*{pctCompleto}"
-                                                               class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="sm:col-span-4 text-sm font-normal text-sky-900">
-                                                <label for="fechaEstimadaInicio"
-                                                       class="block text-sm font-normal leading-6 text-sky-900">Periodo
-                                                    estimado: </label>
-                                                <div class="mt-0 block">
-                                                    <input type="date" id="fechaEstimadaInicio"
-                                                           class="text-sm font-normal leading-6 text-sky-900"
-                                                           name="fechaEstimadaInicio"
-                                                           th:value="${etapa?.fechaEstimadaInicio}" readonly> - hasta -
-                                                    <input type="date" id="fechaEstimadaTerminacion"
-                                                           class="text-sm font-normal leading-6 text-sky-900"
-                                                           name="fechaEstimadaTerminacion"
-                                                           th:value="${etapa?.fechaEstimadaTerminacion}" readonly>
-
-
-                                                </div>
-                                            </div>
-                                            <div class="sm:col-span-3">
-                                                <label class="block text-sm font-medium leading-6 text-sky-900">Estatus: </label>
-                                                <div class="mt-2">
-                                                    <select id="estado" name="estado" disabled
-                                                            class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                                        <option th:value="*{estado}" th:text="*{estado}"></option>
-                                                        <option th:each="estado : ${estados}" th:value="${estado}"
-                                                                th:text="${estado}"></option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-6 my-12 flex items-center justify-end gap-x-6">
-                                        <button type="button" onclick="history.back();"
-                                                class="text-sm font-semibold leading-6 text-sky-900">
-                                            Cancelar
-                                        </button>
-                                        <button type="submit"
-                                                class="rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600">
-                                            Guardar
-                                        </button>
-                                    </div>
+                    <nav class="flex" aria-label="Breadcrumb">
+                        <ol class="inline-flex items-left space-x-1 md:space-x-2 rtl:space-x-reverse">
+                            <li class="inline-flex items-center">
+                                <div class="flex items-center">
+                                    <a href="#"
+                                       class="inline-flex items-center text-xs font-medium text-gray-700 hover:text-sky-600 dark:text-gray-400 dark:hover:text-white">
+                                        <svg class="w-3 h-3 me-2.5" aria-hidden="true"
+                                             xmlns="http://www.w3.org/2000/svg"
+                                             fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+                                        </svg>
+                                        Home
+                                    </a>
                                 </div>
-                            </form>
 
-                            <div class="mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                                <div class="w-full">
-                                    <div class="relative right-0">
-                                        <ul class="relative flex flex-wrap px-1.5 py-1.5 list-none rounded-md bg-slate-100"
-                                            data-tabs="tabs" role="list">
-                                            <li class="z-30 flex-auto text-center">
-                                                <a aria-controls="actividades"
-                                                   aria-selected="true" class="z-30 flex items-center justify-center w-full px-0 py-2 text-sm mb-0 transition-all ease-in-out border-0 rounded-md cursor-pointer text-slate-600 bg-inherit" data-tab-target=""
-                                                   role="tab">
-                                                    Actividades
-                                                </a>
-                                            </li>
-                                            <li class="z-30 flex-auto text-center">
-                                                <a aria-controls="documentos"
-                                                   aria-selected="false" class="z-30 flex items-center justify-center w-full px-0 py-2 mb-0 text-sm transition-all ease-in-out border-0 rounded-lg cursor-pointer text-slate-600 bg-inherit" data-tab-target=""
-                                                   role="tab">
-                                                    Documentos
-                                                </a>
-                                            </li>
-                                            <li class="z-30 flex-auto text-center">
-                                                <a aria-controls="participantes"
-                                                   aria-selected="false" class="z-30 flex items-center justify-center w-full px-0 py-2 text-sm mb-0 transition-all ease-in-out border-0 rounded-lg cursor-pointer text-slate-700 bg-inherit" data-tab-target=""
-                                                   role="tab">
-                                                    Participantes
-                                                </a>
-                                            </li>
-                                            <li class="z-30 flex-auto text-center">
-                                                <a aria-controls="entregables"
-                                                   aria-selected="false" class="z-30 flex items-center justify-center w-full px-0 py-2 text-sm mb-0 transition-all ease-in-out border-0 rounded-lg cursor-pointer text-slate-700 bg-inherit" data-tab-target=""
-                                                   role="tab">
-                                                    Entregables
-                                                </a>
-                                            </li>
-                                        </ul>
+                            </li>
+                            <li>
+                                <div class="flex items-center">
+                                    <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true"
+                                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                              stroke-width="2" d="m1 9 4-4-4-4"/>
+                                    </svg>
+                                    <a th:href="@{/conahcyt/list}"
+                                       class="ms-1 text-xs font-medium text-gray-700 hover:text-sky-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Proyectos
+                                        CONAHCYT</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex items-center">
+                                    <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true"
+                                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                              stroke-width="2" d="m1 9 4-4-4-4"/>
+                                    </svg>
+                                    <a th:href="@{/conahcyt/view(id=${proyecto.id})}" th:text="${proyecto.nombre}"
+                                       class="ms-1 text-xs font-medium text-gray-700 hover:text-sky-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Nombre
+                                        Proyecto</a>
+                                </div>
+                            </li>
+                            <li aria-current="page">
+                                <div class="flex items-center">
+                                    <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true"
+                                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                              stroke-width="2" d="m1 9 4-4-4-4"/>
+                                    </svg>
+                                    <span class="ms-1 text-xs font-medium text-gray-500 md:ms-2 dark:text-gray-400">Etapa: </span>
+                                    <span th:text="${etapa?.nombre}"
+                                          class="ms-1 text-xs font-medium text-gray-500 md:ms-2 dark:text-gray-400">Agregar propuesta</span>
+                                </div>
+                            </li>
+                        </ol>
+                    </nav>
 
-                                        <div class="p-5" data-tab-content="">
-                                            <div hx-trigger="load" id="actividades"
-                                                 role="tabpanel" th:hx-get="@{/etapa/list(id=${etapa.id})}">
-                                            </div>
-                                            <div class="hidden opacity-0" hx-trigger="load" id="documentos"
-                                                 role="tabpanel" th:hx-get="@{/documento/list(id=${etapa.id})}">
-                                            </div>
-                                            <div class="hidden opacity-0" hx-trigger="load" id="participantes"
-                                                 role="tabpanel" th:hx-get="@{/empleado/list}">
-                                            </div>
-                                            <div class="hidden opacity-0" hx-trigger="load" id="entregables"
-                                                 role="tabpanel" th:hx-get="@{/entregable/list(id=${etapa.id})}">
-                                            </div>
-                                        </div>
-                                    </div>
+
+                    <div class="divide-y divide-gray-300/50">
+                        <nav class="bg-white">
+                            <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+                                <p class="self-center text-2xl font-semibold whitespace-nowrap">
+                                    Etapa: <span th:text="${etapa?.nombre}">nombre</span>
+                                </p>
+                            </div>
+                        </nav>
+
+
+                        <div class="pt-2 text-base font-normal leading-7">
+
+                            <div class="font-semibold">
+                                <button class="tablink" onclick="openPage('Info', this, '#608BC1')" id="defaultOpen">
+                                    Info
+                                </button>
+                                <button class="tablink" onclick="openPage('Actividades', this, '#608BC1')">Actividades
+                                </button>
+                                <button class="tablink" onclick="openPage('Entregables', this, '#608BC1')">Entregables
+                                </button>
+                            </div>
+                            <div id="Info" class="tabcontent">
+                                <div class="mt-1 flex items-center space-x-3">
+                                    <h3 class="font-semibold text-gray-900">
+                                        <span>Descripción:</span>
+                                    </h3>
+                                    <p class="font-normal text-gray-500">
+                                        <span th:text="${etapa.descripcion}">2</span>
+                                    </p>
+                                </div>
+                                <div class="mt-5 flex items-center space-x-3">
+                                    <h3 class="truncate font-semibold text-gray-900">
+                                        <span>Responsable:</span>
+                                    </h3>
+                                    <p class="truncate font-normal text-gray-500">
+                                        <span th:text="${etapa.responsable?.nombre}">2</span>
+                                    </p>
+                                </div>
+                                <div class="mt-5 flex items-center space-x-3">
+                                    <h3 class="truncate font-semibold text-gray-900">
+                                        <span>Período estimado:</span>
+                                    </h3>
+                                    <p class="truncate font-normal text-gray-500">
+                                        <span th:text="${etapa.fechaEstimadaInicio}">2</span> hasta <span
+                                            th:text="${etapa.fechaEstimadaTerminacion}">2</span>
+                                    </p>
+                                </div>
+                                <div class="mt-5 flex items-center space-x-3">
+                                    <h3 class="font-semibold text-gray-900">
+                                        <span>Avance:</span>
+                                    </h3>
+                                    <p class="font-normal text-gray-500">
+                                        <span th:text="${etapa.pctCompleto}"></span>%
+                                    </p>
                                 </div>
                             </div>
 
 
+                            <div id="Actividades" class="tabcontent">
+                                <div th:hx-get="@{/actividad/list(id=${etapa.id})}" hx-trigger="load"></div>
+                            </div>
+                            <div id="Entregables" class="tabcontent">
+                                <div th:hx-get="@{/entregable/list(id=${etapa.id})}" hx-trigger="load"></div>
+                            </div>
 
+                            <script>
+                                function openPage(pageName,elmnt,color) {
+                                  var i, tabcontent, tablinks;
+                                  tabcontent = document.getElementsByClassName("tabcontent");
+                                  for (i = 0; i < tabcontent.length; i++) {
+                                    tabcontent[i].style.display = "none";
+                                  }
+                                  tablinks = document.getElementsByClassName("tablink");
+                                  for (i = 0; i < tablinks.length; i++) {
+                                    tablinks[i].style.color = "";
+                                    tablinks[i].style.borderColor = "#608BC1";
+                                    tablinks[i].style.borderWidth = "";
+                                    tablinks[i].style.fontWeight = "normal"
+                                  }
+                                  document.getElementById(pageName).style.display = "block";
+                                  elmnt.style.color = color;
+                                  elmnt.style.borderColor = color;
+                                  elmnt.style.borderWidth = "5px";
+                                  elmnt.style.fontWeight = "bold"
+
+                                }
+
+                                // Get the element with id="defaultOpen" and click on it
+                                document.getElementById("defaultOpen").click();
+                            </script>
+                            <!-- CONTENIDO ... -->
                         </div>
                     </div>
                 </div>
@@ -217,3 +231,8 @@
 <!-- from cdn -->
 <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/tabs.js"></script>
 </body>
+
+
+
+
+

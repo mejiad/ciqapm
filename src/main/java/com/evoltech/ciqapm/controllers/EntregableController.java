@@ -1,3 +1,5 @@
+
+
 package com.evoltech.ciqapm.controllers;
 
 import com.evoltech.ciqapm.model.*;
@@ -63,6 +65,8 @@ public class EntregableController {
             model.addAttribute("entregable", entregable);
             return "Entregable/Edit";
         }
+        LocalDate hoy = LocalDate.now();
+        entregable.setFechaCarga(hoy);
         if (entregable.getId() == null || entregable.getId() == 0) {
             entregableRepository.save(entregable);
         } else {
@@ -75,3 +79,5 @@ public class EntregableController {
 
 
 }
+
+

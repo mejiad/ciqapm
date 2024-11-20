@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -101,6 +102,9 @@ public class ActividadController {
         System.out.println("Valor de etapa.proyecto: " + actividad.getEtapa().getId());
         actividadRepository.save(actividad);
         System.out.println("+++++++++++++++++++++++++ ID: " + actividad.getId());
-        return "redirect:/proyecto/list";
+        return "redirect:/etapa/view?id=" + actividad.getEtapa().getId();
+
     }
 }
+
+
