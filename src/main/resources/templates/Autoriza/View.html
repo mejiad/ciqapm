@@ -26,7 +26,7 @@
           padding: 10px 12px;
           border-radius: 20px 20px 0px 0px;
           font-size: 17px;
-          width: 14.28%;
+          width: 16.66%;
           border-bottom: 2px solid #608BC1;
 
         }
@@ -117,7 +117,6 @@
                             <div class="font-semibold">
                             <button class="tablink" onclick="openPage('Info', this, '#608BC1')"  id="defaultOpen">Info</button>
                             <button class="tablink" onclick="openPage('Propuesta', this, '#608BC1')">Propuesta</button>
-                            <button class="tablink" onclick="openPage('Autoriza', this, '#608BC1')">Autorizaciones</button>
                             <button class="tablink" onclick="openPage('Participantes', this, '#608BC1')">Participantes</button>
                             <button class="tablink" onclick="openPage('Etapas', this, '#608BC1')">Etapas </button>
                             <button class="tablink" onclick="openPage('Documentos', this, '#608BC1')">Documentos</button>
@@ -169,9 +168,6 @@
                             <div id="Etapas" class="tabcontent">
                                 <div th:hx-get="@{/etapa/list(id=${conahcytDto.id})}" hx-trigger="load"></div>
 
-                            </div>
-                            <div id="Autoriza" class="tabcontent">
-                                <div th:hx-get="@{/autoriza/list(id=${conahcytDto.id})}" hx-trigger="load"></div>
                             </div>
                             <div id="Documentos" class="tabcontent">
                                 <div th:hx-get="@{/documento/list(id=${conahcytDto.id})}" hx-trigger="load"></div>

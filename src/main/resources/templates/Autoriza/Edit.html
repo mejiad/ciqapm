@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="/htmx.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Editar Proyecto</title>
+</head>
+<body class="flex flex-col min-h-screen">
+<div>
+    <div th:insert="~{sidebar}"></div>
+    <div th:insert="~{header}"></div>
+    <main class="lg:pl-64">
+
+        <div class="relative flex min-h-min flex-col justify-center overflow-hidden bg-gray-50">
+            <img alt="" class="absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2"
+                 src="/images/beams.jpg" width="1308"/>
+            <div class="absolute inset-0 bg-[url(/images/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
+            <div class="relative bg-white px-6 pt-4 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-10 sm:rounded-lg sm:px-10">
+                <div class="mx-auto max-w-screen-lg">
+                    <div class="divide-y divide-gray-300/50">
+                        <div class="space-y-6 py-8 text-base leading-7 text-gray-600">
+                            <h2 class="text-3xl font-extrabold leading-6 text-sky-700">Proyecto CONAHCYT</h2>
+                        </div>
+                        <div class="pt-4 text-base font-normal leading-7">
+
+                            <form action="#" method="post" th:action="@{/autoriza/save}" th:object="${autoriza}">
+                                <div class="space-y-2">
+                                    <div class="border-b border-gray-900/10 pb-12">
+
+                                        <div class="block text-sm font-medium leading-6 text-red-600">
+                                            <ul>
+                                                <li>
+                                                    <p th:errors="*{global}" th:if="${#fields.hasGlobalErrors()}"></p>
+
+                                                </li>
+                                                <li>
+                                                    <span th:errors="*{personaAutoriza}"
+                                                          th:if="${#fields.hasErrors('persona')}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:errors="*{nivel}" th:if="${#fields.hasErrors('nivel')}">Nombre error</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="sm:col-span-3">
+                                            <label class="block text-sm font-medium leading-6 text-sky-900"
+                                                   for="persona">Responsable: </label>
+                                            <div class="mt-2">
+                                                <input id="persona" name="persona" type="text">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-span-full">
+                                            <label class="block text-sm font-semibold leading-6 text-sky-900"
+                                                   for="nota">Notas Autorizacion</label>
+                                            <div class="mt-2">
+                                                    <textarea
+                                                            class="block p-2 font-normal w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6"
+                                                            id="nota" name="nota"
+                                                            rows="3"
+                                                            th:value="*{nota}"></textarea>
+                                            </div>
+                                            <p class="text-sm text-gray-400 italic font-normal">Breve descripción de la
+                                                autorizacion.</p>
+                                        </div>
+
+                                        <div class="sm:col-span-3">
+                                            <label class="block text-sm font-semibold leading-6 text-sky-900">Estatus: </label>
+                                            <div class="mt-2">
+                                                <select class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                                        id="nivel"
+                                                        name="nivel">
+                                                    <option th:each="nivel : ${niveles}" th:text="${nivel}"
+                                                            th:value="${nivel}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-span-full">
+                                    <div class="mt-2">
+                                        <input class="block p-2 font-normal w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6"
+                                               id="id"
+                                               name="id" th:value="${proyecto.id}"
+                                               type="text"></input>
+                                    </div>
+                                    <p class="text-sm text-gray-400 italic font-normal">Proyecto ID.</p>
+                                </div>
+
+                                <div class="mt-6 my-12 flex items-center justify-end gap-x-6">
+                                    <button class="rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                                            onclick="history.back();"
+                                            type="button">
+                                        Cancelar
+                                    </button>
+                                    <button class="rounded-md bg-lime-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-500"
+                                            type="submit">
+                                        Guardar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:insert="~{footer}"></div>
+    </main>
+</div>
+</main>
+</div>
+</body>
+

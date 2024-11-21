@@ -380,6 +380,14 @@ public class DataLoad {
         proyecto.setFase(FaseConahcyt.ACTIVACION_EJECUCION);
         proyecto.setPropuesta("Propuesta dumnmy");
 
+        if (proyecto.getNombre().equals("Proyecto-1056")) {
+            Autoriza autorizacion = new Autoriza();
+            // TODO: pone la nota
+            // autorizacion.setNota("Nota de la autorizacion");
+            autorizacion.setPersona("Persona que autoriza");
+            proyecto.setDeptoAutoriza(autorizacion);
+        }
+
         Conahcyt res = conahcytRepository.save(proyecto);
 
         return res;
