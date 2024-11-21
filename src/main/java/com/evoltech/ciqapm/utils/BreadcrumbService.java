@@ -40,7 +40,7 @@ public class BreadcrumbService {
         if (proyecto  instanceof Conahcyt) {
             tag = "Proyectos CONAHCYT";
         } else if (proyecto  instanceof Industria) {
-            tag = "Proyectos Idustria";
+            tag = "Proyectos Industria";
         } else if (proyecto  instanceof Interno)  {
             tag = "Proyectos Internos";
         } else {
