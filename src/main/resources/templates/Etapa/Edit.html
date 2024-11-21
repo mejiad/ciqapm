@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
@@ -8,7 +5,7 @@
     <meta charset="UTF-8">
     <script src="/htmx.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Info de la etapa</title>
+    <title>Info de entregable</title>
 </head>
 <body class="flex flex-col min-h-screen">
 <div>
@@ -17,16 +14,72 @@
     <main class="lg:pl-64">
 
         <div class="relative flex min-h-min flex-col justify-center overflow-hidden bg-gray-50">
-            <img alt="" class="absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2"
-                 src="/images/beams.jpg" width="1308"/>
+            <img src="/images/beams.jpg" alt=""
+                 class="absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2" width="1308"/>
             <div class="absolute inset-0 bg-[url(/images/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
             <div class="relative bg-white px-6 pt-4 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-10 sm:rounded-lg sm:px-10">
                 <div class="mx-auto max-w-screen-lg">
+
+                    <nav class="flex" aria-label="Breadcrumb">
+                        <ol class="inline-flex items-left space-x-1 md:space-x-2 rtl:space-x-reverse">
+                            <li class="inline-flex items-center">
+                                <div class="flex items-center">
+                                    <a href="#"
+                                       class="inline-flex items-center text-xs font-medium text-gray-700 hover:text-sky-600 dark:text-gray-400 dark:hover:text-white">
+                                        <svg class="w-3 h-3 me-2.5" aria-hidden="true"
+                                             xmlns="http://www.w3.org/2000/svg"
+                                             fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+                                        </svg>
+                                        Home
+                                    </a>
+                                </div>
+
+                            </li>
+                            <li>
+                                <div class="flex items-center">
+                                    <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true"
+                                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                              stroke-width="2" d="m1 9 4-4-4-4"/>
+                                    </svg>
+                                    <a th:href="@{${pathTipoProyecto}}" th:text="${tagTipoProyecto}"
+                                       class="ms-1 text-xs font-medium text-gray-700 hover:text-sky-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex items-center">
+                                    <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true"
+                                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                              stroke-width="2" d="m1 9 4-4-4-4"/>
+                                    </svg>
+                                    <a th:href="@{${pathProyecto}}" th:text="${proyectoNombre}"
+                                       class="ms-1 text-xs font-medium text-gray-700 hover:text-sky-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Nombre
+                                        Proyecto</a>
+                                </div>
+                            </li>
+                            <li aria-current="page">
+                                <div class="flex items-center">
+                                    <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true"
+                                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                              stroke-width="2" d="m1 9 4-4-4-4"/>
+                                    </svg>
+                                    <span class="ms-1 text-xs font-medium text-gray-500 md:ms-2 dark:text-gray-400">Datos de la etapa</span>
+                                </div>
+                            </li>
+                        </ol>
+                    </nav>
+
                     <div class="divide-y divide-gray-300/50">
-                        <div class="space-y-6 py-8 text-base leading-7 text-gray-600">
-                            <h2 class="text-3xl font-extrabold leading-6 text-sky-700">Información de la etapa</h2>
+                        <div class="space-y-2 py-2 text-base leading-7 text-gray-600">
+                            <p>
+                                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Datos de la etapa</span>
+                            </p>
                         </div>
-                        <div class="pt-0 text-base font-semibold leading-7">
+                        <div class="pt-0 text-base font-normal leading-7">
 
                             <form action="#" method="post" th:action="@{/etapa/save}" th:object="${etapa}">
                                 <div class="space-y-2">
@@ -71,13 +124,14 @@
                                         </div>
                                         <div class="mt-2 grid grid-cols-1 gap-x-12 gap-y-8 sm:grid-cols-6">
 
-                                            <div class="sm:col-span-4">
-                                                <label class="block text-sm font-medium leading-6 text-sky-900"
+                                            <div class="sm:col-span-3">
+                                                <label class="block text-sm font-semibold leading-6 text-sky-900"
                                                        for="nombre">Nombre
                                                     de la etapa:</label>
                                                 <div class="mt-0">
                                                     <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
-                                                        <input class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 font-normal" id="nombre" name="nombre"
+                                                        <input class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 font-normal"
+                                                               id="nombre" name="nombre"
                                                                th:value="*{nombre}"
                                                                type="text">
 
@@ -88,21 +142,37 @@
                                                     <span th:errors="*{nombre}" th:if="${#fields.hasErrors('nombre')}">Nombre error</span>
                                                 </div>
                                             </div>
+                                            <div class="sm:col-span-3">
+                                                <label class="block text-sm font-semibold leading-6 text-sky-900">Estatus: </label>
+                                                <div class="mt-2">
+                                                    <select class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                                            id="estado"
+                                                            name="estado">
+                                                        <option th:text="*{estado}" th:value="*{estado}"></option>
+                                                        <option th:each="estado : ${estados}" th:text="${estado}"
+                                                                th:value="${estado}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
                                             <div class="col-span-full">
-                                                <label class="block text-sm font-medium leading-6 text-sky-900"
+                                                <label class="block text-sm font-semibold leading-6 text-sky-900"
                                                        for="descripcion">Descripción</label>
                                                 <div class="mt-0">
-                                                    <textarea class="block p-2 font-normal w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6" id="descripcion" name="descripcion"
-                                                              rows="3"
-                                                              th:value="*{descripcion}">[[${etapa.descripcion}]]</textarea>
+                                                    <textarea
+                                                            class="block p-2 font-normal w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6"
+                                                            id="descripcion" name="descripcion"
+                                                            rows="3"
+                                                            th:value="*{descripcion}">[[${etapa.descripcion}]]</textarea>
                                                 </div>
                                                 <p class="text-sm leading-6 text-gray-300 italic font-normal">Breve
                                                     descripción de esta parte del proyecto.</p>
                                             </div>
 
 
-                                            <div class="sm:col-span-4">
-                                                <label class="block text-sm font-medium leading-6 text-sky-900"
+                                            <div class="sm:col-span-3">
+                                                <label class="block text-sm font-semibold leading-6 text-sky-900"
                                                        for="servicio">Servicio: </label>
                                                 <div class="mt-0">
                                                     <!--
@@ -129,98 +199,85 @@
                                             </div>
 
                                             <div class="sm:col-span-3">
-                                                <label class="block text-sm font-medium leading-6 text-sky-900"
+                                                <label class="block text-sm font-semibold leading-6 text-sky-900"
                                                        for="responsable">Responsable: </label>
                                                 <div class="mt-2">
-                                                    <select class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6" id="responsable"
+                                                    <select class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                                            id="responsable"
                                                             name="responsable">
                                                         <option th:text="*{responsable?.nombre}"
                                                                 th:value="*{responsable?.id}"></option>
-                                                        <option th:each="persona : ${personas}" th:selected="${responsable?.id}"
+                                                        <option th:each="persona : ${personas}"
+                                                                th:selected="${responsable?.id}"
                                                                 th:text="${persona.nombre}"
                                                                 th:value="${persona.id}">>
                                                         </option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="sm:col-span-4">
-                                                <label class="block text-sm font-medium leading-6 text-sky-900"
+                                            <div class="sm:col-span-3">
+                                                <label class="block text-sm font-semibold leading-6 text-sky-900"
                                                        for="entregable">Entregable:</label>
                                                 <div class="mt-0">
                                                     <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
-                                                        <input class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" id="entregable" name="entregable"
+                                                        <input class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                                               id="entregable" name="entregable"
                                                                th:value="*{entregable}"
                                                                type="text">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="sm:col-span-4">
-                                                <label class="block text-sm font-medium leading-6 text-sky-900"
+                                            <div class="sm:col-span-3">
+                                                <label class="block text-sm font-semibold leading-6 text-sky-900"
                                                        for="pctCompleto">Porcentaje
                                                     de avance:</label>
                                                 <div class="mt-0">
                                                     <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-sky-600 sm:max-w-md">
-                                                        <input class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" id="pctCompleto" name="pctCompleto"
+                                                        <input class="block font-normal flex-1 border-0 bg-transparent py-1.5 pl-1 text-sky-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                                               id="pctCompleto" name="pctCompleto"
                                                                th:value="*{pctCompleto}"
                                                                type="text">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="sm:col-span-4 text-sm font-normal text-sky-900">
-                                                <label class="block text-sm font-normal leading-6 text-sky-900"
+                                            <div class="sm:col-span-3 text-sm font-normal text-sky-900">
+                                                <label class="block text-sm font-semibold leading-6 text-sky-900"
                                                        for="fechaEstimadaInicio">Periodo
                                                     estimado: </label>
                                                 <div class="mt-0 block">
-                                                    <input class="text-sm font-normal leading-6 text-sky-900" id="fechaEstimadaInicio"
+                                                    <input class="text-sm font-normal leading-6 text-sky-900"
+                                                           id="fechaEstimadaInicio"
                                                            name="fechaEstimadaInicio"
                                                            th:value="${etapa?.fechaEstimadaInicio}"
                                                            type="date"> - hasta -
-                                                    <input class="text-sm font-normal leading-6 text-sky-900" id="fechaEstimadaTerminacion"
+                                                    <input class="text-sm font-normal leading-6 text-sky-900"
+                                                           id="fechaEstimadaTerminacion"
                                                            name="fechaEstimadaTerminacion"
                                                            th:value="${etapa?.fechaEstimadaTerminacion}"
                                                            type="date">
-
-
                                                 </div>
                                                 <span th:errors="*{fechaEstimadaInicio}"
                                                       th:if="${#fields.hasErrors('fechaEstimadaInicio')}">Nombre error</span>
                                                 <span th:errors="*{fechaEstimadaTerminacion}"
                                                       th:if="${#fields.hasErrors('fechaEstimadaTerminacion')}">Nombre error</span>
                                             </div>
-                                            <div class="sm:col-span-3">
-                                                <label class="block text-sm font-medium leading-6 text-sky-900">Estatus: </label>
-                                                <div class="mt-2">
-                                                    <select class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6" id="estado"
-                                                            name="estado">
-                                                        <option th:text="*{estado}" th:value="*{estado}"></option>
-                                                        <option th:each="estado : ${estados}" th:text="${estado}"
-                                                                th:value="${estado}"></option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
                                         </div>
                                     </div>
 
                                     <div class="mt-6 my-12 flex items-center justify-end gap-x-6">
-                                        <button class="text-sm font-semibold leading-6 text-sky-900" onclick="history.back();"
-                                                type="button">
+                                        <button type="button" onclick="history.back();"
+                                                class="rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
                                             Cancelar
                                         </button>
-                                        <button class="rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600"
-                                                type="submit">
+                                        <button type="submit"
+                                                class="rounded-md bg-lime-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-500">
                                             Guardar
                                         </button>
                                     </div>
                                 </div>
+
                             </form>
-
-
-
-
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -233,10 +290,6 @@
     </main>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
-<!-- from node_modules -->
-<script src="node_modules/@material-tailwind/html/scripts/tabs.js"></script>
 
-<!-- from cdn -->
-<script src="https://unpkg.com/@material-tailwind/html@latest/scripts/tabs.js"></script>
 </body>
 

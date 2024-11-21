@@ -5,6 +5,7 @@ import com.evoltech.ciqapm.repository.ActividadRepository;
 import com.evoltech.ciqapm.repository.EmpleadoRepository;
 import com.evoltech.ciqapm.repository.EtapaRepository;
 import com.evoltech.ciqapm.repository.ProyectoRepository;
+import com.evoltech.ciqapm.utils.BreadcrumbService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -87,6 +88,16 @@ public class ActividadController {
         List<Empleado> personas = personalRepository.findAll();
         Actividad actividad = new Actividad();
         actividad.setEtapa(etapa);
+        BreadcrumbService breadcrumbService = new BreadcrumbService();
+        String pathTipoProyecto = breadcrumbService.getPathTipoProyecto(etapa.getProyecto());
+        String pathProyecto = breadcrumbService.getPathProyecto(etapa.getProyecto());
+        String tagTipoProyecto = breadcrumbService.getTagTipoProyecto(etapa.getProyecto());
+        String proyectoNombre = etapa.getProyecto().getNombre();
+
+        model.addAttribute("pathTipoProyecto", pathTipoProyecto);
+        model.addAttribute("pathProyecto", pathProyecto);
+        model.addAttribute("tagTipoProyecto", tagTipoProyecto);
+        model.addAttribute("proyectoNombre", proyectoNombre);
         model.addAttribute("estados", estados);
         model.addAttribute("etapa", etapa);
         model.addAttribute("actividad", actividad);

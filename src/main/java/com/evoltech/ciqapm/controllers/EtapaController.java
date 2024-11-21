@@ -83,7 +83,13 @@ public class EtapaController {
 
     @GetMapping("/edit")
     public String editEtapa(@RequestParam Long id, Model model) {
+        BreadcrumbService breadcrumbService = new BreadcrumbService();
         Etapa etapa = etapaRepository.getReferenceById(id);
+        String pathTipoProyecto = breadcrumbService.getPathTipoProyecto(etapa.getProyecto());
+        String pathProyecto = breadcrumbService.getPathProyecto(etapa.getProyecto());
+        String tagTipoProyecto = breadcrumbService.getTagTipoProyecto(etapa.getProyecto());
+        String proyectoNombre = etapa.getProyecto().getNombre();
+
         List<Estado> estados = List.of(Estado.values());
         List<Empleado> personas = personalRepository.findAll();
         System.out.println("------ no. de personas: " + personas.size());
@@ -94,6 +100,10 @@ public class EtapaController {
         model.addAttribute("estados", estados);
         model.addAttribute("personas", personas);
         model.addAttribute("servicios", servicios);
+        model.addAttribute("pathTipoProyecto", pathTipoProyecto);
+        model.addAttribute("pathProyecto", pathProyecto);
+        model.addAttribute("tagTipoProyecto", tagTipoProyecto);
+        model.addAttribute("proyectoNombre", proyectoNombre);
         return "/Etapa/Edit";
     }
 
