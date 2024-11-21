@@ -3,7 +3,6 @@ package com.evoltech.ciqapm.controllers.proyectos;
 import com.evoltech.ciqapm.dto.ConahcytDto;
 import com.evoltech.ciqapm.dto.GanttDTO;
 import com.evoltech.ciqapm.model.*;
-import com.evoltech.ciqapm.model.datos.DatosConahcyt;
 import com.evoltech.ciqapm.model.jpa.Convocatoria;
 import com.evoltech.ciqapm.repository.*;
 import com.evoltech.ciqapm.repository.datos.ConahcytRepository;
@@ -163,7 +162,7 @@ public class ConahcytController {
 
     @GetMapping("/new")
     public String newConahcyt(Model model) {
-        ConahcytDto proyecto = new ConahcytDto();
+        Conahcyt proyecto = new Conahcyt();
         List<Estado> estados = List.of(Estado.values());
         List<Empleado> personas = personalRepository.findAll();
         List<Cliente> clientes = clienteRepository.findAll();
@@ -171,8 +170,9 @@ public class ConahcytController {
         List<Convocatoria> convocatorias = convocatoriaRepository.findAll();
 
         proyecto.setEstatus(Estado.CREACION);
+        proyecto.setTipoProyecto(TipoProyecto.CONAHCYT);
 
-        model.addAttribute("conahcytDto", proyecto);
+        model.addAttribute("conahcyt", proyecto);
         model.addAttribute("estados", estados);
         model.addAttribute("personas", personas);
         model.addAttribute("clientes", clientes);

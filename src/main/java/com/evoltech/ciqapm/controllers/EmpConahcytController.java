@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("empConahcyt")
@@ -91,21 +93,21 @@ public class EmpConahcytController {
 
     @GetMapping("/add")
     public String addEmpleado(@RequestParam("id") Long id, HttpSession session, Model model){
-        List<Empleado> lista = new ArrayList<>();
+        Set<Empleado> set = new HashSet<>();
 
         List<Empleado> listaPrevia = (List<Empleado>)session.getAttribute("empConahcyt");
         if(listaPrevia != null) {
-            listaPrevia.stream().forEach(lista::add);
+            listaPrevia.stream().forEach(set::add);
         }
 
         Empleado personal = empleadoRepository.getReferenceById(id);
 
         if (personal != null){
-            lista.add(personal);
+            set.add(personal);
         }
+        List<Empleado> lista = set.stream().toList();
 
         session.setAttribute("empConahcyt", lista);
-
         model.addAttribute("personal", lista);
 
         return "EmpConahcyt/Result :: list";

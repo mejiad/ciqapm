@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("etapaservicio")
@@ -66,19 +68,21 @@ public class EtapaServicioController {
     }
     @GetMapping("/add")
     public String addServicio(@RequestParam("id") Long id, HttpSession session, Model model){
-        List<Servicio> lista = new ArrayList<>();
+        Set<Servicio> set = new HashSet<>();
 
         List<Servicio> listaPrevia = (List<Servicio>)session.getAttribute("listaServicios");
+
         if(listaPrevia != null) {
-            listaPrevia.stream().forEach(lista::add);
+            listaPrevia.stream().forEach(set::add);
         }
 
         Servicio servicio = servicioRepository.getReferenceById(id);
 
         if (servicio != null){
-            lista.add(servicio);
+            set.add(servicio);
         }
 
+        List<Servicio> lista = set.stream().toList();
         session.setAttribute("listaServicios",lista);
 
         model.addAttribute("servicios", lista);

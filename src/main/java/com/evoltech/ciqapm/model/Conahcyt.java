@@ -9,7 +9,6 @@ import lombok.Data;
 @Data
 public class Conahcyt extends Proyecto {
 
-    @NotNull
     private String propuesta;
 
     @NotNull(message = "La convocatoria es un dato requerido.")
