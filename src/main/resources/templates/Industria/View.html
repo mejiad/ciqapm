@@ -52,7 +52,7 @@
             #Info {background-color: #fff;}
             #Etapas {background-color: #fff;}
             #Documentos {background-color: #fff;}
-            #Particiapntes {background-color: #fff;}
+            #Colaboradores {background-color: #fff;}
             #Cotizacion {background-color: #fff;}
             #Gant {background-color: #fff;}
 
@@ -87,7 +87,7 @@
                             <div class="font-semibold">
                                 <button class="tablink" onclick="openPage('Info', this, '#608BC1')"  id="defaultOpen">Info</button>
                                 <button class="tablink" onclick="openPage('Cotizacion', this, '#608BC1')">Cotizaciones</button>
-                                <button class="tablink" onclick="openPage('Participantes', this, '#608BC1')">Participantes</button>
+                                <button class="tablink" onclick="openPage('Colaboradores', this, '#608BC1')">Colaboradores</button>
                                 <button class="tablink" onclick="openPage('Etapas', this, '#608BC1')">Etapas </button>
                                 <button class="tablink" onclick="openPage('Documentos', this, '#608BC1')">Documentos</button>
                                 <button class="tablink" onclick="openPage('Gant', this, '#608BC1')">Gráficas</button>
@@ -135,7 +135,7 @@
                             <div id="Documentos" class="tabcontent">
                                 <div th:hx-get="@{/documento/list(id=${proyecto.id})}" hx-trigger="load"></div>
                             </div>
-                            <div id="Participantes" class="tabcontent">
+                            <div id="Colaboradores" class="tabcontent">
                                 <div th:hx-get="@{/empIndustria/list(id=${proyecto.id})}" hx-trigger="load"></div>
                             </div>
 

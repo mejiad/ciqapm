@@ -6,6 +6,7 @@ import com.evoltech.ciqapm.repository.EmpIndustriaRepository;
 import com.evoltech.ciqapm.repository.EmpleadoRepository;
 import com.evoltech.ciqapm.repository.datos.ConahcytRepository;
 import com.evoltech.ciqapm.repository.datos.IndustriaRepository;
+import com.evoltech.ciqapm.utils.BreadcrumbService;
 import com.evoltech.ciqapm.utils.CotizaEmpleadoWrapper;
 import com.evoltech.ciqapm.utils.EmpConahcytWrapper;
 import com.evoltech.ciqapm.utils.EmpIndustriaWrapper;
@@ -61,6 +62,19 @@ public class EmpIndustriaController {
     @GetMapping("/searchForm")
     private String SearchForm(@RequestParam("id") Long id, HttpSession session, Model model) {
         session.setAttribute("industriaId", id);
+
+        Industria proyecto = industriaRepository.getReferenceById(id);
+        BreadcrumbService breadcrumbService = new BreadcrumbService();
+        String pathTipoProyecto = breadcrumbService.getPathTipoProyecto(proyecto);
+        String pathProyecto = breadcrumbService.getPathProyecto(proyecto);
+        String tagTipoProyecto = breadcrumbService.getTagTipoProyecto(proyecto);
+        String proyectoNombre = proyecto.getNombre();
+        model.addAttribute("pathTipoProyecto", pathTipoProyecto);
+        model.addAttribute("pathProyecto", pathProyecto);
+        model.addAttribute("tagTipoProyecto", tagTipoProyecto);
+        model.addAttribute("proyectoNombre", proyectoNombre);
+
+
         return "EmpIndustria/Search";
     }
 
@@ -112,6 +126,19 @@ public class EmpIndustriaController {
                 empIndustriaWrapper.getEmpleados().add(cs);
             });
         }
+
+        Long id = (Long) session.getAttribute("industriaId");
+
+        Industria proyecto = industriaRepository.getReferenceById(id);
+        BreadcrumbService breadcrumbService = new BreadcrumbService();
+        String pathTipoProyecto = breadcrumbService.getPathTipoProyecto(proyecto);
+        String pathProyecto = breadcrumbService.getPathProyecto(proyecto);
+        String tagTipoProyecto = breadcrumbService.getTagTipoProyecto(proyecto);
+        String proyectoNombre = proyecto.getNombre();
+        model.addAttribute("pathTipoProyecto", pathTipoProyecto);
+        model.addAttribute("pathProyecto", pathProyecto);
+        model.addAttribute("tagTipoProyecto", tagTipoProyecto);
+        model.addAttribute("proyectoNombre", proyectoNombre);
         model.addAttribute("wrapper", empIndustriaWrapper);
         return "EmpIndustria/Summary";
     }
