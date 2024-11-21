@@ -4,7 +4,9 @@ import com.evoltech.ciqapm.model.*;
 import com.evoltech.ciqapm.repository.CotizacionRepository;
 import com.evoltech.ciqapm.repository.EmpConahcytRepository;
 import com.evoltech.ciqapm.repository.EmpleadoRepository;
+import com.evoltech.ciqapm.repository.ProyectoRepository;
 import com.evoltech.ciqapm.repository.datos.ConahcytRepository;
+import com.evoltech.ciqapm.utils.BreadcrumbService;
 import com.evoltech.ciqapm.utils.CotizaEmpleadoWrapper;
 import com.evoltech.ciqapm.utils.EmpConahcytWrapper;
 import jakarta.servlet.http.HttpSession;
@@ -29,13 +31,16 @@ public class EmpConahcytController {
     ConahcytRepository conahcytRepository;
     @Autowired
     EmpConahcytRepository empConahcytRepository;
+    private final ProyectoRepository proyectoRepository;
 
     public EmpConahcytController(EmpleadoRepository empleadoRepository,
                                     ConahcytRepository conahcytRepository,
-                                    EmpConahcytRepository empConahcytRepository) {
+                                    EmpConahcytRepository empConahcytRepository,
+                                 ProyectoRepository proyectoRepository) {
         this.empleadoRepository = empleadoRepository;
         this.conahcytRepository = conahcytRepository;
         this.empConahcytRepository = empConahcytRepository;
+        this.proyectoRepository = proyectoRepository;
     }
 
     @GetMapping("/list")
@@ -59,6 +64,16 @@ public class EmpConahcytController {
     @GetMapping("/searchForm")
     private String SearchForm(@RequestParam("id") Long id, HttpSession session, Model model) {
         session.setAttribute("cotizacionId", id);
+        Conahcyt proyecto = conahcytRepository.getReferenceById(id);
+        BreadcrumbService breadcrumbService = new BreadcrumbService();
+        String pathTipoProyecto = breadcrumbService.getPathTipoProyecto(proyecto);
+        String pathProyecto = breadcrumbService.getPathProyecto(proyecto);
+        String tagTipoProyecto = breadcrumbService.getTagTipoProyecto(proyecto);
+        String proyectoNombre = proyecto.getNombre();
+        model.addAttribute("pathTipoProyecto", pathTipoProyecto);
+        model.addAttribute("pathProyecto", pathProyecto);
+        model.addAttribute("tagTipoProyecto", tagTipoProyecto);
+        model.addAttribute("proyectoNombre", proyectoNombre);
         return "EmpConahcyt/Search";
     }
 
@@ -109,6 +124,18 @@ public class EmpConahcytController {
                 cotizaEmpleadoWrapper.getEmpleados().add(cs);
             });
         }
+        Long id = (Long) session.getAttribute("cotizacionId");
+
+        Conahcyt proyecto = conahcytRepository.getReferenceById(id);
+        BreadcrumbService breadcrumbService = new BreadcrumbService();
+        String pathTipoProyecto = breadcrumbService.getPathTipoProyecto(proyecto);
+        String pathProyecto = breadcrumbService.getPathProyecto(proyecto);
+        String tagTipoProyecto = breadcrumbService.getTagTipoProyecto(proyecto);
+        String proyectoNombre = proyecto.getNombre();
+        model.addAttribute("pathTipoProyecto", pathTipoProyecto);
+        model.addAttribute("pathProyecto", pathProyecto);
+        model.addAttribute("tagTipoProyecto", tagTipoProyecto);
+        model.addAttribute("proyectoNombre", proyectoNombre);
         model.addAttribute("wrapper", cotizaEmpleadoWrapper);
         return "EmpConahcyt/Summary";
     }
