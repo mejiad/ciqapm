@@ -102,7 +102,7 @@ public class AutorizaController {
         }
 
         Conahcyt res = conahcytRepository.save(conahcyt);
-        return "redirect:/conahcyt/list";
+        return "redirect:/conahcyt/view/" + proyecto.getId();
     }
 
 }

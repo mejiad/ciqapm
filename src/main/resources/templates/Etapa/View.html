@@ -203,8 +203,7 @@
                                 <div th:hx-get="@{/entregable/list(id=${etapa.id})}" hx-trigger="load"></div>
                             </div>
                             <div id="Servicios" class="tabcontent">
-<!--                                <div th:hx-get="@{/entregable/list(id=${etapa.id})}" hx-trigger="load"></div>-->
-                                <div> Aqui va lo de servicios</div>
+                                <div th:hx-get="@{/etapaservicio/list(id=${etapa.id})}" hx-trigger="load"></div>
                             </div>
 
                             <script>
