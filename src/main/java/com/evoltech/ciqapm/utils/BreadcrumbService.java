@@ -9,11 +9,12 @@ public class BreadcrumbService {
 
     public String getPathTipoProyecto(Proyecto proyecto){
         String pathTipo = new String();
-        if (proyecto  instanceof Conahcyt) {
+        String tipo = proyecto.getTipoProyecto().toString();
+        if (tipo.equals("CONAHCYT"))  {
             pathTipo = "/conahcyt/list";
-        } else if (proyecto  instanceof Industria) {
+        } else if (tipo.equals("INDUSTRIA"))  {
             pathTipo = "/industria/list";
-        } else if (proyecto  instanceof Interno)  {
+        } else if (tipo.equals("INTERNO"))   {
             pathTipo = "/internos/list";
         } else {
             pathTipo = "/home";
@@ -23,11 +24,12 @@ public class BreadcrumbService {
 
     public String getPathProyecto(Proyecto proyecto){
         String pathProyecto = new String();
-        if (proyecto  instanceof Conahcyt) {
+        String tipo = proyecto.getTipoProyecto().toString();
+        if (tipo.equals("CONAHCYT"))  {
             pathProyecto = "/conahcyt/view?id=" + proyecto.getId();
-        } else if (proyecto  instanceof Industria) {
+        } else if (tipo.equals("INDUSTRIA"))  {
             pathProyecto = "/industria/view?id=" + proyecto.getId();
-        } else if (proyecto  instanceof Interno)  {
+        } else if (tipo.equals("INTERNO"))   {
             pathProyecto = "/internos/view?id=" + proyecto.getId();
         } else {
             pathProyecto = "/home";
@@ -37,11 +39,12 @@ public class BreadcrumbService {
 
     public String getTagTipoProyecto(Proyecto proyecto){
         String tag = new String();
-        if (proyecto  instanceof Conahcyt) {
+        String tipo = proyecto.getTipoProyecto().toString();
+        if (tipo.equals("CONAHCYT"))  {
             tag = "Proyectos CONAHCYT";
-        } else if (proyecto  instanceof Industria) {
+        } else if (tipo.equals("INDUSTRIA"))  {
             tag = "Proyectos Industria";
-        } else if (proyecto  instanceof Interno)  {
+        } else if (tipo.equals("INTERNO"))   {
             tag = "Proyectos Internos";
         } else {
             tag = "Proyecto";
