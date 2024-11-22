@@ -5,6 +5,7 @@ import com.evoltech.ciqapm.repository.DocumentoRepository;
 import com.evoltech.ciqapm.repository.ProyectoRepository;
 import com.evoltech.ciqapm.service.DatabaseStorageService;
 import com.evoltech.ciqapm.service.StorageService;
+import com.evoltech.ciqapm.utils.BreadcrumbService;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,7 @@ public class DocumentoController {
 
         model.addAttribute("proyecto", proyecto);
         model.addAttribute("documentos", documentos);
+        System.out.println("----------------list documentos: ");
 
         return "/Documento/List";
     }
@@ -83,6 +85,16 @@ public class DocumentoController {
         Proyecto proyecto = proyectoRepository.getReferenceById(id);
         List<TipoDocumento> tiposDocumento = List.of(TipoDocumento.values());
         documento.setProyecto(proyecto);
+
+        BreadcrumbService breadcrumbService = new BreadcrumbService();
+        String pathTipoProyecto = breadcrumbService.getPathTipoProyecto(proyecto);
+        String pathProyecto = breadcrumbService.getPathProyecto(proyecto);
+        String tagTipoProyecto = breadcrumbService.getTagTipoProyecto(proyecto);
+        String proyectoNombre = proyecto.getNombre();
+        model.addAttribute("pathTipoProyecto", pathTipoProyecto);
+        model.addAttribute("pathProyecto", pathProyecto);
+        model.addAttribute("tagTipoProyecto", tagTipoProyecto);
+        model.addAttribute("proyectoNombre", proyectoNombre);
 
         model.addAttribute("documento", documento);
         model.addAttribute("proyecto", proyecto);

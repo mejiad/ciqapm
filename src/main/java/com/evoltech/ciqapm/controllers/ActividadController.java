@@ -51,6 +51,7 @@ public class ActividadController {
         List<Actividad> actividades = actividadRepository.findByEtapa(etapa);
         model.addAttribute("etapa", etapa);
         model.addAttribute("actividades", actividades);
+        System.out.println("+++++++++++++++++++++++++ Actividad/list: ");
 
         return "/Actividad/List";
     }
