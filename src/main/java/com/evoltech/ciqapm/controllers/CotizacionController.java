@@ -102,12 +102,14 @@ public class CotizacionController {
 
 
     @PostMapping("save")
-    private String salvar(@Valid Cotizacion cotizacion, Model model, BindingResult result){
+    private String salvar(@Valid Cotizacion cotizacion, BindingResult result, Model model){
 
         if(result.hasErrors()){
-            System.out.println("Errores es la captura de datos.");
-
+            System.out.println("Errores en la captura de datos.");
+            model.addAttribute("cotizacion", cotizacion);
+            return "Cotizacion/Edit";
         } else {
+            System.out.println("SIN Errores en la captura de datos.");
             cotizacionRepository.save(cotizacion);
         }
         return "redirect:/cotizacion/view?id=" + cotizacion.getId();

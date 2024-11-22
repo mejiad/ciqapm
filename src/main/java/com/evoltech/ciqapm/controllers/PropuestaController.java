@@ -1,12 +1,10 @@
 package com.evoltech.ciqapm.controllers;
 
-import com.evoltech.ciqapm.model.Estado;
-import com.evoltech.ciqapm.model.Empleado;
-import com.evoltech.ciqapm.model.Propuesta;
-import com.evoltech.ciqapm.model.Proyecto;
+import com.evoltech.ciqapm.model.*;
 import com.evoltech.ciqapm.repository.EmpleadoRepository;
 import com.evoltech.ciqapm.repository.PropuestaRepository;
 import com.evoltech.ciqapm.repository.ProyectoRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -82,11 +80,26 @@ public class PropuestaController {
 
 
     @PostMapping("save")
-    private String salvar(Propuesta propuesta, BindingResult result, Model model) {
+    private String salvar(@Valid Propuesta propuesta, BindingResult result, Model model) {
+
+        if (result.hasErrors()) {
+            var mod = result.getModel();
+            System.out.println("Si hay errores");
+            System.out.println("Proyecto " + propuesta.getProyecto());
+            Proyecto proyecto = propuesta.getProyecto();
+
+            List<Empleado> personas = personalRepository.findAll();
+            List<Estado> estados = List.of(Estado.values());
+
+            model.addAttribute("estados", estados);
+            model.addAttribute("personas", personas);
+            model.addAttribute("propuesta", propuesta);
+            model.addAttribute("proyecto", proyecto);
+
+            return "Propuesta/Edit";
+        }
 
        Propuesta res = propuestaRepository.save(propuesta);
-        System.out.println("Regresando a:" + res.getProyecto().getNombre());
-
        return "redirect:/conahcyt/view/" + res.getProyecto().getId();
     }
 

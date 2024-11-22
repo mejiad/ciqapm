@@ -29,6 +29,12 @@ public class Documento extends BaseClass {
     @ManyToOne
     private Proyecto proyecto;
 
+    @ManyToOne
+    private Etapa etapa;
+
+    @ManyToOne
+    private Entregable entregable;
+
     @Lob
     private byte[] data;
 
