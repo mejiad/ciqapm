@@ -2,10 +2,14 @@ package com.evoltech.ciqapm.controllers;
 
 import com.evoltech.ciqapm.model.*;
 import com.evoltech.ciqapm.repository.EmpleadoRepository;
+import com.evoltech.ciqapm.repository.ProyectoRepository;
 import com.evoltech.ciqapm.repository.datos.ConahcytRepository;
+import com.evoltech.ciqapm.utils.BreadcrumbService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -20,9 +24,12 @@ public class AutorizaController {
 
     @Autowired
     EmpleadoRepository empleadoRepository;
+    private final ProyectoRepository proyectoRepository;
 
-    public AutorizaController(ConahcytRepository conahcytRepository) {
+    public AutorizaController(ConahcytRepository conahcytRepository,
+                              ProyectoRepository proyectoRepository) {
         this.conahcytRepository = conahcytRepository;
+        this.proyectoRepository = proyectoRepository;
     }
 
     @GetMapping("list")
@@ -59,6 +66,18 @@ public class AutorizaController {
         Conahcyt conahcyt = conahcytRepository.getReferenceById(id);
         List<Empleado> personas = empleadoRepository.findAll();
         List<AutorizaNivel> niveles = List.of(AutorizaNivel.values());
+
+        Proyecto proyecto = proyectoRepository.getReferenceById(id);
+        BreadcrumbService breadcrumbService = new BreadcrumbService();
+        String pathTipoProyecto = breadcrumbService.getPathTipoProyecto(proyecto);
+        String pathProyecto = breadcrumbService.getPathProyecto(proyecto);
+        String tagTipoProyecto = breadcrumbService.getTagTipoProyecto(proyecto);
+        String proyectoNombre = proyecto.getNombre();
+        model.addAttribute("pathTipoProyecto", pathTipoProyecto);
+        model.addAttribute("pathProyecto", pathProyecto);
+        model.addAttribute("tagTipoProyecto", tagTipoProyecto);
+        model.addAttribute("proyectoNombre", proyectoNombre);
+
         model.addAttribute("autoriza", autoriza);
         model.addAttribute("proyecto", conahcyt);
         model.addAttribute("niveles", niveles);
@@ -79,8 +98,19 @@ public class AutorizaController {
     }
 
     @PostMapping("save")
-    public String save(Autoriza autoriza, Proyecto proyecto, Model model) {
+    public String save(@Valid Autoriza autoriza, BindingResult result, Proyecto proyecto, Model model) {
+        System.out.println("Inicio de save");
         Conahcyt conahcyt = conahcytRepository.getReferenceById(proyecto.getId());
+        if (result.hasErrors()) {
+            var mod = result.getModel();
+
+            List<AutorizaNivel> niveles = List.of(AutorizaNivel.values());
+            model.addAttribute("autoriza", autoriza);
+            model.addAttribute("proyecto", conahcyt);
+            model.addAttribute("niveles", niveles);
+            return "autoriza/Edit";
+        }
+
         System.out.println("Proyecto id:" + proyecto.getId());
         System.out.println("Proyecto nombre:" + conahcyt.getNombre());
 

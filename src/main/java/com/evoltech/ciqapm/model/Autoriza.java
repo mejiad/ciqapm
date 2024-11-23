@@ -1,6 +1,7 @@
 package com.evoltech.ciqapm.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 public class Autoriza {
 
     @NotNull(message = "La persona que autoriza es un dato requerido.")
+    @NotBlank(message = "La persona que autoriza es un dato requerido.")
     private String persona;
 
     private String nota;
