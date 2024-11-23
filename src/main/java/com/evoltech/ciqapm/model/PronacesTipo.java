@@ -1,0 +1,14 @@
+package com.evoltech.ciqapm.model;
+
+public enum PronacesTipo {
+    SALUD,
+    AGUA,
+    EDUCACION,
+    CULTURA,
+    VIVIENDA,
+    ENERGIA_CAMBIO_CLIMATICO,
+    SISTEMAS_SOCIOECOLOGICOS,
+    SEGURIDAD_HUMANA,
+    AGENTES_TOXICOS,
+    SOBERANIA_ALIMENTARIA
+}

@@ -32,7 +32,8 @@
                     <thead>
                     <tr>
                         <th scope="col"
-                            class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Nombre
+                            class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
+                            Nombre
                         </th>
                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                             Descripción
@@ -61,7 +62,7 @@
                                class=" font-semibold text-sky-600 hover:text-sky-900">Editar</a>
                         </td>
                         <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                            <a th:href="@{/documento/new(id=${etapa.proyecto.id})}"
+                            <a th:href="@{/documentoEntregable/uploadform(entregableId=${entregable.id})}"
                                class=" font-semibold text-sky-600 hover:text-sky-900">Subir Documento</a>
                         </td>
                     </tr>

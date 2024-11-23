@@ -30,4 +30,9 @@ public class Entregable {
 
     private LocalDate fechaCarga;
 
+    private String nombreArchivo;
+
+    @Lob
+    private byte[] data;
+
 }
