@@ -60,9 +60,23 @@
                             <a th:href="@{/entregable/edit(id=${entregable.id})}"
                                class=" font-semibold text-sky-600 hover:text-sky-900">Editar</a>
                         </td>
-                        <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                            <a th:href="@{/documento/new(id=${etapa.proyecto.id})}"
-                               class=" font-semibold text-sky-600 hover:text-sky-900">Subir Documento</a>
+                        <td class="relative whitespace-nowrap pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                            <a th:href="@{/documento/new(id=${etapa.proyecto.id})}">
+                                <svg class="text-sky-800 size-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                      fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                      stroke-width="2"
+                                          d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+                                </svg>
+                            </a>
+               <!--             <a th:href="@{/documento/download(id=${etapa.proyecto.id})}">
+                                <svg class="w-6 h-6 text-sky-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                     fill="none" viewBox="0 0 16 18">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3"/>
+                                </svg>
+                            </a>-->
                         </td>
                     </tr>
                     </tbody>
