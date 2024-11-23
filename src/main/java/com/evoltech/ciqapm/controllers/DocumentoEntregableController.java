@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -74,6 +75,7 @@ public class DocumentoEntregableController {
         System.out.println("Descripcion: " + descripcion.toString());
 
         entregable.setNombreArchivo(file.getOriginalFilename());
+        entregable.setFechaCarga(LocalDate.now());
 
         byte[] contenido = storageService.storeDB(file);
         System.out.println("Longitud: " + contenido.length);
