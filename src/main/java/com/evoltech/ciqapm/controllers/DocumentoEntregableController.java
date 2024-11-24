@@ -7,18 +7,23 @@ import com.evoltech.ciqapm.repository.EntregableRepository;
 import com.evoltech.ciqapm.repository.EtapaRepository;
 import com.evoltech.ciqapm.repository.ProyectoRepository;
 import com.evoltech.ciqapm.service.StorageService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
 
 @Controller
 @RequestMapping("documentoEntregable")
+@Transactional
 public class DocumentoEntregableController {
 
     @Autowired
@@ -43,7 +48,7 @@ public class DocumentoEntregableController {
     }
 
     @GetMapping("list")
-    private String lista(@RequestParam("etapaId") Long etapaId, Model model) {
+    public String lista(@RequestParam("etapaId") Long etapaId, Model model) {
         Etapa etapa = etapaRepository.getReferenceById(etapaId);
         List<Entregable> entregables = entregableRepository.findByEtapa(etapa);
 
@@ -53,7 +58,7 @@ public class DocumentoEntregableController {
     }
 
     @GetMapping("uploadform")
-    private String uploadform(@RequestParam("entregableId") Long entregableId, Model model) {
+    public String uploadform(@RequestParam("entregableId") Long entregableId, Model model) {
         Entregable entregable = entregableRepository.getReferenceById(entregableId);
         System.out.println("Forma para subir entregable:" + entregable.getNombre());
         model.addAttribute("entregable", entregable);
@@ -71,6 +76,7 @@ public class DocumentoEntregableController {
         Entregable entregable = entregableRepository.getReferenceById(id);
 
         System.out.println("Entregable nombre: " + entregable.getNombre());
+        Etapa etapa = entregable.getEtapa();
         System.out.println("File: " + file.getOriginalFilename());
         System.out.println("Descripcion: " + descripcion.toString());
 
@@ -83,7 +89,32 @@ public class DocumentoEntregableController {
         entregable.setData(contenido);
         entregableRepository.save(entregable);
 
-        return "redirect:/conahcyt/list";
+        return "redirect:/etapa/view/" + etapa.getId();
     }
 
+    @Transactional
+    @GetMapping( value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE )
+    public ResponseEntity download(@RequestParam("entregableId") Long id) throws IOException {
+
+        // String fileName = URLEncoder.encode(tchCeResource.getRname(), "UTF-8");
+        // fileName = URLDecoder.decode(fileName, "ISO8859_1");
+        // response.setContentType("application/x-msdownload");
+        // response.setHeader("Content-disposition", "attachment; filename="+ filename);
+
+        Entregable documento = entregableRepository.getReferenceById(id);
+
+        String filename = documento.getNombreArchivo();
+        System.out.println("Filename:" + filename);
+
+        Path path = storageService.load(filename);
+        // Resource resource = storageService.loadAsResource(filename);
+
+        // byte[] contenido = resource.getContentAsByteArray();
+        byte[] contenido = documento.getData();
+        System.out.println("Contenido:" + contenido.toString());
+
+        System.out.println("Path: " + path.toAbsolutePath());
+
+        return ResponseEntity.ok().header("Content-disposition", "attachment; filename="+ filename).body(contenido);
+    }
 }

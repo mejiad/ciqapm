@@ -1,13 +1,10 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <script src="/htmx.min.js"></script>
-    <link th:href="@{/main.css}" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/main.css}"/>
     <title>Lista Entregables</title>
 </head>
 <body>
@@ -18,8 +15,8 @@
         </div>
         <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
             <a th:href="@{/entregable/new(id=${etapa.id})}">
-                <button type="button"
-                        class="block rounded-md bg-orange-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600">
+                <button class="block rounded-md bg-orange-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600"
+                        type="button">
                     Agregar Entregable
                 </button>
             </a>
@@ -31,54 +28,65 @@
                 <table class="min-w-full divide-y divide-gray-300">
                     <thead>
                     <tr>
-                        <th scope="col"
-                            class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
+                        <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                            scope="col">
                             Nombre
                         </th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                        <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">
                             Descripción
                         </th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                        <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">
                             Fecha de Carga
                         </th>
-                        <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
+                        <th class="relative py-3.5 pl-3 pr-4 sm:pr-0" scope="col">
                             <span class="sr-only">Editar</span>
                         </th>
                     </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                     <tr th:each="entregable : ${entregables}">
-                        <td th:text="${entregable.nombre}"
-                            class="whitespace py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">Nombre
+                        <td class="whitespace py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
+                            th:text="${entregable.nombre}">Nombre
                         </td>
-                        <td th:text="${entregable.descripcion}"
-                            class="whitespace py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">Descripción
+                        <td class="whitespace py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
+                            th:text="${entregable.descripcion}">Descripción
                         </td>
-                        <td th:text="${entregable.fechaCarga}"
-                            class="whitespace px-3 py-4 text-sm text-gray-500">Fecha de Carga
+                        <td class="whitespace px-3 py-4 text-sm text-gray-500"
+                            th:text="${entregable.fechaCarga}">Fecha de Carga
                         </td>
                         <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                            <a th:href="@{/entregable/edit(id=${entregable.id})}"
-                               class=" font-semibold text-sky-600 hover:text-sky-900">Editar</a>
+                            <a class=" font-semibold text-sky-600 hover:text-sky-900"
+                               th:href="@{/entregable/edit(id=${entregable.id})}">Editar</a>
                         </td>
-                        <td class="relative whitespace-nowrap pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                        <a th:href="@{/documentoEntregable/uploadform(entregableId=${entregable.id})}">
-                                <svg class="text-sky-800 size-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                      fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2"
-                                          d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
-                                </svg>
-                            </a>
-               <!--             <a th:href="@{/documento/download(id=${etapa.proyecto.id})}">
-                                <svg class="w-6 h-6 text-sky-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                     fill="none" viewBox="0 0 16 18">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                          stroke-width="2"
-                                          d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3"/>
-                                </svg>
-                            </a>-->
-                        </td>
+                        <div th:unless="${entregable.nombreArchivo}">
+                            <td class="relative whitespace-nowrap pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+
+
+                                <a th:href="@{/documentoEntregable/uploadform(entregableId=${entregable.id})}">
+                                    <svg aria-hidden="true" class="text-sky-800 size-6"
+                                         fill="none"
+                                         viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" stroke="currentColor" stroke-linecap="round"
+                                              stroke-linejoin="round"
+                                              stroke-width="2"/>
+                                    </svg>
+                                </a>
+                        </div>
+
+                        <div th:if="${entregable.nombreArchivo}">
+
+                            <td class="relative whitespace-nowrap pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                                <a th:href="@{/documentoEntregable/download(entregableId=${entregable.id})}">
+                                    <svg aria-hidden="true" class="w-6 h-6 text-sky-800"
+                                         fill="none"
+                                         viewBox="0 0 16 18" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3" stroke="currentColor" stroke-linecap="round"
+                                              stroke-linejoin="round"
+                                              stroke-width="2"/>
+                                    </svg>
+                                </a>
+                            </td>
+                        </div>
                     </tr>
                     </tbody>
                 </table>
