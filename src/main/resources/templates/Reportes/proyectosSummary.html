@@ -97,9 +97,28 @@
 
                                     </div>
                                     <div class="flex flex-none items-center gap-x-4">
-                                        <a th:href="@{/proyecto/view(id=${proyecto.id})}"
-                                           class="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block">Ver
-                                            info</a>
+                                        <div th:switch="${proyecto.tipoProyecto.toString()}">
+                                            <div th:case="'CONAHCYT'">
+                                                <a th:href="@{/conahcyt/view(id=${proyecto.id})}"
+                                                   class="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block">Ver
+                                                    info</a>
+                                            </div>
+                                            <div th:case="'INDUSTRIA'">
+                                                <a th:href="@{/industria/view(id=${proyecto.id})}"
+                                                   class="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block">Ver
+                                                    info</a>
+                                            </div>
+                                            <div th:case="'INTERNO'">
+                                                <a th:href="@{/interno/view(id=${proyecto.id})}"
+                                                   class="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block">Ver
+                                                    info</a>
+                                            </div>
+                                            <div th:case="*">
+                                                <a th:href="@{/proyecto/view(id=${proyecto.id})}"
+                                                   class="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block">Ver
+                                                    info</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </li>
                             </ul>

@@ -145,11 +145,22 @@ public class EtapaController {
         // etapa.setServicio(servicioDummy);
         etapa.setEstado(Estado.CREACION);
 
+        BreadcrumbService breadcrumbService = new BreadcrumbService();
+        String pathTipoProyecto = breadcrumbService.getPathTipoProyecto(etapa.getProyecto());
+        String pathProyecto = breadcrumbService.getPathProyecto(etapa.getProyecto());
+        String tagTipoProyecto = breadcrumbService.getTagTipoProyecto(etapa.getProyecto());
+        String proyectoNombre = etapa.getProyecto().getNombre();
+
+
         model.addAttribute("etapa", etapa);
         model.addAttribute("proyecto", proyecto);
         model.addAttribute("estados", estados);
         model.addAttribute("personas", personas);
         model.addAttribute("servicios", servicios);
+        model.addAttribute("pathTipoProyecto", pathTipoProyecto);
+        model.addAttribute("pathProyecto", pathProyecto);
+        model.addAttribute("tagTipoProyecto", tagTipoProyecto);
+        model.addAttribute("proyectoNombre", proyectoNombre);
         return "/Etapa/Edit";
     }
 
