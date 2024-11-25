@@ -114,12 +114,12 @@ public class DataLoad {
         Empleado empleado6 = createEmpleado(EmpleadoCategoria.TTC);
          */
 
-        Empleado personal1 = createEmpleadoCiqa("00007","JESUS GUADALUPE QUIROZ LOPEZ",357.86,"TTC");
-        Empleado personal2 = createEmpleadoCiqa("00028","JESUS GILBERTO RODRIGUEZ VELAZQUEZ",359.51,"TTC");
-        Empleado personal3 = createEmpleadoCiqa("00032","ODILIA PEREZ CAMACHO",537.46,"ITC");
-        Empleado personal4 = createEmpleadoCiqa("00033","LUIS ALFONSO GARCIA CERDA",490.41,"ITC");
-        Empleado personal5 = createEmpleadoCiqa("00047","GLADYS DE LOS SANTOS VILLARREAL",406.30,"IAC");
-        Empleado personal6 = createEmpleadoCiqa("00049","J GUADALUPE TELLES PADILLA",351.97,"TTC");
+        Empleado personal1 = createEmpleadoCiqa("00007", randomService.nombre(), 357.86,"TTC");
+        Empleado personal2 = createEmpleadoCiqa("00028", randomService.nombre(), 359.51,"TTC");
+        Empleado personal3 = createEmpleadoCiqa("00032", randomService.nombre(), 537.46,"ITC");
+        Empleado personal4 = createEmpleadoCiqa("00033", randomService.nombre(), 490.41,"ITC");
+        Empleado personal5 = createEmpleadoCiqa("00047", randomService.nombre(), 406.30,"IAC");
+        Empleado personal6 = createEmpleadoCiqa("00049", randomService.nombre(), 351.97,"TTC");
 
         createAllEmpleados();
 
@@ -2125,6 +2125,68 @@ public class DataLoad {
         createEmpleadoCiqa("00047","GLADYS DE LOS SANTOS VILLARREAL",406.30,"IAC");
         createEmpleadoCiqa("00049","J GUADALUPE TELLES PADILLA",351.97,"TTC");
         */
+
+        createEmpleadoCiqa("00050",randomService.nombre(),348.39,"TTC");
+        createEmpleadoCiqa("00050", randomService.nombre(), 348.39,"TTC");
+        createEmpleadoCiqa("00061", randomService.nombre(), 174.51,"N13");
+        createEmpleadoCiqa("00071",randomService.nombre(),433.42,"ITC");
+        createEmpleadoCiqa("00075",randomService.nombre(),237.45,"N19");
+        createEmpleadoCiqa("00077", randomService.nombre(), 449.20,"ITC");
+        createEmpleadoCiqa("00089", randomService.nombre(), 453.07,"ITC");
+        createEmpleadoCiqa("00090", randomService.nombre(), 350.28,"TTC");
+        createEmpleadoCiqa("00098", randomService.nombre(), 478.78,"ITC");
+        createEmpleadoCiqa("00108", randomService.nombre(), 435.76,"ITC");
+        createEmpleadoCiqa("00111", randomService.nombre(), 302.41,"TTA");
+        createEmpleadoCiqa("00113", randomService.nombre(), 392.16,"ITA");
+        createEmpleadoCiqa("00115", randomService.nombre(), 337.75,"TTC");
+        createEmpleadoCiqa("00120", randomService.nombre(), 369.50,"TTC");
+        createEmpleadoCiqa("00121", randomService.nombre(), 464.47,"ITB");
+        createEmpleadoCiqa("00123", randomService.nombre(), 245.07,"TAC");
+        createEmpleadoCiqa("00125", randomService.nombre(), 350.39,"TTC");
+        createEmpleadoCiqa("00133", randomService.nombre(), 521.14,"ITC");
+        createEmpleadoCiqa("00141", randomService.nombre(), 329.98,"TTC");
+        createEmpleadoCiqa("00143", randomService.nombre(), 133.16,"N9");
+        createEmpleadoCiqa("00144", randomService.nombre(), 346.77,"TTC");
+        createEmpleadoCiqa("00146",randomService.nombre(),227.36,"N21");
+        createEmpleadoCiqa("00147", randomService.nombre(), 207.02,"N16");
+        createEmpleadoCiqa("00148", randomService.nombre(), 599.28,"ITC");
+        createEmpleadoCiqa("00152", randomService.nombre(), 182.94,"N13");
+        createEmpleadoCiqa("00156", randomService.nombre(), 428.59,"ITC");
+        createEmpleadoCiqa("00158", randomService.nombre(), 582.62,"ITA");
+        createEmpleadoCiqa("00161", randomService.nombre(), 462.55,"ITB");
+        createEmpleadoCiqa("00165", randomService.nombre(), 562.46,"ITC");
+        createEmpleadoCiqa("00166", randomService.nombre(), 543.39,"ITC");
+        createEmpleadoCiqa("00167", randomService.nombre(), 328.05,"IAB");
+        createEmpleadoCiqa("00172", randomService.nombre(), 348.91,"ITC");
+        createEmpleadoCiqa("00182", randomService.nombre(), 354.88,"TTC");
+        createEmpleadoCiqa("00185", randomService.nombre(), 433.20,"TTC");
+        createEmpleadoCiqa("00190", randomService.nombre(), 142.86,"ITC");
+        createEmpleadoCiqa("00202", randomService.nombre(), 129.73,"N9");
+        createEmpleadoCiqa("00207", randomService.nombre(), 457.36,"TTC");
+        createEmpleadoCiqa("00212", randomService.nombre(), 358.31,"N9");
+        createEmpleadoCiqa("00214", randomService.nombre(), 340.58,"IAC");
+        createEmpleadoCiqa("00222", randomService.nombre(), 357.90,"TTC");
+        createEmpleadoCiqa("00225", randomService.nombre(), 375.40,"TTC");
+        createEmpleadoCiqa("00233",randomService.nombre(),364.48,"TTC");
+        createEmpleadoCiqa("00243", randomService.nombre(), 349.89,"IAC");
+        createEmpleadoCiqa("00245", randomService.nombre(), 390.35,"TTC");
+        createEmpleadoCiqa("00246", randomService.nombre(), 563.91,"TTC");
+        createEmpleadoCiqa("00249", randomService.nombre(), 346.50,"IAC");
+        createEmpleadoCiqa("00252", randomService.nombre(), 342.99,"ITC");
+        createEmpleadoCiqa("00253", randomService.nombre(), 338.77,"TTC");
+        createEmpleadoCiqa("00254", randomService.nombre(), 500.30,"TTC");
+        createEmpleadoCiqa("00256", randomService.nombre(), 434.57,"TTC");
+        createEmpleadoCiqa("00258", randomService.nombre(), 598.35,"ITA");
+        createEmpleadoCiqa("00262", randomService.nombre(), 290.68,"ITB");
+        createEmpleadoCiqa("00268", randomService.nombre(), 354.82,"ITC");
+        createEmpleadoCiqa("00269", randomService.nombre(), 370.40,"TTB");
+        createEmpleadoCiqa("00270", randomService.nombre(), 417.22,"TTC");
+        createEmpleadoCiqa("00272", randomService.nombre(), 399.05,"IAC");
+        createEmpleadoCiqa("00273", randomService.nombre(), 518.17,"ITB");
+        createEmpleadoCiqa("00274", randomService.nombre(), 344.60,"ITA");
+        createEmpleadoCiqa("00276", randomService.nombre(), 485.53,"ITC");
+
+        /*
         createEmpleadoCiqa("00050","HENED SAADE CABALLERO",348.39,"TTC");
         createEmpleadoCiqa("00061","JULIO CESAR CISNEROS MACHORRO",174.51,"N13");
         createEmpleadoCiqa("00071","ENRIQUE JAVIER JIMENEZ REGALADO",433.42,"ITC");
@@ -2263,7 +2325,7 @@ public class DataLoad {
         createEmpleadoCiqa("00507","AUDBERTO REYES ROSAS",244.01,"N18");
         createEmpleadoCiqa("00508","IVAN DE JESUS ZAPATA GONZALEZ",299.94,"N6");
         createEmpleadoCiqa("00509","PERLA ELVIA GARCIA CASILLAS",364.42,"IAC");
-        createEmpleadoCiqa("00510","ANA IntStream.range(0, 10).forEach(n -> System.out.println(n));MARGARITA RODRIGUEZ HERNANDEZ",328.20,"ITA");
+        createEmpleadoCiqa("00510","ANA MARGARITA RODRIGUEZ HERNANDEZ",328.20,"ITA");
         createEmpleadoCiqa("00512","MARISOL TOVAR COLUNGA",111.86,"ITB");
         createEmpleadoCiqa("00514","ISRAEL SIFUENTES NIEVES",255.21,"ITA");
         createEmpleadoCiqa("00515","GINA MARLENE FABELA SANCHEZ",118.75,"N10");
@@ -2324,6 +2386,7 @@ public class DataLoad {
         createEmpleadoCiqa("00990","NORMA LETICIA CONTRERAS LOPEZ",177.11,"N17");
         createEmpleadoCiqa("00996","CLAUDIO ADOLFO ARREDONDO ELIZONDO",119.74,"TTC");
         createEmpleadoCiqa("00997","FRANCISCO PRADO CASTAÑUELA",98.59,"N9");
+        */
 
 
     }
