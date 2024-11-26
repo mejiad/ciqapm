@@ -75,7 +75,7 @@ public class ConahcytController {
 
         model.addAttribute("proyectos", proyectos);
 
-        return "/Conahcyt/List";
+        return "Conahcyt/List";
     }
 
     @GetMapping("/view/{id}")
@@ -113,7 +113,7 @@ public class ConahcytController {
         model.addAttribute("etapas", ganttDTOS);
         model.addAttribute("avance", avance);
 
-        return "/Conahcyt/View";
+        return "Conahcyt/View";
     }
 
 
@@ -151,12 +151,12 @@ public class ConahcytController {
         model.addAttribute("etapas", ganttDTOS);
         model.addAttribute("avance", avance);
 
-        return "/Conahcyt/View";
+        return "Conahcyt/View";
     }
 
     @GetMapping("/edit")
     public String editProyecto(Model model) {
-        return "/Proyecto/Edit";
+        return "Proyecto/Edit";
     }
 
 
@@ -179,7 +179,7 @@ public class ConahcytController {
         model.addAttribute("tiposProyecto", tiposProyecto);
         model.addAttribute("convocatorias", convocatorias);
 
-        return "/Conahcyt/Edit";
+        return "Conahcyt/Edit";
     }
 
     /*
@@ -224,7 +224,7 @@ public class ConahcytController {
             model.addAttribute("clientes", clientes);
             model.addAttribute("convocatorias", convocatorias);
             model.addAttribute("tiposProyecto", tiposProyecto);
-            return "/Conahcyt/Edit";
+            return "Conahcyt/Edit";
         } else {
             Conahcyt proyecto = conacyt;
 

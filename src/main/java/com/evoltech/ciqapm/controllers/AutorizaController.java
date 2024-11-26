@@ -108,7 +108,7 @@ public class AutorizaController {
             model.addAttribute("autoriza", autoriza);
             model.addAttribute("proyecto", conahcyt);
             model.addAttribute("niveles", niveles);
-            return "autoriza/Edit";
+            return "Autoriza/Edit";
         }
 
         System.out.println("Proyecto id:" + proyecto.getId());

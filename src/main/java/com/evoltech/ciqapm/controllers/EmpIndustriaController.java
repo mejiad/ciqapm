@@ -56,7 +56,7 @@ public class EmpIndustriaController {
     @GetMapping("/new")
     private String nuevo(@RequestParam("id")Long id, Model model ){
 
-        return "/EmpIndustria/Edit";
+        return "EmpIndustria/Edit";
     }
 
     @GetMapping("/searchForm")

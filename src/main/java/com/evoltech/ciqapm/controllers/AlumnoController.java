@@ -27,7 +27,7 @@ public class AlumnoController {
         List<Alumno> alumnos = alumnoRepository.findAll();
         model.addAttribute("alumnos", alumnos);
 
-        return "/Alumno/List";
+        return "Alumno/List";
     }
 
 
@@ -36,7 +36,7 @@ public class AlumnoController {
         Alumno alumno = new Alumno();
         model.addAttribute("alumno", alumno);
 
-        return "/Alumno/Edit";
+        return "Alumno/Edit";
     }
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -53,7 +53,7 @@ public class AlumnoController {
             }
 
             model.addAttribute("alumno", alumno);
-            return "/alumno/Edit";
+            return "Alumno/Edit";
         } else {
             System.out.println("Inicio del save");
             alumnoRepository.save(alumno);

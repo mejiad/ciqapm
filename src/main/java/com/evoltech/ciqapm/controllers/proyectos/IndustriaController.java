@@ -71,7 +71,7 @@ public class IndustriaController {
 
         model.addAttribute("proyectos", proyectos);
 
-        return "/Industria/List";
+        return "Industria/List";
     }
 
     @GetMapping("/view/{id}")
@@ -104,7 +104,7 @@ public class IndustriaController {
         model.addAttribute("proyecto", industria);
         model.addAttribute("etapas", ganttDTOS);
 
-        return "/Industria/View";
+        return "Industria/View";
     }
 
     @GetMapping("/view")
@@ -137,12 +137,12 @@ public class IndustriaController {
         model.addAttribute("proyecto", industria);
         model.addAttribute("etapas", ganttDTOS);
 
-        return "/Industria/View";
+        return "Industria/View";
     }
 
     @GetMapping("/edit")
     public String editProyecto(Model model) {
-        return "/industria/Edit";
+        return "Industria/Edit";
     }
 
 
@@ -165,7 +165,7 @@ public class IndustriaController {
         // model.addAttribute("tiposProyecto", tiposProyecto);
         model.addAttribute("industria", industria);
 
-        return "/Industria/Edit";
+        return "Industria/Edit";
     }
 
     /*
@@ -194,7 +194,7 @@ public class IndustriaController {
             model.addAttribute("personas", personas);
             model.addAttribute("clientes", clientes);
             //model.addAttribute("tiposProyecto", tiposProyecto);
-            return "/Industria/Edit";
+            return "Industria/Edit";
         } else {
             System.out.println("Inicio del save");
             Industria proyecto = industria;

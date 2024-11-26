@@ -53,7 +53,7 @@ public class ActividadController {
         model.addAttribute("actividades", actividades);
         System.out.println("+++++++++++++++++++++++++ Actividad/list: ");
 
-        return "/Actividad/List";
+        return "Actividad/List";
     }
 
     @GetMapping("/view")
@@ -79,7 +79,7 @@ public class ActividadController {
         System.out.println("Actividad nombre:" + actividad.getNombre());
         System.out.println("Actividad de la etapa:" + actividad.getEtapa().getNombre());
         System.out.println("Estados de la actividad:" + estados);
-        return "/Actividad/Edit";
+        return "Actividad/Edit";
     }
 
     @GetMapping("/new")
@@ -105,7 +105,7 @@ public class ActividadController {
         model.addAttribute("personas", personas);
         System.out.println("Estados de la actividad:" + estados);
 
-        return "/Actividad/Edit";
+        return "Actividad/Edit";
     }
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

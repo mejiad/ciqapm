@@ -50,7 +50,7 @@ public class CotizaEmpleadoController {
     @GetMapping("/new")
     private String nuevo(@RequestParam("id")Long id, Model model ){
 
-        return "/CotizaPersonal/Edit";
+        return "CotizaPersonal/Edit";
     }
 
     @GetMapping("/searchForm")

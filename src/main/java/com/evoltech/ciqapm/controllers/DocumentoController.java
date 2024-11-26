@@ -59,7 +59,7 @@ public class DocumentoController {
         model.addAttribute("documentos", documentos);
         System.out.println("----------------list documentos: ");
 
-        return "/Documento/List";
+        return "Documento/List";
     }
 
     @GetMapping("/view")
@@ -76,7 +76,7 @@ public class DocumentoController {
 
     @GetMapping("/edit")
     public String editDocumento(Model model){
-        return "/Documento/Edit";
+        return "Documento/Edit";
     }
 
     @GetMapping("/new")
@@ -100,7 +100,7 @@ public class DocumentoController {
         model.addAttribute("proyecto", proyecto);
         model.addAttribute("tiposDocumento", tiposDocumento);
 
-        return "/Documento/Edit";
+        return "Documento/Edit";
     }
 
     @GetMapping("/propuesta")
@@ -114,7 +114,7 @@ public class DocumentoController {
         model.addAttribute("proyecto", proyecto);
         model.addAttribute("tiposDocumento", tiposDocumento);
 
-        return "/Documento/Edit";
+        return "Documento/Edit";
     }
 
     /*

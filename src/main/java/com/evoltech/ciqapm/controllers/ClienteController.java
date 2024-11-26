@@ -65,7 +65,7 @@ public class ClienteController {
             }
 
             model.addAttribute("cliente", cliente);
-            return "/cliente/Edit";
+            return "Cliente/Edit";
         } else {
             // TODO: Crear el directorio del id del proyecto
             System.out.println("Inicio del save");

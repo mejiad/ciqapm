@@ -48,7 +48,7 @@ public class CotizacionController {
         System.out.println("======== List de todas las cotizacion =========");
 
         model.addAttribute("cotizaciones", cotizaciones);
-        return "/Cotizacion/ListAll";
+        return "Cotizacion/ListAll";
     }
 
     @GetMapping("list")
@@ -59,7 +59,7 @@ public class CotizacionController {
 
         model.addAttribute("cotizaciones", cotizaciones);
         model.addAttribute("proyecto", industria);
-        return "/Cotizacion/List";
+        return "Cotizacion/List";
     }
 
     @GetMapping("view/{id}")
@@ -68,7 +68,7 @@ public class CotizacionController {
         Double subtotal = cotizacion.getPasajes() + cotizacion.getMateriales() +cotizacion.getViaticos() + cotizacion.getCostoTotalHrsHombre();
         model.addAttribute("cotizacion", cotizacion);
         model.addAttribute("subtotal", subtotal);
-        return "/Cotizacion/View";
+        return "Cotizacion/View";
     }
 
     @GetMapping("view")
@@ -78,7 +78,7 @@ public class CotizacionController {
         Double subtotal = cotizacion.getPasajes() + cotizacion.getMateriales() +cotizacion.getViaticos() + cotizacion.getCostoTotalHrsHombre();
         model.addAttribute("cotizacion", cotizacion);
         model.addAttribute("subtotal", subtotal);
-        return "/Cotizacion/View";
+        return "Cotizacion/View";
     }
 
     @GetMapping("edit")
@@ -86,7 +86,7 @@ public class CotizacionController {
         Cotizacion cotizacion = cotizacionRepository.getReferenceById(id);
 
         model.addAttribute("cotizacion", cotizacion);
-        return "/Cotizacion/Edit";
+        return "Cotizacion/Edit";
     }
 
 

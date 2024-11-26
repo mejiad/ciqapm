@@ -30,7 +30,7 @@ public class ReportesController {
 
     @GetMapping("")
     public String index(){
-        return "/Reportes/index";
+        return "Reportes/index";
     }
 
     @GetMapping("proyectosSummary")
@@ -39,14 +39,14 @@ public class ReportesController {
         List<ReporteProyectoDto> lista = reportesService.proyectos();
         model.addAttribute("proyectos", lista);
 
-        return "/Reportes/proyectosSummary";
+        return "Reportes/proyectosSummary";
     }
 
     @GetMapping("proyectosEtapas")
     public String etapasProyectos(Model model){
         List<ReporteProyectoDto> dtos = reportesService.proyectosEtapas();
         model.addAttribute("proyectos", dtos);
-        return "/Reportes/proyectosEtapas";
+        return "Reportes/proyectosEtapas";
     }
 
 

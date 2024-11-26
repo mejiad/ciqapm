@@ -55,6 +55,6 @@ public class GanttController {
             ganttDTOS.add(ganttDTO);
         });
         model.addAttribute("etapas", ganttDTOS);
-        return "/Plot/Gantt";
+        return "Plot/Gantt";
     }
 }

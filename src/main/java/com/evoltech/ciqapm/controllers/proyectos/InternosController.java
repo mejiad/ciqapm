@@ -65,7 +65,7 @@ public class InternosController {
         String username = auth.getName();
         List<Interno> proyectos = internoRepository.findAll();
         model.addAttribute("proyectos", proyectos);
-        return "/Interno/List";
+        return "Interno/List";
     }
 
     @GetMapping("/view")
@@ -95,12 +95,12 @@ public class InternosController {
         model.addAttribute("proyecto", proyecto);
         model.addAttribute("etapas", ganttDTOS);
 
-        return "/Interno/View";
+        return "Interno/View";
     }
 
     @GetMapping("/edit")
     public String editProyecto(Model model) {
-        return "/Interno/Edit";
+        return "Interno/Edit";
     }
 
 
@@ -125,7 +125,7 @@ public class InternosController {
         model.addAttribute("tiposProyecto", tiposProyecto);
         model.addAttribute("internos", internos);
 
-        return "/Interno/Edit";
+        return "Interno/Edit";
     }
 
     /*

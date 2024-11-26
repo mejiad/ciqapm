@@ -36,7 +36,7 @@ public class EmpleadoController {
         List<Empleado> personal = empleadoRepository.findAll();
         model.addAttribute("personal", personal);
 
-        return "/Empleado/List";
+        return "Empleado/List";
     }
 
     @GetMapping("/view")
@@ -58,7 +58,7 @@ public class EmpleadoController {
         model.addAttribute("empleado", empleado);
         model.addAttribute("categorias", empleadoCategorias);
         System.out.println(" ---------- las categorias son:" + empleadoCategorias.size());
-        return "/Empleado/Edit";
+        return "Empleado/Edit";
     }
 
     @GetMapping("/new")
@@ -69,7 +69,7 @@ public class EmpleadoController {
         model.addAttribute("categorias", empleadoCategorias);
         System.out.println(" ---------- las categorias son:" + empleadoCategorias.size());
 
-        return "/Empleado/Edit";
+        return "Empleado/Edit";
     }
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -87,7 +87,7 @@ public class EmpleadoController {
             List<EmpleadoCategoria> empleadoCategorias = List.of(EmpleadoCategoria.values());
             model.addAttribute("categorias", empleadoCategorias);
             model.addAttribute("empleado", empleado);
-            return "/empleado/Edit";
+            return "Empleado/Edit";
         } else {
             System.out.println("Inicio del save");
 

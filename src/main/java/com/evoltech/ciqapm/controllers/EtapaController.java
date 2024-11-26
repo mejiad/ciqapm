@@ -54,7 +54,7 @@ public class EtapaController {
         System.out.println("Etapas:" + etapas.size());
         model.addAttribute("etapas", etapas);
 
-        return "/Etapa/List";
+        return "Etapa/List";
     }
 
     @GetMapping("/view/{id}")
@@ -78,7 +78,7 @@ public class EtapaController {
         model.addAttribute("pathTipoProyecto", pathTipoProyecto);
         model.addAttribute("pathProyecto", pathProyecto);
         model.addAttribute("tagTipoProyecto", tagTipoProyecto);
-        return "/Etapa/View";
+        return "Etapa/View";
     }
 
 
@@ -103,7 +103,7 @@ public class EtapaController {
         model.addAttribute("pathTipoProyecto", pathTipoProyecto);
         model.addAttribute("pathProyecto", pathProyecto);
         model.addAttribute("tagTipoProyecto", tagTipoProyecto);
-        return "/Etapa/View";
+        return "Etapa/View";
     }
 
     @GetMapping("/edit")
@@ -129,7 +129,7 @@ public class EtapaController {
         model.addAttribute("pathProyecto", pathProyecto);
         model.addAttribute("tagTipoProyecto", tagTipoProyecto);
         model.addAttribute("proyectoNombre", proyectoNombre);
-        return "/Etapa/Edit";
+        return "Etapa/Edit";
     }
 
     @GetMapping("/new")
@@ -150,7 +150,7 @@ public class EtapaController {
         model.addAttribute("estados", estados);
         model.addAttribute("personas", personas);
         model.addAttribute("servicios", servicios);
-        return "/Etapa/Edit";
+        return "Etapa/Edit";
     }
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

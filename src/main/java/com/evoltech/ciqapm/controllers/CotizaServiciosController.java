@@ -46,13 +46,13 @@ public class CotizaServiciosController {
         System.out.println("CotizaServicios:" + cotizacionServicios.size());
         model.addAttribute("cotizacionId", id);
         model.addAttribute("cotizaServicios", cotizacionServicios);
-        return "/CotizaServicios/List";
+        return "CotizaServicios/List";
     }
 
     @GetMapping("/new")
     private String nuevo(@RequestParam("id")Long id, Model model ){
 
-        return "/CotizaServicio/Edit";
+        return "CotizaServicio/Edit";
     }
 
     @GetMapping("/searchForm")

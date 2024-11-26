@@ -49,7 +49,7 @@ public class ServicioController {
         model.addAttribute("current", 0);
         model.addAttribute("pageSequence", pageSequence);
         model.addAttribute("currentObject", currentObject);
-        return "/Servicio/List";
+        return "Servicio/List";
     }
 
     @PostMapping(value =  "/gopage", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -72,7 +72,7 @@ public class ServicioController {
         model.addAttribute("current", pg);
         model.addAttribute("pageSequence", pageSequence);
         model.addAttribute("currentObject", currentObject);
-        return "/Servicio/List";
+        return "Servicio/List";
     }
 
     @GetMapping("/listpage")
@@ -87,7 +87,7 @@ public class ServicioController {
         model.addAttribute("current", pg);
         model.addAttribute("pageSequence", pageSequence);
         model.addAttribute("currentObject", currentObject);
-        return "/Servicio/List";
+        return "Servicio/List";
     }
 
     @GetMapping("/next")
@@ -106,7 +106,7 @@ public class ServicioController {
         model.addAttribute("current", pg);
         model.addAttribute("pageSequence", pageSequence);
         model.addAttribute("currentObject", currentObject);
-        return "/Servicio/List";
+        return "Servicio/List";
     }
 
     @GetMapping("/prev")
@@ -124,12 +124,12 @@ public class ServicioController {
         model.addAttribute("current", pg);
         model.addAttribute("pageSequence", pageSequence);
         model.addAttribute("currentObject", currentObject);
-        return "/Servicio/List";
+        return "Servicio/List";
     }
 
     @GetMapping("/view")
     public String viewServicio(Model model){
-        return "/Servicio/View";
+        return "Servicio/View";
     }
 
     @GetMapping("/edit")
@@ -143,7 +143,7 @@ public class ServicioController {
     public String newServicio(Model model){
         Servicio servicio = new Servicio();
         model.addAttribute("servicio", servicio);
-        return "/Servicio/Edit";
+        return "Servicio/Edit";
     }
 
 
@@ -162,7 +162,7 @@ public class ServicioController {
             }
 
             model.addAttribute("servicio", servicio);
-            return "/servicio/Edit";
+            return "Servicio/Edit";
         } else {
             System.out.println("Inicio del save");
             System.out.println("........ save: servicio id:"+ servicio.getId());
@@ -192,7 +192,7 @@ public class ServicioController {
 
 
     @PostMapping("/save")
-    public String saveServicio(Model model){return "/Servicio/List";
+    public String saveServicio(Model model){return "Servicio/List";
     }
 
     private List<Integer> pageSequence(Integer current, Integer pages, Integer size){

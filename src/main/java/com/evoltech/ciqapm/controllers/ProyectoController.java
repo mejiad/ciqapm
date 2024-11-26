@@ -73,7 +73,7 @@ public class ProyectoController {
 
         model.addAttribute("proyectos", proyectos);
 
-        return "/Proyecto/List";
+        return "Proyecto/List";
     }
 
     @GetMapping("/view")
@@ -103,12 +103,12 @@ public class ProyectoController {
         model.addAttribute("proyecto", proyecto);
         model.addAttribute("etapas", ganttDTOS);
 
-        return "/Proyecto/View";
+        return "Proyecto/View";
     }
 
     @GetMapping("/edit")
     public String editProyecto(Model model) {
-        return "/Proyecto/Edit";
+        return "Proyecto/Edit";
     }
 
     @GetMapping("/new")
@@ -125,7 +125,7 @@ public class ProyectoController {
         model.addAttribute("clientes", clientes);
         model.addAttribute("tiposProyecto", tiposProyecto);
 
-        return "/Proyecto/Edit";
+        return "Proyecto/Edit";
     }
 
     @GetMapping("/newConahcyt")
@@ -145,7 +145,7 @@ public class ProyectoController {
         model.addAttribute("tiposProyecto", tiposProyecto);
         model.addAttribute("conahcyt", conahcyt);
 
-        return "/Proyecto/EditConahcyt";
+        return "Proyecto/EditConahcyt";
     }
 
     /*
