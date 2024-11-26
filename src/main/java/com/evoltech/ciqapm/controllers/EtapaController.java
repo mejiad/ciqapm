@@ -157,15 +157,7 @@ public class EtapaController {
         model.addAttribute("estados", estados);
         model.addAttribute("personas", personas);
         model.addAttribute("servicios", servicios);
-<<<<<<< HEAD
         return "Etapa/Edit";
-=======
-        model.addAttribute("pathTipoProyecto", pathTipoProyecto);
-        model.addAttribute("pathProyecto", pathProyecto);
-        model.addAttribute("tagTipoProyecto", tagTipoProyecto);
-        model.addAttribute("proyectoNombre", proyectoNombre);
-        return "/Etapa/Edit";
->>>>>>> 2d9c373627ba93e553affaafaf7af047cf9c7a97
     }
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
