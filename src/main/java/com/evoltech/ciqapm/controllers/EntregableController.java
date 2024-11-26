@@ -7,6 +7,7 @@ import com.evoltech.ciqapm.repository.EntregableRepository;
 import com.evoltech.ciqapm.repository.EtapaRepository;
 import com.evoltech.ciqapm.utils.BreadcrumbService;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
@@ -80,9 +81,25 @@ public class EntregableController {
 
 
     @PostMapping("save")
-    public String save(Entregable entregable, BindingResult result, Model model){
+    public String save(@Valid Entregable entregable, BindingResult result, Model model){
         if(result.hasErrors()){
             var mod = result.getModel();
+            Etapa etapa = etapaRepository.getReferenceById(entregable.getEtapa().getId());
+
+            BreadcrumbService breadcrumbService = new BreadcrumbService();
+            String pathTipoProyecto = breadcrumbService.getPathTipoProyecto(etapa.getProyecto());
+            String pathProyecto = breadcrumbService.getPathProyecto(etapa.getProyecto());
+            String tagTipoProyecto = breadcrumbService.getTagTipoProyecto(etapa.getProyecto());
+            String proyectoNombre = etapa.getProyecto().getNombre();
+
+            model.addAttribute("entregable", entregable);
+            model.addAttribute("etapa", etapa);
+            model.addAttribute("pathTipoProyecto", pathTipoProyecto);
+            model.addAttribute("pathProyecto", pathProyecto);
+            model.addAttribute("tagTipoProyecto", tagTipoProyecto);
+            model.addAttribute("proyectoNombre", proyectoNombre);
+
+
 
             model.addAttribute("entregable", entregable);
             return "Entregable/Edit";

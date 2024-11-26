@@ -89,10 +89,24 @@ public class AutorizaController {
     @GetMapping("edit")
     public String edit(Autoriza autoriza, Conahcyt conahcyt, Model model){
 
+        List<Empleado> personas = empleadoRepository.findAll();
         List<AutorizaNivel> niveles = List.of(AutorizaNivel.values());
+
+        Proyecto proyecto = proyectoRepository.getReferenceById(conahcyt.getId());
+        BreadcrumbService breadcrumbService = new BreadcrumbService();
+        String pathTipoProyecto = breadcrumbService.getPathTipoProyecto(proyecto);
+        String pathProyecto = breadcrumbService.getPathProyecto(proyecto);
+        String tagTipoProyecto = breadcrumbService.getTagTipoProyecto(proyecto);
+        String proyectoNombre = proyecto.getNombre();
+        model.addAttribute("pathTipoProyecto", pathTipoProyecto);
+        model.addAttribute("pathProyecto", pathProyecto);
+        model.addAttribute("tagTipoProyecto", tagTipoProyecto);
+        model.addAttribute("proyectoNombre", proyectoNombre);
+
         model.addAttribute("autoriza", autoriza);
         model.addAttribute("proyecto", conahcyt);
         model.addAttribute("niveles", niveles);
+        model.addAttribute("personas", personas);
 
         return "Autoriza/Edit";
     }
@@ -103,6 +117,17 @@ public class AutorizaController {
         Conahcyt conahcyt = conahcytRepository.getReferenceById(proyecto.getId());
         if (result.hasErrors()) {
             var mod = result.getModel();
+            Proyecto proy = proyectoRepository.getReferenceById(proyecto.getId());
+            BreadcrumbService breadcrumbService = new BreadcrumbService();
+            String pathTipoProyecto = breadcrumbService.getPathTipoProyecto(proy);
+            String pathProyecto = breadcrumbService.getPathProyecto(proy);
+            String tagTipoProyecto = breadcrumbService.getTagTipoProyecto(proy);
+            String proyectoNombre = proyecto.getNombre();
+            model.addAttribute("pathTipoProyecto", pathTipoProyecto);
+            model.addAttribute("pathProyecto", pathProyecto);
+            model.addAttribute("tagTipoProyecto", tagTipoProyecto);
+            model.addAttribute("proyectoNombre", proyectoNombre);
+
 
             List<AutorizaNivel> niveles = List.of(AutorizaNivel.values());
             model.addAttribute("autoriza", autoriza);

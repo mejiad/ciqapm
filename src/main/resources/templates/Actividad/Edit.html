@@ -96,6 +96,34 @@
                         <form action="#" th:action="@{/actividad/save}" th:object="${actividad}" method="post">
                                 <div class="space-y-12">
                                     <div class="border-b border-gray-900/10 pb-12">
+
+                                        <div class="block text-sm font-medium leading-6 text-red-600">
+                                            <ul>
+                                                <!--
+                                                <li>
+                                                    <p th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}"></p>
+                                                </li>
+                                                -->
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}">Nombre error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('fechaInicio')}" th:errors="*{fechaInicio}">fechaInicio error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}">estado error</span>
+                                                </li>
+                                                <li>
+                                                    <span th:if="${#fields.hasErrors('horas')}" th:errors="*{horas}">horas error</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+
+
                                         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                             <div class="sm:col-span-4">
                                                 <label for="nombre"

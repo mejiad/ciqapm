@@ -6,11 +6,13 @@ import com.evoltech.ciqapm.repository.EmpleadoRepository;
 import com.evoltech.ciqapm.repository.EtapaRepository;
 import com.evoltech.ciqapm.repository.ProyectoRepository;
 import com.evoltech.ciqapm.utils.BreadcrumbService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -109,7 +111,32 @@ public class ActividadController {
     }
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveActividad(Actividad actividad, Model model){
+    public String saveActividad(@Valid Actividad actividad, BindingResult result,  Model model){
+        if(result.hasErrors()){
+            var mod = result.getModel();
+            Etapa etapa = etapaRepository.getReferenceById(actividad.getEtapa().getId());
+
+            BreadcrumbService breadcrumbService = new BreadcrumbService();
+            String pathTipoProyecto = breadcrumbService.getPathTipoProyecto(etapa.getProyecto());
+            String pathProyecto = breadcrumbService.getPathProyecto(etapa.getProyecto());
+            String tagTipoProyecto = breadcrumbService.getTagTipoProyecto(etapa.getProyecto());
+            String proyectoNombre = etapa.getProyecto().getNombre();
+            List<ActividadEstado> estados = List.of(ActividadEstado.values());
+            List<Empleado> personas = personalRepository.findAll();
+
+
+
+            model.addAttribute("actividad", actividad);
+            model.addAttribute("etapa", etapa);
+            model.addAttribute("estados", estados);
+            model.addAttribute("personas", personas);
+            model.addAttribute("pathTipoProyecto", pathTipoProyecto);
+            model.addAttribute("pathProyecto", pathProyecto);
+            model.addAttribute("tagTipoProyecto", tagTipoProyecto);
+            model.addAttribute("proyectoNombre", proyectoNombre);
+
+            return "Actividad/Edit";
+        }
 
         System.out.println("Valor de etapa.proyecto: " + actividad.getEtapa().getId());
         actividadRepository.save(actividad);
