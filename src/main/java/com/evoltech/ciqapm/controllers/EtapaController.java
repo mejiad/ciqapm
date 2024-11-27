@@ -50,8 +50,8 @@ public class EtapaController {
         Proyecto proyecto = proyectoRepository.getReferenceById(id);
         model.addAttribute("proyecto", proyecto);
         List<Etapa> etapas = etapaRepository.findByProyecto(proyecto);
-        System.out.println("Proyecto nombre:" + proyecto.getNombre());
-        System.out.println("Etapas:" + etapas.size());
+        // System.out.println("Proyecto nombre:" + proyecto.getNombre());
+        // System.out.println("Etapas:" + etapas.size());
         model.addAttribute("etapas", etapas);
 
         return "Etapa/List";
@@ -67,7 +67,7 @@ public class EtapaController {
 
         List<Estado> estados = List.of(Estado.values());
         List<Empleado> personas = personalRepository.findAll();
-        System.out.println("------ no. de personas: " + personas.size());
+        // System.out.println("------ no. de personas: " + personas.size());
         List<Servicio> servicios = servicioRepository.findAll();
         Proyecto proyecto = etapa.getProyecto();
         model.addAttribute("etapa", etapa);
@@ -92,7 +92,7 @@ public class EtapaController {
 
         List<Estado> estados = List.of(Estado.values());
         List<Empleado> personas = personalRepository.findAll();
-        System.out.println("------ no. de personas: " + personas.size());
+        // System.out.println("------ no. de personas: " + personas.size());
         List<Servicio> servicios = servicioRepository.findAll();
         Proyecto proyecto = etapa.getProyecto();
         model.addAttribute("etapa", etapa);
@@ -117,7 +117,7 @@ public class EtapaController {
 
         List<Estado> estados = List.of(Estado.values());
         List<Empleado> personas = personalRepository.findAll();
-        System.out.println("------ no. de personas: " + personas.size());
+        // System.out.println("------ no. de personas: " + personas.size());
         List<Servicio> servicios = servicioRepository.findAll();
         Proyecto proyecto = etapa.getProyecto();
         model.addAttribute("etapa", etapa);
@@ -162,7 +162,7 @@ public class EtapaController {
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String saveEtapa(@Valid Etapa etapa, BindingResult result, Model model) {
-        System.out.println("Inicio de save");
+        // System.out.println("Inicio de save");
         if (result.hasErrors()) {
             var mod = result.getModel();
 

@@ -40,7 +40,6 @@ public class PropuestaController {
         model.addAttribute("propuestas", propuestas);
         model.addAttribute("proyecto", proyecto);
 
-
         return "Propuesta/List";
     }
 
@@ -84,8 +83,6 @@ public class PropuestaController {
 
         if (result.hasErrors()) {
             var mod = result.getModel();
-            System.out.println("Si hay errores");
-            System.out.println("Proyecto " + propuesta.getProyecto());
             Proyecto proyecto = propuesta.getProyecto();
             System.out.println("fix propuesta " + propuesta.getProyecto());
 
@@ -99,9 +96,8 @@ public class PropuestaController {
 
             return "Propuesta/Edit";
         }
-
-       Propuesta res = propuestaRepository.save(propuesta);
-       return "redirect:/conahcyt/view/" + res.getProyecto().getId();
+        Propuesta res = propuestaRepository.save(propuesta);
+        return "redirect:/conahcyt/view/" + res.getProyecto().getId();
     }
 
 }
