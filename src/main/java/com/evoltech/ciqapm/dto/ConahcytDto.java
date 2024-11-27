@@ -43,6 +43,9 @@ public class ConahcytDto {
     @Size(min = 1, max = 250, message = "El objetivo debe tener entre 1 y 250 caracteres.")
     private String objetivo;
 
+    private TipoProyecto tipoProyecto;
+
+    private Integer avance;
 
     public Proyecto proyecto(){
         Proyecto proyecto = new Proyecto();
@@ -67,6 +70,7 @@ public class ConahcytDto {
        return conahcyt;
     }
 
+    /*
     public ConahcytDto(Proyecto proyecto, DatosConahcyt datosConahcyt) {
         this.id = proyecto.getId();
         this.nombre = proyecto.getNombre();
@@ -76,4 +80,5 @@ public class ConahcytDto {
         this.convocatoria = datosConahcyt.getConvocatoria();
         this.objetivo = datosConahcyt.getObjetivo();
     }
+     */
 }

@@ -6,6 +6,7 @@ import com.evoltech.ciqapm.model.*;
 import com.evoltech.ciqapm.model.jpa.Convocatoria;
 import com.evoltech.ciqapm.repository.*;
 import com.evoltech.ciqapm.repository.datos.ConahcytRepository;
+import com.evoltech.ciqapm.service.ConahcytService;
 import com.evoltech.ciqapm.service.ProyectoServicio;
 import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
@@ -39,10 +40,9 @@ public class ConahcytController {
 
     @Autowired
     EtapaRepository etapaRepository;
+
     @Autowired
     private final EmpleadoRepository personalRepository;
-    @Autowired
-    private final ClienteRepository clienteRepository;
 
     @Autowired
     private final ConahcytRepository conahcytRepository;
@@ -50,51 +50,40 @@ public class ConahcytController {
     @Autowired
     private final ConvocatoriaRepository convocatoriaRepository;
 
-    public ConahcytController(ProyectoServicio proyectoServicio, ProyectoRepository proyectoRepository,
-                              EtapaRepository etapaRepository,
-                              EmpleadoRepository personalRepository,
-                              ConahcytRepository conahcytRepository,
-                              ConvocatoriaRepository convocatoriaRepository,
-                              ClienteRepository clienteRepository) {
-        this.proyectoServicio = proyectoServicio;
-        this.proyectoRepository = proyectoRepository;
-        this.etapaRepository = etapaRepository;
+    @Autowired
+    private final ConahcytService conahcytService;
+
+    public ConahcytController(EmpleadoRepository personalRepository, ConahcytRepository conahcytRepository, ConvocatoriaRepository convocatoriaRepository, ConahcytService conahcytService, EtapaRepository etapaRepository, ProyectoRepository proyectoRepository, ProyectoServicio proyectoServicio) {
         this.personalRepository = personalRepository;
-        this.clienteRepository = clienteRepository;
-        this.convocatoriaRepository = convocatoriaRepository;
         this.conahcytRepository = conahcytRepository;
+        this.convocatoriaRepository = convocatoriaRepository;
+        this.conahcytService = conahcytService;
+        this.etapaRepository = etapaRepository;
+        this.proyectoRepository = proyectoRepository;
+        this.proyectoServicio = proyectoServicio;
     }
 
     @GetMapping("/list")
     public String listProyecto(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        System.out.println("Conahcyt Usuario loggeado:" + username);
-
-        List<Proyecto> proyectos = proyectoRepository.findByTipoProyecto(TipoProyecto.CONAHCYT);
-
-        model.addAttribute("proyectos", proyectos);
+        List<ConahcytDto> dtos = conahcytService.findAll();
+        model.addAttribute("proyectos", dtos);
 
         return "Conahcyt/List";
     }
 
     @GetMapping("/view/{id}")
     public String viewProyectoId(@PathVariable("id") Long id, Model model) {
-        System.out.println("Entrando a path variable");
-
         String pattern = "YYYY MM dd";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         DateTimeFormatter df = DateTimeFormatter.ofPattern(pattern);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        System.out.println("Nombre del usuario: " + username);
 
-        Proyecto proyecto = conahcytRepository.getReferenceById(id);
-        System.out.println("Proyecto: " + proyecto.getId() + " " + proyecto.getNombre());
+        Conahcyt proyecto = conahcytRepository.getReferenceById(id);
         List<Etapa> etapas = etapaRepository.findByProyecto(proyecto);
         Conahcyt conahcyt = conahcytRepository.getReferenceById(id);
-        System.out.println("Descripcion: " + conahcyt.getDescripcion());
-        System.out.println("Descripcion Proyecto: " + proyecto.getDescripcion());
         int avance = proyecto.getAvance();
 
         ArrayList<GanttDTO> ganttDTOS = new ArrayList<>();
@@ -102,14 +91,15 @@ public class ConahcytController {
         etapas.forEach(etapa -> {
             GanttDTO ganttDTO = new GanttDTO(etapa.getId().toString(),
                     etapa.getNombre(), etapa.getServicio().getClave(),
-                    // LocalDate.of(2020,10,12).format(df),
                     etapa.getFechaEstimadaInicio().format(df),
                     etapa.getFechaEstimadaTerminacion().format(df) ,
                     10 , etapa.getPctCompleto() );
             ganttDTOS.add(ganttDTO);
         });
 
-        model.addAttribute("conahcytDto", conahcyt);
+       ConahcytDto conahcytDto =  conahcytService.createDto(conahcyt);
+
+        model.addAttribute("conahcytDto", conahcytDto);
         model.addAttribute("etapas", ganttDTOS);
         model.addAttribute("avance", avance);
 
@@ -125,14 +115,10 @@ public class ConahcytController {
         DateTimeFormatter df = DateTimeFormatter.ofPattern(pattern);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        System.out.println("Nombre del usuario: " + username);
 
         Proyecto proyecto = proyectoRepository.getReferenceById(id);
-        System.out.println("Proyecto: " + proyecto.getId() + " " + proyecto.getNombre());
         List<Etapa> etapas = etapaRepository.findByProyecto(proyecto);
         Conahcyt conahcyt = conahcytRepository.getReferenceById(id);
-        System.out.println("Descripcion: " + conahcyt.getDescripcion());
-        System.out.println("Descripcion Proyecto: " + proyecto.getDescripcion());
         int avance = proyecto.getAvance();
 
         ArrayList<GanttDTO> ganttDTOS = new ArrayList<>();
@@ -140,7 +126,6 @@ public class ConahcytController {
         etapas.forEach(etapa -> {
             GanttDTO ganttDTO = new GanttDTO(etapa.getId().toString(),
                     etapa.getNombre(), etapa.getServicio().getClave(),
-                    // LocalDate.of(2020,10,12).format(df),
                     etapa.getFechaEstimadaInicio().format(df),
                     etapa.getFechaEstimadaTerminacion().format(df) ,
                     10 , etapa.getPctCompleto() );
@@ -162,76 +147,42 @@ public class ConahcytController {
 
     @GetMapping("/new")
     public String newConahcyt(Model model) {
-        Conahcyt proyecto = new Conahcyt();
+        ConahcytDto proyecto = new ConahcytDto();
         List<Estado> estados = List.of(Estado.values());
         List<Empleado> personas = personalRepository.findAll();
-        List<Cliente> clientes = clienteRepository.findAll();
-        List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
         List<Convocatoria> convocatorias = convocatoriaRepository.findAll();
 
         proyecto.setEstatus(Estado.CREACION);
-        proyecto.setTipoProyecto(TipoProyecto.CONAHCYT);
 
         model.addAttribute("conahcyt", proyecto);
         model.addAttribute("estados", estados);
         model.addAttribute("personas", personas);
-        model.addAttribute("clientes", clientes);
-        model.addAttribute("tiposProyecto", tiposProyecto);
         model.addAttribute("convocatorias", convocatorias);
 
         return "Conahcyt/Edit";
     }
 
-    /*
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveDocumento(Documento documento, Model model){
-    */
-
-    /*
-    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveProyecto(Proyecto proyecto, Model model) {
-
-        // TODO: Crear el directorio del id del proyecto
-        Proyecto res = proyectoRepository.save(proyecto);
-
-        System.out.println("ID del nuevo proyecto: " + res.getId());
-        new File("src/main/resources/directory/" + res.getId()).mkdirs();
-        return "redirect:/proyecto/list";
-    }
-     */
-
-    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveProyecto(@Valid Conahcyt conacyt, BindingResult result, Model model) {
-
+    public String saveProyecto(@Valid ConahcytDto conahcytDto, BindingResult result, Model model) {
 
         var mod = result.getModel();
         if(result.hasErrors()){
             if (!mod.isEmpty()) {
                 mod.forEach((String k, Object obj) -> {
                     System.out.println("Error key: " + k + " Obj:" + obj);
-                    System.out.println("++++++++++++++++++++++++");
                 });
             }
             List<Estado> estados = List.of(Estado.values());
             List<Empleado> personas = personalRepository.findAll();
-            List<Cliente> clientes = clienteRepository.findAll();
-            List<TipoProyecto> tiposProyecto = List.of(TipoProyecto.values());
             List<Convocatoria> convocatorias = convocatoriaRepository.findAll();
 
-            model.addAttribute("proyecto", conacyt);
+            model.addAttribute("proyecto", conahcytDto);
             model.addAttribute("estados", estados);
             model.addAttribute("personas", personas);
-            model.addAttribute("clientes", clientes);
             model.addAttribute("convocatorias", convocatorias);
-            model.addAttribute("tiposProyecto", tiposProyecto);
             return "Conahcyt/Edit";
         } else {
-            Conahcyt proyecto = conacyt;
-
-            proyecto.setEstatus(Estado.PROCESO);
-            Conahcyt res = conahcytRepository.save(proyecto);
-
-            new File("src/main/resources/directory/conahcyt" + res.getId()).mkdirs();
+            ConahcytDto res = conahcytService.saveProyecto(conahcytDto);
 
             return "redirect:/conahcyt/view?id=" + res.getId();
         }
