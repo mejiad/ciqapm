@@ -87,6 +87,7 @@ public class PropuestaController {
             System.out.println("Si hay errores");
             System.out.println("Proyecto " + propuesta.getProyecto());
             Proyecto proyecto = propuesta.getProyecto();
+            System.out.println("fix propuesta " + propuesta.getProyecto());
 
             List<Empleado> personas = personalRepository.findAll();
             List<Estado> estados = List.of(Estado.values());
