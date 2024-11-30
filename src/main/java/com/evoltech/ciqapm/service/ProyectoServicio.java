@@ -1,8 +1,10 @@
 package com.evoltech.ciqapm.service;
 
 import com.evoltech.ciqapm.model.Etapa;
+import com.evoltech.ciqapm.model.Propuesta;
 import com.evoltech.ciqapm.model.Proyecto;
 import com.evoltech.ciqapm.repository.EtapaRepository;
+import com.evoltech.ciqapm.repository.PropuestaRepository;
 import com.evoltech.ciqapm.repository.ProyectoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,11 +16,13 @@ public class ProyectoServicio {
 
     @Autowired
     ProyectoRepository proyectoRepository;
+    private final PropuestaRepository propuestaRepository;
 
-    public ProyectoServicio(ProyectoRepository proyectoRepository
-                            ) {
+    public ProyectoServicio(ProyectoRepository proyectoRepository,
+                            PropuestaRepository propuestaRepository) {
         this.proyectoRepository = proyectoRepository;
         // this.etapaRepository = etapaRepository;
+        this.propuestaRepository = propuestaRepository;
     }
 
     public Proyecto save(Proyecto proyecto){
@@ -26,6 +30,10 @@ public class ProyectoServicio {
         return newProyecto;
     }
 
+    public Propuesta save(Propuesta propuesta){
+        var res = propuestaRepository.save(propuesta);
+        return res;
+    }
 
     //
     // el  id es del proyecto

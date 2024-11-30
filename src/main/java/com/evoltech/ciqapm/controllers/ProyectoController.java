@@ -16,10 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -74,6 +71,36 @@ public class ProyectoController {
         model.addAttribute("proyectos", proyectos);
 
         return "Proyecto/List";
+    }
+
+    @GetMapping("/view/{id}")
+    public String viewProyectoPath(@PathVariable("id") Long id, Model model) {
+        String pattern = "YYYY MM dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        DateTimeFormatter df = DateTimeFormatter.ofPattern(pattern);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        System.out.println("Nombre del usuario: " + username);
+
+        Proyecto proyecto = proyectoRepository.getReferenceById(id);
+        List<Etapa> etapas = etapaRepository.findByProyecto(proyecto);
+
+        ArrayList<GanttDTO> ganttDTOS = new ArrayList<>();
+
+        etapas.forEach(etapa -> {
+            GanttDTO ganttDTO = new GanttDTO(etapa.getId().toString(),
+                    etapa.getNombre(), (etapa.getServicio() != null) ? etapa.getServicio().getClave() : "Sin servicio",
+                    // LocalDate.of(2020,10,12).format(df),
+                    etapa.getFechaEstimadaInicio().format(df),
+                    etapa.getFechaEstimadaTerminacion().format(df) ,
+                    10 , etapa.getPctCompleto() );
+            ganttDTOS.add(ganttDTO);
+        });
+
+        model.addAttribute("proyecto", proyecto);
+        model.addAttribute("etapas", ganttDTOS);
+
+        return "Proyecto/View";
     }
 
     @GetMapping("/view")

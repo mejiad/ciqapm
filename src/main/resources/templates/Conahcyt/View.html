@@ -181,7 +181,7 @@
                             </div>
 
                             <div id="Propuesta" class="tabcontent">
-                                <div th:hx-get="@{/propuesta/list(id=${conahcytDto.id})}" hx-trigger="load"></div>
+                                <div th:hx-get="@{/propuesta/lista(id=${conahcytDto.id})}" hx-trigger="load"></div>
                             </div>
                             <div id="Gant" class="tabcontent">
                                 <div th:insert="~{Plot/Gantt}"></div>

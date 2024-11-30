@@ -8,31 +8,26 @@ import com.evoltech.ciqapm.service.StorageService;
 import com.evoltech.ciqapm.utils.BreadcrumbService;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.function.EntityResponse;
 
-import javax.print.Doc;
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.nio.file.Path;
-import java.security.cert.TrustAnchor;
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
 @Controller
 @RequestMapping("/documento")
 public class DocumentoController {
+
+    Logger logger = LoggerFactory.getLogger(DocumentoController.class.getName());
 
     @Autowired
     DocumentoRepository documentoRepository;
@@ -50,14 +45,13 @@ public class DocumentoController {
 
     @GetMapping("/list")
     public String listDocumento(@RequestParam("id") Long id, Model model){
+        logger.info("DocumentController List");
         Proyecto proyecto = proyectoRepository.getReferenceById(id);
 
         List<Documento> documentos = documentoRepository.findByProyecto(proyecto);
-        // List<Documento> documentos = new ArrayList<>();
 
         model.addAttribute("proyecto", proyecto);
         model.addAttribute("documentos", documentos);
-        System.out.println("----------------list documentos: ");
 
         return "Documento/List";
     }
@@ -134,6 +128,8 @@ public class DocumentoController {
                                 @RequestParam String tipoDocumento,
                                 @RequestParam String proyecto
                                 ) {
+
+        logger.info("DocumentController save");
 
         Documento documento = new Documento();
 

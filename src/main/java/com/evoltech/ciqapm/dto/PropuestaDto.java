@@ -1,5 +1,8 @@
-package com.evoltech.ciqapm.model;
+package com.evoltech.ciqapm.dto;
 
+import com.evoltech.ciqapm.model.Empleado;
+import com.evoltech.ciqapm.model.Estado;
+import com.evoltech.ciqapm.model.Proyecto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -8,13 +11,10 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@Entity
 @Data
 @NoArgsConstructor
-public class Propuesta {
-
+public class PropuestaDto implements PropuestaDtoInterface {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @NotNull(message = "El nombre es requerido")
@@ -36,7 +36,4 @@ public class Propuesta {
 
     @Enumerated(EnumType.STRING)
     private Estado estado;
-
-    @Lob
-    private byte[] data;
 }
