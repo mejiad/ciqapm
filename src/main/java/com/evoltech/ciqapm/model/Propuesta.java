@@ -30,6 +30,8 @@ public class Propuesta {
 
     private LocalDate fechaCargaDocumento;
 
+    private String nombreArchivo;
+
     @ManyToOne
     @JoinColumn(name="proyecto", nullable=false)
     private Proyecto proyecto;
