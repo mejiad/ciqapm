@@ -429,13 +429,13 @@ public class DataLoad {
         Etapa etapa = new Etapa();
         etapa.setResponsable(responsable);
         etapa.setProyecto(proyecto);
-        etapa.setEntregable(randomService.etapaEntregable());
+        // etapa.setEntregable(randomService.etapaEntregable());
         etapa.setNombre(randomService.etapaNombre());
         etapa.setDescripcion(randomService.descripcion(120));
         LocalDate fechaInicio = randomService.fechaConOffset(startDate);
         etapa.setFechaEstimadaInicio(fechaInicio);
         etapa.setFechaEstimadaTerminacion(randomService.fechaConOffset(fechaInicio));
-        etapa.setServicio(servicio);
+        // etapa.setServicio(servicio);
         etapa.setPctCompleto(randomService.avances());
         etapa.setEstado(Estado.PROCESO);
 

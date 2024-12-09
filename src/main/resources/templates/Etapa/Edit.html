@@ -97,10 +97,12 @@
                                                     <span th:errors="*{descripcion}"
                                                           th:if="${#fields.hasErrors('descripcion')}">Nombre error</span>
                                                 </li>
+                                                <!--
                                                 <li>
                                                     <span th:errors="*{entregable}"
                                                           th:if="${#fields.hasErrors('entregable')}">Nombre error</span>
                                                 </li>
+                                                -->
                                                 <li>
                                                     <span th:errors="*{fechaEstimadaInicio}"
                                                           th:if="${#fields.hasErrors('fechaEstimadaInicio')}">Nombre error</span>
@@ -113,10 +115,12 @@
                                                     <span th:errors="*{responsable}"
                                                           th:if="${#fields.hasErrors('responsable')}">Nombre error</span>
                                                 </li>
+                                                <!--
                                                 <li>
                                                     <span th:errors="*{servicio}"
                                                           th:if="${#fields.hasErrors('servicio')}">Nombre error</span>
                                                 </li>
+                                                -->
                                                 <li>
                                                     <span th:errors="*{estado}" th:if="${#fields.hasErrors('estado')}">Nombre error</span>
                                                 </li>
@@ -171,32 +175,32 @@
                                             </div>
 
 
-                                            <div class="sm:col-span-3">
-                                                <label class="block text-sm font-semibold leading-6 text-sky-900"
-                                                       for="servicio">Servicio: </label>
-                                                <div class="mt-0">
-                                                    <!--
-                                                    <select class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                                                            id="servicio"
-                                                            name="servicio" >
-                                                        <option th:each="ser : ${servicios}"
-                                                                th:text="${ser.descripcion}" th:selected="${servicio?.id}"
-                                                                th:value="${ser.id}">
-                                                        </option>
-                                                    </select>
-                                                                th:attr="choiceid=${choice.id}, categoryid=*{servicio?.id}, showselected=(${choice.id} == *{servicio?.id})"
-                                                    -->
-                                                    <select name="servicio" id="servicio"
-                                                            class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                            <!--
+                                    <div class="sm:col-span-3">
+                                        <label class="block text-sm font-semibold leading-6 text-sky-900"
+                                               for="servicio">Servicio: </label>
+                                        <div class="mt-0">
+                                            <select class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                                    id="servicio"
+                                                    name="servicio" >
+                                                <option th:each="ser : ${servicios}"
+                                                        th:text="${ser.descripcion}" th:selected="${servicio?.id}"
+                                                        th:value="${ser.id}">
+                                                </option>
+                                            </select>
+                                                        th:attr="choiceid=${choice.id}, categoryid=*{servicio?.id}, showselected=(${choice.id} == *{servicio?.id})"
+                                            <select name="servicio" id="servicio"
+                                                    class="block w-full rounded-md border-0 py-1.5 text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6">
 
-                                                        <option th:each="choice : ${servicios}"
-                                                                th:value="${choice.id}"
-                                                                th:selected="(${choice.id} == *{servicio?.id})"
-                                                                th:readonly="(${choice.id} == *{servicio?.id})"
-                                                                th:text="${choice.descripcion}"></option>
-                                                    </select>
-                                                </div>
-                                            </div>
+                                                <option th:each="choice : ${servicios}"
+                                                        th:value="${choice.id}"
+                                                        th:selected="(${choice.id} == *{servicio?.id})"
+                                                        th:readonly="(${choice.id} == *{servicio?.id})"
+                                                        th:text="${choice.descripcion}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                            -->
 
                                             <div class="sm:col-span-3">
                                                 <label class="block text-sm font-semibold leading-6 text-sky-900"
@@ -215,6 +219,7 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <!--
                                             <div class="sm:col-span-3">
                                                 <label class="block text-sm font-semibold leading-6 text-sky-900"
                                                        for="entregable">Entregable:</label>
@@ -227,6 +232,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            -->
                                             <div class="sm:col-span-3">
                                                 <label class="block text-sm font-semibold leading-6 text-sky-900"
                                                        for="pctCompleto">Porcentaje

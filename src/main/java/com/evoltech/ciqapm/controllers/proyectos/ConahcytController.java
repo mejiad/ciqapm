@@ -35,8 +35,8 @@ public class ConahcytController {
     @Autowired
     ProyectoServicio proyectoServicio;
 
-    @Autowired
-    ProyectoRepository proyectoRepository;
+    // @Autowired
+    // ProyectoRepository proyectoRepository;
 
     @Autowired
     EtapaRepository etapaRepository;
@@ -59,7 +59,7 @@ public class ConahcytController {
         this.convocatoriaRepository = convocatoriaRepository;
         this.conahcytService = conahcytService;
         this.etapaRepository = etapaRepository;
-        this.proyectoRepository = proyectoRepository;
+        // this.proyectoRepository = proyectoRepository;
         this.proyectoServicio = proyectoServicio;
     }
 
@@ -90,7 +90,7 @@ public class ConahcytController {
 
         etapas.forEach(etapa -> {
             GanttDTO ganttDTO = new GanttDTO(etapa.getId().toString(),
-                    etapa.getNombre(), etapa.getServicio().getClave(),
+                    etapa.getNombre(), etapa.getNombre(),
                     etapa.getFechaEstimadaInicio().format(df),
                     etapa.getFechaEstimadaTerminacion().format(df) ,
                     10 , etapa.getPctCompleto() );
@@ -116,16 +116,16 @@ public class ConahcytController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
 
-        Proyecto proyecto = proyectoRepository.getReferenceById(id);
-        List<Etapa> etapas = etapaRepository.findByProyecto(proyecto);
+        // Proyecto proyecto = proyectoRepository.getReferenceById(id);
         Conahcyt conahcyt = conahcytRepository.getReferenceById(id);
-        int avance = proyecto.getAvance();
+        List<Etapa> etapas = etapaRepository.findByProyecto(conahcyt);
+        int avance = conahcyt.getAvance();
 
         ArrayList<GanttDTO> ganttDTOS = new ArrayList<>();
 
         etapas.forEach(etapa -> {
             GanttDTO ganttDTO = new GanttDTO(etapa.getId().toString(),
-                    etapa.getNombre(), etapa.getServicio().getClave(),
+                    etapa.getNombre(), etapa.getNombre(),
                     etapa.getFechaEstimadaInicio().format(df),
                     etapa.getFechaEstimadaTerminacion().format(df) ,
                     10 , etapa.getPctCompleto() );

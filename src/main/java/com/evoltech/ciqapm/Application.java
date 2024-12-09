@@ -37,7 +37,7 @@ public class Application implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		// dataLoad.initializa();
+		dataLoad.initializa();
 
 	}
 
