@@ -161,7 +161,7 @@ public class EmpConahcytController {
 
         model.addAttribute("wrapper", personalWrapper);
         model.addAttribute("cotizacionId", id);
-        return "redirect:/conahcyt/view/" + id;
+        return "redirect:/conahcyt/" + id + "/view?tab=colaboradoresTab";
     }
 
     @GetMapping("view")

@@ -190,7 +190,8 @@ public class EtapaController {
         String tp = etapa.getProyecto().getTipoProyecto().toString();
         //return "redirect:/proyecto/list";
         if (tp.equals("CONAHCYT")) {
-            return "redirect:/conahcyt/view?id=" + etapa.getProyecto().getId();
+            // return "redirect:/conahcyt/view?id=" + etapa.getProyecto().getId();
+            return "redirect:/conahcyt/" + etapa.getProyecto().getId() + "/view?tab=etapasTab";
         } else if (tp.equals("INDUSTRIA")) {
             return "redirect:/industriar/view?id=" + etapa.getProyecto().getId();
         } else if (tp.equals("INTERNOS")) {

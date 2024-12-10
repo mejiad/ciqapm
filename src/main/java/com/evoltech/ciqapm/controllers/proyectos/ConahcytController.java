@@ -73,6 +73,43 @@ public class ConahcytController {
         return "Conahcyt/List";
     }
 
+    @GetMapping("/{id}/view")
+    public String viewIdProyecto(@PathVariable("id") Long id,  @RequestParam("tab") String tab,
+                                 Model model) {
+        String pattern = "YYYY MM dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        DateTimeFormatter df = DateTimeFormatter.ofPattern(pattern);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+
+        System.out.println("EL VALOR DE TAB:" + tab);
+
+        Conahcyt proyecto = conahcytRepository.getReferenceById(id);
+        List<Etapa> etapas = etapaRepository.findByProyecto(proyecto);
+        Conahcyt conahcyt = conahcytRepository.getReferenceById(id);
+        int avance = proyecto.getAvance();
+
+        ArrayList<GanttDTO> ganttDTOS = new ArrayList<>();
+
+        etapas.forEach(etapa -> {
+            GanttDTO ganttDTO = new GanttDTO(etapa.getId().toString(),
+                    etapa.getNombre(), etapa.getNombre(),
+                    etapa.getFechaEstimadaInicio().format(df),
+                    etapa.getFechaEstimadaTerminacion().format(df) ,
+                    10 , etapa.getPctCompleto() );
+            ganttDTOS.add(ganttDTO);
+        });
+
+        ConahcytDto conahcytDto =  conahcytService.createDto(conahcyt);
+
+        model.addAttribute("conahcytDto", conahcytDto);
+        model.addAttribute("etapas", ganttDTOS);
+        model.addAttribute("avance", avance);
+        model.addAttribute("tab", tab);
+
+        return "Conahcyt/View";
+    }
+
     @GetMapping("/view/{id}")
     public String viewProyectoId(@PathVariable("id") Long id, Model model) {
         String pattern = "YYYY MM dd";

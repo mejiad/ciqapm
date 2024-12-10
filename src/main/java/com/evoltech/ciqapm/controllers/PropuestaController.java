@@ -161,7 +161,8 @@ public class PropuestaController {
             return "Propuesta/Edit";
         }
         Propuesta res = propuestaRepository.save(propuesta);
-        return "redirect:/conahcyt/view/" + res.getProyecto().getId();
+        // return "redirect:/conahcyt/view/" + res.getProyecto().getId();
+        return "redirect:/conahcyt/" + res.getProyecto().getId() + "/view?tab=propuestaTab";
     }
 
     @GetMapping("uploadform")

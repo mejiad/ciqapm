@@ -157,7 +157,9 @@ public class AutorizaController {
         }
 
         Conahcyt res = conahcytRepository.save(conahcyt);
-        return "redirect:/conahcyt/view/" + proyecto.getId();
+        // return "redirect:/conahcyt/view/" + proyecto.getId() + "#grafica";
+        model.addAttribute("tab", "autoriza");
+        return "redirect:/conahcyt/" + proyecto.getId() + "/view?tab=autorizaTab";
     }
 
 }

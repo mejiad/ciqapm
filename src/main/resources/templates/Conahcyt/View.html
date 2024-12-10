@@ -5,6 +5,16 @@
     <meta charset="UTF-8">
     <script src="/htmx.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script th:inline="javascript">
+function openTab() {
+    /*<![CDATA[*/
+    var tab = /*[[${tab}]]*/ 'default';
+    /*]]>*/
+    if (tab != null){
+        document.getElementById(tab).click();
+    }
+}
+    </script>
     <style>
         * {box-sizing: border-box}
 
@@ -56,7 +66,7 @@
 
     <title>Info del Proyecto</title>
 </head>
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen" onload="openTab()">
 <div>
     <div th:insert="~{sidebar}"></div>
     <div th:insert="~{header}"></div>
@@ -116,14 +126,16 @@
 
                             <div class="font-semibold">
                             <button class="tablink" onclick="openPage('Info', this, '#608BC1')"  id="defaultOpen">Info</button>
-                            <button class="tablink" onclick="openPage('Propuesta', this, '#608BC1')"
+                            <button class="tablink" onclick="openPage('Propuesta', this, '#608BC1')" id="propuestaTab"
                                  th:hx-get="@{/propuesta/lista(id=${conahcytDto.id})}" hx-trigger="click" hx-target="#abc">
                                     Propuesta</button>
-                            <button class="tablink" onclick="openPage('Autoriza', this, '#608BC1')">Autorizaciones</button>
-                            <button class="tablink" onclick="openPage('Colaboradores', this, '#608BC1')">Colaboradores</button>
-                            <button class="tablink" onclick="openPage('Etapas', this, '#608BC1')">Etapas </button>
-                            <button class="tablink" onclick="openPage('Documentos', this, '#608BC1')">Documentos</button>
+                            <button class="tablink" onclick="openPage('Autoriza', this, '#608BC1')" id="autorizaTab">Autorizaciones</button>
+                            <button class="tablink" onclick="openPage('Colaboradores', this, '#608BC1')" id="colaboradoresTab">Colaboradores</button>
+                            <button class="tablink" onclick="openPage('Etapas', this, '#608BC1')" id="etapasTab">Etapas </button>
+                            <button class="tablink" onclick="openPage('Documentos', this, '#608BC1')" id="documentosTab">Documentos</button>
+                                <a id="grafica">
                             <button class="tablink" onclick="openPage('Gant', this, '#608BC1')">Gráficas</button>
+                                </a>
                             </div>
                             <div id="Info" class="tabcontent">
                                 <div class="mt-1 flex items-center space-x-3">
