@@ -155,7 +155,14 @@ public class DocumentoController {
         Documento doc =  documentoRepository.save(documento);
         // TODO: cambiar conahcyt por el tipo de proyecto que corresponda
 
-        return "redirect:/conahcyt/" + proyectoId + "/view?tab=documentosTab" ;
+        String retVal = switch (proyectoObj.getTipoProyecto()){
+            case CONAHCYT -> "redirect:/conahcyt/" + proyectoId + "/view?tab=documentosTab";
+            case INDUSTRIA -> "redirect:/industria/" + proyectoId + "/view?tab=documentosTab";
+            case INTERNO -> "redirect:/interno/" + proyectoId + "/view?tab=documentosTab";
+            case POSTGRADO -> "redirect:/postgrado/" + proyectoId + "/view?tab=documentosTab";
+        };
+
+        return retVal;
     }
 
     @Transactional
