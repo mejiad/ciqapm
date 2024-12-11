@@ -33,6 +33,8 @@ public class EmpConahcytController {
     ConahcytRepository conahcytRepository;
     @Autowired
     EmpConahcytRepository empConahcytRepository;
+
+    @Autowired
     private final ProyectoRepository proyectoRepository;
 
     public EmpConahcytController(EmpleadoRepository empleadoRepository,
@@ -66,7 +68,7 @@ public class EmpConahcytController {
     @GetMapping("/searchForm")
     private String SearchForm(@RequestParam("id") Long id, HttpSession session, Model model) {
         session.setAttribute("cotizacionId", id);
-        Conahcyt proyecto = conahcytRepository.getReferenceById(id);
+        Proyecto proyecto = proyectoRepository.getReferenceById(id);
         BreadcrumbService breadcrumbService = new BreadcrumbService();
         String pathTipoProyecto = breadcrumbService.getPathTipoProyecto(proyecto);
         String pathProyecto = breadcrumbService.getPathProyecto(proyecto);
@@ -128,7 +130,7 @@ public class EmpConahcytController {
         }
         Long id = (Long) session.getAttribute("cotizacionId");
 
-        Conahcyt proyecto = conahcytRepository.getReferenceById(id);
+        Proyecto proyecto = proyectoRepository.getReferenceById(id);
         BreadcrumbService breadcrumbService = new BreadcrumbService();
         String pathTipoProyecto = breadcrumbService.getPathTipoProyecto(proyecto);
         String pathProyecto = breadcrumbService.getPathProyecto(proyecto);
@@ -148,7 +150,7 @@ public class EmpConahcytController {
         session.removeAttribute("empConahcyt");
         Long id = (Long) session.getAttribute("cotizacionId");
         System.out.println("Cotizacion ID:" + id);
-        Conahcyt conahcyt = conahcytRepository.getReferenceById(id);
+        Proyecto conahcyt = proyectoRepository.getReferenceById(id);
 
         List<EmpConahcyt> cotizaEmpleados = personalWrapper.getEmpleados();
 
@@ -161,7 +163,15 @@ public class EmpConahcytController {
 
         model.addAttribute("wrapper", personalWrapper);
         model.addAttribute("cotizacionId", id);
-        return "redirect:/conahcyt/" + id + "/view?tab=colaboradoresTab";
+
+        String retVal = switch (conahcyt.getTipoProyecto()){
+            case CONAHCYT -> "redirect:/conahcyt/" + id + "/view?tab=colaboradoresTab";
+            case INTERNO -> "redirect:/interno/" + id + "/view?tab=colaboradoresTab";
+            case INDUSTRIA -> "redirect:/industria/" + id + "/view?tab=colaboradoresTab";
+            case POSTGRADO -> "redirect:/postgrado/" + id + "/view?tab=colaboradoresTab";
+        };
+
+        return retVal;
     }
 
     @GetMapping("view")

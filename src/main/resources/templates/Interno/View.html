@@ -5,123 +5,238 @@
     <meta charset="UTF-8">
     <script src="/htmx.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script th:inline="javascript">
+function openTab() {
+    /*<![CDATA[*/
+    var tab = /*[[${tab}]]*/ 'default';
+    /*]]>*/
+    if (tab != null){
+        document.getElementById(tab).click();
+    }
+}
+    </script>
+    <style>
+        * {box-sizing: border-box}
+
+        /* Set height of body and the document to 100% */
+        body, html {
+          height: 100%;
+          margin: 0;
+          font-family: Arial;
+        }
+
+        /* Style tab links */
+        .tablink {
+          background-color: #fff;
+          color:  #133E87;
+          float: left;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          padding: 5px 12px;
+          border-radius: 20px 20px 0px 0px;
+          font-size: 17px;
+          width: 14.28%;
+          border-bottom: 2px solid #608BC1;
+
+        }
+
+        .tablink:hover {
+          background-color: #fff;
+                    color: #ed7f3d;
+
+        }
+
+        /* Style the tab content (and add height:100% for full page content) */
+        .tabcontent {
+          color: white;
+          display: none;
+          padding: 100px 20px;
+          height: 100%;
+        }
+
+        #Info {background-color: #fff;}
+        #Etapas {background-color: #fff;}
+        #Documentos {background-color: #fff;}
+        #Colaboradores {background-color: #fff;}
+        #Propuesta {background-color: #fff;}
+        #Gant {background-color: #fff;}
+    </style>
+
+
     <title>Info del Proyecto</title>
 </head>
-<body class="flex flex-col min-h-min">
+<body class="flex flex-col min-h-screen" onload="openTab()">
 <div>
     <div th:insert="~{sidebar}"></div>
     <div th:insert="~{header}"></div>
     <main class="lg:pl-64">
-
-        <div class="relative flex min-h-min flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12">
+        <div class="relative flex min-h-min flex-col justify-center overflow-hidden bg-gray-50">
             <img src="/images/beams.jpg" alt=""
                  class="absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2" width="1308"/>
             <div class="absolute inset-0 bg-[url(/images/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
-            <div class="relative bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-fit sm:rounded-lg sm:px-10">
+            <div class="relative bg-white px-6 pt-4 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-10 sm:rounded-lg sm:px-10">
                 <div class="mx-auto max-w-screen-lg">
-                    <div class="mt-3 sm:ml-4 sm:mt-0">
-                    </div>
-                    <div class="divide-y divide-gray-300/50">
-                        <div class="space-y-6 py-8 text-base leading-7 text-gray-600">
-                            <h2 class="text-3xl font-extrabold leading-6 text-sky-700">Información del Proyecto</h2>
-                        </div>
-                        <div class="pt-4 text-base font-semibold leading-7">
-
-                            <div class="mt-5 flex items-center space-x-3">
-
-                                <h3 class="truncate text-sm font-medium text-gray-900">
-                                    <span th:text="${proyecto.nombre}">2</span>
-                                </h3>
-                                <span th:text="${proyecto.tipoProyecto}"
-                                      class="inline-flex flex-shrink-0 items-center rounded-full bg-green-50 px-1.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Admin</span>
-                            </div>
-                            <div class="mt-5 flex items-center space-x-3">
-
-                                <h3 class="whitespace text-sm font-medium text-gray-900">
-                                    <span>Descripción:</span>
-                                </h3>
-                                <p class="whitespace text-sm text-gray-500">
-                                    <span th:text="${proyecto.descripcion}">2</span>
-                                </p>
-                            </div>
-                            <div class="mt-5 flex items-center space-x-3">
-                                <h3 class="truncate text-sm font-medium text-gray-900">
-                                    <span>Responsable:</span>
-                                </h3>
-                                <p class="truncate text-sm text-gray-500">
-                                    <span th:text="${proyecto.responsable.nombre}">2</span>
-                                </p>
-                            </div>
-                            <div class="mt-5 flex items-center space-x-3">
-
-                                <h3 class="truncate text-sm font-medium text-gray-900">
-                                    <span>Solicitado por:</span>
-                                </h3>
-                                <p class="truncate text-sm text-gray-500">
-                                    <span th:text="${proyecto.cliente.nombre}">2</span>
-                                </p>
-                            </div>
-
-
-                            <div class="mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-
-                                <div class="w-full">
-                                    <div class="relative right-0">
-                                        <ul class="relative flex flex-wrap px-1.5 py-1.5 list-none rounded-md bg-slate-100"
-                                            data-tabs="tabs" role="list">
-                                            <li class="z-30 flex-auto text-center">
-                                                <a class="z-30 flex items-center justify-center w-full px-0 py-2 text-sm mb-0 transition-all ease-in-out border-0 rounded-md cursor-pointer text-slate-600 bg-inherit"
-                                                   data-tab-target="" role="tab" aria-selected="true"
-                                                   aria-controls="etapas">
-                                                    Etapas
-                                                </a>
-                                            </li>
-                                            <li class="z-30 flex-auto text-center">
-                                                <a class="z-30 flex items-center justify-center w-full px-0 py-2 mb-0 text-sm transition-all ease-in-out border-0 rounded-lg cursor-pointer text-slate-600 bg-inherit"
-                                                   data-tab-target="" role="tab" aria-selected="false"
-                                                   aria-controls="documentos">
-                                                    Documentos
-                                                </a>
-                                            </li>
-                                            <li class="z-30 flex-auto text-center">
-                                                <a class="z-30 flex items-center justify-center w-full px-0 py-2 text-sm mb-0 transition-all ease-in-out border-0 rounded-lg cursor-pointer text-slate-700 bg-inherit"
-                                                   data-tab-target="" role="tab" aria-selected="false"
-                                                   aria-controls="participantes">
-                                                    Participantes
-                                                </a>
-                                            </li>
-
-                                        </ul>
-
-                                        <div data-tab-content="" class="p-5">
-                                            <div id="etapas" role="tabpanel"
-                                                 th:hx-get="@{/etapa/list(id=${proyecto.id})}" hx-trigger="load">
-                                            </div>
-                                            <div class="hidden opacity-0" id="documentos" role="tabpanel"
-                                                 th:hx-get="@{/documento/list(id=${proyecto.id})}" hx-trigger="load">
-                                            </div>
-                                            <div class="hidden opacity-0" id="participantes" role="tabpanel"
-                                                 th:hx-get="@{/empleado/list}" hx-trigger="load">
-                                            </div>
-
-                                        </div>
-                                    </div>
+                    <nav class="flex" aria-label="Breadcrumb">
+                        <ol class="inline-flex items-left space-x-1 md:space-x-2 rtl:space-x-reverse">
+                            <li class="inline-flex items-center">
+                                <a href="#" class="inline-flex items-center text-xs font-medium text-gray-700 hover:text-sky-600 dark:text-gray-400 dark:hover:text-white">
+                                    <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+                                    </svg>
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <div class="flex items-center">
+                                    <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                                    </svg>
+                                    <a th:href="@{/conahcyt/list}"
+                                       class="ms-1 text-xs font-medium text-gray-700 hover:text-sky-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Proyectos CONAHCYT</a>
                                 </div>
+                            </li>
+                            <li aria-current="page">
+                                <div class="flex items-center">
+                                    <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                                    </svg>
+                                    <span  th:text="${proyecto.nombre}" class="ms-1 text-xs font-medium text-gray-500 md:ms-2 dark:text-gray-400">Nombre proyecto </span>
+                                </div>
+                            </li>
+                        </ol>
+                    </nav>
+                    <div class="divide-y divide-gray-300/50">
+                        <nav class="bg-white">
+                            <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+                                <p>
+                                    <span th:text="${proyecto.nombre}"
+                                          class="self-center text-2xl font-semibold whitespace-nowrap"></span>
+                                </p>
+                                <!--      <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                                          <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Get started</button>
+                                          <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Get started 2</button>
 
+                                      </div>-->
 
                             </div>
+                        </nav>
 
-                            <div class="mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                        <div class="pt-2 text-base font-normal leading-7">
+
+                            <div class="font-semibold">
+                            <button class="tablink" onclick="openPage('Info', this, '#608BC1')"  id="defaultOpen">Info</button>
+                            <button class="tablink" onclick="openPage('Propuesta', this, '#608BC1')" id="propuestaTab"
+                                 th:hx-get="@{/propuesta/lista(id=${proyecto.id})}" hx-trigger="click" hx-target="#abc">
+                                    Propuesta</button>
+                                <!--
+                            <button class="tablink" onclick="openPage('Autoriza', this, '#608BC1')" id="autorizaTab">Autorizaciones</button>
+                            -->
+                            <button class="tablink" onclick="openPage('Colaboradores', this, '#608BC1')" id="colaboradoresTab">Colaboradores</button>
+                            <button class="tablink" onclick="openPage('Etapas', this, '#608BC1')" id="etapasTab">Etapas </button>
+                            <button class="tablink" onclick="openPage('Documentos', this, '#608BC1')" id="documentosTab">Documentos</button>
+                                <a id="grafica">
+                            <button class="tablink" onclick="openPage('Gant', this, '#608BC1')">Gráficas</button>
+                                </a>
+                            </div>
+                            <div id="Info" class="tabcontent">
+                                <div class="mt-1 flex items-center space-x-3">
+                                    <h3 class="text-sm font-semibold text-gray-900">
+                                        <span>Descripción:</span>
+                                    </h3>
+                                    <p class="text-sm font-normal text-gray-500">
+                                        <span th:text="${proyecto.descripcion}">2</span>
+                                    </p>
+                                </div>
+                                <div class="mt-5 flex items-center space-x-3">
+                                    <h3 class="truncate text-sm font-semibold text-gray-900">
+                                        <span>Responsable:</span>
+                                    </h3>
+                                    <p class="truncate text-sm font-normal text-gray-500">
+                                        <span th:text="${proyecto.responsable.nombre}">2</span>
+                                    </p>
+                                </div>
+                                <div class="mt-5 flex items-center space-x-3">
+                                    <h3 class="truncate text-sm font-semibold text-gray-900">
+                                        <span>Convocatoria:</span>
+                                    </h3>
+                                    <p class="truncate text-sm font-normal text-gray-500">
+                                        <span th:text="${proyecto.convocatoria.nombre}">2</span>
+                                    </p>
+                                </div>
+                                <div class="mt-5 flex items-center space-x-3">
+                                    <h3 class="truncate text-sm font-semibold text-gray-900">
+                                        <span>Objetivo:</span>
+                                    </h3>
+                                    <p class="text-sm font-normal text-gray-500">
+                                        <span th:text="${proyecto.objetivo}">2</span>
+                                    </p>
+                                </div>
+                                <div class="mt-5 flex items-center space-x-3">
+                                    <h3 class="text-sm font-semibold text-gray-900">
+                                        <span>Avance:</span>
+                                    </h3>
+                                    <p class="text-sm font-normal text-gray-500">
+                                        <span th:text="${avance}"></span>%
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div id="Etapas" class="tabcontent">
+                                <div th:hx-get="@{/etapa/list(id=${proyecto.id})}" hx-trigger="load"></div>
+
+                            </div>
+                            <!--
+                            <div id="Autoriza" class="tabcontent">
+                                <div th:hx-get="@{/autoriza/list(id=${proyecto.id})}" hx-trigger="load"></div>
+                            </div>
+                            -->
+                            <div id="Documentos" class="tabcontent">
+                                <div th:hx-get="@{/documento/list(id=${proyecto.id})}" hx-trigger="load"></div>
+                            </div>
+                            <div id="Colaboradores" class="tabcontent">
+                                <div th:hx-get="@{/empConahcyt/list(id=${proyecto.id})}" hx-trigger="load"></div>
+                            </div>
+
+                            <div id="Propuesta" class="tabcontent">
+                                <!--
+                                <div th:hx-get="@{/propuesta/lista(id=${proyecto.id})}" hx-trigger="click" hx-target="#abc">
+                                -->
+                                <div id="abc" name="abc">
+                                    <span>Propuesta</span>
+                                </div>
+                            </div>
+                            <div id="Gant" class="tabcontent">
                                 <div th:insert="~{Plot/Gantt}"></div>
-
                             </div>
 
+                            <script>
+                                function openPage(pageName,elmnt,color) {
+                                  var i, tabcontent, tablinks;
+                                  tabcontent = document.getElementsByClassName("tabcontent");
+                                  for (i = 0; i < tabcontent.length; i++) {
+                                    tabcontent[i].style.display = "none";
+                                  }
+                                  tablinks = document.getElementsByClassName("tablink");
+                                  for (i = 0; i < tablinks.length; i++) {
+                                    tablinks[i].style.color = "";
+                                    tablinks[i].style.borderColor = "#608BC1";
+                                    tablinks[i].style.borderWidth = "";
+                                    tablinks[i].style.fontWeight = "normal"
+                                  }
+                                  document.getElementById(pageName).style.display = "block";
+                                  elmnt.style.color = color;
+                                  elmnt.style.borderColor = color;
+                                  elmnt.style.borderWidth = "5px";
+                                  elmnt.style.fontWeight = "bold"
 
+                                }
 
+                                // Get the element with id="defaultOpen" and click on it
+                                document.getElementById("defaultOpen").click();
+                            </script>
                             <!-- CONTENIDO ... -->
                         </div>
-                        <p class="text-white">Perfect for learning how the framework palabra palabra|||:w works,
-                            prototyping a new idea, or creating a demo to share online.</p>
 
                     </div>
                 </div>
@@ -136,8 +251,6 @@
 </div>
 </main>
 </div>
-<!-- from node_modules -->
-<script src="node_modules/@material-tailwind/html/scripts/tabs.js"></script>
 
 <!-- from cdn -->
 <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/tabs.js"></script>

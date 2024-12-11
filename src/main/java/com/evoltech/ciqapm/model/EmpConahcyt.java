@@ -17,7 +17,7 @@ public class EmpConahcyt {
 
     @ManyToOne
     @JoinColumn(name="conahcyt_id", nullable=false)
-    private Conahcyt conahcyt;
+    private Proyecto conahcyt;
 
     @NotNull(message = "El responsable es un dato requerido.")
     @ManyToOne

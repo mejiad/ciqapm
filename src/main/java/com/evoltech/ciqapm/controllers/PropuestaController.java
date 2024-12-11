@@ -161,8 +161,14 @@ public class PropuestaController {
             return "Propuesta/Edit";
         }
         Propuesta res = propuestaRepository.save(propuesta);
-        // return "redirect:/conahcyt/view/" + res.getProyecto().getId();
-        return "redirect:/conahcyt/" + res.getProyecto().getId() + "/view?tab=propuestaTab";
+        String retVal = switch (res.getProyecto().getTipoProyecto()){
+            case CONAHCYT -> "redirect:/conahcyt/" + res.getProyecto().getId() + "/view?tab=propuestaTab";
+            case INDUSTRIA -> "redirect:/industria/" + res.getProyecto().getId() + "/view?tab=propuestaTab";
+            case INTERNO -> "redirect:/interno/" + res.getProyecto().getId() + "/view?tab=propuestaTab";
+            case POSTGRADO -> "redirect:/interno/" + res.getProyecto().getId() + "/view?tab=propuestaTab";
+        };
+
+        return retVal;
     }
 
     @GetMapping("uploadform")

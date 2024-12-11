@@ -15,10 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -94,6 +91,37 @@ public class InternosController {
 
         model.addAttribute("proyecto", proyecto);
         model.addAttribute("etapas", ganttDTOS);
+
+        return "Interno/View";
+    }
+
+    @GetMapping("/{id}/view")
+    public String viewInterno(@PathVariable("id") Long id, @RequestParam("tab") String tab, Model model) {
+        String pattern = "YYYY MM dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        DateTimeFormatter df = DateTimeFormatter.ofPattern(pattern);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        System.out.println("Nombre del usuario: " + username);
+
+        Interno proyecto = internoRepository.getReferenceById(id);
+        List<Etapa> etapas = etapaRepository.findByProyecto(proyecto);
+
+        ArrayList<GanttDTO> ganttDTOS = new ArrayList<>();
+
+        etapas.forEach(etapa -> {
+            GanttDTO ganttDTO = new GanttDTO(etapa.getId().toString(),
+                    etapa.getNombre(), etapa.getNombre(),
+                    // LocalDate.of(2020,10,12).format(df),
+                    etapa.getFechaEstimadaInicio().format(df),
+                    etapa.getFechaEstimadaTerminacion().format(df) ,
+                    10 , etapa.getPctCompleto() );
+            ganttDTOS.add(ganttDTO);
+        });
+
+        model.addAttribute("proyecto", proyecto);
+        model.addAttribute("etapas", ganttDTOS);
+        model.addAttribute("tab", tab);
 
         return "Interno/View";
     }
