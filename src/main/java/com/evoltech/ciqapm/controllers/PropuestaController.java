@@ -171,6 +171,55 @@ public class PropuestaController {
         return retVal;
     }
 
+
+    @GetMapping("editRespuesta")
+    public String editRespuesta(@RequestParam("propuestaId") Long propuestaId, Model model) {
+        Propuesta propuesta = propuestaRepository.getReferenceById(propuestaId);
+        Proyecto proyecto = propuesta.getProyecto();
+        List<Estado> estados = List.of(Estado.values());
+        List<Empleado> personas = personalRepository.findAll();
+        List<ConahcytRespuesta> respuestas = List.of(ConahcytRespuesta.values());
+
+        model.addAttribute("propuesta", propuesta);
+        model.addAttribute("proyecto", proyecto);
+        model.addAttribute("estados", estados);
+        model.addAttribute("personas", personas);
+        model.addAttribute("respuestas", respuestas);
+
+        return "Propuesta/Respuesta";
+    }
+
+    @PostMapping("saveRespuesta")
+    public String salvarRespuesta(@Valid Propuesta propuesta, BindingResult result, Model model) {
+
+        if (result.hasErrors()) {
+            var mod = result.getModel();
+            Proyecto proyecto = propuesta.getProyecto();
+
+            List<Empleado> personas = personalRepository.findAll();
+            List<Estado> estados = List.of(Estado.values());
+            List<ConahcytRespuesta> respuestas = List.of(ConahcytRespuesta.values());
+
+            model.addAttribute("estados", estados);
+            model.addAttribute("personas", personas);
+            model.addAttribute("propuesta", propuesta);
+            model.addAttribute("proyecto", proyecto);
+            model.addAttribute("respuestas", respuestas);
+
+            return "Propuesta/Edit";
+        }
+        Propuesta res = propuestaRepository.save(propuesta);
+        String retVal = switch (res.getProyecto().getTipoProyecto()){
+            case CONAHCYT -> "redirect:/conahcyt/" + res.getProyecto().getId() + "/view?tab=propuestaTab";
+            case INDUSTRIA -> "redirect:/industria/" + res.getProyecto().getId() + "/view?tab=propuestaTab";
+            case INTERNO -> "redirect:/interno/" + res.getProyecto().getId() + "/view?tab=propuestaTab";
+            case POSTGRADO -> "redirect:/interno/" + res.getProyecto().getId() + "/view?tab=propuestaTab";
+        };
+
+        return retVal;
+    }
+
+
     @GetMapping("uploadform")
     public String load(@RequestParam("propuestaId") Long propuestaId, Model model){
 

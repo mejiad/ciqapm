@@ -41,4 +41,11 @@ public class Propuesta {
 
     @Lob
     private byte[] data;
+
+    @Enumerated(EnumType.STRING)
+    ConahcytRespuesta conahcytRespuesta;
+
+    LocalDate fechaRespuesta;
+
+    String personaCaptura;
 }

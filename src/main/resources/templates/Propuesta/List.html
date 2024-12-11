@@ -30,7 +30,7 @@
                         <tr>
                             <th scope="col"
                                 class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
-                                Nombre
+                                Nombre Propuesta
                             </th>
                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                 Descripción
@@ -43,6 +43,12 @@
                             </th>
                             <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                 Fecha carga
+                            </th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                Respuesta
+                            </th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                Upload
                             </th>
                             <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
                                 <span class="sr-only">View</span>
@@ -66,17 +72,12 @@
                             <td th:text="${propuesta.fechaCargaDocumento}"
                                 class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Fecha de carga
                             </td>
-                            <!--
-                            <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                <a th:href="@{/propuesta/view(id=${propuesta.id})}"
-                                   class="text-sky-600 hover:text-sky-900">View</a>
-                            </td>
-                            <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                <a th:href="@{/propuesta/uploadform(propuestaId=${propuesta.id})}"
-                                   class="text-sky-600 hover:text-sky-900">Upload</a>
-                            </td>
-                            -->
 
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-blue-500">
+                                <a th:href="@{/propuesta/editRespuesta(propuestaId=${propuesta.id})}">
+                                    Respuesta
+                                </a>
+                            </td>
 
                             <div th:unless="${propuesta.fechaCargaDocumento}">
                                 <td class="relative whitespace-nowrap pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
